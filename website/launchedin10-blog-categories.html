@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <!-- PRIMARY META -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO META - YOAST OPTIMISED -->
+    <title>Website Insights & Growth Guides | LaunchedIn10 Blog</title>
+    <meta name="description"
+        content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs. Professional insights to launch your business online in 10 days.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://launchedin10.co.uk/blog/">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Website Insights & Growth Guides | LaunchedIn10 Blog">
+    <meta property="og:description"
+        content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs. Professional insights to launch your business online in 10 days.">
+    <meta property="og:url" content="https://launchedin10.co.uk/blog/">
+    <meta property="og:site_name" content="LaunchedIn10">
+    <meta property="og:image" content="https://launchedin10.co.uk/assets/og-blog.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Website Insights & Growth Guides | LaunchedIn10 Blog">
+    <meta name="twitter:description"
+        content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs.">
+    <meta name="twitter:image" content="https://launchedin10.co.uk/assets/og-blog.jpg">
+
+    <!-- SCHEMA.ORG - BLOG STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "LaunchedIn10 Blog",
+        "description": "Expert guides on website design, SEO fundamentals, and business growth for UK SMEs",
+        "url": "https://launchedin10.co.uk/blog/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "LaunchedIn10",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://launchedin10.co.uk/assets/logo.svg"
+            }
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Why Every UK SME Needs a Website in 2025",
+                "url": "https://launchedin10.co.uk/blog/website-design/why-every-uk-sme-needs-website-2025/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- BREADCRUMB SCHEMA -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://launchedin10.co.uk/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://launchedin10.co.uk/blog/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- FONTS - Cabinet Grotesk + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================================================
+           LAUNCHEDIN10 DESIGN SYSTEM
+           Elite • Every Pixel Matters • Competitor Disruptor
+           ===================================================== */
+
+        /* CABINET GROTESK - Self-hosted fallback via Inter Bold */
+        @font-face {
+            font-family: 'Cabinet Grotesk';
+            src: url('https://fonts.cdnfonts.com/css/cabinet-grotesk') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            /* BRAND COLOURS */
+            --navy: #1a2b4a;
+            --navy-deep: #0f172a;
+            --teal: #0ea5a5;
+            --teal-hover: #0d9488;
+            --electric-blue: #2563eb;
+            --success-green: #10b981;
+
+            /* WARM NEUTRALS - Human, not clinical */
+            --bg-warm: #FAFAF9;
+            --surface: #F5F5F4;
+            --surface-elevated: #FFFFFF;
+            --text-primary: #1C1917;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border-subtle: #f3f4f6;
+            --border-strong: #e5e7eb;
+
+            /* TYPOGRAPHY */
+            --font-display: 'Cabinet Grotesk', 'Inter', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+            /* SPACING RHYTHM */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 6rem;
+
+            /* RADIUS */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            /* SHADOWS */
+            --shadow-sm: 0 1px 2px rgba(26, 43, 74, 0.04);
+            --shadow-md: 0 4px 12px rgba(26, 43, 74, 0.06);
+            --shadow-lg: 0 12px 32px rgba(26, 43, 74, 0.08);
+            --shadow-xl: 0 24px 48px rgba(26, 43, 74, 0.12);
+            --shadow-luxury: 0 4px 24px rgba(26, 43, 74, 0.06);
+
+            /* TRANSITIONS */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+        }
+
+        /* RESET & BASE */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-warm);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        /* =====================================================
+           HEADER - Sticky, Minimal, Conversion-Focused
+           Elite • Every Pixel Matters
+           ===================================================== */
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.5s var(--ease-out);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .site-header.scrolled {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(26, 43, 74, 0.1);
+            transition: background 0.5s ease;
+        }
+
+        .logo:hover .logo-icon {
+            background: var(--teal);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            color: var(--teal);
+            text-decoration: underline;
+            text-decoration-color: rgba(14, 165, 165, 0.3);
+            text-decoration-thickness: 4px;
+            text-underline-offset: 4px;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: rgba(26, 43, 74, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--teal);
+        }
+
+        .nav-link.active {
+            color: var(--teal);
+            border-bottom: 2px solid var(--teal);
+            padding-bottom: 4px;
+        }
+
+        .cta-button {
+            background: var(--navy);
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 20px rgba(26, 43, 74, 0.2);
+        }
+
+        .cta-button:hover {
+            background: #2a3b5a;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(26, 43, 74, 0.25);
+        }
+
+        /* =====================================================
+           HERO - SEO FUNNEL ENTRY POINT
+           Keyword-Rich, Value-First, Conversion Architecture
+           ===================================================== */
+
+        .hero {
+            padding: calc(80px + var(--space-4xl)) var(--space-xl) var(--space-4xl);
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--surface) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(14, 165, 165, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(26, 43, 74, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-xs) var(--space-md);
+            background: rgba(14, 165, 165, 0.08);
+            border: 1px solid rgba(14, 165, 165, 0.2);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--teal);
+            margin-bottom: var(--space-xl);
+            animation: fadeUp 0.6s var(--ease-out) both;
+        }
+
+        .hero-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.02em;
+            animation: fadeUp 0.6s var(--ease-out) 0.1s both;
+        }
+
+        .hero h1 .highlight {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(14, 165, 165, 0.3) 0%, rgba(14, 165, 165, 0.1) 100%);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto var(--space-2xl);
+            animation: fadeUp 0.6s var(--ease-out) 0.2s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-3xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--border-subtle);
+            animation: fadeUp 0.6s var(--ease-out) 0.3s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* =====================================================
+           SEO VALUE SECTION - FUNNEL CONTENT
+           Above categories, establishes authority
+           ===================================================== */
+
+        .seo-value {
+            padding: var(--space-4xl) var(--space-xl);
+            background: var(--surface-elevated);
+        }
+
+        .seo-value-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4xl);
+            align-items: center;
+        }
+
+        .seo-value-content {
+            max-width: 540px;
+        }
+
+        .seo-value-content h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.02em;
+        }
+
+        .seo-value-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .value-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .value-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .value-list li svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            color: var(--teal);
+            margin-top: 2px;
+        }
+
+        .seo-value-visual {
+            position: relative;
+            padding: var(--space-2xl);
+        }
+
+        .value-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            position: relative;
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-card-badge {
+            position: absolute;
+            top: -12px;
+            left: var(--space-xl);
+            background: var(--teal);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .value-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: var(--space-md);
+        }
+
+        .value-card p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .value-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* =====================================================
+           CATEGORY GRID - Blog Architecture
+           ===================================================== */
+
+        .categories-section {
+            padding: var(--space-4xl) var(--space-xl);
+            background: var(--bg-warm);
+        }
+
+        .categories-header {
+            max-width: 700px;
+            margin: 0 auto var(--space-3xl);
+            text-align: center;
+        }
+
+        .categories-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.02em;
+        }
+
+        .categories-header p {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+        }
+
+        .categories-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4xl);
+        }
+
+        /* CATEGORY BLOCK */
+        .category-block {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .category-title-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--teal);
+        }
+
+        .category-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .category-title-group h3 {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .category-count {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .category-view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--teal);
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .category-view-all:hover {
+            color: var(--navy);
+        }
+
+        .category-view-all svg {
+            width: 16px;
+            height: 16px;
+            transition: transform var(--duration-fast) var(--ease-out);
+        }
+
+        .category-view-all:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* POST GRID */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+        }
+
+        /* POST CARD */
+        .post-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-warm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .post-image {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--duration-slow) var(--ease-out);
+        }
+
+        .post-card:hover .post-image img {
+            transform: scale(1.05);
+        }
+
+        /* Placeholder pattern for images */
+        .post-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+            position: relative;
+        }
+
+        .post-image-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(14, 165, 165, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.1) 0%, transparent 40%);
+        }
+
+        .post-image-placeholder svg {
+            width: 40px;
+            height: 40px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .post-content {
+            padding: var(--space-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .post-tag {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--teal);
+        }
+
+        .post-date {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .post-title {
+            font-family: var(--font-display);
+            font-size: 1.0625rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.35;
+            margin-bottom: var(--space-sm);
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .post-card:hover .post-title {
+            color: var(--teal);
+        }
+
+        .post-excerpt {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .post-read-time {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin-top: var(--space-md);
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .post-read-time svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* =====================================================
+           CTA SECTION - Conversion Close
+           ===================================================== */
+
+        .cta-section {
+            padding: var(--space-4xl) var(--space-xl);
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(14, 165, 165, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-inner h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.02em;
+        }
+
+        .cta-inner p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--space-xl);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            background: var(--teal);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .btn-primary:hover {
+            background: var(--teal-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 165, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* =====================================================
+           FOOTER - Trust & Authority
+           Elite UI Integration
+           ===================================================== */
+
+        .site-footer {
+            padding: 8rem 1.5rem 3rem;
+            background: var(--navy);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.875rem;
+            color: #fff;
+            letter-spacing: -0.05em;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--teal);
+            font-style: italic;
+        }
+
+        .footer-tagline {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            max-width: 440px;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+        }
+
+        .footer-address {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #9CA3AF;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: #6B7280;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--teal);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.75rem;
+        }
+
+        .status-dot.active {
+            animation: pulse-slow 2s infinite;
+        }
+
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* =====================================================
+           ANIMATIONS
+           ===================================================== */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1024px) {
+            .seo-value-inner {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .posts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .footer-brand {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                gap: var(--space-md);
+            }
+
+            .nav-link {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: var(--space-lg);
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .footer-brand {
+                grid-column: span 1;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 16px;
+            }
+
+            .hero {
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+
+            .category-block {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="site-header" id="mainHeader">
+        <div class="header-inner">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z" />
+                        <path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2s-7 7-9.05 10A22 22 0 019 14" />
+                        <path d="M9 15l3 3m5.74-12.74L11 12" />
+                    </svg>
+                </div>
+                <span class="logo-text">Launched<span>In10</span></span>
+            </a>
+            <nav class="header-nav">
+                <a href="/#process" class="nav-link">Process</a>
+                <a href="/#pricing" class="nav-link">Pricing</a>
+                <a href="/blog/" class="nav-link active">The Lab</a>
+                <a href="/#pricing" class="cta-button">Start Build</a>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        window.onscroll = function () {
+            var header = document.getElementById('mainHeader');
+            if (window.pageYOffset > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+    </script>
+
+    <!-- HERO - SEO FUNNEL ENTRY -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                Automated SEO Content Engine
+            </div>
+            <h1>Grow Your Business with <span class="highlight">Daily SEO Content</span> That Ranks</h1>
+            <p class="hero-subtitle">
+                Expert guides, actionable insights, and proven strategies for UK SMEs. Every article is optimised for
+                Google, published automatically, and designed to drive qualified traffic to your business.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">1,200+</div>
+                    <div class="stat-label">Words per Article</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Yoast SEO Score</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">12hrs</div>
+                    <div class="stat-label">To First Publish</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO VALUE PROPOSITION -->
+    <section class="seo-value">
+        <div class="seo-value-inner">
+            <div class="seo-value-content">
+                <h2>Why UK SMEs Choose Automated SEO Content</h2>
+                <p>
+                    Building topical authority requires consistent, high-quality content. Most businesses lack the time
+                    or budget to publish daily. Our AI-powered system delivers expert-level articles that rank—without
+                    lifting a finger.
+                </p>
+                <ul class="value-list">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span><strong>Daily publishing</strong> builds domain authority faster than monthly blog
+                            updates</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span><strong>E-E-A-T compliant</strong> content satisfies Google's quality guidelines</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span><strong>Internal linking</strong> improves site structure and crawlability</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span><strong>From £99.95/month</strong>—undercuts agencies by 50-70%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="seo-value-visual">
+                <div class="value-card">
+                    <div class="value-card-badge">Live Results</div>
+                    <h3>Automated SEO in Action</h3>
+                    <p>Real metrics from UK SME clients using our content automation system.</p>
+                    <div class="value-metrics">
+                        <div class="metric">
+                            <div class="metric-value">45%</div>
+                            <div class="metric-label">Traffic Uplift</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">3+</div>
+                            <div class="metric-label">Links per Post</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Yoast Pass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG CATEGORIES -->
+    <section class="categories-section">
+        <header class="categories-header">
+            <h2>Explore by Category</h2>
+            <p>Dive into expert guides covering website design, SEO fundamentals, and business growth strategies for UK
+                SMEs.</p>
+        </header>
+
+        <div class="categories-grid">
+
+            <!-- CATEGORY 1: Website Design -->
+            <article class="category-block">
+                <header class="category-header">
+                    <div class="category-title-group">
+                        <div class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <path d="M3 9h18" />
+                                <path d="M9 21V9" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Website Design</h3>
+                            <span class="category-count">12 Articles</span>
+                        </div>
+                    </div>
+                    <a href="/blog/website-design/" class="category-view-all">
+                        View All
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </header>
+                <div class="posts-grid">
+                    <!-- Post 1 -->
+                    <a href="/blog/website-design/why-every-uk-sme-needs-website-2025/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <path d="M21 15l-5-5L5 21" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Essential</span>
+                                <span class="post-date">28 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Why Every UK SME Needs a Professional Website in 2025</h4>
+                            <p class="post-excerpt">72% of consumers research online before buying. If your business
+                                isn't visible, you're invisible to the majority of your market.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                6 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="/blog/website-design/mobile-first-design-principles/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                                    <path d="M12 18h.01" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Strategy</span>
+                                <span class="post-date">26 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Mobile-First Design: Why Your Website Must Work on Every Device</h4>
+                            <p class="post-excerpt">58% of web traffic comes from mobile. A responsive design isn't
+                                optional—it's the foundation of modern user experience.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                5 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="/blog/website-design/speed-performance-conversion/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Performance</span>
+                                <span class="post-date">24 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Website Speed: The Hidden Factor Killing Your Conversions</h4>
+                            <p class="post-excerpt">A 1-second delay reduces conversions by 7%. Learn how to audit your
+                                site speed and fix the bottlenecks costing you sales.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                7 min read
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </article>
+
+            <!-- CATEGORY 2: SEO Fundamentals -->
+            <article class="category-block">
+                <header class="category-header">
+                    <div class="category-title-group">
+                        <div class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="M21 21l-4.35-4.35" />
+                                <path d="M11 8v6M8 11h6" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>SEO Fundamentals</h3>
+                            <span class="category-count">18 Articles</span>
+                        </div>
+                    </div>
+                    <a href="/blog/seo-fundamentals/" class="category-view-all">
+                        View All
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </header>
+                <div class="posts-grid">
+                    <!-- Post 1 -->
+                    <a href="/blog/seo-fundamentals/on-page-seo-checklist-2025/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 11l3 3L22 4" />
+                                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Guide</span>
+                                <span class="post-date">29 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">The Complete On-Page SEO Checklist for UK Businesses</h4>
+                            <p class="post-excerpt">From title tags to schema markup—every element Google evaluates when
+                                ranking your pages. Follow this checklist to score green.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                9 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="/blog/seo-fundamentals/keyword-research-small-business/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Research</span>
+                                <span class="post-date">27 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Keyword Research for Small Businesses: Find Terms You Can Actually
+                                Rank For</h4>
+                            <p class="post-excerpt">Stop competing with Amazon. Learn to identify low-competition,
+                                high-intent keywords that drive qualified local traffic.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                8 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="/blog/seo-fundamentals/internal-linking-strategy/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+                                    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Technical</span>
+                                <span class="post-date">25 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Internal Linking: The Underrated SEO Tactic Boosting Rankings</h4>
+                            <p class="post-excerpt">Google uses internal links to understand your site structure. A
+                                strategic linking approach improves crawlability and authority distribution.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                6 min read
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </article>
+
+            <!-- CATEGORY 3: Business Growth -->
+            <article class="category-block">
+                <header class="category-header">
+                    <div class="category-title-group">
+                        <div class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 6l-9.5 9.5-5-5L1 18" />
+                                <path d="M17 6h6v6" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Business Growth</h3>
+                            <span class="category-count">15 Articles</span>
+                        </div>
+                    </div>
+                    <a href="/blog/business-growth/" class="category-view-all">
+                        View All
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </header>
+                <div class="posts-grid">
+                    <!-- Post 1 -->
+                    <a href="/blog/business-growth/lead-generation-website/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Conversion</span>
+                                <span class="post-date">30 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Turn Your Website Into a Lead Generation Machine</h4>
+                            <p class="post-excerpt">Your website should work 24/7 capturing leads. Here's how to design
+                                pages that convert visitors into enquiries.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                7 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="/blog/business-growth/local-seo-google-maps/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Local</span>
+                                <span class="post-date">28 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Local SEO: How to Dominate Google Maps in Your Area</h4>
+                            <p class="post-excerpt">46% of Google searches have local intent. Learn to optimise your
+                                Google Business Profile and attract customers nearby.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                8 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="/blog/business-growth/content-marketing-roi/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">ROI</span>
+                                <span class="post-date">26 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Content Marketing ROI: Measuring What Actually Matters</h4>
+                            <p class="post-excerpt">Stop vanity metrics. Focus on the KPIs that tie content directly to
+                                revenue—and prove the value of your investment.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                6 min read
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </article>
+
+            <!-- CATEGORY 4: Industry Spotlights -->
+            <article class="category-block">
+                <header class="category-header">
+                    <div class="category-title-group">
+                        <div class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Industry Spotlights</h3>
+                            <span class="category-count">9 Articles</span>
+                        </div>
+                    </div>
+                    <a href="/blog/industry-spotlights/" class="category-view-all">
+                        View All
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </header>
+                <div class="posts-grid">
+                    <!-- Post 1 -->
+                    <a href="/blog/industry-spotlights/websites-for-tradespeople/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Trades</span>
+                                <span class="post-date">29 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Websites for Tradespeople: What Electricians, Plumbers & Builders
+                                Need</h4>
+                            <p class="post-excerpt">Your website should book jobs, not just look pretty. Essential
+                                pages, trust signals, and lead capture for trade businesses.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                7 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="/blog/industry-spotlights/school-website-design-guide/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Education</span>
+                                <span class="post-date">27 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">School Website Design: Compliance, Accessibility & Best Practice</h4>
+                            <p class="post-excerpt">Schools have specific requirements: OFSTED compliance, WCAG
+                                accessibility, safeguarding. A complete guide for headteachers.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                9 min read
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="/blog/industry-spotlights/hospitality-restaurant-websites/" class="post-card">
+                        <div class="post-image">
+                            <div class="post-image-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
+                                    <path d="M6 1v3M10 1v3M14 1v3" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-tag">Hospitality</span>
+                                <span class="post-date">25 Dec 2025</span>
+                            </div>
+                            <h4 class="post-title">Restaurant & Café Websites: Menus, Bookings & Local SEO</h4>
+                            <p class="post-excerpt">75% of diners check a restaurant's website before visiting. Online
+                                menus, reservation integrations, and Google optimisation.</p>
+                            <div class="post-read-time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                                6 min read
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2>Ready to Launch Your Business Online?</h2>
+            <p>Professional website. Live in 10 days. From £997 all-in. No hidden fees, no hosting headaches.</p>
+            <div class="cta-buttons">
+                <a href="/pricing/" class="btn-primary">
+                    View Packages
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="18" height="18">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="/portfolio/" class="btn-secondary">
+                    See Our Work
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <!-- Branding -->
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo">
+                        Launched<span>In10</span>
+                    </a>
+                    <p class="footer-tagline">
+                        Precision engineering for the private sector. We build hyper-performance digital assets that
+                        turn visibility into regional market share.
+                    </p>
+                    <p class="footer-address">
+                        61 Bridge Streent, Kington, Herefordshire, HR5 3DJ
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 4s-1 2.17-2 4c0 8.5-7 14-15 14-4 0-7-2-7-2 4 1 8 0 8 0-4-1-6-5-6-5a2 2 0 011-2c-4-1-6-4-6-4 2 1 4 1 4 1-4-3-1-10-1-10 2 1 4 2 4 2-1-6 2-10 6-10a11 11 0 008-3s-1 4 2 6c2 1 8 1 8 1z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="/#process">Process</a></li>
+                        <li><a href="/#pricing">Pricing</a></li>
+                        <li><a href="/blog">The Lab</a></li>
+                        <li><a href="/#comparison">Comparison</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy</a></li>
+                        <li><a href="/terms">Terms</a></li>
+                        <li><a href="/cookies">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="status-dot active"></span>
+                    <span>Systems Online - v3.4.0</span>
+                </div>
+                <p>&copy; 2025 LaunchedIn10. All rights reserved.</p>
+                <div class="footer-stack">
+                    <span>UK Stack</span>
+                    <span>Zero-JS Carbon</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCHEMA: FAQPage for SEO value section -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Why do UK SMEs need automated SEO content?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Building topical authority requires consistent, high-quality content. Daily publishing builds domain authority faster than monthly updates, and automated systems deliver expert-level articles at a fraction of agency costs—from £99.95/month."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How quickly can automated SEO content start publishing?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Content flows begin within 12 hours of onboarding. Provide access, select your niche, and the system starts publishing 1,200+ word articles that score 100% on Yoast SEO checks."
+                }
+            }
+        ]
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2194 @@
+{
+  "name": "Eldris ORBIT Bi-Weekly Loop Controller",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items?clean=true&format=json&token=[REDACTED]\n\n\n\n",
+        "options": {}
+      },
+      "id": "9671a709-d3d4-4dbd-a59a-21acdb7d6ebc",
+      "name": "Get Apify Dataset",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -448,
+        144
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Helper Functions (Unchanged from original) ---\n\nfunction getPageTitle(pageItem) {\n  if (pageItem?.metadata?.title) {\n    let title = pageItem.metadata.title.replace(/\\s+–.+|\\s+\\|.+|\\s+- .+/, '');\n    return title.trim();\n  }\n  return '';\n}\n\nfunction squishText(s) {\n  return (s || '').replace(/[ \\t]+/g, ' ').replace(/\\n{3,}/g, '\\n\\n').trim();\n}\n\nfunction uniqueBy(arr, keyFn) {\n  const seen = new Set();\n  return arr.filter(item => {\n    const k = keyFn(item);\n    if (seen.has(k)) return false;\n    seen.add(k);\n    return true;\n  });\n}\n\n// --- Main Script (Final Version) ---\n\n// 1. Inputs\nconst clientData = $input.item.json;\nlet crawlData = $items(\"Get Apify Dataset\");\n\nif (!crawlData || crawlData.length === 0) {\n  console.warn(\"No data found from 'Get Apify Dataset' node. Continuing with empty crawl data.\");\n  crawlData = [];\n} else {\n  crawlData = crawlData.map(item => item.json).filter(Boolean);\n}\n\n// 2. Validation\nif (!clientData || !clientData.website_url) {\n  return [];\n}\n\n// 3. Constants & Configuration\nconst LIMITS = {\n  MAX_PER_PAGE_CHARS: 2000,\n  MAX_AGGREGATED_CHARS: 7000, // Limit set to 7000 as discussed\n  MAX_CORE_PRODUCTS: 24,\n  MAX_RELEVANT_TOPICS: 50,     // Cap for the hyper-specific used_topics list\n  MAX_CONTENT_URLS: 100        // Cap for the randomized content_urls list\n};\n\nconst CATEGORY_URL_PATTERN = /\\/(?:category|product-category)\\/[^/]+\\/?$/; // Identical to original\nconst USELESS_URL_PATTERNS = [\n    /\\/page\\/\\d+\\/?$/,\n    /\\/\\d{4}\\/\\d{2}(\\/\\d{2})?\\/?$/,\n    /^\\s*$/\n];\n\n// 4. Data Aggregation & Prioritization\nconst highPriorityText = [];\nconst mediumPriorityText = [];\nconst lowPriorityText = [];\n\nconst categories = new Set();\nconst coreProducts = [];\nconst contentUrls = new Set();\nconst homepageUrl = clientData.website_url.toLowerCase().replace(/\\/$/, '');\n\ncrawlData.forEach(item => {\n  if (!item.url || item.crawl?.httpStatusCode === 404 || item.url.includes('/product-tag/')) return;\n  if (USELESS_URL_PATTERNS.some(pattern => pattern.test(item.url))) return;\n  \n  const isHomepage = item.url.toLowerCase().replace(/\\/$/, '') === homepageUrl;\n  \n  // Logic to identify page types\n  let isProductPage = item.url.includes('-product/') || item.url.includes('/product/');\n  const isCategoryPage = CATEGORY_URL_PATTERN.test(item.url);\n\n  if (isProductPage) {\n    const productName = getPageTitle(item);\n    if (productName) coreProducts.push({ name: productName, url: item.url });\n  }\n\n  if (isCategoryPage) {\n    let categoryName = item.h1 || getPageTitle(item);\n    if (categoryName) {\n       categoryName = categoryName.replace(/ Archives$/i, '').replace(/^Category: /i, '').trim();\n       categories.add(categoryName);\n    }\n  }\n\n  if (!isProductPage && !isCategoryPage && !isHomepage) {\n    contentUrls.add(item.url);\n  }\n  \n  // Prioritize text for aggregation\n  if (item.text) {\n      const textChunk = item.text.substring(0, LIMITS.MAX_PER_PAGE_CHARS);\n      if (isHomepage || isProductPage) {\n          highPriorityText.push(textChunk);\n      } else if (isCategoryPage) {\n          mediumPriorityText.push(textChunk);\n      } else {\n          lowPriorityText.push(textChunk);\n      }\n  }\n});\n\n// 5. Build Hyper-Specific Aggregated Text\nlet aggregatedText = '';\nconst textSources = [highPriorityText, mediumPriorityText, lowPriorityText];\n\nfor (const source of textSources) {\n    for (const chunk of source) {\n        if ((aggregatedText.length + chunk.length + 2) <= LIMITS.MAX_AGGREGATED_CHARS) {\n            aggregatedText += chunk + '\\n\\n';\n        } else {\n            // Stop adding chunks once the limit is reached\n            break;\n        }\n    }\n    if (aggregatedText.length >= LIMITS.MAX_AGGREGATED_CHARS) break;\n}\naggregatedText = squishText(aggregatedText);\n\n// 6. Create Hyper-Specific \"used_topics\" list\nconst usedTopicsInput = clientData.used_topics || [];\nlet allUsedTopics = Array.isArray(usedTopicsInput)\n  ? usedTopicsInput\n  : String(usedTopicsInput || '').split(/[,|\\n]/).map(s => s.trim()).filter(Boolean);\n\n// First, get themes from current content URLs\nconst stopWords = new Set(['a', 'an', 'and', 'the', 'for', 'in', 'of', 'on', 'to', 'with', 'is', 'it', 's', 'vs', 'get', 'com', 'how']);\nconst urlWordCounts = {};\nfor (const url of contentUrls) {\n    try {\n        const slug = new URL(url).pathname.replace(/\\/$/, \"\").split('/').pop();\n        slug.split('-').forEach(word => {\n            if (word.length > 3 && !stopWords.has(word)) {\n                urlWordCounts[word] = (urlWordCounts[word] || 0) + 1;\n            }\n        });\n    } catch (e) {}\n}\nconst siteThemes = Object.entries(urlWordCounts).sort(([,a],[,b]) => b-a).slice(0, 10).map(([word]) => word);\n\n// Now, score and sort used_topics based on relevance to site themes\nconst scoredTopics = allUsedTopics.map(topic => {\n    let score = 0;\n    siteThemes.forEach(theme => {\n        if (topic.includes(theme)) {\n            score++;\n        }\n    });\n    return { topic, score };\n}).sort((a, b) => b.score - a.score);\n\n// Filter, deduplicate, and cap the final list\nconst seenTopic = new Set();\nconst finalUsedTopics = scoredTopics\n    .map(item => item.topic)\n    .filter(topic => {\n        const key = topic.toLowerCase();\n        if (seenTopic.has(key)) return false;\n        seenTopic.add(key);\n        return true;\n    })\n    .slice(0, LIMITS.MAX_RELEVANT_TOPICS);\n\n// 7. Randomize and Cap \"content_urls\"\nlet finalContentUrls = [...contentUrls];\n// Fisher-Yates shuffle algorithm for variety\nfor (let i = finalContentUrls.length - 1; i > 0; i--) {\n  const j = Math.floor(Math.random() * (i + 1));\n  [finalContentUrls[i], finalContentUrls[j]] = [finalContentUrls[j], finalContentUrls[i]];\n}\nfinalContentUrls = finalContentUrls.slice(0, LIMITS.MAX_CONTENT_URLS);\n\n// 8. Batch size and Core Products (Identical to original logic)\nlet batchPosts;\nswitch ((clientData.plan_tier || '').toLowerCase()) {\n  case 'launch': batchPosts = 17; break;\n  case 'solar':  batchPosts = 30; break;\n  case 'orbit':  batchPosts = 45; break;\n  default:       batchPosts = 10;\n}\n\nlet uniqueCoreProducts = uniqueBy(\n  coreProducts.filter(p => p && p.name && p.url).map(p => ({ name: p.name.trim(), url: p.url })),\n  p => p.name.toLowerCase()\n).slice(0, LIMITS.MAX_CORE_PRODUCTS);\n\n// 9. Final Output\nreturn [{\n  json: {\n    website_url: clientData.website_url,\n    plan_tier: clientData.plan_tier,\n    author_name: clientData.author_name,\n    author_bio: clientData.author_bio,\n    language: clientData.language || 'English',\n    aggregated_text: aggregatedText, // Prioritized text, capped at ~7000 chars\n    available_categories: [...categories],\n    used_topics: finalUsedTopics, // Hyper-specific array of 50 relevant topics\n    core_products: uniqueCoreProducts,\n    content_urls: finalContentUrls, // Randomized & capped array of 100 URLs\n    batch_total_posts: batchPosts\n  }\n}];"
+      },
+      "id": "2a4ef2e8-f480-4c35-9cca-368636175b53",
+      "name": "Aggregate Crawl Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        144
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Robust Score, Dedupe & Select\n// Handles both new and existing sites gracefully.\n\n// 1. Get all items from the upstream merge\nconst allItems = $input.all();\n\n// 2. Identify client data (only require plan_tier; used_topics may be missing)\nlet clientData = allItems.find(\n  item => item.json.hasOwnProperty('plan_tier')\n)?.json;\n\nif (!clientData) {\n  console.warn(\"No client data found in input → stopping.\");\n  return [];\n}\n\n// Always ensure used_topics is defined as an array\nif (!Array.isArray(clientData.used_topics)) {\n  clientData.used_topics = [];\n}\n\n// 3. Expand LLM output into blueprint objects\nlet newBlueprints = [];\n\nfor (const item of allItems) {\n  // Case A: text field with JSON string\n  if (item.json.text) {\n    try {\n      const parsed = typeof item.json.text === \"string\"\n        ? JSON.parse(item.json.text)\n        : item.json.text;\n      if (Array.isArray(parsed)) newBlueprints.push(...parsed);\n    } catch (e) {\n      console.warn(\"Failed to parse blueprint JSON from 'text':\", e.message);\n    }\n  }\n\n  // Case B: message.content field\n  if (item.json.message?.content) {\n    try {\n      const parsed = JSON.parse(item.json.message.content);\n      if (Array.isArray(parsed)) newBlueprints.push(...parsed);\n    } catch (e) {\n      console.warn(\"Failed to parse blueprint JSON from 'message.content':\", e.message);\n    }\n  }\n\n  // Case C: already a flattened topic object\n  if (item.json.hasOwnProperty(\"topic\") && !item.json.hasOwnProperty(\"plan_tier\")) {\n    newBlueprints.push(item.json);\n  }\n}\n\n// 4. Guard against no new topics\nif (newBlueprints.length === 0) {\n  console.warn(\"No new blueprints found in input → stopping.\");\n  return [];\n}\n\n// 5. Slugify helper\nconst slugify = str =>\n  (str || \"\")\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/(^-+|-+$)/g, \"\");\n\n// 6. Deduplicate against previously used topics\nconst previousSlugs = new Set(clientData.used_topics.map(slugify));\n\nconst uniqueNewBlueprints = newBlueprints.filter(bp => {\n  const slug = slugify(bp.topic);\n  return !previousSlugs.has(slug);\n});\n\n// 7. Enforce tier limit\nconst tierMap = { launch: 17, solar: 30, orbit: 45 };\nconst limit = tierMap[clientData.plan_tier.toLowerCase()] || 16;\n\nconst finalBlueprints = uniqueNewBlueprints.slice(0, limit);\n\n// 8. Output with re-indexing\nreturn finalBlueprints.map((bp, idx) => ({\n  json: {\n    ...bp,\n    row_number: clientData.row_number,\n    website_url: clientData.website_url,\n    author_name: clientData.author_name,\n    plan_tier: clientData.plan_tier,\n    index: idx + 1\n  }\n}));\n"
+      },
+      "id": "f24173c4-25a2-467e-bc24-d5a0f68080fe",
+      "name": "Score, Dedupe & Select",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4176,
+        160
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -784,
+        512
+      ],
+      "id": "0fa74767-395e-4809-ae0b-19d2cc4790f3",
+      "name": "Loop Over Items1",
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~website-content-crawler/runs?token=[REDACTED]",
+        "jsonParameters": true,
+        "options": {
+          "bodyContentType": "json"
+        },
+        "bodyParametersJson": "={{$json.apifyBody}}"
+      },
+      "name": "Apify (Site Crawl)1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        144
+      ],
+      "id": "fa2f4d2e-f8bb-4ed7-aa98-4c0e44917ae9",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Input: $input.all() gives array of items; get first item, then .json.data.id\nconst inputItems = $input.all();\n\nif (!inputItems || inputItems.length === 0) {\n  throw new Error(\"No input items found\");\n}\n\nconst runData = inputItems[0].json.data;\nif (!runData || !runData.id) {\n  throw new Error(\"Run data or run ID missing\");\n}\n\nconst runId = runData.id;\nconst maxRetries = 20;\n\n// get existing retryCount from previous run data or default to 0\nconst retryCount = $json.retryCount ? $json.retryCount : 0; // This will start at 0 if no prior retryCount\n// Note: The working flow's Code1 used $json.retryCount ? $json.retryCount : 0. Your current Code uses 3.\n// It's safer to use the working flow's pattern to avoid hardcoding retries initially.\n\nif (retryCount >= maxRetries) {\n  throw new Error(`Max retries (${maxRetries}) exceeded for runId: ${runId}`);\n}\n\nreturn [{\n  json: {\n    runId,\n    retryCount: retryCount + 5,\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        144
+      ],
+      "id": "27057950-95ee-4f1c-a734-cfc0e6cc6430",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are given an array of post titles from the previous node:\n\n{{ $json.message.content }}\n\nYour task:\n\nGenerate exactly {{ $('Code').item.json.batch_total_posts }} topics.\n1. Do NOT invent new topics.\n2. Do NOT generalise outside the given titles.\n3. Each output object must map directly to one input title.\n4. Only reformat, classify, and expand slightly with context.\n\nEach object must contain:\n\n- \"topic\": the original title (lightly cleaned if needed, but same subject)  \n- \"type\": classify as \"evergreen\", \"commercial\", or \"branded\"  \n- \"context\": 1–2 sentence description expanding on the input title faithfully  \n- Analyze the title. If it mentions any product name from this definitive list of core products: {{ JSON.stringify($('Code').item.json.core_products.map(p => p.name)) }}, extract that name exactly. Otherwise, this value MUST be null. \n\n## OUTPUT FORMAT\n\nRespond with ONLY a single raw JSON object. The object should use the topic's `topic` string as the key. The value for each key should be an array of STRINGS, where each string is the topic of the suggested internal link target.\n\n**Example Output Structure:**\n```json\n{\n  \"Topic Title A\": [\n    \"Related Topic Title B\",\n    \"Related Topic Title C\"\n  ],\n  \"Topic Title B\": [\n    \"Related Topic Title A\"\n  ]\n}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        3424,
+        160
+      ],
+      "id": "1343560a-4e99-4616-8b07-413c442df4f1",
+      "name": "Topic Gen LLM",
+      "alwaysOutputData": false,
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Automated Interactivity Logic Node (Amended)\n\n// Get all unique, deduplicated blueprint items from the previous step.\nconst blueprints = $input.all();\n\n// Define keywords that strongly suggest a topic would benefit from interactive elements.\nconst interactiveKeywords = [\n  'how to', 'how-to', 'guide', 'what is', 'vs', 'versus',\n  'tutorial', 'beginners', 'buyers guide', 'comparison',\n  'checklist', 'troubleshooting', 'fix', 'best of', 'top 5'\n];\n\n// Process each blueprint to check for interactivity triggers.\nconst updatedBlueprints = blueprints.map(item => {\n  const topic = item.json.topic.toLowerCase();\n  \n  // Check if the topic is a question or contains any of the defined keywords.\n  const isInteractive = interactiveKeywords.some(keyword => topic.includes(keyword)) || topic.includes('?');\n  \n  // If it meets the criteria, append the \"-interactive\" suffix and set the flag to true.\n  if (isInteractive) {\n    item.json.topic = `${item.json.topic}-interactive`;\n    item.json.is_interactive = true; \n  } else {\n    // If it does not meet the criteria, explicitly set the flag to false.\n    item.json.is_interactive = false;\n  }\n  \n  return item;\n});\n\n// Return the full list of blueprints, with the is_interactive flag populated for all items.\nreturn updatedBlueprints;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4368,
+        160
+      ],
+      "id": "1a455c51-5c93-45a3-b0c2-3e4dba4073a6",
+      "name": "Automated Interactivity Logic",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// This script receives the list of blueprints and the single JSON of link suggestions.\n\n// 1. Get all incoming items from the Merge node.\nconst allItems = $input.all();\n\n// 2. Separate the single suggestion object from the list of blueprints.\nconst suggestionItem = allItems.find(item => item.json.text)?.json;\nconst blueprints = allItems.filter(item => !item.json.text);\n\nif (!suggestionItem || blueprints.length === 0) {\n  console.log(\"Missing blueprints or suggestion data from the Merge node.\");\n  return [];\n}\n\n// 3. Robustly parse the suggestions JSON from the LLM's content.\nlet linkSuggestions = {};\ntry {\n  const rawContent = suggestionItem.text;\n  const jsonMatch = rawContent.match(/{[\\s\\S]*}/);\n  if (jsonMatch) {\n    linkSuggestions = JSON.parse(jsonMatch[0]);\n  }\n} catch (e) {\n  console.log(\"Could not parse link suggestions from the Topical Cluster LLM.\", e);\n}\n\n// 4. Loop through each blueprint and attach the relevant suggestions.\nconst enrichedBlueprints = blueprints.map(item => {\n  const topicKey = item.json.topic;\n  \n  // The suggestions are now a simple array of strings.\n  item.json.internal_link_suggestions = linkSuggestions[topicKey] || [];\n  \n  return item;\n});\n\n// 5. Return the full list of blueprints, now enriched with link suggestions.\nreturn enrichedBlueprints;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1184,
+        512
+      ],
+      "id": "5c30ecd7-0999-466c-9c99-f8e3d22ee46c",
+      "name": "Combine Blueprints"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        4784,
+        32
+      ],
+      "id": "77ced5a0-bffb-467e-9c18-b96d45a0953d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=SYSTEM:\nYou are an expert SEO Content Strategist specializing in topical authority. You will be given a list of blog topic blueprints that are scheduled to be written in the same batch.\n\nYour task is to analyze the entire list and identify opportunities for internal links *between these new posts* to form a powerful topic cluster.\n\nFor each topic in the list, identify 1-2 other topics *from the same list* that are semantically related and would make a valuable internal link.\n\nRespond with ONLY a single raw JSON object. The object should use the topic's `topic` string as the key. The value for each key should be an array of STRINGS, where each string is the topic of the suggested internal link target.\n\n**Example Output Structure:**\n```json\n{\n  \"Topic Title A\": [\n    \"Related Topic Title B\",\n    \"Related Topic Title C\"\n  ],\n  \"Topic Title B\": [\n    \"Related Topic Title A\"\n  ]\n}\n\nUSER:\nHere is the list of topic blueprints for this batch:\n{{JSON.stringify($input.item.json.data.map(i => ({ topic: i.topic, type: i.type })))}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        4784,
+        160
+      ],
+      "id": "b4ddd9ef-674a-4d02-902e-6fb607824e6e",
+      "name": "Topical Cluster LLM",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1344,
+        512
+      ],
+      "id": "8510aa64-5119-4735-9ee6-c438d9e77d57",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -272,
+        144
+      ],
+      "id": "e83a41cd-3286-410c-a913-e9fe21aff3fe",
+      "name": "Merge6"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        4016,
+        160
+      ],
+      "id": "bb34bda4-df56-4f2b-b5ad-2165941e0875",
+      "name": "Merge7"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1552,
+        144
+      ],
+      "id": "d2d22cd5-0a9c-45e7-adbb-6b6d6f68a27d",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8a27068d-9a79-4e00-a85e-2c23003c0fbd",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "responsible.eldris.ai",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7ba96daf-29d2-45a3-b985-f9e9ab099ccc",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "clone.eldris.ai",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6b2638d3-119d-4196-93be-f566669f2427",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "epr.eldris.ai",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8217de5a-c9fb-4712-b45d-2a3dd252661d",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "seo.eldris.ai",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6c1eb0b5-72bd-425c-bf05-774b0d8f3e9e",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "memaero",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8e38a75b-673d-4bf9-b88f-95afcf750b6b",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "eldris.ai",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f197068-fc2f-4e62-bf4d-06b17a78476a",
+                    "leftValue": "={{ $json.website_url }}",
+                    "rightValue": "dustmask.co.uk",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        512,
+        112
+      ],
+      "id": "542dc17f-b0e6-47c0-9836-2258ca480ab6",
+      "name": "Switch",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const websiteUrl = $json.website_url;\n\n// Normalize base URL (remove trailing slash if present)\nconst baseUrl = websiteUrl.replace(/\\/+$/, \"\");\n\nconst apifyBody = {\n  // --- Core Crawl Setup ---\n  startUrls: [{ url: baseUrl }],\n\n  // Clean, dynamic pseudo URL patterns\n  pseudoUrls: [\n    { glob: `${baseUrl}/*` } // prevents duplicate-slash recursion\n  ],\n\n  // Exclusions – generic for any WP/Shop/SaaS site\n  excludes: [\n    { glob: \"**/tag/**\" },\n    { glob: \"**/login/**\" },\n    { glob: \"**/cart/**\" },\n    { glob: \"**/checkout/**\" },\n    { glob: \"**/my-account/**\" },\n    { glob: \"**?*utm***\" },\n    { glob: \"**/feed/**\" },\n    { glob: \"**/page/**\" }\n  ],\n\n  // Webhook for completion\n  webhooks: [\n    {\n      eventTypes: [\"ACTOR.RUN.SUCCEEDED\"],\n      requestUrl: \"https://brandtideai.app.n8n.cloud/webhook/02fe9639-bbb7-41cc-9671-7b2b71a91728\"\n    }\n  ],\n\n  // --- Performance + Stability ---\n  maxConcurrency: 5,\n  navigationTimeoutSecs: 120,\n  proxyConfiguration: { useApifyProxy: true },\n\n  // --- Crawl Behaviour Fixes ---\n  maxCrawlPages: 30,\n  maxCrawlDepth: 3,\n  crawlerType: \"playwright:firefox\",\n  crawlSitemaps: false,\n  useSitemaps: true,\n  respectRobotsTxtFile: true,\n  clickElementsCssSelector: \"\", // disable menu/accordion clicking\n\n  // --- Clean Extraction ---\n  removeElementsCssSelector: \"nav, footer, script, style, noscript, svg, img[src^='data:']\",\n  readableTextCharThreshold: 100,\n  saveMarkdown: true,\n  debugMode: false\n};\n\nreturn { json: { apifyBody } };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1360,
+        144
+      ],
+      "id": "02fbb2e0-8155-43a7-b5fb-888d310c6ea7",
+      "name": "Prep HTTPS Json"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2352,
+        16
+      ],
+      "id": "b9e7ec16-9589-48f8-9769-0ffe8f327b03",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a world-class Content & SEO Strategist. Your task is to classify, analyse, and steer the content plan for this website into high-intent, sales-focused themes. You will combine deterministic inputs with adaptive inference to ensure maximum relevance and conversion potential."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nWebsite URL: {{$json.website_url}}\nCore Product: {{$json.core_products[0].name}}\nWebsite Text: \"\"\"{{$json.aggregated_text}}\"\"\"\nExisting Topics: {{$json.used_topics}}\nBusiness Type: {{$json.business_type || \"infer_from_text\"}}\n\nROLE\nAct as a senior domain-specialist strategist.  \nInfer your strategist specialism dynamically from:  \n- The declared business type: {{$json.business_type || \"infer_from_text\"}}  \n- The core product: {{$json.core_products[0].name}}  \n- Expressions, terminology, and tone within the website text: {{$json.aggregated_text}}  \nDo not generalise into broad categories (e.g. “e-commerce strategist”).  \nAdopt the insider strategist perspective of the exact domain revealed by these expressions.  \nAll output must reflect contextual awareness, specialist strategy, and current competitive positioning derived from these inputs.\n\nOBJECTIVE\n- Confirm or infer the business type precisely.  \n- Based on that, determine the optimal content strategy focus.  \n- Ensure the plan covers pain points, solutions, product positioning, and competitor differentiation.  \n- Deliver high-intent, conversion-driven blog titles that:  \n  • Are 50–65 characters long  \n  • Are strategically distinct from {{$json.used_topics}}  \n  • Cover a breadth of formats (guides, how-to, case studies, myth-busting, lists, comparisons, trend analyses)  \n  • Prioritise differentiation and uniqueness over generic blog fodder  \n  • Optimise simultaneously for SEO visibility and sales enablement\n\nOUTPUT REQUIREMENTS\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion.\n\nRespond ONLY with a valid JSON object in this exact format:\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2320,
+        160
+      ],
+      "id": "c1071528-5ff8-411f-8c05-5159bf2dc33f",
+      "name": "Summarise LLM",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1424,
+        16
+      ],
+      "id": "12b83a97-ea37-4245-89ad-49b5e6f18d94",
+      "name": "OpenAI Chat Model5",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite SEO Sales Architect and Compliance Strategist.   Your role is to transform raw site data into a high-performance, sales-driven content plan.   You prioritise topics that move readers from awareness to purchase, with clear commercial intent and compliance urgency.   Avoid vanity content. Every decision should increase conversions for the service."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are given data for a specialist website, {{$json.website_url}}, which sells the \"EU Responsible Person (EurpRep)\" service and Strategic Keyword Insights (from SERP Analysis):\n{{ JSON.stringify($json.strategic_keywords) }}\n\nCore Audience: Non-EU Amazon, Shopify, and DTC brands actively preparing to sell in Europe.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Product: {{ $json.core_products[0].name }}\n\nExisting Content: {{ $json.used_topics }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion.\n\nTASK: Follow this two-step process:\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n- Analyze Strategic Keywords: Prioritize generating titles that directly target the queries marked as \"Demand Capture.\"\n- Identify Content Gaps: Use the topics marked as \"Demand Generation\" as your secondary priority.\n- If used_topics is empty: Build foundational, problem-aware + commercial-intent titles. Prioritise “why you must appoint a Responsible Person” and “Amazon/EU compliance” entry-level content.\n- If used_topics exists: Identify gaps. Vary by format (case study, myth-busting, mistakes, comparisons) and audience niche (platform-specific like Amazon FBA, industry-specific like cosmetics, or origin-specific like UK post-Brexit). Always push readers toward appointing an EU Responsible Person.\n\nSTEP 2: GENERATE TITLES\nRules:\n- Strict Relevance: Must directly reference EU Responsible Person service, compliance, or terms in aggregated_text. No generic SaaS/B2B fluff.  \n- Keyword Themes:\n  - **Commercial Intent**: \"appoint EurpRep\", \"EU authorised representative for Amazon\", \"EU compliance partner\".  \n  - **Problem-Aware**: \"selling in EU from UK/USA\", \"CE marking rules\", \"customs delays EU compliance\", \"declaration of conformity\".  \n- Title Mix:\n  - Up to 8 can be Product-Based (use exact: \"{{$json.core_products[0].name}}\") → focus on benefits, comparisons, urgency.  \n  - Remaining must be Contextual → pain points, solutions, authority-building.  \n- Brand Name: Use only \"Eldris\" if a brand reference is required.  \n- Composition:\n  - 50–65 characters each.  \n  - Unique, non-duplicate of used_topics.  \n  - Mix formats (how-to, listicle, case study, Q&A, comparison).  \n  - No clickbait. Must feel authoritative and purchase-driven.  \n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\n\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1376,
+        160
+      ],
+      "id": "e48d9e10-3f65-430d-b457-acd7d3c83346",
+      "name": "Responsible LLM1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1728,
+        16
+      ],
+      "id": "1fae6ece-64d5-475d-b79e-776ff028101a",
+      "name": "OpenAI Chat Model6",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite Content Strategist for B2B SaaS solutions specialising in website localisation and automated translation.   Your role is to generate titles that attract e-commerce and DTC brands planning EU expansion.   Every title must address real buyer pain points (cost, speed, compliance, SEO) and position the product as the fastest path to selling in Europe."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are given data for a website, {{$json.website_url}}, which provides automated website cloning and translation for international markets and Strategic Keyword Insights (from SERP Analysis):\n{{ JSON.stringify($json.strategic_keywords) }}\n\nCore Audience: E-commerce stores (Shopify, DTC, Amazon-linked) looking to expand into Europe.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Product: {{ $json.core_products[0].name }}\n\nExisting Content: {{ $json.used_topics }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n- Analyze Strategic Keywords: Prioritize generating titles that directly target the queries marked as \"Demand Capture.\"\n- Identify Content Gaps: Use the topics marked as \"Demand Generation\" as your secondary priority.\n- Focus on EU entry pain points: language barriers, legal/compliance risks, poor SEO without localisation, and the cost of manual translation.  \n- Frame automation as the scalable solution for Shopify/DTC.  \n- If used_topics is empty: produce foundational, product-aware guides (\"What is website localisation?\").  \n- If used_topics exists: vary by format (case studies, comparisons, myths, mistake-driven) and by niche (industry, platform, country).  \n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n- Strict Relevance: All titles MUST relate to website cloning, translation, localisation, or EU e-commerce growth.  \n- Keyword Themes:  \n  - **Core Concepts**: \"multilingual website\", \"website localisation\", \"automated translation\", \"Shopify translation\".  \n  - **Seller Pain Points**: \"EU market expansion\", \"sell in Germany and France\", \"language barrier e-commerce\", \"international SEO\".  \n- Title Mix:  \n  - Up to 8 product-based titles using exact: \"{{$json.core_products[0].name}}\".  \n  - Remaining contextual, tied to problems/solutions/authority.  \n- Brand Name: If needed, extract domain name from {{$json.website_url}} and use that. Never invent or use \"Eldris\".  \n- Composition:  \n  - 50–65 characters each.  \n  - Unique, not duplicating used_topics.  \n  - Diverse formats: how-to, listicle, question, comparison, mistake analysis.  \n  - Professional, purchase-driven, no fluff or clickbait.  \n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\n\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1696,
+        160
+      ],
+      "id": "4c41ad1c-a317-4c2b-99c5-7d2540c36956",
+      "name": "Clone LLM1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        16
+      ],
+      "id": "b7156c5f-e670-4474-9c74-52664c2adfae",
+      "name": "OpenAI Chat Model7",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a world-class EU Environmental Compliance and EPR Strategist.   Your expertise is in Extended Producer Responsibility (EPR) across packaging, WEEE, batteries, and cross-border e-commerce.   Your role is to generate authoritative, high-intent blog titles that educate and convert businesses struggling with EU environmental compliance.   Your outputs must ensure maximum topical breadth, avoid repetition, and establish this website as the definitive source on EPR."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are given data for a website, {{$json.website_url}}, which provides Extended Producer Responsibility (EPR) compliance services and Strategic Keyword Insights (from SERP Analysis):\n{{ JSON.stringify($json.strategic_keywords) }}\n\nCore Audience: Global e-commerce sellers and producers needing to comply with EU environmental laws.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Product: {{ $json.core_products[0].name }}\n\nExisting Content: {{ $json.used_topics }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n- Analyze Strategic Keywords: Prioritize generating titles that directly target the queries marked as \"Demand Capture.\"\n- Identify Content Gaps: Use the topics marked as \"Demand Generation\" as your secondary priority.\n- Anchor all titles in real-world compliance pain points: penalties for non-compliance, confusion with multiple country rules, cost of recycling fees, and challenges for Amazon/e-commerce sellers.  \n- If used_topics is empty: produce foundational EPR explainers (\"What is packaging EPR in Germany?\").  \n- If used_topics exists: vary by country, regulation, or angle (case studies, mistake-driven, platform-specific).  \n- Ensure coverage of Germany, France, Spain, and pan-EU frameworks.  \n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n- Strict Relevance: All titles MUST be about Extended Producer Responsibility (EPR), packaging waste, WEEE, or related EU compliance.  \n- Keyword Themes:  \n  - **Core Concepts**: \"EPR registration service\", \"packaging waste compliance\", \"recycling fees\".  \n  - **Specific Regulations**: \"Germany VerpackG\", \"France Triman logo\", \"WEEE directive\", \"LUCID registration\".  \n- Title Mix:  \n  - Up to 8 product-based titles featuring \"{{$json.core_products[0].name}}\".  \n  - Remaining contextual, inspired by EPR keyword themes and aggregated_text.  \n- Brand Name: If needed, use the domain name from {{$json.website_url}}, never invent one.  \n- Composition Rules:  \n  - Each title 50–65 characters.  \n  - All unique, not duplicating used_topics.  \n  - Format variety: how-to, listicles, explainers, comparisons, country breakdowns.  \n  - Professional, solution-driven, no clickbait.  \n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\n\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1040,
+        160
+      ],
+      "id": "e954c7bb-0f18-4469-9a36-edc2f43536d2",
+      "name": "EPR LLM1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2048,
+        16
+      ],
+      "id": "872224c4-458c-480d-9ac2-ed3ddc5a3006",
+      "name": "OpenAI Chat Model8",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite SEO Content Architect and Demand-Generation Strategist.   Your task is to transform raw website data into a complete, high-performance SEO content plan.   You will produce authoritative, conversion-driven blog titles designed to attract high-intent traffic and establish topical authority.   Your outputs must reflect precision, creativity, and commercial focus."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are given data for a specialist website, {{$json.website_url}}, which provides AI-powered SEO automation services and Strategic Keyword Insights (from SERP Analysis):\n{{ JSON.stringify($json.strategic_keywords) }}\n\nCore Audience: E-commerce sellers, DTC brands, and service-based businesses who want automated SEO growth.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Product: {{ $json.core_products[0].name }}\n\nExisting Content: {{ $json.used_topics }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n- Analyze Strategic Keywords: Prioritize generating titles that directly target the queries marked as \"Demand Capture.\"\n- Identify Content Gaps: Use the topics marked as \"Demand Generation\" as your secondary priority.\n- If used_topics is empty: produce foundational SEO content around \"AI SEO automation\", \"how SEO automation works\", and \"benefits of automated content publishing\".  \n- If used_topics exists: identify thematic/content gaps. Vary angles: technical SEO, AI-driven automation, industry-specific SEO, case studies, pitfalls/mistakes.  \n- Always frame content in terms of pain points (manual SEO cost, time, poor scalability) and solution outcomes (automation, scalability, better ROI).  \n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n- Strict Relevance: All titles MUST connect to SEO, SEO automation, AI-driven optimisation, or scaling content.  \n- Keyword Themes:  \n  - **Commercial/High-Intent**: \"AI SEO automation\", \"automated SEO tool\", \"scalable content marketing\".  \n  - **Pain Points**: \"manual SEO costs\", \"low traffic growth\", \"time-consuming SEO\".  \n  - **Solution Outcomes**: \"boost traffic with automation\", \"scale SEO without extra staff\".  \n- Title Mix:  \n  - Up to 8 product-based titles featuring \"{{$json.core_products[0].name}}\".  \n  - Remaining contextual, based on keyword themes and aggregated_text.  \n- Brand Name Usage: If required, extract from {{$json.website_url}} domain (never invent another).  \n- Composition Rules:  \n  - Titles 50–65 characters.  \n  - All unique, not duplicating used_topics.  \n  - Mix formats: how-to guides, listicles, comparisons, mistake-busting, case studies.  \n  - Professional and solution-focused, no clickbait.  \n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\n\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2016,
+        160
+      ],
+      "id": "b7d79416-c024-41eb-bc35-7a56b67ad844",
+      "name": "SEO LLM1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        16
+      ],
+      "id": "2f71c7d4-bd43-492c-9d80-e637d012deac",
+      "name": "OpenAI Chat Model9",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite E-commerce Content Strategist and Drone Sales Architect.   Your mission is to convert raw site data into a targeted blog title plan that drives drone purchases.   You prioritise titles with purchase intent (e.g., comparisons, price/value, use cases, safety, insurance) and position Memaero as the affordable, protected choice for drone buyers."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are a content strategist AI for the Memaero site, {{$json.website_url}}. The site sells the Aero series drones (beginner-friendly, under £100) and related accessories.\n\nCore Audience: UK-based hobbyists and families buying for recreational use (e.g., gifts, holidays, personal photography). Exclude professional, industrial, or enterprise business use cases.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Products: {{ JSON.stringify($json.core_products.map(p => p.name)) }}\n\nExisting Content (Previously Published): {{ $json.used_topics }}\n\nStrategic Keyword Insights (from SERP Analysis):\nThis data shows which topics have existing search volume versus which are content gaps.\n\nDemand Capture Keywords (Existing Search Volume): Prioritize creating content for these.\n\nDemand Generation Topics (Content Gaps): Use these to build authority and answer future questions.\n{{ JSON.stringify($json.strategic_keywords) }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nProduct Specifications to Use:\n- Aero 1 Lite: priced ~£49.95, 720p HD camera, ~12 min flight time, foldable design, crash-resistant structure, one-key takeoff/landing, three speed modes, headless mode, indoor/outdoor friendly, ideal as first gift drone.\n- Aero 3 Lite: supports 4K video, GPS / waypoint navigation, return to home, 1000m range, obstacle avoidance or safety assist features, intelligent modes, modular battery, excellent for beginners wanting to progress.\n- SD Card Guidance: for Aero 3 Lite, use UHS-I / U3 / V30 microSD cards (min 64 GB) to avoid dropped frames.\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, high-intent blog post titles. The primary goal is to drive purchases by creating content that directly matches user search intent and builds topical authority.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n\nAnalyze Strategic Keywords: First, review the strategic_keywords data. Prioritize generating titles that directly target the queries marked as \"Demand Capture.\" These have proven search volume and represent the highest immediate opportunity.\n\nIdentify Content Gaps: Use the topics marked as \"Demand Generation\" as your secondary priority. These are your opportunities to build authority by creating the best answer for a query that currently has none.\n\nCross-Reference Existing Content: Ensure no new titles duplicate topics from the used_topics list.\n\nBalance Content Types: Plan a mix of formats (comparisons, listicles, how-to guides) that align with the intents identified in the strategic_keywords (purchase, comparison, investigation).\n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n\nStrict Relevance & Source Grounding: Titles must be about drones, Memaero’s Aero series, affordability, safety, or accessories. Generate titles using ONLY the information from the Website Text, Strategic Keyword Insights, and Product Specifications above. Do not use any external knowledge. If the text describes a drone, do not generate titles about any other product type.\n\nCustomer-Centric Framing Mandate: Every title must be framed to answer a direct customer question or solve a specific problem. Convert technical features into tangible benefits. Titles must connect features to emotional triggers like gifting joy, capturing memories, safe family fun, or hassle-free setup.\n\nExamples:\nInstead of: \"Dynamic Obstacle Avoidance Strategies\"\nGenerate: \"How the Aero 3 Lite's Smart Sensors Prevent Crashes\"\n\nInstead of: \"Innovations in Drone Battery Life\"\nGenerate: \"5 Tips to Get More Flight Time From Your Aero 1 Lite\"\n\nKeyword Themes:\n\nValue / Price: “best drone under £100 UK”, “cheap 4K drone UK”, “beginner drone £50”\n\nUse Cases / Niches: “travel drone under 250g UK”, “drone for garden use”, “drones for teens gift UK”, “foldable mini drone UK”, “cheap 4K drone with obstacle avoidance”\n\nSafety / Trust / Compliance: “UK drone registration rules 250g”, “beginner drone insurance UK”, “crash resistant beginner drone”, “obstacle avoidance beginner drone UK”\n\nTechnical Buyers / Comparison: “Aero 3 Lite vs Aero 1 Lite”, “Aero 3 Lite 4K review”, “Aero 1 Lite specs”, “4K vs 1080p beginner drone”\n\nTitle Mix:\n\nUp to 50% product-based titles featuring a selection of {{ JSON.stringify($json.core_products.map(p => p.name)) }}\nMinimum 30% must directly feature Aero 1 Lite or Aero 3 Lite.\nRemaining titles should be contextual, solution-focused, and directly address the queries from your strategic_keywords list.\n\nBrand Name: Use “Memaero” where needed; do not include competitor names.\n\nComposition Rules:\n\nTitles 50–65 characters.\nAll unique.\nMix formats: comparison, how-to, listicle, question, problem/benefit.\nProfessional, conversion-focused, no fluff or clickbait.\nUK English spelling.\nEach title must reference at least one real spec, niche use case, or buyer cohort (gift, travel, garden, teen).\nAt least one title must directly contrast Aero 1 Lite vs Aero 3 Lite.\nAt least one title per batch must explicitly speak to a niche cohort (e.g. “best drone for travel under £100 UK”, “gift drone for teens: Aero 1 Lite vs Aero 3 Lite”).\nInclude compliance or regulatory trust angle where relevant (UK drone registration, insurance, under 250 g category).\n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\nJSON\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        720,
+        160
+      ],
+      "id": "298a1aa5-30c2-409f-a3ab-4c3544ae1edd",
+      "name": "Memaero LLM",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3712,
+        16
+      ],
+      "id": "0c947187-9ed4-4b46-af2e-feff938b324c",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite SEO Content Architect. Your job is to take approved blog post titles and expand them into authoritative, high-intent content blueprints.  You must combine sales-driving focus for e-commerce and thought-leadership depth for service businesses.  Every output must be sharp, professional, and structured for scale across 100s of client websites."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=You will be given:\n* **List of Approved Titles:** {{ $json.message.content }}\n\n`\n* **Strategic Mandate:** `{{ $json.focus_prompt }}`\n\n---\n## OPERATING MODES\n\n**1. IF `strategic_mandate` IS NOT BLANK → Specialist Mode**\n- Expand titles into informational blueprints that strictly follow the mandate.  \n- Ignore commercial balancing rules.  \n\n**2. IF `strategic_mandate` IS BLANK → E-commerce Mode**\n- Expand titles into commercially valuable blueprints that drive sales.  \n- Apply Commercial Safeguard Rules (below).  \n\n---\n## COMMERCIAL SAFEGUARD RULES (E-commerce Mode)\n\n- **Commercial Ratio:** At least 50% of blueprints must be `commercial` or `branded`.  \n- **Problem–Solution Context:** For these, the `context` must frame a problem and show how a product is the solution.  \n- **Supportive Evergreen:** Informational posts still need subtle commercial setup (e.g. problem definition that creates future buying need).  \n\n---\n## BLUEPRINT STRUCTURE\n\nFor each title :\n`, return a JSON object with:\n\n1. **`topic`** – exact title string (do not alter).  \n2. **`type`** – classify as `commercial`, `branded`, or `evergreen` (must follow Commercial Ratio if in E-commerce Mode).  \n\n3. **`source_product_name`** – if title explicitly names a product, extract it, else `null`.  \n4. **`internal_link_anchor`** – generate 2–3 concise anchor suggestions that could link naturally to other site content. (e.g. `\"see EPR packaging rules\"`, `\"multilingual Shopify setup\"`).  \n\n---\n## OUTPUT\n\nReturn ONLY a single raw JSON array of all blueprint objects.  \nDo not use markdown, code blocks, or commentary.  "
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        3696,
+        160
+      ],
+      "id": "e29da1df-9e56-4686-af28-d91bc181aed5",
+      "name": "Create Blueprints LLM1",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// This script correctly parses the raw LLM output using your original robust logic,\n// AND enriches it with the core data from the 'Aggregate Crawl Data' node.\n\n// --- 1. Get the core data from the start of the workflow ---\nconst aggregateData = $items('Aggregate Crawl Data')[0].json;\n\n\n// --- 2. Use your original, robust logic to find and parse the LLM's title list ---\nconst raw = $json.text || $json.message?.content || null;\n\nif (!raw) {\n  // If there's no LLM output, we still pass the core data along with an error.\n  return [{ json: { ...aggregateData, error: \"No valid LLM output to unwrap.\" } }];\n}\n\n// This block is from your script to handle multiple LLM output formats.\nlet parsed;\ntry {\n  // The LLM output is often a string that needs to be parsed.\n  let tempParsed = JSON.parse(raw);\n  // Sometimes the actual content is nested inside another object (e.g., message.content).\n  // This line handles that nesting to get the final list.\n  let content = tempParsed.message?.content || tempParsed;\n  // The final content itself might ALSO be a string, so we parse it again.\n  parsed = JSON.parse(content);\n} catch (e) {\n  // If any parsing fails, it suggests the raw input was the final content.\n  parsed = raw;\n}\n\n\n// --- 3. Return a SINGLE item that combines everything correctly ---\nreturn [{\n  json: {\n    // First, include all the original aggregated data, making it available downstream.\n    ...aggregateData,\n\n    // Then, use your original logic to correctly format the message object.\n    // This ensures 'content' is always a stringified array for the next node.\n    message: {\n      role: \"assistant\",\n      content: Array.isArray(parsed) ? JSON.stringify(parsed) : parsed\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3280,
+        160
+      ],
+      "id": "6bfbb2e7-302d-40e0-8121-1ea61fcec1bf",
+      "name": "Code"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        144,
+        160
+      ],
+      "id": "fb51a0c4-34c4-45f4-85a6-fc77bb5ddde5",
+      "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "url": "=https://serpapi.com/search?engine=google_autocomplete&q={{$json.query}}&hl=en&gl=gb&api_key=67b93a7ce50d37d9685afe2baf878b9a160cb2a7d6eebc606bc15535b9857663\n\n\n\n\n\n",
+        "options": {}
+      },
+      "id": "1c6ebac1-257b-474e-b5da-bbfc727cf67d",
+      "name": "Search1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        320,
+        -64
+      ],
+      "retryOnFail": false,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the JSON string inside message.content\nconst content = items[0].json.output;\n\n// Extract website_url and search_queries\nconst website = content.website_url;\nconst queries = content.search_queries;\n\n// Map each query to an item for looping\nreturn queries.map(q => ({\n  json: {\n    website_url: website,\n    query: q\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        -64
+      ],
+      "id": "81000b37-0639-4600-9158-772199658b27",
+      "name": "Google Serp Clean"
+    },
+    {
+      "parameters": {
+        "jsCode": "// FINAL SCRIPT for a Code Node set to \"Execute Once\"\n// It receives a single input from a Merge node in 'Append' mode.\n\n// --- Helper Functions (These are correct) ---\nfunction classifyIntent(q) {\n  const lower = q.toLowerCase();\n  if (/\\b(buy|price|cost|quote|sale|preorder|deal|shop|delivery)\\b/.test(lower)) return \"purchase\";\n  if (/\\b(vs|versus|compare|comparison|alternative|review)\\b/.test(lower)) return \"comparison\";\n  if (/\\b(best|top|safest|easy|perfect|ideal)\\b/.test(lower)) return \"investigation\";\n  if (/\\b(how|what|why|guide|tips|rules|laws|features)\\b/.test(lower)) return \"informational\";\n  if (lower.split(\" \").length > 6 && lower.endsWith('?')) return \"informational\";\n  return \"other\";\n}\n\nfunction isRelevant(originalQuery, suggestion, threshold = 0.4) {\n  const getWordSet = (str) => new Set(str.toLowerCase().replace(/[^\\w\\s]/g, '').split(\" \").filter(w => w.length > 2));\n  const originalSet = getWordSet(originalQuery);\n  const suggestionSet = getWordSet(suggestion);\n  if (originalSet.size === 0 || suggestionSet.size === 0) return false;\n  const intersection = new Set([...originalSet].filter(word => suggestionSet.has(word)));\n  const union = new Set([...originalSet, ...suggestionSet]);\n  const jaccardIndex = intersection.size / union.size;\n  return jaccardIndex >= threshold;\n}\n\n// --- Main Processing Logic ---\n\n// In \"Execute Once\" mode, '$items' correctly references the entire batch of incoming items.\nconst allItems = $items();\n\n// The first item (index 0) from the 'Append' merge is our main website data.\nconst mainData = allItems[0].json;\n\n// All subsequent items (from index 1 onwards) are the SERP result items.\nconst serpItems = allItems.slice(1);\n\nlet demandCaptureKeywords = [];\nlet demandGenerationTopics = [];\n\nfor (const item of serpItems) {\n  const res = item.json.results?.[0]; \n  if (!res || !res.search_parameters?.q) continue;\n\n  const originalQuery = res.search_parameters.q;\n  const originalQueryIntent = classifyIntent(originalQuery);\n  const relevantSuggestions = res.suggestions?.filter(s => isRelevant(originalQuery, s.value)) || [];\n\n  if (relevantSuggestions.length > 0) {\n    demandCaptureKeywords.push({\n      query: originalQuery, strategy: \"Demand Capture\", intent: originalQueryIntent,\n      source: \"Original Query\", relevance: res.verbatim_relevance || 1300\n    });\n    for (const s of relevantSuggestions) {\n      demandCaptureKeywords.push({\n        query: s.value, strategy: \"Demand Capture\", intent: classifyIntent(s.value),\n        source: \"SERP Suggestion\", relevance: s.relevance || 100\n      });\n    }\n  } else {\n    demandGenerationTopics.push({\n      query: originalQuery, strategy: \"Demand Generation\", intent: originalQueryIntent,\n      source: \"Content Gap\", relevance: res.verbatim_relevance || 1300\n    });\n  }\n}\n\n// --- Ranking and Deduplication (Unchanged) ---\nconst combinedQueries = [...demandCaptureKeywords, ...demandGenerationTopics];\nconst uniqueQueries = new Map();\nfor (const q of combinedQueries) {\n  if (!uniqueQueries.has(q.query) || q.relevance > uniqueQueries.get(q.query).relevance) {\n    uniqueQueries.set(q.query, q);\n  }\n}\nlet finalRankedList = Array.from(uniqueQueries.values());\nconst strategyRank = { \"Demand Capture\": 2, \"Demand Generation\": 1 };\nconst intentRank = { \"purchase\": 5, \"comparison\": 4, \"investigation\": 3, \"informational\": 2, \"other\": 1 };\nfinalRankedList.sort((a, b) => {\n  const strategyDiff = (strategyRank[b.strategy] || 0) - (strategyRank[a.strategy] || 0);\n  if (strategyDiff !== 0) return strategyDiff;\n  const intentDiff = (intentRank[b.intent] || 0) - (intentRank[a.intent] || 0);\n  if (intentDiff !== 0) return intentDiff;\n  return (b.relevance || 0) - (a.relevance || 0);\n});\nconst topResults = finalRankedList.slice(0, 20);\n\n// --- Final Output Generation ---\nconst finalOutput = {\n  ...mainData,\n  strategic_keywords: topResults\n};\n\n// Return a single item containing the final structured data.\n// This is the correct format for the Switch node to process.\nreturn [{\n  json: finalOutput\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        160
+      ],
+      "id": "97ad3158-a8f5-4088-b705-e1e17253b827",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -64
+      ],
+      "id": "1514c968-1356-4cce-b32e-180a172ca26d",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        144,
+        -64
+      ],
+      "id": "23a49e38-e774-4c02-80aa-f6581ff96ca5",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2656,
+        16
+      ],
+      "id": "e3e3e2af-9d5c-4000-9359-e65a5b8978b5",
+      "name": "OpenAI Chat Model10",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an elite B2B Content Strategist specializing in establishing Topical Authority for complex technical services. You are generating a content plan for the central hub, {{$json.website_url}}, which acts as the authoritative parent site for several specialized EU compliance and e-commerce expansion services."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=Core Audience: Decision-makers at global e-commerce, DTC, and Amazon businesses who are actively searching for solutions to specific EU market entry challenges (e.g., EPR, WEEE, packaging laws, website localization, SEO).\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Services Overview: The hub supports specialized services in EU Responsible Person, EPR Compliance (VerpackG, WEEE), Website Localization, and SEO Automation.\n\nExisting Content (Previously Published): {{ $json.used_topics }}\n\nStrategic Keyword Insights (from SERP Analysis):\nThis data shows which topics have existing search volume versus which are content gaps.\n\nDemand Capture Keywords (Existing Search Volume): Prioritize creating authoritative pillar and cluster content for these proven queries.\n\nDemand Generation Topics (Content Gaps): Use these to address emerging pain points and build future authority.\n{{ JSON.stringify($json.strategic_keywords) }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, commercially-focused blog post titles optimised for sales conversion. The primary goal is to intercept users searching for specific compliance and expansion problems and establish eldris.ai as the definitive resource, thereby funneling qualified leads to the specific service pages.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n\nPrioritize Proven Problems: First, analyze the strategic_keywords list. The highest priority is to generate titles that directly and comprehensively answer the queries marked as \"Demand Capture.\" These are real problems potential customers have right now.\n\nBuild Authority on Emerging Issues: Use the topics marked as \"Demand Generation\" to create forward-looking content that positions Eldris as a thought leader on upcoming challenges.\n\nStructure for Topical Authority: Group the titles into logical clusters around the core services (EPR, EU Responsible Person, Localization, SEO Automation). Ensure you are creating both broad pillar-style topics and specific, long-tail question-based topics.\n\nCross-Reference Existing Content: Ensure no new titles are redundant with the used_topics list.\n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n\nStrict Problem-Centric Relevance: Titles must be about the customer's problem (e.g., EPR compliance, WEEE registration, multilingual SEO) and how to solve it. Avoid abstract, brand-focused titles like \"The Rise of Eldris\" or \"Maximize ROI with Eldris.\"\n\nCustomer-Centric Framing Mandate: Every title must be framed to answer a direct, urgent question a business owner would ask. Convert abstract concepts into tangible solutions.\n\nInstead of: \"AI-Driven Multilingual Expansion\"\n\nGenerate: \"How to Translate Your Shopify Store for the German Market\"\n\nInstead of: \"Eldris vs Traditional SEO Tools\"\n\nGenerate: \"When to Automate Your SEO: A Guide for DTC Brands\"\n\nKeyword Themes (based on GSC data):\n\nCompliance Pain Points: \"VerpackG registration guide,\" \"WEEE directive explained,\" \"EU responsible person cost.\"\n\nInternational Expansion: \"selling in Europe from UK,\" \"multilingual SEO best practices,\" \"automated website translation.\"\n\nSEO & Growth: \"AI SEO automation for e-commerce,\" \"scalable content marketing,\" \"competitor keyword analysis.\"\n\nBrand Name: Only use \"Eldris\" when framing a case study or direct product benefit (e.g., \"How Eldris Automates WEEE Compliance Reporting\").\n\nComposition Rules:\n\nTitles 50–65 characters.\n\nAll unique.\n\nMix formats: definitive guides (for pillar content), how-to, common mistakes, legal explainers, checklists.\n\nProfessional, authoritative, and solution-driven.\n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\nJSON\n\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n  }\n}\nDo NOT use markdown, code blocks, or add any introductory text or explanation."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2624,
+        160
+      ],
+      "id": "0f75c863-11b9-4903-a00e-87cf52e664f9",
+      "name": "Eldris Hub LLM",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -208
+      ],
+      "id": "83812cab-156d-4660-8b7a-cd7aa4edf5ed",
+      "name": "OpenAI Chat Model11",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"title\": \"SearchQueryOutput\",\n  \"description\": \"Structured output containing the analyzed website URL and a list of generated search queries.\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"website_url\": {\n      \"type\": \"string\",\n      \"description\": \"The full URL of the website that was analyzed.\"\n    },\n    \"search_queries\": {\n      \"type\": \"array\",\n      \"description\": \"A list of exactly 20 unique, long-tail search queries with strong commercial intent.\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"required\": [\n    \"website_url\",\n    \"search_queries\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -192,
+        -208
+      ],
+      "id": "4a70647d-ae0b-478f-8435-92f10d1f4501",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "ROLE: You are an expert AI marketing strategist specializing in generating high-conversion Google search queries. Your primary goal is to capture potential customers with strong commercial intent."
+            },
+            {
+              "message": "=CONTEXT:\nYou will receive a JSON object containing data scraped from a website. This object includes:\n\n{{ $json.website_url }}: The target URL.\n{{ $json.aggregated_text }}: All text content from the website.\n{{ $json.core_products }}: A list of the main products or services offered.\n\nThe website could be e-commerce, service-based, or direct-to-consumer. Assume the brand may be new or have low public recognition.\n\n---\n\nTASK:\nBased strictly on the provided JSON, generate **20 unique, short, keyword-driven search phrases (3-7 words each)** that mirror what a real user with **clear purchase or service-inquiry intent** would type into Google. Queries must span multiple buyer-journey stages (problem-aware, solution comparison, feature-specific, and transactional), use strong commercial modifiers (e.g., *buy, price, cost, best, near me, for sale, review, compare, alternative, book*), and represent **distinct intent angles** without duplication or filler.\n\n\nCRITICAL INSTRUCTIONS:\n\n**Emulate Real User Typing, Not Full Sentences:** The queries must be concise phrases, not complete questions. Focus on the core keywords a user would type to find the product or service.\n\n**Focus on User Intent, Not Just Keywords:** Your queries must map to distinct stages of the buying journey. Internally, categorize your thinking to ensure a balanced output:\n\n* **Problem-Aware Phrases:** Formulate phrases describing a user's problem that the website's offering solves (e.g., \"clear aerial shots real estate,\" \"emergency plumber burst pipe\").\n* **Solution-Comparison Phrases:** Create phrases comparing offerings or features. Use modifiers like \"vs,\" \"review,\" \"compare,\" or \"alternative to.\"\n* **Feature-Specific Phrases:** Extract specific, high-value features from the text and build concise queries around them \n* **High-Intent Transactional Phrases:** Generate queries that signal immediate intent. Use strong commercial modifiers like \"buy,\" \"price,\" \"cost,\" \"for sale,\" \"near me,\" \"get a quote,\" or \"book a consultation.\"\n\n**Prioritize Solutions Over Brand Names:** Since the brand may be unknown, build queries around the product category, service, or problem solved. Only use the brand name if the query context makes it natural (e.g., comparing two of its own products).\n\n**Ground All Queries in the Source Data:** You must derive every feature, price point, product name, and service detail directly from the `aggregated_text` and `core_products`. Do not invent or infer information.\n\n**Mimic Natural Human Language:** The phrases must be syntactically realistic.\n\n---\n\nOUTPUT RULES:\n\nOutput must be a single, valid JSON object.\n\nUse the following strict format:\n\n{\n  \"website_url\": \"<website_url>\",\n  \"search_queries\": [\n    \"query1\",\n    \"query2\",\n    \"...\"\n  ]\n}\n\nDo not include any explanations, apologies, or text outside of the JSON structure."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "id": "b35d50d3-a69e-4876-9dc2-b49f31ac0b7e",
+      "name": "Filter LLM",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -320,
+        -64
+      ],
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "v4sztSbBT4SB0thl",
+          "mode": "list",
+          "cachedResultName": "Brandtideai Waitlist — Eldris ORBIT Bi-Weekly Seed Worker"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -544,
+        608
+      ],
+      "id": "98dbfd48-2482-46d7-b61a-17534dea8a18",
+      "name": "Execute Workflow",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// This script runs on the \"Done\" branch of the Worker's internal loop.\n// It creates the specific \"continue\" packet required to signal the\n// Controller's loop that this iteration is complete.\n\n// 1. Get all the items that were successfully processed by the loop.\n//    We need this to extract the original data for the return packet.\nconst allProcessedItems = $input.all();\n\n// 2. Handle the edge case where no items were processed.\n//    Even in this case, we send a valid 'continue' packet.\nif (!allProcessedItems || allProcessedItems.length === 0) {\n  // If we have no items, we can't get the originalBatch,\n  // so we'll construct a simple success message.\n  // The Controller loop will still continue.\n  return [{\n    json: {\n      continue: true,\n      status: 'completed_empty'\n    }\n  }];\n}\n\n// 3. Get the very last item that was processed by the loop.\n//    This contains the 'originalBatch' structure we need to pass back.\nconst lastItem = allProcessedItems[allProcessedItems.length - 1].json;\n\n// 4. Create the final output object using the structure from the last item.\n//    This ensures the 'originalBatch' and other necessary keys are preserved.\nconst finalOutput = {\n  continue: true,\n  originalBatch: lastItem.originalBatch,\n  currentIndex: lastItem.currentIndex,\n  worker_status: 'completed_successfully',\n  processed_items_in_worker: allProcessedItems.length\n};\n\n\n// 5. Return this single object. The Controller's loop will now fire again.\nreturn [{ json: finalOutput }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        416
+      ],
+      "id": "32d137f8-7c3e-4098-a780-7e70005b9a0e",
+      "name": "Re-Loop Data"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d06361ff-9ceb-4ff7-ad9c-755cb223bdfc",
+              "name": "core_products",
+              "value": "={{ $items(\"Aggregate Crawl Data\")[0].json.core_products }}",
+              "type": "string"
+            },
+            {
+              "id": "d133fdc3-a981-49c1-9b39-f7838ee9c280",
+              "name": "content_urls",
+              "value": "={{ $items(\"Aggregate Crawl Data\")[0].json.content_urls }}",
+              "type": "string"
+            },
+            {
+              "id": "6f6dac2c-cbb2-4825-918b-dcd14f050e87",
+              "name": "author_bio",
+              "value": "={{ $items(\"Aggregate Crawl Data\")[0].json.author_bio }}",
+              "type": "string"
+            },
+            {
+              "id": "04f39dca-4fc3-4f2b-aeaa-989cf59df567",
+              "name": "is_interactive",
+              "value": "={{ $('Automated Interactivity Logic').item.json.is_interactive }}",
+              "type": "string"
+            },
+            {
+              "id": "d1f3627e-195d-457e-8dcd-ab33ba9a0159",
+              "name": "author_type",
+              "value": "={{ $items('Merge6')[0].json.author_type }}",
+              "type": "string"
+            },
+            {
+              "id": "b3e9fcd5-f53c-4d39-a604-934916428c29",
+              "name": "available_categories",
+              "value": "={{ $items(\"Aggregate Crawl Data\")[0].json.available_categories }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -976,
+        512
+      ],
+      "id": "2d82b8ca-1a94-453e-95ac-fa8a9a3a48b4",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// This script aggregates multiple incoming items into a single item.\n// It is designed to replace the function of an 'Items Lists (Combine)' or 'Summarize' node.\n// Ensure this node is set to \"Execute Once\".\n\n// 1. Get all items passed from the previous node.\nconst allItems = $input.all();\n\n// 2. Extract the .json payload from each item. This creates a clean array of your blueprint objects.\nconst allJsonData = allItems.map(item => item.json);\n\n// 3. Create a new, single object that contains all the data in an array called \"data\".\n// This is the standard structure that other n8n nodes create.\nconst singleOutput = {\n  data: allJsonData\n};\n\n// 4. Return this single object as the output.\n// The next node will now receive only one item to process.\nreturn [{ json: singleOutput }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4576,
+        160
+      ],
+      "id": "c779c113-968c-4c83-afc9-c8409ea4066c",
+      "name": "Consolidator"
+    },
+    {
+      "parameters": {
+        "url": "={{ $items(\"When Executed by Another Workflow\")[0].json.resume_url }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        416
+      ],
+      "id": "5b118738-1aee-45dc-93db-e4b4e231427b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76725957-3ff1-44f8-bcc5-5c47d019bb99",
+              "name": "resume_url",
+              "value": "={{ $items(\"When Executed by Another Workflow\")[0].json.resume_url }}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        416
+      ],
+      "id": "76887552-500e-4b4b-a7d5-7e60f1c08df9",
+      "name": "resume_url"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/actor-runs/{{ $json.runId }}?token=[REDACTED]\n\n\n\n",
+        "options": {
+          "timeout": 7200000
+        }
+      },
+      "id": "5d347d7a-5c1a-4bba-ae87-65326f205621",
+      "name": "Apify Status (Wait for Finish)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -752,
+        144
+      ],
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.data.status }}",
+              "value2": "SUCCEEDED"
+            }
+          ]
+        }
+      },
+      "id": "5fa4e6b1-7bba-4d83-9236-a8cc1a64fbc9",
+      "name": "If Succeeded1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const sleep = ms => new Promise(r => setTimeout(r, ms));\nawait sleep(58000);\n\n// preserve items + ensure runId survives the loop\nconst items = $input.all();\nconst runId = ($items('Code3')[0]?.json?.runId) ?? items[0]?.json?.runId;\n\nreturn items.map(i => ({\n  json: { ...i.json, runId: i.json.runId || runId }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        144
+      ],
+      "id": "83360514-0739-4225-bf20-200476d9c457",
+      "name": "False Wait"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Flatten SERP autocomplete → rows for Google Sheets\n// Output fields ONLY: website_url, og_query, value, relevance\n\nconst inputItems = $input.all();\n\n// find website_url (prefer current items, then trigger)\nfunction getWebsiteUrl() {\n  const hit = inputItems.find(i => i.json?.website_url)?.json?.website_url;\n  if (hit) return hit;\n  const trig = $items('When Executed by Another Workflow')?.[0]?.json?.website_url;\n  return trig || '';\n}\n\nconst website_url = getWebsiteUrl();\nconst out = [];\n\nfor (const item of inputItems) {\n  const j = item.json || {};\n\n  // results array shape (SERPAPI style)\n  const results = Array.isArray(j.results) ? j.results : [j].filter(x => x);\n\n  for (const r of results) {\n    const og_query =\n      r?.search_parameters?.q ??\n      j?.search_parameters?.q ??\n      j?.q ??\n      '';\n\n    const suggestions = Array.isArray(r?.suggestions)\n      ? r.suggestions\n      : (Array.isArray(j?.suggestions) ? j.suggestions : []);\n\n    for (const s of suggestions) {\n      out.push({\n        json: {\n          website_url,\n          og_query,\n          value: (s?.value ?? '').toString(),\n          relevance: (s?.relevance != null ? Number(s.relevance) : null),\n        },\n      });\n    }\n  }\n}\n\nreturn out;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -224
+      ],
+      "id": "bf29d9d3-e79a-44c4-b0bf-c648c175143b",
+      "name": "Google Flow Results",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1AIPWcDFlRz1Id0CTbE53gqLbkbhMrwl1BDar2ISAh5U",
+          "mode": "list",
+          "cachedResultName": "Google Ads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AIPWcDFlRz1Id0CTbE53gqLbkbhMrwl1BDar2ISAh5U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 781001087,
+          "mode": "list",
+          "cachedResultName": "Serp Snippets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AIPWcDFlRz1Id0CTbE53gqLbkbhMrwl1BDar2ISAh5U/edit#gid=781001087"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "website_url",
+              "displayName": "website_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reccommended_title",
+              "displayName": "reccommended_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "changed",
+              "displayName": "changed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1056,
+        -224
+      ],
+      "id": "cb3139d1-adeb-4d4f-8240-882fb5d963a3",
+      "name": "Append row in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "a22fn0OTVIdtEroQ",
+          "name": "Google Sheets account V2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        -224
+      ],
+      "id": "d105bfe8-8cf0-410d-b382-dc7035b53552",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        -224
+      ],
+      "id": "627dab52-ef13-4b1a-9598-4c83a1f3c656",
+      "name": "Wait",
+      "webhookId": "45b11c5e-777c-4e3a-8da0-e41652e1c8a5"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -336,
+        608
+      ],
+      "id": "b609e98b-9ebd-4ae0-b61d-75a96cdb3273",
+      "name": "Wait1",
+      "webhookId": "7f568a6f-003c-419c-aecb-5e5c08ceea65"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2992,
+        16
+      ],
+      "id": "0576dbba-a99b-410f-937e-9c5c8a5d829d",
+      "name": "OpenAI Chat Model12",
+      "credentials": {
+        "openAiApi": {
+          "id": "Z5H41ugeSoso4P3V",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an elite E-commerce Content Strategist and PPE Sales Architect. Your mission is to convert the Torxup site data into a targeted blog title plan that drives sales of CoreMask, FlowCore, and ProDefend. You prioritise titles with purchase intent (best/which/compare, filter choice, price/value, DIY, Trade and Commercial use cases, safety), and position Torxup as the reusable, certified choice for UK DIY and trade buyers."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=CONTEXT\nYou are a content strategist AI for the Torxup site, {{$json.website_url}}. The site sells the Torxup CoreMask (reusable respirator body) and two filter families: FlowCore (dust/particulates) and ProDefend (organic vapours—use only as described in site text).\n\nCore Audience: UK DIY and light-trade users (home renovation, woodworking, sanding, painting, resin work). Exclude heavy industrial or enterprise use cases not described in the provided text.\n\nTotal Titles to Generate: {{ $json.batch_total_posts }}\n\nCore Products: {{ JSON.stringify($json.core_products.map(p => p.name)) }}\n\nExisting Content (Previously Published): {{ $json.used_topics }}\n\nStrategic Keyword Insights (from SERP Analysis):\nThis data shows which topics have existing search volume versus which are content gaps.\n\nDemand Capture Keywords (Existing Search Volume): Prioritize creating content for these.\n\nDemand Generation Topics (Content Gaps): Use these to build authority and answer future questions.\n{{ JSON.stringify($json.strategic_keywords) }}\n\nWebsite Text for Analysis: \"\"\"{{ $json.aggregated_text }}\"\"\"\n\nOBJECTIVE\nReturn a JSON array of exactly {{ $json.batch_total_posts }} unique, high-intent blog post titles. The primary goal is to drive purchases by creating content that directly matches buyer search intent and builds topical authority for Torxup CoreMask, FlowCore, and ProDefend filters.\n\nTASK: Two-step process\n\nSTEP 1: INTERNAL STRATEGIC ANALYSIS (Not in output)\n\nAnalyze strategic_keywords. Prioritize generating titles that directly target the queries marked as “Demand Capture.” These have proven search volume and represent the highest immediate opportunity.\n\nIdentify Content Gaps: Use the topics marked as “Demand Generation” as your secondary priority. These are your opportunities to build authority by creating the best answer for a query that currently has none.\n\nCross-Reference Existing Content: Ensure no new titles duplicate or are close too topics from the used_topics list.\n\nBalance Content Types: Plan a mix of formats (comparisons, listicles, how-to guides) that align with the intents identified in the strategic_keywords (purchase, comparison, investigation).\n\nSTEP 2: TITLE GENERATION\nCritical Directives:\n\nStrict Relevance & Source Grounding: Titles must be about Torxup CoreMask, FlowCore, ProDefend, dust masks/respirators, UK DIY use cases, safety, or certification. Generate titles using ONLY the information from the Website Text and Strategic Keyword Insights. Do not use any external knowledge.\n\nBuyer-Centric Framing Mandate: Every title must link a real DIY/trade use case to the clear benefit of buying Torxup CoreMask, FlowCore, or ProDefend filters. Each title should pre-frame Torxup as the solution.\n\nExamples:\nInstead of: “Particulate Filtration Mechanisms”\nGenerate: “Does FlowCore Stop MDF Dust? How to Choose the Right Pads”\n\nInstead of: “Organic Vapour Theory”\nGenerate: “Paint & Resin Jobs: When to Use ProDefend Vapour Filters”\n\nKeyword Themes:\n\nValue/Price: “best dust mask UK”, “reusable dust mask”, “budget respirator UK”.\n\nSafety/Trust: “CE dust mask”, “EN14387 vapour filter”, “UK compliant respirator”, “filter lifespan”.\n\nUse Cases: “mask for sanding MDF”, “mask for plaster dust”, “paint mask UK”, “resin mask”, “solvent protection mask”.\n\nIdentical Product: “3M 7502” (for comparison framing).\n\nTitle Mix:\n\nUp to 50% product-based titles featuring a selection of {{ JSON.stringify($json.core_products.map(p => p.name)) }}\n\nRemaining titles should be contextual, solution-focused, and directly address the queries from your strategic_keywords list.\n\nBrand Name: Use “Torxup” where needed; do not include competitor names.\n\nComposition Rules:\n\nTitles 50–65 characters.\n\nAll unique.\n\nMix formats: comparison, how-to, listicle, question, problem/benefit.\n\nProfessional, conversion-focused, no fluff or clickbait.\n\nUK English spelling.\n\nOUTPUT REQUIREMENTS\n\nRespond ONLY with a valid JSON object in this exact format:\n\nJSON\n\n{\n\"message\": {\n\"role\": \"assistant\",\n\"content\": \"[ ... exactly {{ $json.batch_total_posts }} unique strings ... ]\"\n}\n}\n\nDo NOT use markdown, code blocks, or add any introductory text or explanation."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2944,
+        160
+      ],
+      "id": "0323a432-8e66-4ad3-aeaa-51077140b2ae",
+      "name": "Dustmask LLM",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "row_number": 2,
+          "website_url": "https://dustmask.co.uk/",
+          "active_status": "ACTIVE",
+          "plan_tier": "solar",
+          "auth_key": "eaEAlPVUp25fY26d0291PH8nacQWPqKw",
+          "joined_on": "27.09.25",
+          "google_ads": "",
+          "google_ads_id": "",
+          "campaign_id": "",
+          "asset_group_id": "",
+          "daily_budget_gbp": "",
+          "author_name": "Torxup",
+          "language": "en",
+          "author_type": "company",
+          "author_bio": "Torxup brings certified protection to DIY and trade. Our CoreMask respirators and filter systems are built to keep you safe from dust, paint and vapours while you work.",
+          "used_topics": [
+            "best-reusable-dust-mask-uk-mdf-sanding-torxup",
+            "which-mask-best-mdf-dust-flowcore-vs-disposables",
+            "workshop-plaster-tile-dust-respirator-advice-guide",
+            "stop-mask-leaks-coremask-quick-fit-guide",
+            "mask-selection-guide-dust-flowcore-uk",
+            "compare-reusable-vs-disposable-dust-mask-coremask-interactive",
+            "reusable-dust-mask-uk-cost-vs-disposable-savings-torxup",
+            "paint-resin-masks-when-use-prodefend-torxup",
+            "filters-for-paint-prep-prodefend-vs-flowcore-torxup",
+            "diy-resin-safety-prodefend-carbon-pads-ventilation",
+            "filter-lifespan-when-change-flowcore-prodefend-pads",
+            "dust-mask-filters-uk-flowcore-woodwork-sanding",
+            "choose-replaceable-filter-face-mask-uk-torxup",
+            "best-reusable-face-mask-uk-painters-torxup-coremask",
+            "ce-dust-mask-trade-buying-checklist",
+            "workshop-dust-mask-plaster-tile-torxup-flowcore",
+            "budget-respirator-uk-coremask-value-diy"
+          ],
+          "resume_url": "https://brandtideai.app.n8n.cloud/webhook-waiting/10145"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Get Apify Dataset": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aggregate Crawl Data": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Filter LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score, Dedupe & Select": {
+      "main": [
+        [
+          {
+            "node": "Automated Interactivity Logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify (Site Crawl)1": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Apify Status (Wait for Finish)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Topic Gen LLM": {
+      "main": [
+        [
+          {
+            "node": "Create Blueprints LLM1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Automated Interactivity Logic": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Consolidator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Blueprints": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Topical Cluster LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Topical Cluster LLM": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Combine Blueprints",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Crawl Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge7": {
+      "main": [
+        [
+          {
+            "node": "Score, Dedupe & Select",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prep HTTPS Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Responsible LLM1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Clone LLM1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "EPR LLM1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SEO LLM1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Memaero LLM",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Eldris Hub LLM",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Dustmask LLM",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Summarise LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prep HTTPS Json": {
+      "main": [
+        [
+          {
+            "node": "Apify (Site Crawl)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarise LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise LLM": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Responsible LLM1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responsible LLM1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Clone LLM1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clone LLM1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "EPR LLM1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EPR LLM1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SEO LLM1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO LLM1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model9": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Memaero LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memaero LLM": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Blueprints LLM1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Blueprints LLM1": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Topic Gen LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Serp Clean": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Flow Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Search1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model10": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Eldris Hub LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eldris Hub LLM": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model11": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Filter LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Filter LLM",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter LLM": {
+      "main": [
+        [
+          {
+            "node": "Google Serp Clean",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Re-Loop Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidator": {
+      "main": [
+        [
+          {
+            "node": "Topical Cluster LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-Loop Data": {
+      "main": [
+        [
+          {
+            "node": "resume_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "resume_url": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify Status (Wait for Finish)": {
+      "main": [
+        [
+          {
+            "node": "If Succeeded1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Succeeded1": {
+      "main": [
+        [
+          {
+            "node": "Get Apify Dataset",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "False Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "False Wait": {
+      "main": [
+        [
+          {
+            "node": "Apify Status (Wait for Finish)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Flow Results": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model12": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Dustmask LLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dustmask LLM": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "712900f5-8f2b-48df-8179-61fd5f8e5f45",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1e5ddc5ee528df55f319ca9535a56c0ea2cb26eb3c67ad3c74d1980af3f141f1"
+  },
+  "id": "w2tidV4g9QAKfupS",
+  "tags": []
+}

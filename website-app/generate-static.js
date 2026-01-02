@@ -22,7 +22,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
  */
 function loadEliteTemplate() {
     try {
-        const templatePath = path.resolve(__dirname, 'website/launchedin10-blog-categories.html');
+        const templatePath = path.resolve(__dirname, '../website/launchedin10-blog-categories.html');
         return fs.readFileSync(templatePath, 'utf8');
     } catch (error) {
         console.error('CRITICAL ERROR: Could not load design template:', error);
