@@ -5,7 +5,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/',
+  base: '',
   plugins: [
     react(),
     viteStaticCopy({
@@ -17,6 +17,9 @@ export default defineConfig({
       ]
     })
   ],
+  resolve: {
+    dedupe: ['react', 'react-dom', 'react-router-dom']
+  },
   server: {
     proxy: {
       '/calculator': {
