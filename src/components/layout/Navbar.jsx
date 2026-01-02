@@ -46,18 +46,33 @@ const Navbar = () => {
                 {/* DESKTOP NAV */}
                 <div className="hidden md:flex items-center gap-10">
                     {navLinks.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            className={clsx(
-                                "text-sm font-bold transition-all uppercase tracking-widest",
-                                isActive(link.href)
-                                    ? "text-accent border-b-2 border-accent pb-1"
-                                    : "text-primary/60 hover:text-accent"
-                            )}
-                        >
-                            {link.name}
-                        </a>
+                        link.href.startsWith('/#') ? (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className={clsx(
+                                    "text-sm font-bold transition-all uppercase tracking-widest",
+                                    isActive(link.href)
+                                        ? "text-accent border-b-2 border-accent pb-1"
+                                        : "text-primary/60 hover:text-accent"
+                                )}
+                            >
+                                {link.name}
+                            </a>
+                        ) : (
+                            <Link
+                                key={link.name}
+                                to={link.href}
+                                className={clsx(
+                                    "text-sm font-bold transition-all uppercase tracking-widest",
+                                    isActive(link.href)
+                                        ? "text-accent border-b-2 border-accent pb-1"
+                                        : "text-primary/60 hover:text-accent"
+                                )}
+                            >
+                                {link.name}
+                            </Link>
+                        )
                     ))}
                     <a
                         href="https://app.launchedin10.co.uk"
@@ -80,14 +95,31 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="absolute top-20 left-0 right-0 bg-white border-b border-gray-100 p-6 flex flex-col gap-6 md:hidden shadow-2xl animate-in slide-in-from-top duration-300">
                     {navLinks.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-lg font-bold text-primary hover:text-accent transition-colors"
-                        >
-                            {link.name}
-                        </a>
+                        link.href.startsWith('/#') ? (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={clsx(
+                                    "text-lg font-bold transition-colors",
+                                    isActive(link.href) ? "text-accent" : "text-primary hover:text-accent"
+                                )}
+                            >
+                                {link.name}
+                            </a>
+                        ) : (
+                            <Link
+                                key={link.name}
+                                to={link.href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={clsx(
+                                    "text-lg font-bold transition-colors",
+                                    isActive(link.href) ? "text-accent" : "text-primary hover:text-accent"
+                                )}
+                            >
+                                {link.name}
+                            </Link>
+                        )
                     ))}
                     <a
                         href="https://app.launchedin10.co.uk"

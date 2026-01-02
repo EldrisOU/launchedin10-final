@@ -15,11 +15,26 @@ const Contact = () => {
         e.preventDefault();
         setStatus('submitting');
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch('https://acheexsffdcuzidpiwbh.supabase.co/functions/v1/contact-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        // For now, just show success
-        setStatus('success');
+            const result = await response.json();
+            if (result.ok) {
+                setStatus('success');
+            } else {
+                console.error('Email error:', result.error);
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Contact form submission error:', error);
+            setStatus('error');
+        }
     };
 
     const handleChange = (e) => {
@@ -97,6 +112,12 @@ const Contact = () => {
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {status === 'error' && (
+                                    <div className="p-4 bg-red-50 border border-red-100 rounded-lg flex items-center gap-3 text-red-700 text-sm">
+                                        <AlertCircle size={18} />
+                                        <span>Something went wrong. Please try again or email us directly at hello@launchedin10.co.uk</span>
+                                    </div>
+                                )}
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">Name <span className="text-red-500">*</span></label>
                                     <input

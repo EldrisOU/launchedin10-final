@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import ScrollToTop from './components/layout/ScrollToTop';
 import ConciergePanel from './components/ConciergePanel';
 
 import Home from './pages/Home';
@@ -16,6 +17,7 @@ function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen bg-[var(--bg-warm)] selection:bg-[var(--teal)] selection:text-white">
           <Navbar />
 

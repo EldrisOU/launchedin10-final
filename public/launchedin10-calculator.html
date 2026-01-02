@@ -768,11 +768,30 @@
             color: var(--navy);
         }
 
+        .pricing-deposit {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            color: var(--teal);
+            font-weight: 700;
+            border-top: 1px dashed var(--teal-bg);
+            padding-top: 0.5rem;
+        }
+
+        .pricing-deposit-label {
+            font-size: 1rem;
+        }
+
+        .pricing-deposit-value {
+            font-size: 1.5rem;
+        }
+
         .pricing-monthly {
             text-align: right;
             font-size: 0.875rem;
             color: var(--grey-500);
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
         }
 
         /* [CALC-012] CTA Section */
@@ -1209,16 +1228,23 @@
                 </div>
                 <div class="pricing-divider"></div>
                 <div class="pricing-total">
-                    <span class="pricing-total-label">Activation Total</span>
+                    <span class="pricing-total-label">Total Activation Fee</span>
                     <span class="pricing-total-value">£<span id="totalPriceDisplay">997</span></span>
+                </div>
+                <div class="pricing-deposit">
+                    <span class="pricing-deposit-label">Due Today (50% Deposit)</span>
+                    <span class="pricing-deposit-value">£<span id="depositPriceDisplay">498.50</span></span>
                 </div>
                 <div class="pricing-monthly">Then £<span id="monthlyPriceDisplay">149</span>/month</div>
             </div>
 
             <!-- [CALC-012] CTA Section -->
             <div class="cta-section">
+                <p style="font-size: 0.85rem; color: var(--navy); margin-bottom: 1rem; font-weight: 600; opacity: 0.8;">
+                    Note: Only 50% of the activation fee is due today. The remaining 50% is payable upon site go-live.
+                </p>
                 <button class="cta-primary" id="ctaButton">
-                    Get Started — Pay £<span id="ctaAmount">997</span>
+                    Get Started — Pay £<span id="ctaAmount">997</span> Now
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M5 12h14"></path>
@@ -1373,6 +1399,7 @@
             overageItemsDisplay: document.getElementById('overageItemsDisplay'),
             overagePriceDisplay: document.getElementById('overagePriceDisplay'),
             totalPriceDisplay: document.getElementById('totalPriceDisplay'),
+            depositPriceDisplay: document.getElementById('depositPriceDisplay'),
             monthlyPriceDisplay: document.getElementById('monthlyPriceDisplay'),
             ctaButton: document.getElementById('ctaButton'),
             ctaAmount: document.getElementById('ctaAmount'),
@@ -1450,6 +1477,7 @@
             const tier = CONFIG.tiers[state.selectedTier];
             const overage = calculateOverage(state.selectedTier, state.scanResults.posts, state.scanResults.products);
             const total = tier.activation + overage.cost;
+            const deposit = Math.ceil(total / 2); // 50% upfront
 
             elements.tierNameDisplay.textContent = state.selectedTier.charAt(0).toUpperCase() + state.selectedTier.slice(1);
             elements.tierPriceDisplay.textContent = tier.activation.toLocaleString();
@@ -1463,8 +1491,9 @@
             }
 
             elements.totalPriceDisplay.textContent = total.toLocaleString();
+            elements.depositPriceDisplay.textContent = deposit.toLocaleString();
             elements.monthlyPriceDisplay.textContent = tier.monthly;
-            elements.ctaAmount.textContent = total.toLocaleString();
+            elements.ctaAmount.textContent = deposit.toLocaleString();
 
             // Update recommendation note
             if (overage.items > 0) {

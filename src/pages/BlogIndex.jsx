@@ -139,8 +139,8 @@ const BlogIndex = () => {
                         transition={{ delay: 0.1 }}
                         className="text-5xl md:text-7xl font-display font-bold text-[var(--navy)] mb-8 tracking-tight leading-[1.05]"
                     >
-                        {category ? activeSilos[0]?.name : 'Inside'} <span className="relative inline-block">
-                            {category ? 'Insights' : 'The Lab'}
+                        {category ? activeSilos[0]?.name : 'Grow Your Business with Daily'} <span className="relative inline-block">
+                            {category ? 'Insights' : 'SEO Content That Ranks'}
                             <span className="absolute bottom-4 left-0 right-0 h-3 bg-gradient-to-r from-[rgba(14,165,165,0.3)] to-[rgba(14,165,165,0.1)] -z-10 rounded-full" />
                         </span>
                     </motion.h1>
@@ -151,7 +151,7 @@ const BlogIndex = () => {
                         transition={{ delay: 0.2 }}
                         className="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-12 leading-relaxed"
                     >
-                        Master the mechanics of high-conversion digital assets. No fluff. Just the frameworks we use to launch businesses in 10 days.
+                        {category ? `Master the mechanics of ${activeSilos[0]?.name}. No fluff. Just the frameworks we use to launch businesses in 10 days.` : "Expert guides, actionable insights, and proven strategies for UK SMEs. Every article is optimised for Google, published automatically, and designed to drive qualified traffic to your business."}
                     </motion.p>
 
                     <motion.div
