@@ -254,7 +254,7 @@ async function generateIndividualPosts(posts, distDir) {
 
         // TRANSFORM YOUTUBE VIDEOS & CONTENT (Elite Robust version)
         let postContent = post.post_content || '';
-        const youtubeRegex = /(?:<figure[^>]*>[\s\n\r]*)?(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(?:[^\s<"']*)(?:[\s\n\r]*<\/figure>)?/g;
+        const youtubeRegex = /(?:<p>[\s\n\r]*)?(?:<figure[^>]*>[\s\n\r]*(?:<div[^>]*>[\s\n\r]*)?)?(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(?:[^\s<"']*)(?:[\s\n\r]*<\/div>)?(?:[\s\n\r]*<\/figure>)?(?:[\s\n\r]*<\/p>)?/g;
 
         postContent = postContent.replace(youtubeRegex, (match, videoId) => {
             return `

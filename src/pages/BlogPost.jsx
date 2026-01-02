@@ -30,7 +30,7 @@ const BlogPost = () => {
         if (!content) return '';
 
         // Match both raw URLs and WP figure wrappers (lenient with whitespace/newlines)
-        const youtubeRegex = /(?:<figure[^>]*>[\s\n\r]*)?(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(?:[^\s<"']*)(?:[\s\n\r]*<\/figure>)?/g;
+        const youtubeRegex = /(?:<p>[\s\n\r]*)?(?:<figure[^>]*>[\s\n\r]*(?:<div[^>]*>[\s\n\r]*)?)?(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(?:[^\s<"']*)(?:[\s\n\r]*<\/div>)?(?:[\s\n\r]*<\/figure>)?(?:[\s\n\r]*<\/p>)?/g;
 
         return content.replace(youtubeRegex, (match, videoId) => {
             return `
