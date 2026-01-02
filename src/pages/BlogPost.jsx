@@ -25,21 +25,22 @@ const BlogPost = () => {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // YouTube Parser Logic
+    // YouTube Parser Logic (Elite Robust version)
     const parseYoutubeVideos = (content) => {
         if (!content) return '';
-        const youtubeRegex = /<figure class="wp-block-embed__wrapper">(https?:\/\/(www\.)?(youtube\.com|youtu\.be)\/[^\s<"']+)<\/figure>/g;
-        return content.replace(youtubeRegex, (match, url) => {
-            const videoId = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)?.[1];
-            if (!videoId) return match;
+
+        // Match both raw URLs and WP figure wrappers
+        const youtubeRegex = /(?:<figure[^>]*>)?(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(?:[^\s<"']*)(?:<\/figure>)?/g;
+
+        return content.replace(youtubeRegex, (match, videoId) => {
             return `
                 <div class="video-container my-16 relative aspect-video w-full rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-[var(--navy)]">
                     <iframe 
-                        src="https://www.youtube-nocookie.com/embed/${videoId}" 
+                        src="https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1" 
                         title="YouTube video player" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen
+                        allowfullscreen 
                         class="absolute top-0 left-0 w-full h-full"
                     ></iframe>
                 </div>

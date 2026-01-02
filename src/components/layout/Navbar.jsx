@@ -16,7 +16,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Process', href: '/#process' },
         { name: 'Pricing', href: '/#pricing' },
-        { name: 'Insights', href: '/blog', active: true },
+        { name: 'The Lab', href: '/blog', active: true },
     ];
 
     return (

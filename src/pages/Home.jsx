@@ -149,10 +149,10 @@ const Home = () => {
             <Guarantee />
             <SocialProof />
             <Pricing />
-            <BlogFeed />
             <Comparison />
             <AuditTicker />
             <Calculator />
+            <BlogFeed />
             <FAQ />
             <Contact />
             <CTA />

@@ -1,1 +1,3 @@
 /* /index.html 200
+# SEO Redirects for Semantic Silo Transition
+/blog/:slug /blog 301

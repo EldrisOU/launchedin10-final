@@ -19,8 +19,11 @@ const Footer = () => {
                                 Launched<span className="text-accent italic">In10</span>
                             </span>
                         </Link>
-                        <p className="text-gray-400 text-lg leading-relaxed max-w-md mb-8 mx-auto md:mx-0">
+                        <p className="text-gray-400 text-lg leading-relaxed max-w-md mb-4 mx-auto md:mx-0">
                             Precision engineering for the private sector. We build hyper-performance digital assets that turn visibility into regional market share.
+                        </p>
+                        <p className="text-gray-500 text-sm mb-8 font-medium">
+                            61 Bridge Streent, Kington, Herefordshire, HR5 3DJ
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
                             <div className="w-12 h-12 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center hover:bg-accent transition-colors cursor-pointer group">
@@ -38,7 +41,7 @@ const Footer = () => {
                         <ul className="space-y-4 text-gray-400 font-medium">
                             <li><a href="/#process" className="hover:text-white transition-colors">Process</a></li>
                             <li><a href="/#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                            <li><Link to="/blog" className="hover:text-white transition-colors">Insights</Link></li>
+                            <li><Link to="/blog" className="hover:text-white transition-colors">The Lab</Link></li>
                             <li><a href="/#comparison" className="hover:text-white transition-colors">Comparison</a></li>
                         </ul>
                     </div>

@@ -229,10 +229,10 @@ const BlogIndex = () => {
                 <div className="max-w-screen-xl mx-auto">
                     <div className="text-center mb-24">
                         <h2 className="text-4xl font-display font-bold text-[var(--navy)] tracking-tight mb-4">
-                            The Knowledge <span className="text-[var(--teal)]">Silos</span>
+                            The Knowledge <span className="text-[var(--teal)]">{category ? 'Silo' : 'Silos'}</span>
                         </h2>
-                        <p className="text-[var(--text-secondary)]">Explore curated clusters of professional digital intelligence.</p>
-                    </div>
+                        <p className="text-[var(--text-secondary)]">{category ? `Curated intelligence for ${activeSilos[0]?.name}.` : 'Explore curated clusters of professional digital intelligence.'}</p>
+                    </div >
 
                     <div className="space-y-24">
                         {activeSilos.map((silo) => {
@@ -251,14 +251,16 @@ const BlogIndex = () => {
                                                 <p className="text-[var(--text-muted)] mt-1">{silo.description}</p>
                                             </div>
                                         </div>
-                                        <Link
-                                            to={`/blog#${silo.id}`}
-                                            className="inline-flex items-center gap-2 text-sm font-bold text-[var(--teal)] hover:text-[var(--navy)] transition-colors group"
-                                        >
-                                            View Archive
-                                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                                        </Link>
-                                    </div>
+                                        {!category && (
+                                            <Link
+                                                to={`/blog/${silo.id}`}
+                                                className="inline-flex items-center gap-2 text-sm font-bold text-[var(--teal)] hover:text-[var(--navy)] transition-colors group"
+                                            >
+                                                View Archive
+                                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                            </Link>
+                                        )}
+                                    </div >
 
                                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                                         {siloPosts.map((post) => (
@@ -317,15 +319,15 @@ const BlogIndex = () => {
                                             </motion.article>
                                         ))}
                                     </div>
-                                </div>
+                                </div >
                             );
                         })}
-                    </div>
-                </div>
-            </section>
+                    </div >
+                </div >
+            </section >
 
             {/* CALL TO ACTION */}
-            <section className="py-32 px-4">
+            < section className="py-32 px-4" >
                 <div className="max-w-screen-xl mx-auto rounded-[3rem] bg-[var(--navy)] p-12 md:p-24 text-center relative overflow-hidden shadow-2xl">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--teal)] opacity-10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3" />
                     <div className="relative z-10 max-w-2xl mx-auto">
@@ -344,8 +346,8 @@ const BlogIndex = () => {
                         </Link>
                     </div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };
 
