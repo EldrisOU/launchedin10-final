@@ -22,7 +22,7 @@ serve(async (req) => {
 
         // --- 1. SMTP Configuration ---
         // We use secrets set in Supabase dashboard
-        const smtpHost = Deno.env.get("SMTP_HOST") || "launchedin10.co.uk";
+        const smtpHost = Deno.env.get("SMTP_HOST") || "webmail.launchedin10.co.uk";
         const smtpPort = Number(Deno.env.get("SMTP_PORT")) || 465;
         const smtpUser = Deno.env.get("SMTP_USER") || "hello@launchedin10.co.uk";
         const smtpPass = Deno.env.get("SMTP_PASS") || "6h9G1&om7";
