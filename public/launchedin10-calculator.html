@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Quote | LaunchedIn10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* [CALC-001] Root Variables */
+        :root {
+            --navy: #1a2b4a;
+            --navy-dark: #0f172a;
+            --teal: #0ea5a5;
+            --teal-light: #14b8a6;
+            --teal-dark: #0d9488;
+            --teal-bg: rgba(14, 165, 165, 0.08);
+            --white: #ffffff;
+            --grey-50: #f8fafc;
+            --grey-100: #f1f5f9;
+            --grey-200: #e2e8f0;
+            --grey-300: #cbd5e1;
+            --grey-400: #94a3b8;
+            --grey-500: #64748b;
+            --grey-600: #475569;
+            --grey-700: #374151;
+            --grey-900: #0f172a;
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(26, 43, 74, 0.08);
+            --shadow-lg: 0 8px 24px rgba(26, 43, 74, 0.12);
+            --shadow-xl: 0 20px 40px rgba(26, 43, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--grey-50);
+            color: var(--grey-900);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        /* [CALC-002] Container */
+        .calculator-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .calculator-container {
+                padding: 3rem 2rem 5rem;
+            }
+        }
+
+        /* [CALC-003] Header */
+        .calc-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.125rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo span {
+            color: var(--teal);
+        }
+
+        .calc-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .calc-title em {
+            font-style: italic;
+            color: var(--teal);
+        }
+
+        @media (min-width: 768px) {
+            .calc-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .calc-subtitle {
+            font-size: 1rem;
+            color: var(--grey-500);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* [CALC-004] URL Input Section */
+        .input-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--grey-500);
+            margin-bottom: 0.75rem;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .input-wrapper {
+                flex-direction: row;
+            }
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            font-family: inherit;
+            border: 2px solid var(--grey-200);
+            border-radius: var(--radius-lg);
+            background: var(--grey-50);
+            color: var(--grey-900);
+            transition: all 0.2s;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: var(--teal);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--teal-bg);
+        }
+
+        .url-input::placeholder {
+            color: var(--grey-400);
+        }
+
+        .url-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .analyse-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .analyse-btn:hover:not(:disabled) {
+            background: var(--teal-dark);
+            transform: translateY(-1px);
+        }
+
+        .analyse-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .analyse-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .input-hint {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--grey-400);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-hint svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* [CALC-005] Error State */
+        .error-message {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--error-bg);
+            border-radius: var(--radius-md);
+            color: var(--error);
+            font-size: 0.875rem;
+        }
+
+        .error-message.visible {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .error-message svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* [CALC-006] Scanning Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            animation: modalIn 0.3s ease-out;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .countdown-ring {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .countdown-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .countdown-ring circle {
+            fill: none;
+            stroke-width: 6;
+        }
+
+        .countdown-ring .bg {
+            stroke: var(--grey-100);
+        }
+
+        .countdown-ring .progress {
+            stroke: var(--teal);
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .countdown-number {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-domain {
+            font-size: 0.875rem;
+            color: var(--grey-500);
+            margin-bottom: 2rem;
+            word-break: break-all;
+        }
+
+        .status-list {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--grey-400);
+            transition: color 0.3s;
+        }
+
+        .status-item.complete {
+            color: var(--grey-700);
+        }
+
+        .status-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--grey-100);
+            transition: all 0.3s;
+        }
+
+        .status-item.complete .status-icon {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .status-icon svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* [CALC-007] Results Section */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.visible {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .scanned-domain {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--grey-600);
+        }
+
+        .scanned-domain svg {
+            width: 16px;
+            height: 16px;
+            color: var(--success);
+        }
+
+        .scanned-domain strong {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .rescan-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: inherit;
+            background: var(--grey-100);
+            color: var(--grey-600);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rescan-btn:hover {
+            background: var(--grey-200);
+            color: var(--navy);
+        }
+
+        .rescan-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* [CALC-008] Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--grey-100);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 0.75rem;
+            background: var(--teal-bg);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--teal);
+        }
+
+        .stat-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--grey-500);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-top: 0.25rem;
+        }
+
+        /* [CALC-009] Recommendation Badge */
+        .recommendation-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation-badge svg {
+            width: 16px;
+            height: 16px;
+            color: var(--teal-light);
+        }
+
+        .recommendation-note {
+            font-size: 0.875rem;
+            color: var(--grey-600);
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--teal);
+        }
+
+        /* [CALC-010] Tier Selector */
+        .tier-section {
+            margin-bottom: 2rem;
+        }
+
+        .tier-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--grey-500);
+            margin-bottom: 1rem;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tier-card {
+            position: relative;
+            background: var(--white);
+            border: 2px solid var(--grey-200);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tier-card:hover {
+            border-color: var(--grey-300);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tier-card.selected {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px var(--teal-bg);
+        }
+
+        .tier-card.recommended::before {
+            content: '★ BEST FIT';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            letter-spacing: 0.03em;
+        }
+
+        .tier-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .tier-limits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            color: var(--grey-600);
+        }
+
+        .tier-limits span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .tier-limits svg {
+            width: 14px;
+            height: 14px;
+            color: var(--grey-400);
+        }
+
+        .tier-price {
+            padding-top: 1rem;
+            border-top: 1px solid var(--grey-100);
+        }
+
+        .tier-activation {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .tier-monthly {
+            font-size: 0.8rem;
+            color: var(--grey-500);
+            margin-top: 0.25rem;
+        }
+
+        .tier-radio {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--grey-500);
+        }
+
+        .tier-radio-dot {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--grey-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .tier-card.selected .tier-radio-dot {
+            border-color: var(--teal);
+        }
+
+        .tier-radio-dot::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--teal);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s;
+        }
+
+        .tier-card.selected .tier-radio-dot::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* [CALC-011] Pricing Breakdown */
+        .pricing-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--grey-500);
+            margin-bottom: 1.25rem;
+        }
+
+        .pricing-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .pricing-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--grey-700);
+        }
+
+        .pricing-line.overage {
+            color: var(--warning);
+            background: var(--warning-bg);
+            padding: 0.5rem 0.75rem;
+            margin: 0 -0.75rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .pricing-line.overage.hidden {
+            display: none;
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: var(--grey-200);
+            margin: 0.5rem 0;
+        }
+
+        .pricing-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+        }
+
+        .pricing-total-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .pricing-total-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .pricing-monthly {
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--grey-500);
+            margin-top: 0.25rem;
+        }
+
+        /* [CALC-012] CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 400px;
+            padding: 1.25rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            font-family: inherit;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .cta-primary:hover {
+            background: var(--teal-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 165, 0.3);
+        }
+
+        .cta-primary svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .cta-guarantee {
+            font-size: 0.8rem;
+            color: var(--grey-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: inherit;
+            background: transparent;
+            color: var(--grey-600);
+            border: 1px solid var(--grey-300);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cta-secondary:hover {
+            background: var(--grey-50);
+            border-color: var(--grey-400);
+        }
+
+        .cta-secondary svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* [CALC-013] Email Quote Form */
+        .email-form {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-lg);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .email-form.visible {
+            display: block;
+        }
+
+        .email-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .email-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--grey-600);
+        }
+
+        .form-group input {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            border: 1px solid var(--grey-300);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-bg);
+        }
+
+        .email-submit {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: inherit;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .email-submit:hover {
+            background: var(--navy-dark);
+        }
+
+        .email-success {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            color: var(--success);
+            font-size: 0.9rem;
+        }
+
+        .email-success.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .email-success svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* [CALC-014] Footer */
+        .calc-footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--grey-200);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--grey-400);
+        }
+
+        .footer-text a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator-container">
+        <!-- [CALC-003] Header -->
+        <header class="calc-header">
+            <a href="https://launchedin10.co.uk" class="logo">Launched<span>In10</span></a>
+            <h1 class="calc-title">Get an <em>Instant Quote</em> for Your Website</h1>
+            <p class="calc-subtitle">We'll scan your existing site and show you the exact cost to rebuild it on our
+                platform.</p>
+        </header>
+
+        <!-- [CALC-004] URL Input Section -->
+        <section class="input-section" id="inputSection">
+            <label class="input-label">Enter Your Website URL</label>
+            <div class="input-wrapper">
+                <input type="url" class="url-input" id="urlInput" placeholder="yoursite.com" autocomplete="url">
+                <button class="analyse-btn" id="analyseBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    Analyse
+                </button>
+            </div>
+            <p class="input-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                </svg>
+                We'll scan your sitemap to count pages, blog posts, and products.
+            </p>
+            <div class="error-message" id="errorMessage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="m15 9-6 6"></path>
+                    <path d="m9 9 6 6"></path>
+                </svg>
+                <span id="errorText">Please enter a valid website URL.</span>
+            </div>
+        </section>
+
+        <!-- [CALC-007] Results Section -->
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <div class="scanned-domain">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Scanned: <strong id="scannedDomain">example.com</strong>
+                </div>
+                <button class="rescan-btn" id="rescanBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                        <path d="M21 3v5h-5"></path>
+                    </svg>
+                    Rescan
+                </button>
+            </div>
+
+            <!-- [CALC-008] Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-value" id="pagesCount">0</div>
+                    <div class="stat-label">Pages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9"></path>
+                            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value" id="postsCount">0</div>
+                    <div class="stat-label">Blog Posts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value" id="productsCount">0</div>
+                    <div class="stat-label">Products</div>
+                </div>
+            </div>
+
+            <!-- [CALC-009] Recommendation -->
+            <div style="text-align: center;">
+                <div class="recommendation-badge" id="recommendationBadge">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
+                    <span>RECOMMENDED: <strong id="recommendedTierName">GROWTH</strong></span>
+                </div>
+            </div>
+
+            <div class="recommendation-note" id="recommendationNote">
+                Your site fits within Growth limits. No overage charges apply.
+            </div>
+
+            <!-- [CALC-010] Tier Selector -->
+            <div class="tier-section">
+                <div class="tier-label">Select Your Tier</div>
+                <div class="tier-grid">
+                    <div class="tier-card" data-tier="starter" data-activation="497" data-monthly="99" data-pages="5"
+                        data-posts="25" data-products="10">
+                        <div class="tier-name">Starter</div>
+                        <div class="tier-limits">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                </svg>
+                                Up to 5 pages
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                </svg>
+                                25 blog posts
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                10 products
+                            </span>
+                        </div>
+                        <div class="tier-price">
+                            <div class="tier-activation">£497</div>
+                            <div class="tier-monthly">+£99/month</div>
+                        </div>
+                        <div class="tier-radio">
+                            <span class="tier-radio-dot"></span>
+                            Select
+                        </div>
+                    </div>
+
+                    <div class="tier-card" data-tier="growth" data-activation="997" data-monthly="149" data-pages="12"
+                        data-posts="100" data-products="25">
+                        <div class="tier-name">Growth</div>
+                        <div class="tier-limits">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                </svg>
+                                Up to 12 pages
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                </svg>
+                                100 blog posts
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                25 products
+                            </span>
+                        </div>
+                        <div class="tier-price">
+                            <div class="tier-activation">£997</div>
+                            <div class="tier-monthly">+£149/month</div>
+                        </div>
+                        <div class="tier-radio">
+                            <span class="tier-radio-dot"></span>
+                            Select
+                        </div>
+                    </div>
+
+                    <div class="tier-card" data-tier="scale" data-activation="1997" data-monthly="249" data-pages="25"
+                        data-posts="200" data-products="75">
+                        <div class="tier-name">Scale</div>
+                        <div class="tier-limits">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                </svg>
+                                Up to 25 pages
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                </svg>
+                                200 blog posts
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                75 products
+                            </span>
+                        </div>
+                        <div class="tier-price">
+                            <div class="tier-activation">£1,997</div>
+                            <div class="tier-monthly">+£249/month</div>
+                        </div>
+                        <div class="tier-radio">
+                            <span class="tier-radio-dot"></span>
+                            Select
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- [CALC-011] Pricing Breakdown -->
+            <div class="pricing-section">
+                <div class="pricing-title">Your Quote</div>
+                <div class="pricing-lines">
+                    <div class="pricing-line">
+                        <span>Design & Build (<span id="tierNameDisplay">Growth</span> tier)</span>
+                        <span>£<span id="tierPriceDisplay">997</span>.00</span>
+                    </div>
+                    <div class="pricing-line overage hidden" id="overageLine">
+                        <span>Migration overage (<span id="overageItemsDisplay">0</span> items × £2)</span>
+                        <span>£<span id="overagePriceDisplay">0</span>.00</span>
+                    </div>
+                </div>
+                <div class="pricing-divider"></div>
+                <div class="pricing-total">
+                    <span class="pricing-total-label">Activation Total</span>
+                    <span class="pricing-total-value">£<span id="totalPriceDisplay">997</span></span>
+                </div>
+                <div class="pricing-monthly">Then £<span id="monthlyPriceDisplay">149</span>/month</div>
+            </div>
+
+            <!-- [CALC-012] CTA Section -->
+            <div class="cta-section">
+                <button class="cta-primary" id="ctaButton">
+                    Get Started — Pay £<span id="ctaAmount">997</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </button>
+                <p class="cta-guarantee">50% now, 50% on design approval. 10-day delivery guaranteed or your money back.
+                </p>
+
+                <button class="cta-secondary" id="emailQuoteBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                    Email me this quote
+                </button>
+
+                <!-- [CALC-013] Email Quote Form -->
+                <div class="email-form" id="emailForm">
+                    <div class="email-form-grid">
+                        <div class="form-group">
+                            <label for="quoteName">Your name</label>
+                            <input type="text" id="quoteName" placeholder="John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="quoteEmail">Your email</label>
+                            <input type="email" id="quoteEmail" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <button class="email-submit" id="sendQuoteBtn">Send My Quote</button>
+                </div>
+
+                <div class="email-success" id="emailSuccess">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Quote sent! Check your inbox.
+                </div>
+            </div>
+        </section>
+
+        <!-- [CALC-014] Footer -->
+        <footer class="calc-footer">
+            <p class="footer-text">
+                Questions? <a href="mailto:hello@launchedin10.co.uk">hello@launchedin10.co.uk</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- [CALC-006] Scanning Modal -->
+    <div class="modal-overlay" id="scanningModal">
+        <div class="modal-content">
+            <div class="countdown-ring">
+                <svg viewBox="0 0 100 100">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="progress" id="countdownProgress" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <div class="countdown-number" id="countdownNumber">15</div>
+            </div>
+            <h2 class="modal-title">Scanning your site...</h2>
+            <p class="modal-domain" id="modalDomain">example.com</p>
+            <div class="status-list">
+                <div class="status-item" id="status1">
+                    <span class="status-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    Finding sitemap
+                </div>
+                <div class="status-item" id="status2">
+                    <span class="status-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    Counting pages
+                </div>
+                <div class="status-item" id="status3">
+                    <span class="status-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    Detecting blog posts
+                </div>
+                <div class="status-item" id="status4">
+                    <span class="status-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    Finding products
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // [CALC-015] State & Config
+        const CONFIG = {
+            webhookUrl: 'https://n8n.eldris.ai/webhook/90651fda-c6fa-428d-bf1e-dcb9d26a7426', // Direct n8n URL
+            portalUrl: 'https://portal.launchedin10.co.uk/onboarding',
+            scanDuration: 15,
+            tiers: {
+                starter: { pages: 5, posts: 25, products: 10, activation: 497, monthly: 99 },
+                growth: { pages: 12, posts: 100, products: 25, activation: 997, monthly: 149 },
+                scale: { pages: 25, posts: 200, products: 75, activation: 1997, monthly: 249 }
+            },
+            overageRate: 2
+        };
+
+        let state = {
+            scannedUrl: '',
+            scanResults: { pages: 0, posts: 0, products: 0 },
+            selectedTier: 'growth',
+            recommendedTier: 'growth',
+            webhookData: null
+        };
+
+        // [CALC-016] DOM Elements
+        const elements = {
+            urlInput: document.getElementById('urlInput'),
+
+            analyseBtn: document.getElementById('analyseBtn'),
+            errorMessage: document.getElementById('errorMessage'),
+            errorText: document.getElementById('errorText'),
+            scanningModal: document.getElementById('scanningModal'),
+            modalDomain: document.getElementById('modalDomain'),
+            countdownNumber: document.getElementById('countdownNumber'),
+            countdownProgress: document.getElementById('countdownProgress'),
+            resultsSection: document.getElementById('resultsSection'),
+            scannedDomain: document.getElementById('scannedDomain'),
+            rescanBtn: document.getElementById('rescanBtn'),
+            pagesCount: document.getElementById('pagesCount'),
+            postsCount: document.getElementById('postsCount'),
+            productsCount: document.getElementById('productsCount'),
+            recommendationBadge: document.getElementById('recommendationBadge'),
+            recommendedTierName: document.getElementById('recommendedTierName'),
+            recommendationNote: document.getElementById('recommendationNote'),
+            tierCards: document.querySelectorAll('.tier-card'),
+            tierNameDisplay: document.getElementById('tierNameDisplay'),
+            tierPriceDisplay: document.getElementById('tierPriceDisplay'),
+            overageLine: document.getElementById('overageLine'),
+            overageItemsDisplay: document.getElementById('overageItemsDisplay'),
+            overagePriceDisplay: document.getElementById('overagePriceDisplay'),
+            totalPriceDisplay: document.getElementById('totalPriceDisplay'),
+            monthlyPriceDisplay: document.getElementById('monthlyPriceDisplay'),
+            ctaButton: document.getElementById('ctaButton'),
+            ctaAmount: document.getElementById('ctaAmount'),
+            emailQuoteBtn: document.getElementById('emailQuoteBtn'),
+            emailForm: document.getElementById('emailForm'),
+            quoteName: document.getElementById('quoteName'),
+            quoteEmail: document.getElementById('quoteEmail'),
+            sendQuoteBtn: document.getElementById('sendQuoteBtn'),
+            emailSuccess: document.getElementById('emailSuccess')
+        };
+
+        // [CALC-017] SUPABASE LOGGING (Elite Proof)
+        async function logAudit(domain, data) {
+            const pages = parseInt(data.pages) || 0;
+            const posts = parseInt(data.posts) || 0;
+            const products = parseInt(data.product_count || data.products) || 0;
+
+            try {
+                await fetch('https://acheexsffdcuzidpiwbh.supabase.co/rest/v1/li10_audit_logs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaGVleHNmZmRjdXppZHBpd2JoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwMjU3MDAsImV4cCI6MjA4MjYwMTcwMH0._RH5vbfRy-v8iHzZkir1oS-aw-uzmmC7dUfgt8Bae1I',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaGVleHNmZmRjdXppZHBpd2JoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwMjU3MDAsImV4cCI6MjA4MjYwMTcwMH0._RH5vbfRy-v8iHzZkir1oS-aw-uzmmC7dUfgt8Bae1I',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        domain: domain,
+                        pages_count: pages,
+                        posts_count: posts,
+                        products_count: products
+                    })
+                });
+            } catch (err) {
+                console.warn('Audit logging failed (non-critical):', err);
+            }
+        }
+
+        // [CALC-017] URL Normalisation
+        function normaliseUrl(input) {
+            let url = input.trim().toLowerCase();
+            url = url.replace(/\/+$/, '');
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            try {
+                const parsed = new URL(url);
+                return parsed.hostname;
+            } catch {
+                return null;
+            }
+        }
+
+        // [CALC-018] Tier Recommendation Logic
+        function recommendTier(pages, posts, products) {
+            if (pages <= 5 && posts <= 25 && products <= 10) return 'starter';
+            if (pages <= 12 && posts <= 100 && products <= 25) return 'growth';
+            return 'scale';
+        }
+
+        // [CALC-019] Overage Calculation
+        function calculateOverage(tier, posts, products) {
+            const limits = CONFIG.tiers[tier];
+            const overagePosts = Math.max(0, posts - limits.posts);
+            const overageProducts = Math.max(0, products - limits.products);
+            const totalItems = overagePosts + overageProducts;
+            return {
+                items: totalItems,
+                cost: totalItems * CONFIG.overageRate
+            };
+        }
+
+        // [CALC-020] Update Pricing Display
+        function updatePricing() {
+            const tier = CONFIG.tiers[state.selectedTier];
+            const overage = calculateOverage(state.selectedTier, state.scanResults.posts, state.scanResults.products);
+            const total = tier.activation + overage.cost;
+
+            elements.tierNameDisplay.textContent = state.selectedTier.charAt(0).toUpperCase() + state.selectedTier.slice(1);
+            elements.tierPriceDisplay.textContent = tier.activation.toLocaleString();
+
+            if (overage.items > 0) {
+                elements.overageLine.classList.remove('hidden');
+                elements.overageItemsDisplay.textContent = overage.items;
+                elements.overagePriceDisplay.textContent = overage.cost;
+            } else {
+                elements.overageLine.classList.add('hidden');
+            }
+
+            elements.totalPriceDisplay.textContent = total.toLocaleString();
+            elements.monthlyPriceDisplay.textContent = tier.monthly;
+            elements.ctaAmount.textContent = total.toLocaleString();
+
+            // Update recommendation note
+            if (overage.items > 0) {
+                elements.recommendationNote.innerHTML = `Your site exceeds ${state.selectedTier.charAt(0).toUpperCase() + state.selectedTier.slice(1)} limits by <strong>${overage.items} items</strong>. Consider upgrading to avoid overage charges.`;
+            } else {
+                elements.recommendationNote.innerHTML = `Your site fits within ${state.selectedTier.charAt(0).toUpperCase() + state.selectedTier.slice(1)} limits. No overage charges apply.`;
+            }
+        }
+
+        // [CALC-021] Select Tier
+        function selectTier(tierName) {
+            state.selectedTier = tierName;
+            elements.tierCards.forEach(card => {
+                card.classList.toggle('selected', card.dataset.tier === tierName);
+            });
+            updatePricing();
+        }
+
+        // [CALC-022] Show Error
+        function showError(message) {
+            elements.errorText.textContent = message;
+            elements.errorMessage.classList.add('visible');
+        }
+
+        function hideError() {
+            elements.errorMessage.classList.remove('visible');
+        }
+
+        // [CALC-023] Scanning Modal Animation
+        let scanTimer;
+        function runScanAnimation(domain) {
+            elements.modalDomain.textContent = domain;
+            elements.scanningModal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+
+            let secondsPassed = 0;
+            const circumference = 2 * Math.PI * 45;
+
+            // Reset status items
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`status${i}`).classList.remove('complete');
+            }
+            elements.countdownProgress.style.strokeDashoffset = circumference; // Start empty
+
+            scanTimer = setInterval(() => {
+                secondsPassed++;
+                const displaySeconds = Math.max(0, CONFIG.scanDuration - secondsPassed);
+                elements.countdownNumber.textContent = displaySeconds;
+
+                const progress = Math.min(secondsPassed / CONFIG.scanDuration, 1);
+                elements.countdownProgress.style.strokeDashoffset = circumference * (1 - progress);
+
+                // Animate status items based on relative progress
+                if (secondsPassed >= 2) document.getElementById('status1').classList.add('complete');
+                if (secondsPassed >= 5) document.getElementById('status2').classList.add('complete');
+                if (secondsPassed >= 8) document.getElementById('status3').classList.add('complete');
+                if (secondsPassed >= 11) document.getElementById('status4').classList.add('complete');
+
+                if (secondsPassed >= CONFIG.scanDuration || (secondsPassed >= 3 && state.webhookData)) {
+                    // Logic to finalize if we have data or timed out
+                    if (state.webhookData) {
+                        clearInterval(scanTimer);
+                    }
+                }
+            }, 1000);
+
+            return scanTimer;
+        }
+
+        function hideScanModal() {
+            elements.scanningModal.classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+
+        // [CALC-024] Perform Scan
+        async function performScan() {
+            hideError();
+
+            const domain = normaliseUrl(elements.urlInput.value);
+            if (!domain) {
+                showError('Please enter a valid website URL (e.g., yoursite.com)');
+                return;
+            }
+
+            state.scannedUrl = domain;
+            state.webhookData = null; // Clear previous data
+
+            elements.analyseBtn.disabled = true;
+            elements.urlInput.disabled = true;
+            elements.analyseBtn.innerHTML = `
+                <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25"></circle>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-opacity="1"></path>
+                </svg>
+                Processing...
+            `;
+
+            runScanAnimation(domain);
+            const startTime = Date.now();
+
+            try {
+                const params = new URLSearchParams({ domain: domain });
+                const response = await fetch(`${CONFIG.webhookUrl}?${params.toString()}`);
+
+                if (!response.ok) throw new Error('Network error');
+
+                const dataRaw = await response.json();
+                console.log("Scanner Data Received:", dataRaw);
+                let data = Array.isArray(dataRaw) ? dataRaw[0] : dataRaw;
+
+                // Robust check: We only error if we have NO pages AND either a null result or an explicit error
+                if (!data || (data.error && !data.pages && !data.posts)) {
+                    console.error("Scanner reported error or empty data:", data);
+                    throw new Error('SITEMAP_NOT_FOUND');
+                }
+
+                state.webhookData = data;
+
+                // [INTERNAL] Log discovery data for the Elite Proof Ticker
+                logAudit(domain, data);
+
+                // Ensure a minimum for UX
+                const timeTaken = Date.now() - startTime;
+                const minWait = 4000;
+                const remainingWait = Math.max(0, minWait - timeTaken);
+
+                await new Promise(resolve => setTimeout(resolve, remainingWait));
+
+                // Finalize Scan
+                clearInterval(scanTimer);
+                hideScanModal();
+
+                // Process results
+                state.scanResults = {
+                    pages: parseInt(data.pages) || 0,
+                    posts: parseInt(data.posts) || 0,
+                    products: parseInt(data.product_count || data.products) || 0
+                };
+
+                showResults();
+
+            } catch (error) {
+                clearInterval(scanTimer);
+                hideScanModal();
+
+                if (error.message === 'SITEMAP_NOT_FOUND') {
+                    showError("Unable to scan sitemap automatically. This usually means your robots.txt or security settings are blocking our bot. Contact us for a manual quote!");
+                } else {
+                    console.error("Scan error:", error);
+                    showError('System connection timed out. Please try again or check your URL.');
+                }
+                resetButton();
+            }
+        }
+
+        // [CALC-025] Show Results
+        function showResults() {
+            hideScanModal();
+
+            elements.scannedDomain.textContent = state.scannedUrl;
+            elements.pagesCount.textContent = state.scanResults.pages;
+            elements.postsCount.textContent = state.scanResults.posts;
+            elements.productsCount.textContent = state.scanResults.products;
+
+            state.recommendedTier = recommendTier(
+                state.scanResults.pages,
+                state.scanResults.posts,
+                state.scanResults.products
+            );
+            state.selectedTier = state.recommendedTier;
+
+            elements.recommendedTierName.textContent = state.recommendedTier.toUpperCase();
+
+            // Mark recommended tier
+            elements.tierCards.forEach(card => {
+                card.classList.remove('recommended', 'selected');
+                if (card.dataset.tier === state.recommendedTier) {
+                    card.classList.add('recommended', 'selected');
+                }
+            });
+
+            updatePricing();
+
+            elements.resultsSection.classList.add('visible');
+            elements.analyseBtn.innerHTML = `
+                Lets Go!
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            `;
+            elements.analyseBtn.disabled = false;
+            elements.urlInput.disabled = false;
+
+            // Scroll to results
+            elements.resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function resetButton() {
+            elements.analyseBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                Analyse
+            `;
+            elements.analyseBtn.disabled = false;
+            elements.urlInput.disabled = false;
+        }
+
+        // [CALC-026] CTA Redirect
+        function handleCTAClick() {
+            const tier = CONFIG.tiers[state.selectedTier];
+            const overage = calculateOverage(state.selectedTier, state.scanResults.posts, state.scanResults.products);
+            const total = tier.activation + overage.cost;
+
+            const params = new URLSearchParams({
+                url: `https://${state.scannedUrl}`,
+                tier: state.selectedTier,
+                pages: state.scanResults.pages,
+                posts: state.scanResults.posts,
+                products: state.scanResults.products,
+                overage: overage.cost,
+                activation: total,
+                monthly: tier.monthly,
+                ref: 'calculator'
+            });
+
+            window.location.href = `${CONFIG.portalUrl}?${params.toString()}`;
+        }
+
+        // [CALC-027] Email Quote
+        function toggleEmailForm() {
+            elements.emailForm.classList.toggle('visible');
+            elements.emailSuccess.classList.remove('visible');
+        }
+
+        async function sendEmailQuote() {
+            const name = elements.quoteName.value.trim();
+            const email = elements.quoteEmail.value.trim();
+
+            if (!name || !email) {
+                alert('Please fill in both fields.');
+                return;
+            }
+
+            const tier = CONFIG.tiers[state.selectedTier];
+            const overage = calculateOverage(state.selectedTier, state.scanResults.posts, state.scanResults.products);
+            const total = tier.activation + overage.cost;
+
+            const payload = {
+                name: name,
+                email: email,
+                url: `https://${state.scannedUrl}`,
+                scan_results: state.scanResults,
+                recommended_tier: state.recommendedTier,
+                selected_tier: state.selectedTier,
+                pricing: {
+                    activation: total,
+                    monthly: tier.monthly,
+                    overage: overage.cost
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            elements.sendQuoteBtn.textContent = 'Sending...';
+            elements.sendQuoteBtn.disabled = true;
+
+            try {
+                // In production, this would POST to a quote email webhook
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                elements.emailForm.classList.remove('visible');
+                elements.emailSuccess.classList.add('visible');
+            } catch (error) {
+                alert('Failed to send quote. Please try again.');
+            } finally {
+                elements.sendQuoteBtn.textContent = 'Send My Quote';
+                elements.sendQuoteBtn.disabled = false;
+            }
+        }
+
+        // [CALC-028] Event Listeners
+        elements.analyseBtn.addEventListener('click', performScan);
+        elements.rescanBtn.addEventListener('click', performScan);
+        elements.urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performScan();
+        });
+
+        elements.tierCards.forEach(card => {
+            card.addEventListener('click', () => selectTier(card.dataset.tier));
+        });
+
+        elements.ctaButton.addEventListener('click', handleCTAClick);
+        elements.emailQuoteBtn.addEventListener('click', toggleEmailForm);
+        elements.sendQuoteBtn.addEventListener('click', sendEmailQuote);
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && elements.scanningModal.classList.contains('visible')) {
+                // Don't allow closing during scan
+            }
+        });
+    </script>
+
+    <script>
+        // [CALC-025] Iframe Resizing
+        function sendHeight() {
+            const height = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'CALCULATOR_RESIZE', height: height }, '*');
+        }
+
+        window.addEventListener('load', sendHeight);
+        window.addEventListener('resize', sendHeight);
+
+        const resizeObserver = new ResizeObserver(sendHeight);
+        resizeObserver.observe(document.body);
+    </script>
+</body>
+
+</html>
