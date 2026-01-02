@@ -55,6 +55,10 @@ serve(async (req) => {
                 project_type: formData?.projectType || 'website',
                 seo_active: formData?.seoActive || false,
                 seo_tier: formData?.seoTier || null,
+                translation_active: formData?.translationActive || false,
+                translation_tier: formData?.translationTier || null,
+                translation_languages: formData?.translationLanguages || [],
+                translation_dns_setup: formData?.translationDnsSetup || false,
                 status: 'pending_payment', // Reset/Set status to pending payment
                 notes: JSON.stringify(formData)
             }, { onConflict: 'client_email' }) // Use upsert to handle re-tries gracefully
@@ -121,6 +125,23 @@ serve(async (req) => {
 
         const SEO_ONBOARDING_PRODUCT = 'prod_TiOiBz7sbfXNpa';
 
+        // Website Translation Products
+        const TRANS_SUBSCRIPTION_PRODUCTS: Record<string, string> = {
+            'starter': 'prod_TatUOhWohQLAe4',
+            'growth': 'prod_TatVuWv3EUKV9h',
+            'business': 'prod_TauT0SInHswO23',
+            'enterprise': 'prod_TauV8UghfG8O6h'
+        };
+
+        const TRANS_ONBOARDING_PRODUCTS: Record<string, string> = {
+            'starter': 'prod_TatTIgXaCSsUhm',
+            'growth': 'prod_TatUxpwDRGQSQr',
+            'business': 'prod_TauR6I6rlR2ggr98vfhR',
+            'enterprise': 'prod_TauUn3jG5f7Uqf'
+        };
+
+        const TRANS_DNS_PRICE_ID = 'price_1SdhkJEpuI6rlR2gt6SjaTTt';
+
         const subscriptionItems = [];
 
         // 1. Handle Main Website Tier (Monthly Care Plan)
@@ -174,6 +195,27 @@ serve(async (req) => {
             }
         }
 
+        // 3. Handle Website Translation Tier (optional subscription)
+        if (formData?.translationActive && formData?.translationTier) {
+            const transProductId = TRANS_SUBSCRIPTION_PRODUCTS[formData.translationTier.toLowerCase()];
+            if (transProductId) {
+                console.log(`Adding Translation Tier: ${formData.translationTier} (Product: ${transProductId})`);
+                const { data: transPrices } = await stripe.prices.list({
+                    product: transProductId,
+                    active: true,
+                    limit: 10
+                });
+
+                const transSubPrice = transPrices.find(p => p.type === 'recurring' && p.recurring?.interval === 'month');
+
+                if (transSubPrice) {
+                    subscriptionItems.push({ price: transSubPrice.id });
+                } else {
+                    console.error(`CRITICAL: No monthly recurring price found for Translation product ${transProductId}`);
+                }
+            }
+        }
+
         // --- 6. Invoice Items (One-off Fees) ---
 
         // A. Website Activation Fee (50% Deposit)
@@ -211,6 +253,44 @@ serve(async (req) => {
                 } : undefined,
                 description: `SEO Onboarding Fee (One-off)`,
                 metadata: { project_id: projectId, type: 'seo_onboarding' }
+            });
+        }
+
+        // C. Translation Onboarding Fees (Per Language)
+        if (formData?.translationActive && formData?.translationTier && formData?.translationLanguages?.length > 0) {
+            const transOnboardingProductId = TRANS_ONBOARDING_PRODUCTS[formData.translationTier.toLowerCase()];
+            const langCount = formData.translationLanguages.length;
+
+            if (transOnboardingProductId) {
+                const { data: transOnboardingPrices } = await stripe.prices.list({
+                    product: transOnboardingProductId,
+                    active: true,
+                    limit: 10
+                });
+
+                const transOnboardingPrice = transOnboardingPrices.find(p => p.type === 'one_time');
+
+                if (transOnboardingPrice) {
+                    await stripe.invoiceItems.create({
+                        customer: customerId,
+                        price: transOnboardingPrice.id,
+                        quantity: langCount,
+                        description: `Website Translation Onboarding (${langCount} Languages)`,
+                        metadata: { project_id: projectId, type: 'translation_onboarding' }
+                    });
+                } else {
+                    console.error(`CRITICAL: No one-time price found for Translation Onboarding product ${transOnboardingProductId}`);
+                }
+            }
+        }
+
+        // D. Translation DNS Setup Fee
+        if (formData?.translationActive && formData?.translationDnsSetup) {
+            await stripe.invoiceItems.create({
+                customer: customerId,
+                price: TRANS_DNS_PRICE_ID,
+                description: `Website Translation DNS Setup (DFY)`,
+                metadata: { project_id: projectId, type: 'translation_dns' }
             });
         }
 

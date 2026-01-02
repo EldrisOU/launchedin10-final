@@ -60,12 +60,12 @@ const PricingCard = ({ tier, popular = false }) => {
                 </div>
             </div>
 
-            <button className={`w-full mt-8 py-4 px-6 rounded-lg font-bold transition-all transform hover:-translate-y-0.5 ${popular
+            <a href="https://app.launchedin10.co.uk" className={`w-full mt-8 py-4 px-6 rounded-lg font-bold transition-all transform hover:-translate-y-0.5 text-center block ${popular
                 ? 'bg-primary text-white hover:bg-primary-light shadow-lg hover:shadow-accent/40'
                 : 'border-2 border-primary/10 text-primary hover:border-primary hover:bg-primary hover:text-white'
                 }`}>
                 {popular ? 'Get Started' : 'Choose ' + tier.name}
-            </button>
+            </a>
         </div>
     );
 };

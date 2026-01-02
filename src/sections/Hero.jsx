@@ -42,7 +42,7 @@ const Hero = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up delay-300">
-                            <a href="#pricing" className="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-white bg-primary rounded-none hover:bg-primary-light transition-all shadow-luxury-elevated hover:shadow-luxury-glow transform hover:-translate-y-0.5 min-w-[200px]">
+                            <a href="https://app.launchedin10.co.uk" className="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-white bg-primary rounded-none hover:bg-primary-light transition-all shadow-luxury-elevated hover:shadow-luxury-glow transform hover:-translate-y-0.5 min-w-[200px]">
                                 Start Your Build
                                 <ArrowRight className="ml-3" size={20} />
                             </a>

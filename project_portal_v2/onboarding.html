@@ -2123,8 +2123,13 @@
                     if (formData.seoActive === true && !formData.seoTier) return false;
                     return true;
                 case 5:
-                    return true; // Assets optional
+                    // Translation Validation: Must pick Yes/No, and if Yes, must pick a tier and at least one language
+                    if (formData.translationActive === null) return false;
+                    if (formData.translationActive === true && (!formData.translationTier || formData.translationLanguages.length === 0)) return false;
+                    return true;
                 case 6:
+                    return true; // Assets optional
+                case 7:
                     return document.getElementById('confirmContent').checked &&
                         document.getElementById('confirmClock').checked;
             }
@@ -2210,8 +2215,10 @@
             }
             // SEO logic in Step 4 is handled via click handlers (selectSeoAnswer/selectSeoTier)
 
-            // Step 5 Brand Assets logic
-            if (step === 5) {
+            // Step 5 Translation logic handled via click handlers
+
+            // Step 6 Brand Assets logic
+            if (step === 6) {
                 formData.primaryColour = document.getElementById('primaryHex')?.value || '#000000';
                 formData.secondaryColour = document.getElementById('secondaryHex')?.value || '#ffffff';
                 formData.noColours = document.getElementById('noColours')?.checked || false;
@@ -2576,6 +2583,13 @@
             document.getElementById('summarySeoActive').textContent = formData.seoActive ? 'Yes' : 'No';
             const seoTierNames = { launch: 'Launch (£99.95/mo)', boost: 'Boost (£149.95/mo)', orbit: 'Orbit (£195/mo)' };
             document.getElementById('summarySeoTier').textContent = formData.seoActive ? (seoTierNames[formData.seoTier] || '—') : 'Not selected';
+
+            // Translation
+            document.getElementById('summaryTransActive').textContent = formData.translationActive ? 'Yes' : 'No';
+            const transTierNames = { starter: 'Starter', growth: 'Growth', business: 'Business', enterprise: 'Enterprise' };
+            document.getElementById('summaryTransTier').textContent = formData.translationActive ? (transTierNames[formData.translationTier] || '—') : 'Not selected';
+            document.getElementById('summaryTransLangs').textContent = formData.translationActive ? formData.translationLanguages.length + ' selected' : '0 selected';
+            document.getElementById('summaryTransDns').textContent = formData.translationDnsSetup ? 'Yes' : 'No';
 
             // Brand
             document.getElementById('summaryLogo').textContent = formData.logo.length > 0 ? '✓ Uploaded' : 'Not uploaded';

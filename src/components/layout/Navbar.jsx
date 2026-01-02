@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Rocket, Menu, X } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -13,11 +13,19 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const location = useLocation();
     const navLinks = [
+        { name: 'Home', href: '/' },
         { name: 'Process', href: '/#process' },
         { name: 'Pricing', href: '/#pricing' },
-        { name: 'The Lab', href: '/blog', active: true },
+        { name: 'The Lab', href: '/blog' },
     ];
+
+    const isActive = (href) => {
+        if (href === '/') return location.pathname === '/';
+        if (href === '/blog') return location.pathname.startsWith('/blog');
+        return false;
+    };
 
     return (
         <nav className={clsx(
@@ -43,7 +51,7 @@ const Navbar = () => {
                             href={link.href}
                             className={clsx(
                                 "text-sm font-bold transition-all uppercase tracking-widest",
-                                link.active
+                                isActive(link.href)
                                     ? "text-accent border-b-2 border-accent pb-1"
                                     : "text-primary/60 hover:text-accent"
                             )}
@@ -52,7 +60,7 @@ const Navbar = () => {
                         </a>
                     ))}
                     <a
-                        href="/#pricing"
+                        href="https://app.launchedin10.co.uk"
                         className="bg-primary text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-primary-light transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 uppercase tracking-widest"
                     >
                         Start Build
@@ -82,7 +90,7 @@ const Navbar = () => {
                         </a>
                     ))}
                     <a
-                        href="/#pricing"
+                        href="https://app.launchedin10.co.uk"
                         onClick={() => setIsMenuOpen(false)}
                         className="bg-primary text-white py-4 rounded-xl text-center font-bold uppercase tracking-widest"
                     >
