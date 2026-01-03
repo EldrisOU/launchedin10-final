@@ -1,0 +1,4000 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Project Dashboard | LaunchedIn10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --navy: #1a2b4a;
+            --navy-dark: #0f172a;
+            --navy-light: #243b5e;
+            --teal: #0ea5a5;
+            --teal-light: #14b8a6;
+            --teal-dark: #0d9488;
+            --teal-subtle: rgba(14, 165, 165, 0.1);
+            --white: #ffffff;
+            --grey-50: #f8fafc;
+            --grey-100: #f1f5f9;
+            --grey-200: #e2e8f0;
+            --grey-300: #cbd5e1;
+            --grey-400: #94a3b8;
+            --grey-500: #64748b;
+            --grey-600: #475569;
+            --grey-700: #334155;
+            --grey-900: #0f172a;
+            --red-500: #ef4444;
+            --red-50: #fef2f2;
+            --green-500: #22c55e;
+            --green-50: #f0fdf4;
+            --amber-500: #f59e0b;
+            --amber-50: #fffbeb;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(26, 43, 74, 0.08);
+            --shadow-lg: 0 8px 24px rgba(26, 43, 74, 0.12);
+            --shadow-xl: 0 20px 40px rgba(26, 43, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--grey-50);
+            color: var(--grey-900);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--grey-200);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--navy);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--navy);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.125rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-menu:hover {
+            background: var(--grey-100);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-900);
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: var(--grey-500);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--grey-500);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            color: var(--grey-700);
+            background: var(--grey-100);
+        }
+
+        /* Main Layout */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Project Header */
+        .project-header {
+            margin-bottom: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .project-title-accent {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--teal);
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9375rem;
+            color: var(--grey-500);
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .project-meta-item svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .deadline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--teal-subtle);
+            color: var(--teal-dark);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+
+        .deadline-badge.urgent {
+            background: var(--amber-50);
+            color: var(--amber-500);
+        }
+
+        /* Status Tracker */
+        .status-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--grey-100);
+            margin-bottom: 2rem;
+        }
+
+        .status-tracker {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .status-line {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: var(--grey-200);
+            border-radius: 2px;
+        }
+
+        .status-line-fill {
+            height: 100%;
+            background: var(--teal);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            max-width: 100px;
+        }
+
+        .status-step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--grey-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .status-step-circle svg {
+            width: 18px;
+            height: 18px;
+            color: var(--grey-400);
+        }
+
+        .status-step.completed .status-step-circle {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .status-step.completed .status-step-circle svg {
+            color: var(--white);
+        }
+
+        .status-step.active .status-step-circle {
+            border-color: var(--teal);
+            background: var(--teal-subtle);
+            animation: pulse-ring 2s infinite;
+        }
+
+        .status-step.active .status-step-circle svg {
+            color: var(--teal);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 165, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(14, 165, 165, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 165, 0);
+            }
+        }
+
+        .status-step-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--grey-400);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .status-step.completed .status-step-label,
+        .status-step.active .status-step-label {
+            color: var(--grey-700);
+        }
+
+        .status-message {
+            background: var(--grey-50);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .status-message-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--teal-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .status-message-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--teal);
+        }
+
+        .status-message-content h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .status-message-content p {
+            font-size: 0.875rem;
+            color: var(--grey-500);
+            line-height: 1.5;
+        }
+
+        /* Main Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--grey-100);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--grey-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title svg {
+            width: 18px;
+            height: 18px;
+            color: var(--teal);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Preview Section */
+        .preview-container {
+            aspect-ratio: 16/10;
+            background: var(--grey-100);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .preview-placeholder-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--grey-200);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .preview-placeholder-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--grey-400);
+        }
+
+        .preview-placeholder h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--grey-700);
+            margin-bottom: 0.25rem;
+        }
+
+        .preview-placeholder p {
+            font-size: 0.875rem;
+            color: var(--grey-500);
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-browser-bar {
+            background: var(--grey-200);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .browser-dot.red {
+            background: #ef4444;
+        }
+
+        .browser-dot.yellow {
+            background: #f59e0b;
+        }
+
+        .browser-dot.green {
+            background: #22c55e;
+        }
+
+        .browser-url {
+            flex: 1;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            color: var(--grey-500);
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--teal-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--grey-700);
+            border: 1px solid var(--grey-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--grey-50);
+            border-color: var(--grey-400);
+        }
+
+        .btn-success {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: var(--navy-dark);
+        }
+
+        /* Messages Section */
+        .messages-container {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 85%;
+        }
+
+        .message.from-team {
+            align-self: flex-start;
+        }
+
+        .message.from-client {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .message.from-team .message-avatar {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .message.from-client .message-avatar {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .message.from-team .message-bubble {
+            background: var(--grey-100);
+            color: var(--grey-900);
+            border-bottom-left-radius: var(--radius-sm);
+        }
+
+        .message.from-client .message-bubble {
+            background: var(--teal);
+            color: var(--white);
+            border-bottom-right-radius: var(--radius-sm);
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--grey-400);
+        }
+
+        .message.from-client .message-meta {
+            justify-content: flex-end;
+        }
+
+        .message-composer {
+            padding: 1rem;
+            border-top: 1px solid var(--grey-100);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+        .message-send {
+            width: 44px;
+            height: 44px;
+            background: var(--teal);
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .message-send:hover {
+            background: var(--teal-dark);
+        }
+
+        .message-send svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .messages-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            color: var(--grey-400);
+        }
+
+        .messages-empty svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Revisions Section */
+        .revisions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .revision-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+        }
+
+        .revision-number {
+            width: 24px;
+            height: 24px;
+            background: var(--grey-200);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--grey-600);
+            flex-shrink: 0;
+        }
+
+        .revision-content {
+            flex: 1;
+        }
+
+        .revision-type {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--grey-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .revision-desc {
+            font-size: 0.875rem;
+            color: var(--grey-700);
+            line-height: 1.4;
+        }
+
+        .revision-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+
+        .revision-status.pending {
+            background: var(--amber-50);
+            color: var(--amber-500);
+        }
+
+        .revision-status.in-progress {
+            background: var(--teal-subtle);
+            color: var(--teal-dark);
+        }
+
+        .revision-status.completed {
+            background: var(--green-50);
+            color: var(--green-500);
+        }
+
+        .revisions-counter {
+            text-align: center;
+            font-size: 0.8125rem;
+            color: var(--grey-500);
+            padding: 1rem;
+            border-top: 1px solid var(--grey-100);
+        }
+
+        .revisions-counter strong {
+            color: var(--navy);
+        }
+
+        .revisions-empty {
+            text-align: center;
+            padding: 2rem;
+            color: var(--grey-400);
+        }
+
+        .revisions-empty svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0.75rem;
+            opacity: 0.5;
+        }
+
+        /* Approval Section */
+        .approval-card {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            color: var(--white);
+            margin-top: 2rem;
+        }
+
+        .approval-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .approval-card p {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .approval-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .approval-card li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .approval-card li svg {
+            width: 16px;
+            height: 16px;
+            color: var(--teal);
+        }
+
+        .btn-approve {
+            background: var(--white);
+            color: var(--navy);
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        .btn-approve:hover {
+            background: var(--grey-100);
+        }
+
+        /* Project Details */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            padding: 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--grey-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--grey-900);
+        }
+
+        .pages-list-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .page-tag {
+            padding: 0.375rem 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            color: var(--grey-700);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.visible .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--grey-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            color: var(--grey-400);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--grey-100);
+            color: var(--grey-600);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--grey-100);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            font-family: inherit;
+            border: 1px solid var(--grey-300);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            color: var(--grey-900);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-subtle);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.5rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-hint {
+            font-size: 0.8125rem;
+            color: var(--grey-400);
+            margin-top: 0.375rem;
+        }
+
+        /* Loading State */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--grey-50);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .loading-overlay.hidden {
+            display: none;
+        }
+
+        .spinner-large {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--grey-200);
+            border-top-color: var(--teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 0.9375rem;
+            color: var(--grey-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .messages-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .main {
+                padding: 1rem;
+            }
+
+            .project-meta {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .status-tracker {
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .status-step-label {
+                font-size: 0.6875rem;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Concierge Tab */
+        .concierge-tab {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--teal);
+            color: var(--white);
+            padding: 1rem 0.5rem;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 50;
+        }
+
+        .concierge-tab:hover {
+            padding-right: 0.75rem;
+            background: var(--teal-dark);
+        }
+
+        @media (max-width: 768px) {
+            .concierge-tab {
+                display: none;
+            }
+        }
+
+        /* Hidden utility */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Account & Billing Styles */
+        .account-section {
+            margin-top: 2rem;
+        }
+
+        .billing-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .billing-stat {
+            background: var(--grey-50);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .billing-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .billing-stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--grey-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .payment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+            transition: background 0.2s;
+        }
+
+        .payment-item:hover {
+            background: var(--grey-100);
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .payment-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-icon.success {
+            background: var(--green-50);
+            color: var(--green-500);
+        }
+
+        .payment-icon.pending {
+            background: var(--amber-50);
+            color: var(--amber-500);
+        }
+
+        .payment-icon.failed {
+            background: var(--red-50);
+            color: var(--red-500);
+        }
+
+        .payment-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .payment-details h4 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-900);
+            margin-bottom: 0.125rem;
+        }
+
+        .payment-details span {
+            font-size: 0.75rem;
+            color: var(--grey-500);
+        }
+
+        .payment-amount {
+            text-align: right;
+        }
+
+        .payment-amount-value {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--grey-900);
+        }
+
+        .payment-amount-status {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .payment-amount-status.success {
+            color: var(--green-500);
+        }
+
+        .payment-amount-status.pending {
+            color: var(--amber-500);
+        }
+
+        .payment-amount-status.failed {
+            color: var(--red-500);
+        }
+
+        .subscription-card {
+            background: linear-gradient(135deg, var(--grey-50) 0%, var(--white) 100%);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .subscription-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .subscription-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--teal-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--teal);
+        }
+
+        .subscription-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .subscription-details h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.125rem;
+        }
+
+        .subscription-details span {
+            font-size: 0.8125rem;
+            color: var(--grey-500);
+        }
+
+        .subscription-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 0.875rem;
+            font-size: 0.8125rem;
+        }
+
+        .account-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .account-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--grey-700);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .account-link:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .account-link svg {
+            width: 16px;
+            height: 16px;
+            color: var(--grey-400);
+        }
+
+        .account-link:hover svg {
+            color: var(--teal);
+        }
+
+        @media (max-width: 768px) {
+            .billing-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .subscription-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .subscription-actions {
+                width: 100%;
+            }
+
+            .subscription-actions .btn {
+                flex: 1;
+            }
+        }
+
+        /* Billing Modal Styles */
+        .billing-modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .billing-modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .billing-modal-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--grey-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .billing-plan-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--grey-200);
+        }
+
+        .billing-plan-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .billing-plan-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--teal-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--teal);
+        }
+
+        .billing-plan-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .billing-plan-info h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.125rem;
+        }
+
+        .billing-plan-info span {
+            font-size: 0.8125rem;
+            color: var(--grey-500);
+        }
+
+        .billing-plan-status {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.375rem 0.75rem;
+            border-radius: 100px;
+        }
+
+        .billing-plan-status.active {
+            background: var(--green-50);
+            color: var(--green-500);
+        }
+
+        .payment-method-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--grey-200);
+        }
+
+        .payment-method-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-brand-icon {
+            width: 44px;
+            height: 28px;
+            background: var(--grey-100);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-500);
+        }
+
+        .card-brand-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .payment-method-info h4 {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--grey-900);
+            font-family: 'SF Mono', Monaco, monospace;
+            letter-spacing: 0.05em;
+        }
+
+        .payment-method-info span {
+            font-size: 0.8125rem;
+            color: var(--grey-500);
+        }
+
+        .billing-transactions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .billing-transaction {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: var(--grey-50);
+            border-radius: var(--radius-md);
+        }
+
+        .billing-transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .billing-transaction-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .billing-transaction-dot.success {
+            background: var(--green-500);
+        }
+
+        .billing-transaction-dot.pending {
+            background: var(--amber-500);
+        }
+
+        .billing-transaction-dot.failed {
+            background: var(--red-500);
+        }
+
+        .billing-transaction-info span {
+            font-size: 0.8125rem;
+            color: var(--grey-700);
+        }
+
+        .billing-transaction-amount {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--grey-900);
+        }
+
+        .view-all-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        .billing-modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--grey-100);
+        }
+
+        .billing-modal-actions .btn {
+            justify-content: center;
+        }
+
+        /* Payment Method Modal */
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--green-50);
+            color: var(--green-500);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        .secure-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .card-input-wrapper {
+            position: relative;
+        }
+
+        .card-input-wrapper .form-input {
+            padding-right: 100px;
+        }
+
+        .card-brands {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .card-brand {
+            font-size: 0.625rem;
+            font-weight: 600;
+            padding: 0.125rem 0.375rem;
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+
+        .card-brand.visa {
+            background: #1a1f71;
+            color: white;
+        }
+
+        .card-brand.mc {
+            background: #eb001b;
+            color: white;
+        }
+
+        .card-brand.amex {
+            background: #006fcf;
+            color: white;
+        }
+
+        .card-brand.active {
+            opacity: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Invoices Modal */
+        .invoices-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--grey-100);
+            background: var(--grey-50);
+        }
+
+        .invoices-search {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 280px;
+            padding: 0.5rem 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+        }
+
+        .invoices-search svg {
+            width: 16px;
+            height: 16px;
+            color: var(--grey-400);
+        }
+
+        .invoices-search input {
+            flex: 1;
+            border: none;
+            background: none;
+            font-size: 0.875rem;
+            font-family: inherit;
+            color: var(--grey-900);
+        }
+
+        .invoices-search input:focus {
+            outline: none;
+        }
+
+        .invoices-search input::placeholder {
+            color: var(--grey-400);
+        }
+
+        .invoices-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .invoice-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--grey-100);
+            transition: background 0.2s;
+        }
+
+        .invoice-item:hover {
+            background: var(--grey-50);
+        }
+
+        .invoice-item:last-child {
+            border-bottom: none;
+        }
+
+        .invoice-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .invoice-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--grey-100);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-500);
+        }
+
+        .invoice-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .invoice-details h4 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-900);
+            margin-bottom: 0.125rem;
+        }
+
+        .invoice-details span {
+            font-size: 0.75rem;
+            color: var(--grey-500);
+        }
+
+        .invoice-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .invoice-amount {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--grey-900);
+        }
+
+        .invoice-download {
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-sm);
+            color: var(--grey-500);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .invoice-download:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: var(--teal-subtle);
+        }
+
+        .invoice-download svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Support Modal */
+        .support-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .support-action-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.25rem;
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .support-action-card:hover {
+            border-color: var(--teal);
+            background: var(--teal-subtle);
+        }
+
+        .support-action-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-500);
+        }
+
+        .support-action-card:hover .support-action-icon {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        .support-action-icon.warning {
+            color: var(--amber-500);
+        }
+
+        .support-action-icon.success {
+            color: var(--green-500);
+        }
+
+        .support-action-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .support-action-card span {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--grey-700);
+        }
+
+        .support-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .support-divider::before,
+        .support-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--grey-200);
+        }
+
+        .support-divider span {
+            font-size: 0.75rem;
+            color: var(--grey-400);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-large"></div>
+        <p class="loading-text">Loading your project...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://launchedin10.co.uk" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <span class="logo-text">LaunchedIn10</span>
+            </a>
+            <div class="header-right">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">—</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Loading...</div>
+                        <div class="user-email" id="userEmail">—</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">
+                <span id="businessName">Your Project</span>
+            </h1>
+            <div class="project-meta">
+                <div class="project-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <span id="tierName">Growth</span>
+                </div>
+                <div class="project-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span class="deadline-badge" id="deadlineBadge">
+                        <span id="daysRemaining">—</span> days remaining
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Tracker -->
+        <div class="status-card">
+            <div class="status-tracker">
+                <div class="status-line">
+                    <div class="status-line-fill" id="statusLineFill" style="width: 0%"></div>
+                </div>
+                <div class="status-step" data-status="deposit_paid">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Deposit<br>Paid</span>
+                </div>
+                <div class="status-step" data-status="content_received">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Content<br>Received</span>
+                </div>
+                <div class="status-step" data-status="in_build">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Building</span>
+                </div>
+                <div class="status-step" data-status="in_review">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Review</span>
+                </div>
+                <div class="status-step" data-status="revisions">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Revisions</span>
+                </div>
+                <div class="status-step" data-status="live">
+                    <div class="status-step-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <span class="status-step-label">Live</span>
+                </div>
+            </div>
+
+            <div class="status-message" id="statusMessage">
+                <div class="status-message-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                </div>
+                <div class="status-message-content">
+                    <h4 id="statusTitle">Loading...</h4>
+                    <p id="statusDesc">Please wait while we fetch your project details.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Preview Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                            Preview
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="preview-container" id="previewContainer">
+                            <!-- Placeholder (shown when no preview) -->
+                            <div class="preview-placeholder" id="previewPlaceholder">
+                                <div class="preview-placeholder-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                </div>
+                                <h4>Preview coming soon</h4>
+                                <p>We're building your website. A preview link will appear here when ready for review.
+                                </p>
+                            </div>
+                            <!-- Browser frame (shown when preview exists) -->
+                            <div id="previewFrame" class="hidden">
+                                <div class="preview-browser-bar">
+                                    <div class="browser-dots">
+                                        <div class="browser-dot red"></div>
+                                        <div class="browser-dot yellow"></div>
+                                        <div class="browser-dot green"></div>
+                                    </div>
+                                    <div class="browser-url" id="previewUrl">preview.launchedin10.co.uk/...</div>
+                                </div>
+                                <iframe id="previewIframe" class="preview-iframe" src="about:blank"></iframe>
+                            </div>
+                        </div>
+                        <div class="preview-actions" id="previewActions">
+                            <a href="#" class="btn btn-primary hidden" id="openPreviewBtn" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Open Preview
+                            </a>
+                            <button class="btn btn-secondary hidden" id="requestChangesBtn"
+                                onclick="openRevisionModal()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                Request Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval Card (shown only in review status) -->
+                <div class="approval-card hidden" id="approvalCard">
+                    <h3>Happy with your preview?</h3>
+                    <p>If you're satisfied with the design, approve it to trigger the final steps before we go live.</p>
+                    <ul>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Triggers your final 50% payment
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Queues your site for launch
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Points your domain to your new website
+                        </li>
+                    </ul>
+                    <button class="btn btn-approve" onclick="approveProject()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Approve & Go Live
+                    </button>
+                </div>
+
+                <!-- Revisions Card -->
+                <div class="card" style="margin-top: 2rem;" id="revisionsCard">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Revision Requests
+                        </h3>
+                        <button class="btn btn-secondary hidden" id="newRevisionBtn" onclick="openRevisionModal()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            New Request
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="revisions-empty" id="revisionsEmpty">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            <p>No revision requests yet</p>
+                        </div>
+                        <div class="revisions-list hidden" id="revisionsList">
+                            <!-- Revisions populated dynamically -->
+                        </div>
+                    </div>
+                    <div class="revisions-counter hidden" id="revisionsCounter">
+                        Revisions used: <strong><span id="revisionsUsed">0</span></strong> of <strong><span
+                                id="revisionsAllowed">6</span></strong>
+                    </div>
+                </div>
+
+                <!-- Project Details Card -->
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            Project Details
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">Project Type</div>
+                                <div class="detail-value" id="detailType">—</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Domain</div>
+                                <div class="detail-value" id="detailDomain">—</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Package</div>
+                                <div class="detail-value" id="detailPackage">—</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Deadline</div>
+                                <div class="detail-value" id="detailDeadline">—</div>
+                            </div>
+                            <div class="detail-item hidden" id="detailTranslationRow">
+                                <div class="detail-label">Website Translation</div>
+                                <div class="detail-value" id="detailTranslation">—</div>
+                            </div>
+                            <div class="detail-item hidden" id="detailSeoRow">
+                                <div class="detail-label">SEO Booster</div>
+                                <div class="detail-value" id="detailSeo">—</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div class="detail-label">Pages</div>
+                            <div class="pages-list-compact" id="pagesList">
+                                <!-- Pages populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account & Billing Card -->
+                <div class="card account-section">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                            Account & Billing
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Subscription Status -->
+                        <div class="subscription-card">
+                            <div class="subscription-info">
+                                <div class="subscription-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                                <div class="subscription-details">
+                                    <h4 id="subscriptionPlan">Growth Care Plan</h4>
+                                    <span id="subscriptionStatus">Active · Next billing <span
+                                            id="nextBillingDate">—</span></span>
+                                </div>
+                            </div>
+                            <div class="subscription-actions">
+                                <button class="btn btn-secondary btn-sm" onclick="openBillingPortal()">
+                                    Manage Billing
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Billing Summary -->
+                        <div class="billing-summary" style="margin-top: 1.5rem;">
+                            <div class="billing-stat">
+                                <div class="billing-stat-value" id="totalPaid">£0</div>
+                                <div class="billing-stat-label">Total Paid</div>
+                            </div>
+                            <div class="billing-stat">
+                                <div class="billing-stat-value" id="monthlyAmount">£0</div>
+                                <div class="billing-stat-label">Monthly</div>
+                            </div>
+                            <div class="billing-stat">
+                                <div class="billing-stat-value" id="outstandingAmount">£0</div>
+                                <div class="billing-stat-label">Outstanding</div>
+                            </div>
+                        </div>
+
+                        <!-- Payment History -->
+                        <div style="margin-top: 1.5rem;">
+                            <div class="detail-label" style="margin-bottom: 0.75rem;">Payment History</div>
+                            <div class="payment-list" id="paymentList">
+                                <div class="payment-item" style="justify-content: center; color: var(--grey-400);">
+                                    <span>No payments recorded yet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Links -->
+                        <div class="account-links">
+                            <a href="#" class="account-link" onclick="downloadInvoices(event)">
+                                <span>Download All Invoices</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                            </a>
+                            <a href="#" class="account-link" onclick="updatePaymentMethod(event)">
+                                <span>Update Payment Method</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                            </a>
+                            <a href="#" class="account-link" onclick="contactSupport(event)">
+                                <span>Billing Support</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Messages -->
+            <div class="right-column">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Messages
+                        </h3>
+                        <span class="response-time" style="font-size: 0.75rem; color: var(--grey-400);"
+                            id="responseTime">
+                            Typically &lt; 24hr response
+                        </span>
+                    </div>
+                    <div class="messages-container">
+                        <div class="messages-list" id="messagesList">
+                            <div class="messages-empty" id="messagesEmpty">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <p>No messages yet.<br>Start a conversation below.</p>
+                            </div>
+                        </div>
+                        <div class="message-composer">
+                            <textarea class="message-input" id="messageInput" placeholder="Type a message..."
+                                onkeydown="handleMessageKeydown(event)"></textarea>
+                            <button class="message-send" onclick="sendMessage()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Revision Request Modal -->
+    <div class="modal-overlay" id="revisionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Request a Revision</h3>
+                <button class="modal-close" onclick="closeRevisionModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">What type of change?</label>
+                    <select class="form-select" id="revisionType">
+                        <option value="">Select...</option>
+                        <option value="text_change">Text Change</option>
+                        <option value="image_change">Image Change</option>
+                        <option value="layout_change">Layout Change</option>
+                        <option value="colour_change">Colour Change</option>
+                        <option value="functionality">Add Functionality</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Which page?</label>
+                    <select class="form-select" id="revisionPage">
+                        <option value="">Select...</option>
+                        <option value="home">Home</option>
+                        <option value="about">About</option>
+                        <option value="services">Services</option>
+                        <option value="contact">Contact</option>
+                        <option value="multiple">Multiple Pages</option>
+                        <option value="general">General / Site-wide</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Describe the change</label>
+                    <textarea class="form-textarea" id="revisionDesc"
+                        placeholder="Be specific. Instead of 'make it better', try 'change the headline to XYZ' or 'move the contact form above the map'."></textarea>
+                    <p class="form-hint">The more detail you provide, the faster we can implement it.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRevisionModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitRevision()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Billing Modal -->
+    <div class="modal-overlay" id="billingModal">
+        <div class="modal" style="max-width: 560px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Manage Billing</h3>
+                <button class="modal-close" onclick="closeBillingModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Current Plan -->
+                <div class="billing-modal-section">
+                    <div class="billing-modal-label">Current Plan</div>
+                    <div class="billing-plan-card">
+                        <div class="billing-plan-info">
+                            <div class="billing-plan-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 id="billingPlanName">Growth Care Plan</h4>
+                                <span id="billingPlanPrice">£149/month</span>
+                            </div>
+                        </div>
+                        <span class="billing-plan-status active">Active</span>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="billing-modal-section">
+                    <div class="billing-modal-label">Payment Method</div>
+                    <div class="payment-method-card" id="paymentMethodCard">
+                        <div class="payment-method-info">
+                            <div class="card-brand-icon" id="cardBrandIcon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 id="cardDisplay">•••• •••• •••• 4242</h4>
+                                <span id="cardExpiryDisplay">Expires 12/26</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="showUpdatePaymentModal()">Update</button>
+                    </div>
+                </div>
+
+                <!-- Billing History Quick View -->
+                <div class="billing-modal-section">
+                    <div class="billing-modal-label">Recent Transactions</div>
+                    <div class="billing-transactions" id="billingTransactions">
+                        <!-- Populated by JS -->
+                    </div>
+                    <a href="#" class="view-all-link" onclick="showInvoicesModal(event)">View all invoices →</a>
+                </div>
+
+                <!-- Billing Actions -->
+                <div class="billing-modal-actions">
+                    <button class="btn btn-secondary" onclick="showInvoicesModal(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        Invoices
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSupportModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Billing Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Payment Method Modal -->
+    <div class="modal-overlay" id="paymentMethodModal">
+        <div class="modal" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Payment Method</h3>
+                <button class="modal-close" onclick="closePaymentMethodModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="secure-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Secured by Stripe
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardholder Name</label>
+                    <input type="text" class="form-input" id="cardholderName" placeholder="Name on card">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Card Number</label>
+                    <div class="card-input-wrapper">
+                        <input type="text" class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456"
+                            maxlength="19">
+                        <div class="card-brands">
+                            <span class="card-brand visa">Visa</span>
+                            <span class="card-brand mc">MC</span>
+                            <span class="card-brand amex">Amex</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="text" class="form-input" id="cardExpiryInput" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CVC</label>
+                        <input type="text" class="form-input" id="cardCvc" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Billing Postcode</label>
+                    <input type="text" class="form-input" id="billingPostcode" placeholder="SW1A 1AA"
+                        style="max-width: 160px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePaymentMethodModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="savePaymentMethod()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Save Card
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoices Modal -->
+    <div class="modal-overlay" id="invoicesModal">
+        <div class="modal" style="max-width: 640px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Invoices</h3>
+                <button class="modal-close" onclick="closeInvoicesModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div class="invoices-toolbar">
+                    <div class="invoices-search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search invoices..." id="invoiceSearch"
+                            onkeyup="filterInvoices()">
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="downloadAllInvoices()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download All
+                    </button>
+                </div>
+                <div class="invoices-list" id="invoicesList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Billing Support Modal -->
+    <div class="modal-overlay" id="supportModal">
+        <div class="modal" style="max-width: 520px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Billing Support</h3>
+                <button class="modal-close" onclick="closeSupportModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Quick Actions -->
+                <div class="support-quick-actions">
+                    <button class="support-action-card" onclick="handleSupportAction('refund')">
+                        <div class="support-action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            </svg>
+                        </div>
+                        <span>Request Refund</span>
+                    </button>
+                    <button class="support-action-card" onclick="handleSupportAction('pause')">
+                        <div class="support-action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="10" y1="15" x2="10" y2="9"></line>
+                                <line x1="14" y1="15" x2="14" y2="9"></line>
+                            </svg>
+                        </div>
+                        <span>Pause Subscription</span>
+                    </button>
+                    <button class="support-action-card" onclick="handleSupportAction('cancel')">
+                        <div class="support-action-icon warning">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                        </div>
+                        <span>Cancel Plan</span>
+                    </button>
+                    <button class="support-action-card" onclick="handleSupportAction('upgrade')">
+                        <div class="support-action-icon success">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="19" x2="12" y2="5"></line>
+                                <polyline points="5 12 12 5 19 12"></polyline>
+                            </svg>
+                        </div>
+                        <span>Upgrade Plan</span>
+                    </button>
+                </div>
+
+                <div class="support-divider">
+                    <span>or send us a message</span>
+                </div>
+
+                <!-- Support Form -->
+                <div class="form-group">
+                    <label class="form-label">What can we help with?</label>
+                    <select class="form-select" id="supportTopic">
+                        <option value="">Select a topic...</option>
+                        <option value="payment_failed">Payment failed</option>
+                        <option value="incorrect_charge">Incorrect charge</option>
+                        <option value="invoice_query">Invoice query</option>
+                        <option value="change_plan">Change plan</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" id="supportMessage"
+                        placeholder="Describe your issue or question..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSupportModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitSupportRequest()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                    Send Message
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Concierge Tab -->
+    <div class="concierge-tab">
+        Start Concierge
+    </div>
+
+    <script>
+        // ============================================
+        // SUPABASE CONFIGURATION
+        // ============================================
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+        // Initialize Supabase client (with fallback for demo mode)
+        let sb = null;
+        let useDemo = false;
+
+        try {
+            if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+                sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.log('Supabase not configured — running in demo mode');
+                useDemo = true;
+            }
+        } catch (e) {
+            console.log('Supabase init failed — running in demo mode', e);
+            useDemo = true;
+        }
+
+        // n8n Webhook endpoints
+        const WEBHOOKS = {
+            revisionNote: '/webhook/revision-note',
+            chatMessage: '/webhook/chat-message',
+            projectApproval: '/webhook/project-approval'
+        };
+
+        // ============================================
+        // STATE
+        // ============================================
+        let project = null;
+        let pages = [];
+        let messages = [];
+        let revisions = [];
+        let payments = [];
+
+        // Status order for progress calculation
+        const STATUS_ORDER = [
+            'onboarding',
+            'deposit_paid',
+            'content_received',
+            'in_build',
+            'in_review',
+            'revisions',
+            'approved',
+            'live'
+        ];
+
+        const STATUS_MESSAGES = {
+            onboarding: {
+                title: 'Complete Your Onboarding',
+                desc: 'Please complete the onboarding form to submit your project requirements.',
+                icon: 'clipboard'
+            },
+            deposit_paid: {
+                title: 'Deposit Received',
+                desc: 'Thank you! We\'ve received your deposit. Please complete your content submission to start the build.',
+                icon: 'check'
+            },
+            content_received: {
+                title: 'Content Received',
+                desc: 'We have everything we need. Your project is queued for build and will start shortly.',
+                icon: 'check'
+            },
+            in_build: {
+                title: 'Building Your Website',
+                desc: 'Our designers are crafting your website. You\'ll receive a preview link within the next few business days.',
+                icon: 'code'
+            },
+            in_review: {
+                title: 'Ready for Review',
+                desc: 'Your preview is ready! Take a look and let us know if you\'d like any changes, or approve to go live.',
+                icon: 'search'
+            },
+            revisions: {
+                title: 'Revisions in Progress',
+                desc: 'We\'re working on your requested changes. We\'ll update you when they\'re ready for review.',
+                icon: 'edit'
+            },
+            approved: {
+                title: 'Approved — Going Live Soon',
+                desc: 'Great! We\'re setting up your domain and preparing to launch. Your site will be live within 24-48 hours.',
+                icon: 'rocket'
+            },
+            live: {
+                title: 'Your Website is Live! 🎉',
+                desc: 'Congratulations! Your website is now live. We\'ll continue to manage hosting, security, and updates.',
+                icon: 'check-circle'
+            }
+        };
+
+        const TIER_CONFIG = {
+            starter: { name: 'Starter', pages: 5, revisions: 0, responseTime: '48hr' },
+            growth: { name: 'Growth', pages: 12, revisions: 6, responseTime: '24hr' },
+            scale: { name: 'Scale', pages: 25, revisions: 9, responseTime: '4hr' }
+        };
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProject();
+        });
+
+        async function loadProject() {
+            // Check if running in demo mode
+            if (useDemo) {
+                loadDemoData();
+                return;
+            }
+
+            try {
+                // Get email from URL params or session
+                const params = new URLSearchParams(window.location.search);
+                const email = params.get('email');
+
+                if (!email) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Fetch project from Supabase
+                const { data: projectData, error: projectError } = await sb
+                    .from('projects')
+                    .select('*')
+                    .eq('client_email', email)
+                    .single();
+
+                if (projectError || !projectData) {
+                    console.error('Project not found:', projectError);
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                project = projectData;
+
+                // Fetch related data
+                await Promise.all([
+                    loadPages(),
+                    loadMessages(),
+                    loadRevisions(),
+                    loadPayments()
+                ]);
+
+                // Update UI
+                renderProject();
+                setupRealtimeSubscriptions();
+
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').classList.add('hidden');
+
+            } catch (error) {
+                console.error('Error loading project:', error);
+                // For demo, show placeholder data
+                loadDemoData();
+            }
+        }
+
+        function loadDemoData() {
+            // Demo data for testing without Supabase
+            project = {
+                id: 'demo-123',
+                client_name: 'John Smith',
+                client_email: 'john@company.co.uk',
+                business_name: 'Smith & Co Ltd',
+                project_type: 'new',
+                tier: 'growth',
+                status: 'in_build',
+                domain_name: 'smithandco.co.uk',
+                preview_url: null,
+                deadline_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                created_at: new Date().toISOString(),
+                translation_active: true,
+                translation_tier: 'growth',
+                translation_languages: ['de', 'fr'],
+                seo_active: true,
+                seo_tier: 'starter'
+            };
+
+            pages = [
+                { page_name: 'Home', content_complete: true },
+                { page_name: 'About', content_complete: true },
+                { page_name: 'Services', content_complete: true },
+                { page_name: 'Contact', content_complete: true }
+            ];
+
+            messages = [
+                {
+                    sender_type: 'team',
+                    sender_name: 'LaunchedIn10',
+                    message: 'Hi John! Welcome to your project dashboard. We\'ve received your content and will begin building your site shortly. Feel free to message us here if you have any questions!',
+                    created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                }
+            ];
+
+            revisions = [];
+
+            payments = [
+                {
+                    id: 'pay-001',
+                    description: 'Growth Package - Activation',
+                    amount: 997,
+                    status: 'succeeded',
+                    invoice_id: 'INV-2024-001',
+                    created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    id: 'pay-002',
+                    description: 'Growth Care Plan - Monthly',
+                    amount: 149,
+                    status: 'succeeded',
+                    invoice_id: 'INV-2024-002',
+                    created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                }
+            ];
+
+            renderProject();
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
+        async function loadPages() {
+            const { data, error } = await sb
+                .from('project_pages')
+                .select('*')
+                .eq('project_id', project.id)
+                .order('page_order', { ascending: true });
+
+            if (!error && data) {
+                pages = data;
+            }
+        }
+
+        async function loadMessages() {
+            const { data, error } = await sb
+                .from('project_messages')
+                .select('*')
+                .eq('project_id', project.id)
+                .order('created_at', { ascending: true });
+
+            if (!error && data) {
+                messages = data;
+            }
+        }
+
+        async function loadRevisions() {
+            const { data, error } = await sb
+                .from('project_revisions')
+                .select('*')
+                .eq('project_id', project.id)
+                .order('created_at', { ascending: true });
+
+            if (!error && data) {
+                revisions = data;
+            }
+        }
+
+        async function loadPayments() {
+            const { data, error } = await sb
+                .from('payments')
+                .select('*')
+                .eq('project_id', project.id)
+                .order('created_at', { ascending: false });
+
+            if (!error && data) {
+                payments = data;
+            }
+        }
+
+        // ============================================
+        // REALTIME SUBSCRIPTIONS
+        // ============================================
+        function setupRealtimeSubscriptions() {
+            // Skip if in demo mode
+            if (!sb) return;
+
+            // Subscribe to project changes
+            sb
+                .channel(`project:${project.id}`)
+                .on('postgres_changes',
+                    { event: 'UPDATE', schema: 'public', table: 'projects', filter: `id=eq.${project.id}` },
+                    (payload) => {
+                        project = payload.new;
+                        renderProject();
+                    }
+                )
+                .subscribe();
+
+            // Subscribe to new messages
+            sb
+                .channel(`messages:${project.id}`)
+                .on('postgres_changes',
+                    { event: 'INSERT', schema: 'public', table: 'project_messages', filter: `project_id=eq.${project.id}` },
+                    (payload) => {
+                        messages.push(payload.new);
+                        renderMessage(payload.new);
+                        scrollMessagesToBottom();
+                    }
+                )
+                .subscribe();
+
+            // Subscribe to revision updates
+            sb
+                .channel(`revisions:${project.id}`)
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'project_revisions', filter: `project_id=eq.${project.id}` },
+                    async () => {
+                        await loadRevisions();
+                        renderRevisions();
+                    }
+                )
+                .subscribe();
+        }
+
+        // ============================================
+        // RENDER FUNCTIONS
+        // ============================================
+        function renderProject() {
+            // User info
+            const initials = project.client_name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('userName').textContent = project.client_name;
+            document.getElementById('userEmail').textContent = project.client_email;
+
+            // Project header
+            document.getElementById('businessName').textContent = project.business_name;
+
+            const tierConfig = TIER_CONFIG[project.tier] || TIER_CONFIG.growth;
+            document.getElementById('tierName').textContent = tierConfig.name;
+            document.getElementById('responseTime').textContent = `Typically < ${tierConfig.responseTime} response`;
+
+            // Deadline
+            const deadline = new Date(project.deadline_date);
+            const today = new Date();
+            const daysRemaining = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+
+            const deadlineBadge = document.getElementById('deadlineBadge');
+            document.getElementById('daysRemaining').textContent = daysRemaining;
+
+            if (daysRemaining <= 2) {
+                deadlineBadge.classList.add('urgent');
+            }
+
+            // Status tracker
+            renderStatus();
+
+            // Preview
+            renderPreview();
+
+            // Details
+            document.getElementById('detailType').textContent = project.project_type === 'new' ? 'New Website' : 'Update / Replace';
+            document.getElementById('detailDomain').textContent = project.domain_name || project.existing_url || '—';
+            document.getElementById('detailPackage').textContent = tierConfig.name;
+            document.getElementById('detailDeadline').textContent = deadline.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Translation Detail
+            const translationRow = document.getElementById('detailTranslationRow');
+            if (project.translation_active) {
+                const tier = project.translation_tier ? project.translation_tier.charAt(0).toUpperCase() + project.translation_tier.slice(1) : 'Starter';
+                const langCount = Array.isArray(project.translation_languages) ? project.translation_languages.length : 0;
+                document.getElementById('detailTranslation').textContent = `${tier} Tier (${langCount} languages)`;
+                translationRow.classList.remove('hidden');
+            } else {
+                translationRow.classList.add('hidden');
+            }
+
+            // SEO Detail
+            const seoRow = document.getElementById('detailSeoRow');
+            if (project.seo_active) {
+                const tier = project.seo_tier ? project.seo_tier.charAt(0).toUpperCase() + project.seo_tier.slice(1) : 'Starter';
+                document.getElementById('detailSeo').textContent = `${tier} Tier`;
+                seoRow.classList.remove('hidden');
+            } else {
+                seoRow.classList.add('hidden');
+            }
+
+            // Pages
+            renderPages();
+
+            // Messages
+            renderMessages();
+
+            // Revisions
+            renderRevisions();
+
+            // Payments & Billing
+            renderPayments();
+
+            // Show/hide elements based on status
+            updateUIForStatus();
+        }
+
+        function renderStatus() {
+            const status = project.status;
+            const statusIndex = STATUS_ORDER.indexOf(status);
+
+            // Calculate progress percentage
+            const progressPercent = (statusIndex / (STATUS_ORDER.length - 1)) * 100;
+            document.getElementById('statusLineFill').style.width = `${progressPercent}%`;
+
+            // Update status steps
+            document.querySelectorAll('.status-step').forEach((step, idx) => {
+                const stepStatus = step.dataset.status;
+                const stepIndex = STATUS_ORDER.indexOf(stepStatus);
+
+                step.classList.remove('completed', 'active');
+
+                if (stepIndex < statusIndex) {
+                    step.classList.add('completed');
+                    step.querySelector('.status-step-circle').innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                } else if (stepIndex === statusIndex) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Status message
+            const statusMsg = STATUS_MESSAGES[status] || STATUS_MESSAGES.in_build;
+            document.getElementById('statusTitle').textContent = statusMsg.title;
+            document.getElementById('statusDesc').textContent = statusMsg.desc;
+        }
+
+        function renderPreview() {
+            const previewPlaceholder = document.getElementById('previewPlaceholder');
+            const previewFrame = document.getElementById('previewFrame');
+            const openPreviewBtn = document.getElementById('openPreviewBtn');
+            const requestChangesBtn = document.getElementById('requestChangesBtn');
+
+            if (project.preview_url) {
+                previewPlaceholder.classList.add('hidden');
+                previewFrame.classList.remove('hidden');
+                openPreviewBtn.classList.remove('hidden');
+                openPreviewBtn.href = project.preview_url;
+
+                document.getElementById('previewUrl').textContent = project.preview_url.replace('https://', '');
+                document.getElementById('previewIframe').src = project.preview_url;
+
+                // Show request changes button if in review
+                if (['in_review', 'revisions'].includes(project.status)) {
+                    requestChangesBtn.classList.remove('hidden');
+                }
+            } else {
+                previewPlaceholder.classList.remove('hidden');
+                previewFrame.classList.add('hidden');
+                openPreviewBtn.classList.add('hidden');
+                requestChangesBtn.classList.add('hidden');
+            }
+        }
+
+        function renderPages() {
+            const pagesList = document.getElementById('pagesList');
+            pagesList.innerHTML = '';
+
+            if (pages.length === 0) {
+                pagesList.innerHTML = '<span style="color: var(--grey-400);">No pages added</span>';
+                return;
+            }
+
+            pages.forEach(page => {
+                const tag = document.createElement('span');
+                tag.className = 'page-tag';
+                tag.textContent = page.page_name;
+                pagesList.appendChild(tag);
+            });
+        }
+
+        function renderMessages() {
+            const messagesList = document.getElementById('messagesList');
+            const messagesEmpty = document.getElementById('messagesEmpty');
+
+            if (messages.length === 0) {
+                messagesEmpty.classList.remove('hidden');
+                return;
+            }
+
+            messagesEmpty.classList.add('hidden');
+
+            // Clear existing (except empty placeholder)
+            messagesList.querySelectorAll('.message').forEach(m => m.remove());
+
+            messages.forEach(msg => renderMessage(msg));
+            scrollMessagesToBottom();
+        }
+
+        function renderMessage(msg) {
+            const messagesList = document.getElementById('messagesList');
+            const messagesEmpty = document.getElementById('messagesEmpty');
+            messagesEmpty.classList.add('hidden');
+
+            const isTeam = msg.sender_type === 'team';
+            const initials = msg.sender_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            const time = new Date(msg.created_at).toLocaleString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${isTeam ? 'from-team' : 'from-client'}`;
+            messageEl.innerHTML = `
+                <div class="message-avatar">${isTeam ? 'L10' : initials}</div>
+                <div class="message-content">
+                    <div class="message-bubble">${escapeHtml(msg.message)}</div>
+                    <div class="message-meta">
+                        <span>${msg.sender_name}</span>
+                        <span>•</span>
+                        <span>${time}</span>
+                    </div>
+                </div>
+            `;
+
+            messagesList.appendChild(messageEl);
+        }
+
+        function scrollMessagesToBottom() {
+            const messagesList = document.getElementById('messagesList');
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
+
+        function renderRevisions() {
+            const revisionsList = document.getElementById('revisionsList');
+            const revisionsEmpty = document.getElementById('revisionsEmpty');
+            const revisionsCounter = document.getElementById('revisionsCounter');
+            const newRevisionBtn = document.getElementById('newRevisionBtn');
+
+            const tierConfig = TIER_CONFIG[project.tier] || TIER_CONFIG.growth;
+            document.getElementById('revisionsAllowed').textContent = tierConfig.revisions;
+            document.getElementById('revisionsUsed').textContent = revisions.length;
+
+            if (revisions.length === 0) {
+                revisionsEmpty.classList.remove('hidden');
+                revisionsList.classList.add('hidden');
+                revisionsCounter.classList.add('hidden');
+            } else {
+                revisionsEmpty.classList.add('hidden');
+                revisionsList.classList.remove('hidden');
+                revisionsCounter.classList.remove('hidden');
+
+                revisionsList.innerHTML = '';
+                revisions.forEach((rev, idx) => {
+                    const statusClass = rev.status === 'completed' ? 'completed' :
+                        rev.status === 'in_progress' ? 'in-progress' : 'pending';
+                    const statusText = rev.status === 'completed' ? 'Completed' :
+                        rev.status === 'in_progress' ? 'In Progress' : 'Pending';
+
+                    const revEl = document.createElement('div');
+                    revEl.className = 'revision-item';
+                    revEl.innerHTML = `
+                        <div class="revision-number">${idx + 1}</div>
+                        <div class="revision-content">
+                            <div class="revision-type">${formatRevisionType(rev.revision_type)} • ${rev.page_reference || 'General'}</div>
+                            <div class="revision-desc">${escapeHtml(rev.description)}</div>
+                        </div>
+                        <span class="revision-status ${statusClass}">${statusText}</span>
+                    `;
+                    revisionsList.appendChild(revEl);
+                });
+            }
+
+            // Show new revision button if in review/revisions status
+            if (['in_review', 'revisions'].includes(project.status)) {
+                newRevisionBtn.classList.remove('hidden');
+            }
+        }
+
+        function renderPayments() {
+            const paymentList = document.getElementById('paymentList');
+            const tierConfig = TIER_CONFIG[project.tier] || TIER_CONFIG.growth;
+
+            // Calculate billing stats
+            const totalPaid = payments
+                .filter(p => p.status === 'succeeded')
+                .reduce((sum, p) => sum + (p.amount || 0), 0);
+
+            const outstanding = payments
+                .filter(p => p.status === 'pending' || p.status === 'failed')
+                .reduce((sum, p) => sum + (p.amount || 0), 0);
+
+            // Monthly amount based on tier + addons
+            const baseMonthly = { starter: 99, growth: 149, scale: 249 };
+            const translationMonthly = { starter: 49, growth: 99, business: 199, enterprise: 499 };
+            const seoMonthly = { starter: 49, growth: 99, business: 199, scale: 499 };
+
+            let monthlyTotal = baseMonthly[project.tier] || 149;
+            if (project.translation_active && project.translation_tier) {
+                monthlyTotal += (translationMonthly[project.translation_tier] || 0);
+            }
+            if (project.seo_active && project.seo_tier) {
+                monthlyTotal += (seoMonthly[project.seo_tier] || 0);
+            }
+
+            // Update billing summary
+            document.getElementById('totalPaid').textContent = `£${totalPaid.toLocaleString()}`;
+            document.getElementById('monthlyAmount').textContent = `£${monthlyTotal}/mo`;
+            document.getElementById('outstandingAmount').textContent = outstanding > 0 ? `£${outstanding.toLocaleString()}` : '£0';
+
+            // Update subscription info
+            document.getElementById('subscriptionPlan').textContent = `${tierConfig.name} Care Plan`;
+
+            // Calculate next billing date (1 month from last payment or project creation)
+            const lastPayment = payments.find(p => p.status === 'succeeded');
+            const lastDate = lastPayment ? new Date(lastPayment.created_at) : new Date(project.created_at);
+            const nextBilling = new Date(lastDate);
+            nextBilling.setMonth(nextBilling.getMonth() + 1);
+            document.getElementById('nextBillingDate').textContent = nextBilling.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+
+            // Render payment history
+            if (payments.length === 0) {
+                paymentList.innerHTML = `
+                    <div class="payment-item" style="justify-content: center; color: var(--grey-400);">
+                        <span>No payments recorded yet</span>
+                    </div>
+                `;
+                return;
+            }
+
+            paymentList.innerHTML = '';
+            payments.forEach(payment => {
+                const date = new Date(payment.created_at).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+
+                const statusClass = payment.status === 'succeeded' ? 'success' :
+                    payment.status === 'pending' ? 'pending' : 'failed';
+                const statusText = payment.status === 'succeeded' ? 'Paid' :
+                    payment.status === 'pending' ? 'Pending' : 'Failed';
+
+                const iconSvg = payment.status === 'succeeded'
+                    ? '<polyline points="20 6 9 17 4 12"></polyline>'
+                    : payment.status === 'pending'
+                        ? '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>'
+                        : '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>';
+
+                const paymentEl = document.createElement('div');
+                paymentEl.className = 'payment-item';
+                paymentEl.innerHTML = `
+                    <div class="payment-info">
+                        <div class="payment-icon ${statusClass}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                ${iconSvg}
+                            </svg>
+                        </div>
+                        <div class="payment-details">
+                            <h4>${payment.description || 'Payment'}</h4>
+                            <span>${date}${payment.invoice_id ? ' · ' + payment.invoice_id : ''}</span>
+                        </div>
+                    </div>
+                    <div class="payment-amount">
+                        <div class="payment-amount-value">£${(payment.amount || 0).toLocaleString()}</div>
+                        <div class="payment-amount-status ${statusClass}">${statusText}</div>
+                    </div>
+                `;
+                paymentList.appendChild(paymentEl);
+            });
+        }
+
+        function updateUIForStatus() {
+            const approvalCard = document.getElementById('approvalCard');
+
+            // Show approval card only in review status
+            if (project.status === 'in_review') {
+                approvalCard.classList.remove('hidden');
+            } else {
+                approvalCard.classList.add('hidden');
+            }
+        }
+
+        // ============================================
+        // ACTIONS
+        // ============================================
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Clear input immediately
+            input.value = '';
+
+            // Demo mode - just render locally
+            if (useDemo) {
+                const demoMsg = {
+                    sender_type: 'client',
+                    sender_name: project.client_name,
+                    message: message,
+                    created_at: new Date().toISOString()
+                };
+                messages.push(demoMsg);
+                renderMessage(demoMsg);
+                scrollMessagesToBottom();
+                return;
+            }
+
+            try {
+                // Insert into Supabase
+                const { data, error } = await sb
+                    .from('project_messages')
+                    .insert({
+                        project_id: project.id,
+                        sender_type: 'client',
+                        sender_name: project.client_name,
+                        message: message
+                    })
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // Fire webhook to n8n
+                await fetch(WEBHOOKS.chatMessage, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'chat_message',
+                        project_id: project.id,
+                        message: {
+                            sender_type: 'client',
+                            sender_name: project.client_name,
+                            content: message
+                        },
+                        client_email: project.client_email,
+                        sent_at: new Date().toISOString()
+                    })
+                }).catch(err => console.log('Webhook error (non-blocking):', err));
+
+                // Render message locally (realtime will also trigger, but this is faster)
+                if (data) {
+                    renderMessage(data);
+                    scrollMessagesToBottom();
+                }
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Failed to send message. Please try again.');
+                input.value = message; // Restore message
+            }
+        }
+
+        function handleMessageKeydown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function openRevisionModal() {
+            document.getElementById('revisionModal').classList.add('visible');
+
+            // Populate page dropdown with actual pages
+            const pageSelect = document.getElementById('revisionPage');
+            pageSelect.innerHTML = '<option value="">Select...</option>';
+            pages.forEach(page => {
+                pageSelect.innerHTML += `<option value="${page.page_name.toLowerCase()}">${page.page_name}</option>`;
+            });
+            pageSelect.innerHTML += `
+                <option value="multiple">Multiple Pages</option>
+                <option value="general">General / Site-wide</option>
+            `;
+        }
+
+        function closeRevisionModal() {
+            document.getElementById('revisionModal').classList.remove('visible');
+            // Clear form
+            document.getElementById('revisionType').value = '';
+            document.getElementById('revisionPage').value = '';
+            document.getElementById('revisionDesc').value = '';
+        }
+
+        async function submitRevision() {
+            const type = document.getElementById('revisionType').value;
+            const page = document.getElementById('revisionPage').value;
+            const desc = document.getElementById('revisionDesc').value.trim();
+
+            if (!type || !page || !desc) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Demo mode - just render locally
+            if (useDemo) {
+                const demoRevision = {
+                    id: 'demo-' + Date.now(),
+                    revision_type: type,
+                    page_reference: page,
+                    description: desc,
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                };
+                revisions.push(demoRevision);
+                closeRevisionModal();
+                renderRevisions();
+                alert('Revision request submitted. We\'ll update you within 24 hours.');
+                return;
+            }
+
+            try {
+                // Insert into Supabase
+                const { data, error } = await sb
+                    .from('project_revisions')
+                    .insert({
+                        project_id: project.id,
+                        revision_type: type,
+                        page_reference: page,
+                        description: desc,
+                        status: 'pending'
+                    })
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // Update project status if needed
+                if (project.status === 'in_review') {
+                    await sb
+                        .from('projects')
+                        .update({ status: 'revisions', status_updated_at: new Date().toISOString() })
+                        .eq('id', project.id);
+                }
+
+                // Fire webhook to n8n
+                await fetch(WEBHOOKS.revisionNote, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'revision_requested',
+                        project_id: project.id,
+                        revision: {
+                            id: data.id,
+                            type: type,
+                            page: page,
+                            description: desc
+                        },
+                        client_email: project.client_email,
+                        submitted_at: new Date().toISOString()
+                    })
+                }).catch(err => console.log('Webhook error (non-blocking):', err));
+
+                // Close modal and refresh
+                closeRevisionModal();
+                revisions.push(data);
+                renderRevisions();
+
+                alert('Revision request submitted. We\'ll update you within 24 hours.');
+
+            } catch (error) {
+                console.error('Error submitting revision:', error);
+                alert('Failed to submit revision. Please try again.');
+            }
+        }
+
+        async function approveProject() {
+            if (!confirm('Are you sure you want to approve and go live? This will trigger your final payment.')) {
+                return;
+            }
+
+            // Demo mode - just update local state
+            if (useDemo) {
+                project.status = 'approved';
+                renderProject();
+                alert('🎉 Project approved! We\'ll begin the final setup and your site will be live within 24-48 hours.');
+                return;
+            }
+
+            try {
+                // Update project status
+                await sb
+                    .from('projects')
+                    .update({
+                        status: 'approved',
+                        status_updated_at: new Date().toISOString()
+                    })
+                    .eq('id', project.id);
+
+                // Fire webhook to n8n
+                await fetch(WEBHOOKS.projectApproval, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'project_approved',
+                        project_id: project.id,
+                        client_email: project.client_email,
+                        approved_at: new Date().toISOString()
+                    })
+                }).catch(err => console.log('Webhook error (non-blocking):', err));
+
+                // Update local state
+                project.status = 'approved';
+                renderProject();
+
+                alert('🎉 Project approved! We\'ll begin the final setup and your site will be live within 24-48 hours.');
+
+            } catch (error) {
+                console.error('Error approving project:', error);
+                alert('Failed to approve project. Please try again or contact support.');
+            }
+        }
+
+        // ============================================
+        // BILLING ACTIONS
+        // ============================================
+        function openBillingPortal() {
+            // Populate billing modal
+            const tierConfig = TIER_CONFIG[project.tier] || TIER_CONFIG.growth;
+
+            const baseMonthly = { starter: 99, growth: 149, scale: 249 };
+            const translationMonthly = { starter: 49, growth: 99, business: 199, enterprise: 499 };
+            const seoMonthly = { starter: 49, growth: 99, business: 199, scale: 499 };
+
+            let monthlyTotal = baseMonthly[project.tier] || 149;
+            let planName = `${tierConfig.name} Care Plan`;
+
+            if (project.translation_active && project.translation_tier) {
+                monthlyTotal += (translationMonthly[project.translation_tier] || 0);
+                planName += ` + Translation`;
+            }
+            if (project.seo_active && project.seo_tier) {
+                monthlyTotal += (seoMonthly[project.seo_tier] || 0);
+                planName += ` + SEO`;
+            }
+
+            document.getElementById('billingPlanName').textContent = planName;
+            document.getElementById('billingPlanPrice').textContent = `£${monthlyTotal}/month`;
+
+            // Populate recent transactions
+            const transactionsEl = document.getElementById('billingTransactions');
+            transactionsEl.innerHTML = '';
+
+            const recentPayments = payments.slice(0, 3);
+            if (recentPayments.length === 0) {
+                transactionsEl.innerHTML = '<div style="padding: 0.75rem; color: var(--grey-400); text-align: center;">No transactions yet</div>';
+            } else {
+                recentPayments.forEach(payment => {
+                    const statusClass = payment.status === 'succeeded' ? 'success' :
+                        payment.status === 'pending' ? 'pending' : 'failed';
+                    const date = new Date(payment.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+
+                    transactionsEl.innerHTML += `
+                        <div class="billing-transaction">
+                            <div class="billing-transaction-info">
+                                <div class="billing-transaction-dot ${statusClass}"></div>
+                                <span>${payment.description || 'Payment'} · ${date}</span>
+                            </div>
+                            <span class="billing-transaction-amount">£${(payment.amount || 0).toLocaleString()}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('billingModal').classList.add('visible');
+        }
+
+        function closeBillingModal() {
+            document.getElementById('billingModal').classList.remove('visible');
+        }
+
+        function showUpdatePaymentModal() {
+            closeBillingModal();
+            document.getElementById('paymentMethodModal').classList.add('visible');
+        }
+
+        function closePaymentMethodModal() {
+            document.getElementById('paymentMethodModal').classList.remove('visible');
+        }
+
+        async function savePaymentMethod() {
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            const cardExpiry = document.getElementById('cardExpiryInput').value.trim();
+            const cardCvc = document.getElementById('cardCvc').value.trim();
+            const cardholderName = document.getElementById('cardholderName').value.trim();
+            const billingPostcode = document.getElementById('billingPostcode').value.trim();
+
+            if (!cardNumber || !cardExpiry || !cardCvc || !cardholderName) {
+                alert('Please fill in all card details.');
+                return;
+            }
+
+            if (useDemo) {
+                // Demo mode - simulate success
+                const last4 = cardNumber.replace(/\s/g, '').slice(-4);
+                document.getElementById('cardDisplay').textContent = `•••• •••• •••• ${last4}`;
+                document.getElementById('cardExpiryDisplay').textContent = `Expires ${cardExpiry}`;
+                closePaymentMethodModal();
+                alert('Payment method updated successfully!');
+                return;
+            }
+
+            try {
+                // In production, call Stripe to update payment method
+                const response = await fetch('/api/update-payment-method', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        project_id: project.id,
+                        cardholder_name: cardholderName,
+                        // In production, use Stripe.js to tokenize card details
+                    })
+                });
+
+                if (response.ok) {
+                    closePaymentMethodModal();
+                    alert('Payment method updated successfully!');
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                console.error('Error updating payment method:', error);
+                alert('Unable to update payment method. Please try again.');
+            }
+        }
+
+        function showInvoicesModal(e) {
+            if (e) e.preventDefault();
+            closeBillingModal();
+
+            // Populate invoices list
+            const invoicesList = document.getElementById('invoicesList');
+            invoicesList.innerHTML = '';
+
+            if (payments.length === 0) {
+                invoicesList.innerHTML = `
+                    <div style="padding: 3rem; text-align: center; color: var(--grey-400);">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        <p>No invoices yet</p>
+                    </div>
+                `;
+            } else {
+                payments.forEach(payment => {
+                    const date = new Date(payment.created_at).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                    const invoiceId = payment.invoice_id || `INV-${payment.id.slice(-6).toUpperCase()}`;
+
+                    invoicesList.innerHTML += `
+                        <div class="invoice-item" data-search="${invoiceId.toLowerCase()} ${(payment.description || '').toLowerCase()} ${date.toLowerCase()}">
+                            <div class="invoice-info">
+                                <div class="invoice-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="invoice-details">
+                                    <h4>${invoiceId}</h4>
+                                    <span>${payment.description || 'Payment'} · ${date}</span>
+                                </div>
+                            </div>
+                            <div class="invoice-actions">
+                                <span class="invoice-amount">£${(payment.amount || 0).toLocaleString()}</span>
+                                <button class="invoice-download" onclick="downloadInvoice('${payment.id}')" title="Download PDF">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('invoicesModal').classList.add('visible');
+        }
+
+        function closeInvoicesModal() {
+            document.getElementById('invoicesModal').classList.remove('visible');
+        }
+
+        function filterInvoices() {
+            const search = document.getElementById('invoiceSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.invoice-item');
+
+            items.forEach(item => {
+                const searchText = item.dataset.search || '';
+                item.style.display = searchText.includes(search) ? 'flex' : 'none';
+            });
+        }
+
+        async function downloadInvoice(paymentId) {
+            if (useDemo) {
+                alert(`Downloading invoice for payment ${paymentId}...`);
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/invoices/${paymentId}/download`);
+                const blob = await response.blob();
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `invoice-${paymentId}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading invoice:', error);
+                alert('Unable to download invoice. Please try again.');
+            }
+        }
+
+        async function downloadAllInvoices() {
+            if (useDemo) {
+                alert('Downloading all invoices as ZIP...');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/invoices/${project.id}/download-all`);
+                const blob = await response.blob();
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${project.business_name.replace(/\s+/g, '-')}-invoices.zip`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading invoices:', error);
+                alert('Unable to download invoices. Please try again.');
+            }
+        }
+
+        function downloadInvoices(e) {
+            e.preventDefault();
+            showInvoicesModal();
+        }
+
+        function updatePaymentMethod(e) {
+            e.preventDefault();
+            showUpdatePaymentModal();
+        }
+
+        function showSupportModal() {
+            closeBillingModal();
+            document.getElementById('supportModal').classList.add('visible');
+        }
+
+        function closeSupportModal() {
+            document.getElementById('supportModal').classList.remove('visible');
+            document.getElementById('supportTopic').value = '';
+            document.getElementById('supportMessage').value = '';
+        }
+
+        function handleSupportAction(action) {
+            const messages = {
+                refund: 'I would like to request a refund for my recent payment.',
+                pause: 'I would like to pause my subscription temporarily.',
+                cancel: 'I would like to cancel my care plan subscription.',
+                upgrade: 'I would like to upgrade my current plan.'
+            };
+
+            const topics = {
+                refund: 'incorrect_charge',
+                pause: 'change_plan',
+                cancel: 'change_plan',
+                upgrade: 'change_plan'
+            };
+
+            document.getElementById('supportTopic').value = topics[action] || 'other';
+            document.getElementById('supportMessage').value = messages[action] || '';
+            document.getElementById('supportMessage').focus();
+        }
+
+        async function submitSupportRequest() {
+            const topic = document.getElementById('supportTopic').value;
+            const message = document.getElementById('supportMessage').value.trim();
+
+            if (!topic || !message) {
+                alert('Please select a topic and enter a message.');
+                return;
+            }
+
+            // Create a message in the chat
+            const supportMessage = `[Billing Support - ${topic.replace(/_/g, ' ')}]\n\n${message}`;
+
+            if (useDemo) {
+                const demoMsg = {
+                    sender_type: 'client',
+                    sender_name: project.client_name,
+                    message: supportMessage,
+                    created_at: new Date().toISOString()
+                };
+                messages.push(demoMsg);
+                renderMessage(demoMsg);
+                scrollMessagesToBottom();
+                closeSupportModal();
+                alert('Support request sent! We\'ll respond within 24 hours.');
+                return;
+            }
+
+            try {
+                const { data, error } = await sb
+                    .from('project_messages')
+                    .insert({
+                        project_id: project.id,
+                        sender_type: 'client',
+                        sender_name: project.client_name,
+                        message: supportMessage
+                    })
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // Fire webhook
+                await fetch(WEBHOOKS.chatMessage, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'billing_support',
+                        project_id: project.id,
+                        topic: topic,
+                        message: message,
+                        client_email: project.client_email,
+                        sent_at: new Date().toISOString()
+                    })
+                }).catch(err => console.log('Webhook error:', err));
+
+                if (data) {
+                    renderMessage(data);
+                    scrollMessagesToBottom();
+                }
+
+                closeSupportModal();
+                alert('Support request sent! We\'ll respond within 24 hours.');
+
+            } catch (error) {
+                console.error('Error sending support request:', error);
+                alert('Failed to send request. Please try again.');
+            }
+        }
+
+        function contactSupport(e) {
+            e.preventDefault();
+            showSupportModal();
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatRevisionType(type) {
+            const types = {
+                text_change: 'Text Change',
+                image_change: 'Image Change',
+                layout_change: 'Layout Change',
+                colour_change: 'Colour Change',
+                functionality: 'Functionality',
+                other: 'Other'
+            };
+            return types[type] || type;
+        }
+    </script>
+</body>
+
+</html>

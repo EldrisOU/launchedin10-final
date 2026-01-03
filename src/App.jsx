@@ -12,6 +12,7 @@ import BlogPost from './pages/BlogPost';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookiePolicy from './pages/CookiePolicy';
 import TermsOfService from './pages/TermsOfService';
+import SEOSalePage from './pages/SEOSalePage';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:category" element={<BlogIndex />} />
             <Route path="/blog/:category/:slug" element={<BlogPost />} />
+
+            {/* SALES PAGES */}
+            <Route path="/seo-disruptor" element={<SEOSalePage />} />
 
             {/* LEGAL & POLICY */}
             <Route path="/privacy" element={<PrivacyPolicy />} />

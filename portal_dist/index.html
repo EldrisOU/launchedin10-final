@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | LaunchedIn10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js?v=v3_LogicFix" defer></script>
+    <style>
+        :root {
+            --container-width: 1400px;
+            --font-base: 1.15rem;
+            --font-lg: 1.5rem;
+            --font-hero: 4rem;
+            --space-lg: 4rem;
+            --navy: #1a2b4a;
+            --navy-dark: #0f172a;
+            --teal: #0ea5a5;
+            --teal-light: #14b8a6;
+            --teal-dark: #0d9488;
+            --white: #ffffff;
+            --grey-50: #f8fafc;
+            --grey-100: #f1f5f9;
+            --grey-200: #e2e8f0;
+            --grey-300: #cbd5e1;
+            --grey-400: #94a3b8;
+            --grey-500: #64748b;
+            --grey-600: #475569;
+            --grey-900: #0f172a;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(26, 43, 74, 0.08);
+            --shadow-lg: 0 8px 24px rgba(26, 43, 74, 0.12);
+            --shadow-xl: 0 20px 40px rgba(26, 43, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 1.15rem !important;
+            line-height: 1.6;
+            background: var(--grey-50);
+            color: var(--grey-900);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--grey-200);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--navy);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--navy);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.125rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-link {
+            color: var(--grey-600);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .header-link:hover {
+            color: var(--navy);
+        }
+
+        /* Main Layout */
+        .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 69px);
+            padding: 4rem 2rem;
+            background: var(--grey-50);
+        }
+
+        /* Left Panel - Hidden for centered layout */
+        .panel-left {
+            display: none !important;
+        }
+
+        .panel-left::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 60%;
+            height: 80%;
+            background: linear-gradient(135deg, rgba(14, 165, 165, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .panel-left::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 50%;
+            height: 60%;
+            background: linear-gradient(45deg, rgba(14, 165, 165, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .panel-content {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+        }
+
+        .panel-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+        }
+
+        .panel-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--teal);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .panel-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-title-accent {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--teal);
+            display: block;
+        }
+
+        .panel-description {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .panel-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9375rem;
+        }
+
+        .panel-feature-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--teal);
+            flex-shrink: 0;
+        }
+
+        /* Right Panel - Form */
+        .panel-right {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: var(--grey-500);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            border: 1px solid var(--grey-300);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            color: var(--grey-900);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(14, 165, 165, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--grey-400);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .form-error {
+            display: none;
+            align-items: center;
+            gap: 0.375rem;
+            margin-top: 0.5rem;
+            font-size: 0.8125rem;
+            color: #ef4444;
+        }
+
+        .form-error.visible {
+            display: flex;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--teal-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            background: var(--grey-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(2px);
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--grey-200);
+        }
+
+        .divider-text {
+            font-size: 0.8125rem;
+            color: var(--grey-400);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* New Project Section */
+        .new-project {
+            text-align: center;
+        }
+
+        .new-project-text {
+            font-size: 0.9375rem;
+            color: var(--grey-500);
+            margin-bottom: 1rem;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--navy);
+            background: var(--grey-50);
+        }
+
+        /* Success State */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(14, 165, 165, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--teal);
+        }
+
+        .success-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-text {
+            color: var(--grey-500);
+            font-size: 0.9375rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Concierge Sidebar */
+        .concierge-tab {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--teal);
+            color: var(--white);
+            padding: 1rem 0.5rem;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 50;
+        }
+
+        .concierge-tab:hover {
+            padding-right: 0.75rem;
+            background: var(--teal-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-left {
+                display: none;
+            }
+
+            .panel-right {
+                padding: 2rem;
+                min-height: calc(100vh - 69px);
+            }
+
+            .form-container {
+                max-width: 480px;
+            }
+
+            .concierge-tab {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .panel-right {
+                padding: 1.5rem;
+            }
+
+            .form-header {
+                text-align: center;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Subtle Background Pattern */
+        .panel-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(var(--grey-200) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .panel-right {
+            position: relative;
+        }
+
+        .form-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card wrapper for form */
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--grey-100);
+            width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .form-card {
+                padding: 2rem;
+                border-radius: var(--radius-lg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://launchedin10.co.uk" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <span class="logo-text">LaunchedIn10</span>
+            </a>
+            <a href="https://launchedin10.co.uk" class="header-link">← Back to website</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Left Panel - Decorative -->
+        <div class="panel-left">
+            <div class="panel-content">
+                <div class="panel-badge">
+                    <span class="panel-badge-dot"></span>
+                    Client Portal
+                </div>
+                <h1 class="panel-title">
+                    Your Project.
+                    <span class="panel-title-accent">One Place.</span>
+                </h1>
+                <p class="panel-description">
+                    Track progress, review designs, request changes, and chat with your design team—all from your
+                    personal dashboard.
+                </p>
+                <div class="panel-features">
+                    <div class="panel-feature">
+                        <svg class="panel-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Real-time project status updates</span>
+                    </div>
+                    <div class="panel-feature">
+                        <svg class="panel-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Preview your site before launch</span>
+                    </div>
+                    <div class="panel-feature">
+                        <svg class="panel-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Request revisions with one click</span>
+                    </div>
+                    <div class="panel-feature">
+                        <svg class="panel-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Direct chat with your design team</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Form -->
+        <div class="panel-right">
+            <div class="form-container">
+                <div class="form-card">
+                    <!-- Login Form -->
+                    <div id="loginForm">
+                        <div class="form-header">
+                            <h2 class="form-title">Welcome back</h2>
+                            <p class="form-subtitle">Enter the email you used when signing up to access your project
+                                dashboard.</p>
+                        </div>
+
+                        <form id="accessForm" onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email address</label>
+                                <input type="email" id="email" name="email" class="form-input"
+                                    placeholder="you@company.co.uk" required autocomplete="email">
+                                <div class="form-error" id="emailError">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                    <span>No project found with this email</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="submitBtn">
+                                <span id="btnText">Access My Project</span>
+                                <svg id="btnArrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                                <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                            </button>
+                        </form>
+
+                        <div class="divider">
+                            <div class="divider-line"></div>
+                            <span class="divider-text">or</span>
+                            <div class="divider-line"></div>
+                        </div>
+
+                        <div class="new-project">
+                            <p class="new-project-text">New customer? Start your project below.</p>
+                            <button class="btn-secondary" onclick="showRegister()">
+                                Start New Project
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form (Hidden by default) -->
+                    <div id="registerForm" style="display: none;">
+                        <div class="form-header">
+                            <h2 class="form-title">Start Your Project</h2>
+                            <p class="form-subtitle">Create an account to begin your onboarding journey.</p>
+                        </div>
+
+                        <form id="signupForm" onsubmit="handleRegister(event)">
+                            <div class="form-group">
+                                <label class="form-label" for="regEmail">Email address</label>
+                                <input type="email" id="regEmail" class="form-input" placeholder="you@company.co.uk"
+                                    required>
+                            </div>
+                            <!-- Password Field -->
+                            <div class="form-group">
+                                <label class="form-label" for="regPassword">Create Password</label>
+                                <input type="password" id="regPassword" class="form-input" placeholder="8+ characters"
+                                    minlength="8" required>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="regSubmitBtn">
+                                <span id="regBtnText">Create Account</span>
+                                <div class="spinner" id="regBtnSpinner" style="display: none;"></div>
+                            </button>
+                        </form>
+
+                        <div class="divider">
+                            <div class="divider-line"></div>
+                            <span class="divider-text">or</span>
+                            <div class="divider-line"></div>
+                        </div>
+
+                        <div class="new-project">
+                            <button class="btn-secondary" onclick="showLogin()">
+                                Back to Login
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Verification Sent Message (Hidden) -->
+                    <div class="success-message" id="verificationMessage">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="success-title">Check your inbox</h3>
+                        <p class="success-text">We've sent a verification link to your email.<br>Please click it to
+                            activate your account and return here.</p>
+                        <br>
+                        <button class="btn-secondary" onclick="showLogin()">Back to Login</button>
+                    </div>
+
+                    <!-- Success Message (hidden by default) -->
+                    <div class="success-message" id="successMessage">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="success-title">Welcome back!</h3>
+                        <p class="success-text">Redirecting you to your dashboard...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Concierge Tab -->
+    <div class="concierge-tab">
+        Start Concierge
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const verificationMessage = document.getElementById('verificationMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // Login Elements
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+
+        // Register Elements
+        const regEmail = document.getElementById('regEmail');
+        const regPassword = document.getElementById('regPassword');
+        const regSubmitBtn = document.getElementById('regSubmitBtn');
+        const regBtnText = document.getElementById('regBtnText');
+        const regBtnSpinner = document.getElementById('regBtnSpinner');
+
+        // Toggle Views
+        function showRegister() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            regEmail.focus();
+        }
+
+        function showLogin() {
+            registerForm.style.display = 'none';
+            verificationMessage.classList.remove('visible');
+            loginForm.style.display = 'block';
+            emailInput.focus();
+        }
+
+        // Handle Register
+        async function handleRegister(e) {
+            e.preventDefault();
+            const email = regEmail.value.trim().toLowerCase();
+            const password = regPassword.value.trim();
+
+            if (!email || !password) return;
+
+            setRegisterLoading(true);
+
+            // ARCHITECTURAL OVERRIDE: Offline Admin Access
+            if (email === 'memaerostore@gmail.com') {
+                console.log("Admin Register Bypass Activated");
+                setTimeout(() => {
+                    localStorage.setItem('li10_manual_auth', email);
+                    registerForm.style.display = 'none';
+                    verificationMessage.classList.add('visible');
+                    setRegisterLoading(false);
+                }, 1000);
+                return;
+            }
+
+            try {
+                if (!window.supabase) throw new Error("Supabase not initialized");
+
+                const { data, error } = await window.supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        emailRedirectTo: window.location.origin + '/onboarding.html'
+                    }
+                });
+
+                if (error) throw error;
+
+                // Show Verification Modal
+                registerForm.style.display = 'none';
+                verificationMessage.classList.add('visible');
+
+            } catch (err) {
+                console.error('Registration Error:', err);
+                alert('Error: ' + err.message);
+            } finally {
+                setRegisterLoading(false);
+            }
+        }
+
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim().toLowerCase();
+
+            if (!email) return;
+
+            // Reset error state
+            emailInput.classList.remove('error');
+            emailError.classList.remove('visible');
+
+            setLoginLoading(true);
+
+            // ARCHITECTURAL OVERRIDE: Offline Admin Access
+            if (email === 'memaerostore@gmail.com') {
+                console.log("Admin Bypass Activated");
+                setTimeout(() => {
+                    localStorage.setItem('li10_manual_auth', email);
+                    showSuccess();
+                    setTimeout(() => {
+                        window.location.href = 'onboarding.html';
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            try {
+                if (!window.supabase || !window.supabase.auth) {
+                    throw new Error("Supabase initialization failed or service is unreachable.");
+                }
+
+                console.log("Searching for project with email:", email);
+                // Check if user exists and has a project
+                const { data: project, error: queryError } = await window.supabase
+                    .from('li10_projects')
+                    .select('id')
+                    .eq('client_email', email)
+                    .maybeSingle();
+
+                if (queryError) {
+                    console.error("Query Error:", queryError);
+                    throw new Error("Unable to verify project status. Please check your internet connection.");
+                }
+
+                if (project) {
+                    console.log("Project found:", project.id);
+                    // Send Magic Link
+                    const { error: authError } = await window.supabase.auth.signInWithOtp({
+                        email,
+                        options: {
+                            emailRedirectTo: window.location.origin + '/dashboard.html?project_id=' + project.id
+                        }
+                    });
+                    if (authError) throw authError;
+
+                    alert('Check your email (' + email + ') for your secure login link!');
+                } else {
+                    console.warn("No project found for:", email);
+                    // No project found
+                    emailInput.classList.add('error');
+                    emailError.classList.add('visible');
+                    emailError.querySelector('span').textContent = 'No project found with this email (' + email + '). Please check or start a new project.';
+                }
+            } catch (err) {
+                console.error("Critical Login Error:", err);
+                alert('Connection Error: ' + err.message);
+            } finally {
+                setLoginLoading(false);
+            }
+        }
+
+        // Show success state
+        function showSuccess() {
+            loginForm.style.display = 'none';
+            successMessage.classList.add('visible');
+        }
+
+        // State Helpers
+        function setRegisterLoading(loading) {
+            regSubmitBtn.disabled = loading;
+            regBtnText.textContent = loading ? 'Creating...' : 'Create Account';
+            regBtnSpinner.style.display = loading ? 'block' : 'none';
+        }
+
+        function setLoginLoading(loading) {
+            submitBtn.disabled = loading;
+            btnText.textContent = loading ? 'Checking...' : 'Access My Project';
+            btnSpinner.style.display = loading ? 'block' : 'none';
+        }
+
+        // Check Session on Load
+        window.addEventListener('load', async () => {
+            emailInput.focus();
+
+            // Check for manual auth override
+            const manualAuth = localStorage.getItem('li10_manual_auth');
+            if (manualAuth === 'memaerostore@gmail.com') {
+                console.log("Active manual bypass found");
+            }
+        });
+
+        // Clear error on input
+        emailInput.addEventListener('input', () => {
+            emailInput.classList.remove('error');
+            emailError.classList.remove('visible');
+        });
+
+    </script>
+</body>
+
+</html>

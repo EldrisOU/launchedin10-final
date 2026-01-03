@@ -17,6 +17,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Home', href: '/' },
         { name: 'Process', href: '/#process' },
+        { name: 'SEO Disruptor', href: '/seo-disruptor' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'The Lab', href: '/blog' },
     ];
@@ -24,7 +25,7 @@ const Navbar = () => {
     const isActive = (href) => {
         if (href === '/') return location.pathname === '/';
         if (href === '/blog') return location.pathname.startsWith('/blog');
-        return false;
+        return location.pathname === href;
     };
 
     return (

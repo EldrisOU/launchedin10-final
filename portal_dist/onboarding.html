@@ -1,0 +1,3195 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Project | LaunchedIn10</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/portal-elite.css?v=v3_Fixes">
+    <style>
+        /* ELITE RESET - HIGH DENSITY & CONSTRAINED WIDTH */
+        :root {
+            --container-width: 1400px;
+            --font-base: 1.15rem;
+            --font-lg: 1.5rem;
+            --font-hero: 4rem;
+            --space-lg: 4rem;
+            --teal: #0ea5a5;
+        }
+
+        body {
+            font-size: var(--font-base) !important;
+            background: #fdfdfd !important;
+            overflow-x: hidden !important;
+            margin: 0 !important;
+            line-height: 1.6 !important;
+            color: #1e293b !important;
+        }
+
+        /* Visibility Fixes */
+        .step {
+            display: none !important;
+        }
+
+        .step.active {
+            display: block !important;
+        }
+
+        #paymentOverlay,
+        #paymentSuccess,
+        .payment-overlay {
+            display: none !important;
+        }
+
+        /* Progress Bar - Minimalist Elite */
+        .progress-container {
+            padding: 1.5rem 0 !important;
+            background: white !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+        }
+
+        .progress-inner {
+            max-width: var(--container-width) !important;
+            margin: 0 auto !important;
+            padding: 0 4rem !important;
+        }
+
+        .progress-step-circle {
+            width: 34px !important;
+            height: 34px !important;
+            font-size: 0.95rem !important;
+        }
+
+        .progress-line {
+            top: 17px !important;
+        }
+
+        /* Main: Content Focus */
+        .main {
+            padding-top: 154px !important;
+            /* Fixed position adjustment */
+            padding-bottom: 120px !important;
+            width: 100% !important;
+        }
+
+        .container {
+            max-width: var(--container-width) !important;
+            width: 95% !important;
+            margin: 0 auto !important;
+            padding: 0 4rem !important;
+        }
+
+        /* STEP INDICATOR */
+        .step-badge {
+            display: inline-block !important;
+            font-size: 1rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 1.5rem !important;
+            color: var(--teal) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+        }
+
+        /* TYPOGRAPHY */
+        .step-title {
+            font-size: 3.25rem !important;
+            font-weight: 900 !important;
+            letter-spacing: -0.04em !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .step-subtitle {
+            font-size: 1.35rem !important;
+            color: #64748b !important;
+            max-width: 800px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        /* GRID: High Density */
+        .type-grid,
+        .tier-grid {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
+            gap: 2.5rem !important;
+            margin-top: 4rem !important;
+        }
+
+        /* CARDS: Elite Density & Focus */
+        .type-card,
+        .tier-card,
+        .card {
+            padding: 4.5rem 3rem !important;
+            border-radius: 32px !important;
+            background: white !important;
+            border: 2px solid #f1f5f9 !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            text-align: center !important;
+            cursor: pointer !important;
+        }
+
+        .type-card:hover,
+        .tier-card:hover {
+            border-color: var(--teal) !important;
+            transform: translateY(-8px) !important;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .type-card.selected,
+        .tier-card.selected {
+            border-color: var(--teal) !important;
+            background: rgba(14, 165, 165, 0.02) !important;
+        }
+
+        .type-card-title,
+        .tier-name {
+            font-size: 2rem !important;
+            font-weight: 800 !important;
+            margin-bottom: 1.25rem !important;
+            color: #0f172a !important;
+        }
+
+        .type-card-desc,
+        .tier-desc {
+            font-size: 1.25rem !important;
+            color: #475569 !important;
+            line-height: 1.6 !important;
+        }
+
+        /* FOOTER: Slim & Professional */
+        .footer-nav {
+            padding: 1.1rem 0 !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            border-top: 1px solid #f1f5f9 !important;
+        }
+
+        .footer-nav-inner {
+            max-width: var(--container-width) !important;
+            margin: 0 auto !important;
+            padding: 0 4rem !important;
+            display: grid !important;
+            grid-template-columns: 1fr auto 1fr !important;
+            align-items: center !important;
+        }
+
+        #backBtn,
+        #nextBtn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.5rem !important;
+            transition: all 0.2s !important;
+            border-radius: var(--radius-lg, 12px) !important;
+            font-weight: 600 !important;
+            font-size: var(--font-base) !important;
+            padding: 0.875rem 1.5rem !important;
+            /* Match Access My Project button height roughly */
+            min-height: 50px !important;
+        }
+
+        #backBtn {
+            grid-column: 1;
+            justify-self: start;
+            color: var(--grey-600) !important;
+            background: var(--grey-50) !important;
+            border: 1px solid var(--grey-200) !important;
+        }
+
+        #nextBtn {
+            grid-column: 2;
+            background: var(--teal, #0ea5a5) !important;
+            color: white !important;
+            border: none !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+
+        #backBtn svg,
+        #nextBtn svg {
+            width: 1.25rem !important;
+            height: 1.25rem !important;
+            flex-shrink: 0 !important;
+        }
+
+        #backBtn:hover {
+            background: var(--grey-100) !important;
+            border-color: var(--grey-300) !important;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: var(--shadow-lg) !important;
+        }
+
+        /* BG CLEANUP */
+        .bg-gradient-svg,
+        svg.diagonal-bg,
+        .footer svg,
+        [class*="diagonal"] {
+            display: none !important;
+        }
+
+        /* SEO V2 RESTORED DESIGN */
+        .seo-v2-question-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .seo-v2-question-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+
+        .seo-v2-question-title {
+            font-size: 2.5rem !important;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.04em;
+        }
+
+        .seo-v2-question-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .seo-v2-toggle-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .seo-v2-toggle-btn {
+            padding: 1rem 3rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #4b5563;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 140px;
+        }
+
+        .seo-v2-toggle-btn.selected {
+            border-color: var(--teal);
+            background: var(--teal);
+            color: white;
+        }
+
+        .seo-v2-toggle-btn.selected-no {
+            border-color: #9ca3af;
+            background: #9ca3af;
+            color: white;
+        }
+
+        .seo-v2-tiers-section {
+            display: none;
+        }
+
+        .seo-v2-tiers-section.visible {
+            display: block;
+            animation: fadeSlideIn 0.4s ease-out;
+        }
+
+        .seo-v2-tiers-header {
+            text-align: center;
+            margin: 3rem 0 2.5rem;
+        }
+
+        .seo-v2-tiers-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .seo-v2-tiers-subtitle {
+            color: #64748b;
+        }
+
+        .seo-v2-tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .seo-v2-tiers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .seo-v2-tier-card {
+            background: white;
+            border: 2px solid #f1f5f9;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            text-align: left;
+        }
+
+        .seo-v2-tier-card:hover {
+            border-color: var(--teal);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .seo-v2-tier-card.selected {
+            border-color: var(--teal);
+            background: rgba(14, 165, 165, 0.02);
+            box-shadow: 0 0 0 4px rgba(14, 165, 165, 0.1);
+        }
+
+        .seo-v2-tier-card.popular {
+            border-color: var(--teal);
+        }
+
+        .seo-v2-tier-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .seo-v2-tier-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .seo-v2-tier-tagline {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .seo-v2-tier-price {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .seo-v2-tier-amount {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+        }
+
+        .seo-v2-tier-currency {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            vertical-align: super;
+            margin-right: 2px;
+        }
+
+        .seo-v2-tier-period {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-left: 4px;
+        }
+
+        .seo-v2-tier-output {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .seo-v2-tier-output-main {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--teal);
+            margin-bottom: 0.25rem;
+        }
+
+        .seo-v2-tier-output-label {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .seo-v2-tier-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .seo-v2-tier-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 0.75rem;
+        }
+
+        .seo-v2-tier-feature svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: var(--teal);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .seo-v2-tier-select-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .seo-v2-tier-card:hover .seo-v2-tier-select-btn {
+            background: #e2e8f0;
+        }
+
+        .seo-v2-tier-card.selected .seo-v2-tier-select-btn {
+            background: var(--teal);
+            color: white;
+        }
+
+        .seo-v2-onboarding-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #1e293b;
+            border-radius: 16px;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .seo-v2-onboarding-note-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .seo-v2-onboarding-note-amount {
+            font-weight: 800;
+            color: #2dd4bf;
+        }
+
+        .seo-v2-no-section {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 24px;
+            border: 2px solid #f1f5f9;
+            margin-top: 2rem;
+        }
+
+        .seo-v2-no-section.visible {
+            display: block;
+            animation: fadeSlideIn 0.4s ease-out;
+        }
+
+        .seo-v2-no-icon {
+            width: 80px;
+            height: 80px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .seo-v2-no-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #94a3b8;
+        }
+
+        .seo-v2-no-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+
+        .seo-v2-no-text {
+            font-size: 1.125rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="onboarding-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://launchedin10.co.uk" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <span class="logo-text">LaunchedIn10</span>
+            </a>
+            <div class="header-right">
+                <div class="save-indicator" id="saveIndicator">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Progress saved</span>
+                </div>
+                <a href="index" class="header-link">Already have a project?</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-inner">
+            <div class="progress-steps">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-step-circle">1</div>
+                    <span class="progress-step-label">Project Type</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-step-circle">2</div>
+                    <span class="progress-step-label">Your Details</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-step-circle">3</div>
+                    <span class="progress-step-label">Content</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-step-circle">4</div>
+                    <span class="progress-step-label">SEO</span>
+                </div>
+                <div class="progress-step" data-step="5">
+                    <div class="progress-step-circle">5</div>
+                    <span class="progress-step-label">Translation</span>
+                </div>
+                <div class="progress-step" data-step="6">
+                    <div class="progress-step-circle">6</div>
+                    <span class="progress-step-label">Brand Assets</span>
+                </div>
+                <div class="progress-step" data-step="7">
+                    <div class="progress-step-circle">7</div>
+                    <span class="progress-step-label">Review</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Step 1: Project Type -->
+            <div class="step active" id="step1">
+                <div class="step-header">
+                    <div class="step-badge">Step 1 of 6</div>
+                    <h1 class="step-title">What are we <span class="step-title-accent">building?</span></h1>
+                    <p class="step-subtitle">Let us know if you're starting fresh or working from an existing site.</p>
+                </div>
+
+                <div class="type-grid">
+                    <div class="type-card" data-type="new" onclick="selectProjectType('new')">
+                        <div class="type-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3 class="type-card-title">New Website</h3>
+                        <p class="type-card-desc">Starting fresh. I need everything built from scratch.</p>
+                    </div>
+                    <div class="type-card" data-type="existing" onclick="selectProjectType('existing')">
+                        <div class="type-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="type-card-title">Update / Replace</h3>
+                        <p class="type-card-desc">I have a site. Clone it, fix it, or replace it.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Your Details -->
+            <div class="step" id="step2">
+                <div class="step-header">
+                    <div class="step-badge">Step 2 of 6</div>
+                    <h1 class="step-title" id="step2Title">Tell us about <span class="step-title-accent">you</span></h1>
+                    <p class="step-subtitle">We'll use these details to personalise your project and keep you updated.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Your Details
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="clientName" placeholder="John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address <span class="required">*</span></label>
+                            <input type="email" class="form-input" id="clientEmail" placeholder="john@example.com">
+                            <p class="form-hint">Use the same email from your payment</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Business Name <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="businessName" placeholder="Smith Consulting Ltd">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Industry <span class="required">*</span></label>
+                            <select class="form-select" id="industry">
+                                <option value="">Select industry...</option>
+                                <option value="retail">Retail</option>
+                                <option value="professional">Professional Services</option>
+                                <option value="hospitality">Hospitality</option>
+                                <option value="construction">Construction</option>
+                                <option value="health">Health & Beauty</option>
+                                <option value="technology">Technology</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        Which package did you purchase? <span class="required">*</span>
+                    </h3>
+                    <div class="tier-grid">
+                        <div class="tier-card" data-tier="starter" onclick="selectTier('starter')">
+                            <div class="tier-name">Starter</div>
+                            <div class="tier-pages">Up to 5 pages</div>
+                            <div class="tier-price">£497 <span>+ £99/mo</span></div>
+                        </div>
+                        <div class="tier-card popular" data-tier="growth" onclick="selectTier('growth')">
+                            <div class="tier-badge">Most Popular</div>
+                            <div class="tier-name">Growth</div>
+                            <div class="tier-pages">Up to 12 pages</div>
+                            <div class="tier-price">£997 <span>+ £149/mo</span></div>
+                        </div>
+                        <div class="tier-card" data-tier="scale" onclick="selectTier('scale')">
+                            <div class="tier-name">Scale</div>
+                            <div class="tier-pages">Up to 25 pages</div>
+                            <div class="tier-price">£1,997 <span>+ £249/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditional: Existing Site -->
+                <div class="card conditional" id="existingSiteSection" style="display: none;">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                        </svg>
+                        Your Current Website
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">Website URL <span class="required">*</span></label>
+                        <input type="url" class="form-input" id="existingUrl" placeholder="https://yourbusiness.co.uk">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">What would you like us to do? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option" onclick="selectAction('clone')">
+                                <input type="radio" name="action" value="clone">
+                                <div class="radio-circle"></div>
+                                <div class="radio-content">
+                                    <div class="radio-title">Clone and modernise</div>
+                                    <div class="radio-desc">Keep the structure, improve the design</div>
+                                </div>
+                            </label>
+                            <label class="radio-option" onclick="selectAction('redesign')">
+                                <input type="radio" name="action" value="redesign">
+                                <div class="radio-circle"></div>
+                                <div class="radio-content">
+                                    <div class="radio-title">Complete redesign</div>
+                                    <div class="radio-desc">Start fresh, use existing content</div>
+                                </div>
+                            </label>
+                            <label class="radio-option" onclick="selectAction('updates')">
+                                <input type="radio" name="action" value="updates">
+                                <div class="radio-circle"></div>
+                                <div class="radio-content">
+                                    <div class="radio-title">Specific updates only</div>
+                                    <div class="radio-desc">Fix or change specific elements</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group conditional" id="updatesDescription" style="display: none;">
+                        <label class="form-label">Describe what needs updating</label>
+                        <textarea class="form-textarea" id="updatesText"
+                            placeholder="Tell us exactly what you'd like changed..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Conditional: New Site -->
+                <div class="card conditional" id="newSiteSection" style="display: none;">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        New Website Details
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">Do you already have a domain name?</label>
+                        <div class="type-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="type-card" data-domain="yes" onclick="selectDomainStatus('yes')">
+                                <h3 class="type-card-title" style="font-size: 1rem;">Yes, I bought one</h3>
+                            </div>
+                            <div class="type-card" data-domain="no" onclick="selectDomainStatus('no')">
+                                <h3 class="type-card-title" style="font-size: 1rem;">No, I need one</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="domainDetails" style="display: none; margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label class="form-label">What is the domain name?</label>
+                            <input type="text" class="form-input" id="domainName" placeholder="www.example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Where did you buy it?</label>
+                            <select class="form-select" id="domainRegistrar">
+                                <option value="">Select registrar...</option>
+                                <option value="godaddy">GoDaddy</option>
+                                <option value="namecheap">Namecheap</option>
+                                <option value="123reg">123 Reg</option>
+                                <option value="google">Google Domains</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group"
+                            style="margin-top: 1.5rem; background: var(--grey-50); padding: 1.5rem; border-radius: var(--radius-lg);">
+                            <label class="form-label">Can you share login access?</label>
+                            <p class="form-hint" style="margin-bottom: 1rem;">We need this to connect your domain to the
+                                new site. Ideally, we just need DNS access.</p>
+                            <div class="type-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="type-card" data-dns="full" onclick="selectDNS('full')">
+                                    <h3 class="type-card-title" style="font-size: 1rem;">Yes, full login</h3>
+                                </div>
+                                <div class="type-card" data-dns="dns" onclick="selectDNS('dns')">
+                                    <h3 class="type-card-title" style="font-size: 1rem;">Yes, DNS only</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 3: Website Content -->
+            <div class="step" id="step3">
+                <div class="step-header">
+                    <div class="step-badge">Step 3 of 6</div>
+                    <h1 class="step-title">Your website <span class="step-title-accent">content</span></h1>
+                    <p class="step-subtitle">Add your pages one by one. You can come back and edit this later.</p>
+                </div>
+
+                <div class="content-wrapper" style="display: grid; gap: 2rem;">
+                    <!-- Pages List -->
+                    <div id="pagesList" class="pages-list">
+                        <!-- Rendered pages will go here -->
+                    </div>
+
+                    <!-- Add Page Form -->
+                    <div class="add-page-form"
+                        style="background: var(--grey-50); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px dashed var(--grey-200);">
+                        <h3 style="font-size: 1rem; color: var(--navy); margin-bottom: 1rem;">Add a New Page</h3>
+
+                        <div class="form-group">
+                            <label class="form-label">Page Name</label>
+                            <input type="text" class="form-input" id="newPageName" placeholder="e.g. Services">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Headline (Optional)</label>
+                            <input type="text" class="form-input" id="newPageHeadline" placeholder="e.g. Our Services">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Content Brief</label>
+                            <textarea class="form-textarea" id="newPageContent"
+                                placeholder="Describe what goes on this page..." style="height: 100px;"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button class="btn btn-primary" onclick="addNewPage()"
+                                style="background: var(--teal); color: white; padding: 0.5rem 1rem; border-radius: var(--radius-md); border: none; cursor: pointer; font-weight: 600;">
+                                Add Page
+                            </button>
+                            <button class="btn" onclick="clearPageForm()"
+                                style="background: transparent; color: var(--grey-500); border: none; cursor: pointer;">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pages-counter" id="pagesCounter">
+                        <strong>0</strong> of <span id="maxPages">12</span> pages used
+                    </div>
+                </div>
+            </div>
+            <!-- Step 4: SEO Package -->
+            <div class="step" id="step4">
+                <div class="step-header">
+                    <div class="step-badge">Step 4 of 6</div>
+                    <h1 class="step-title">SEO <span class="step-title-accent">performance</span></h1>
+                    <p class="step-subtitle">Autonomous content engines that write, optimise, and publish while you
+                        sleep.</p>
+                </div>
+
+                <div class="seo-v2-question-section">
+                    <div class="seo-v2-question-label">Service Selection</div>
+                    <h2 class="seo-v2-question-title">Do you wish to implement our AI Agentic SEO performance booster
+                        package?</h2>
+                    <p class="seo-v2-question-subtitle">Autonomous content engines that write, optimise, and publish
+                        while you sleep. Not templates. Not spin. Original authority-building assets.</p>
+
+                    <div class="seo-v2-toggle-container">
+                        <button type="button" class="seo-v2-toggle-btn" id="seoBtnYes"
+                            onclick="selectSeoAnswer('yes')">Yes</button>
+                        <button type="button" class="seo-v2-toggle-btn" id="seoBtnNo"
+                            onclick="selectSeoAnswer('no')">No</button>
+                    </div>
+                </div>
+
+                <!-- Tiers (shown if Yes) -->
+                <div class="seo-v2-tiers-section" id="seoTiersSection">
+                    <div class="seo-v2-tiers-header">
+                        <h2 class="seo-v2-tiers-title">Select Your Output Level</h2>
+                        <p class="seo-v2-tiers-subtitle">Cancel anytime. No contracts. Scale up or down as needed.</p>
+                    </div>
+
+                    <div class="seo-v2-tiers-grid">
+                        <!-- Launch -->
+                        <div class="seo-v2-tier-card" data-seo-tier="launch" onclick="selectSeoTier('launch')">
+                            <h3 class="seo-v2-tier-name">Launch</h3>
+                            <p class="seo-v2-tier-tagline">Foundation builder</p>
+
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span class="seo-v2-tier-amount">99.95</span>
+                                <span class="seo-v2-tier-period">/month</span>
+                            </div>
+
+                            <div class="seo-v2-tier-output">
+                                <div class="seo-v2-tier-output-main">30 posts</div>
+                                <div class="seo-v2-tier-output-label">1 per day · 1,200+ words each</div>
+                            </div>
+
+                            <ul class="seo-v2-tier-features">
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Autonomous topic research</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Auto-generated imagery</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Internal link architecture</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Live within 12 hours</span>
+                                </li>
+                            </ul>
+
+                            <button type="button" class="seo-v2-tier-select-btn">Select Launch</button>
+                        </div>
+
+                        <!-- Boost -->
+                        <div class="seo-v2-tier-card popular" data-seo-tier="boost" onclick="selectSeoTier('boost')">
+                            <span class="seo-v2-tier-badge">Most Popular</span>
+                            <h3 class="seo-v2-tier-name">Boost</h3>
+                            <p class="seo-v2-tier-tagline">Accelerated growth</p>
+
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span
+                                    class="seo-v2-tier-amount">149.95</span>
+                                <span class="seo-v2-tier-period">/month</span>
+                            </div>
+
+                            <div class="seo-v2-tier-output">
+                                <div class="seo-v2-tier-output-main">60 posts</div>
+                                <div class="seo-v2-tier-output-label">2 per day · 1,200+ words each</div>
+                            </div>
+
+                            <ul class="seo-v2-tier-features">
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Everything in Launch</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Competitor gap analysis</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Semantic cluster mapping</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Priority content queue</span>
+                                </li>
+                            </ul>
+
+                            <button type="button" class="seo-v2-tier-select-btn">Select Boost</button>
+                        </div>
+
+                        <!-- Orbit -->
+                        <div class="seo-v2-tier-card" data-seo-tier="orbit" onclick="selectSeoTier('orbit')">
+                            <h3 class="seo-v2-tier-name">Orbit</h3>
+                            <p class="seo-v2-tier-tagline">Market dominance</p>
+
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span class="seo-v2-tier-amount">195</span>
+                                <span class="seo-v2-tier-period">/month</span>
+                            </div>
+
+                            <div class="seo-v2-tier-output">
+                                <div class="seo-v2-tier-output-main">90 posts</div>
+                                <div class="seo-v2-tier-output-label">3 per day · 1,200+ words each</div>
+                            </div>
+
+                            <ul class="seo-v2-tier-features">
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Everything in Boost</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Multi-site deployment</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Authority stacking sequences</span>
+                                </li>
+                                <li class="seo-v2-tier-feature">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Dedicated content strategist</span>
+                                </li>
+                            </ul>
+
+                            <button type="button" class="seo-v2-tier-select-btn">Select Orbit</button>
+                        </div>
+                    </div>
+
+                    <div class="seo-v2-onboarding-note">
+                        <p class="seo-v2-onboarding-note-text">One-time onboarding fee of <span
+                                class="seo-v2-onboarding-note-amount">£195</span> covers system integration, baseline
+                            audit, and content calendar setup.</p>
+                    </div>
+                </div>
+
+                <!-- No Selection -->
+                <div class="seo-v2-no-section" id="seoNoSection">
+                    <div class="seo-v2-no-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 8v4M12 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="seo-v2-no-title">No problem</h3>
+                    <p class="seo-v2-no-text">If you change your mind, we'll be here. Explore our other services or get
+                        in touch.</p>
+                </div>
+            </div>
+
+            <!-- Step 5: Website Translation -->
+            <div class="step" id="step5">
+                <div class="step-header">
+                    <div class="step-badge">Step 5 of 7</div>
+                    <h1 class="step-title">Website <span class="step-title-accent">translation</span></h1>
+                    <p class="step-subtitle">Expand your reach with professional AI-powered localization.</p>
+                </div>
+
+                <div class="seo-v2-question-section">
+                    <div class="seo-v2-question-label">Service Selection</div>
+                    <h2 class="seo-v2-question-title">Do you wish to implement our AI Website Translation service?</h2>
+                    <p class="seo-v2-question-subtitle">Clone and localise your existing website into new languages.
+                        Proper structure, SEO signals, and hreflang baked in.</p>
+
+                    <div class="seo-v2-toggle-container">
+                        <button type="button" class="seo-v2-toggle-btn" id="transBtnYes"
+                            onclick="selectTranslationAnswer('yes')">Yes</button>
+                        <button type="button" class="seo-v2-toggle-btn" id="transBtnNo"
+                            onclick="selectTranslationAnswer('no')">No</button>
+                    </div>
+                </div>
+
+                <!-- Tiers -->
+                <div class="seo-v2-tiers-section" id="transTiersSection">
+                    <div class="seo-v2-tiers-header">
+                        <h2 class="seo-v2-tiers-title">Select Your Site Size</h2>
+                        <p class="seo-v2-tiers-subtitle">Priced per language. Expand one market at a time.</p>
+                    </div>
+
+                    <div class="seo-v2-tiers-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <!-- Starter -->
+                        <div class="seo-v2-tier-card" data-trans-tier="starter"
+                            onclick="selectTranslationTier('starter')">
+                            <h3 class="seo-v2-tier-name">Starter</h3>
+                            <p class="seo-v2-tier-tagline">Up to 50 pages</p>
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span
+                                    class="seo-v2-tier-amount">29.95</span><span class="seo-v2-tier-period">/mo</span>
+                            </div>
+                            <div class="seo-v2-tier-output"
+                                style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="font-size: 0.9rem; font-weight: 700;">£195 setup per lang</div>
+                            </div>
+                            <button type="button" class="seo-v2-tier-select-btn">Select Starter</button>
+                        </div>
+
+                        <!-- Growth -->
+                        <div class="seo-v2-tier-card popular" data-trans-tier="growth"
+                            onclick="selectTranslationTier('growth')">
+                            <span class="seo-v2-tier-badge">Most Popular</span>
+                            <h3 class="seo-v2-tier-name">Growth</h3>
+                            <p class="seo-v2-tier-tagline">Up to 100 pages</p>
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span
+                                    class="seo-v2-tier-amount">49.95</span><span class="seo-v2-tier-period">/mo</span>
+                            </div>
+                            <div class="seo-v2-tier-output"
+                                style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="font-size: 0.9rem; font-weight: 700;">£345 setup per lang</div>
+                            </div>
+                            <button type="button" class="seo-v2-tier-select-btn">Select Growth</button>
+                        </div>
+
+                        <!-- Business -->
+                        <div class="seo-v2-tier-card" data-trans-tier="business"
+                            onclick="selectTranslationTier('business')">
+                            <h3 class="seo-v2-tier-name">Business</h3>
+                            <p class="seo-v2-tier-tagline">Up to 500 pages</p>
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span
+                                    class="seo-v2-tier-amount">79.95</span><span class="seo-v2-tier-period">/mo</span>
+                            </div>
+                            <div class="seo-v2-tier-output"
+                                style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="font-size: 0.9rem; font-weight: 700;">£795 setup per lang</div>
+                            </div>
+                            <button type="button" class="seo-v2-tier-select-btn">Select Business</button>
+                        </div>
+
+                        <!-- Enterprise -->
+                        <div class="seo-v2-tier-card" data-trans-tier="enterprise"
+                            onclick="selectTranslationTier('enterprise')">
+                            <h3 class="seo-v2-tier-name">Enterprise</h3>
+                            <p class="seo-v2-tier-tagline">500+ pages</p>
+                            <div class="seo-v2-tier-price">
+                                <span class="seo-v2-tier-currency">£</span><span
+                                    class="seo-v2-tier-amount">129.95</span><span class="seo-v2-tier-period">/mo</span>
+                            </div>
+                            <div class="seo-v2-tier-output"
+                                style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="font-size: 0.9rem; font-weight: 700;">£1,495 setup per lang</div>
+                            </div>
+                            <button type="button" class="seo-v2-tier-select-btn">Select Enterprise</button>
+                        </div>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div id="transLanguageSection"
+                        style="display: none; margin-top: 3rem; background: white; border: 2px solid #f1f5f9; border-radius: 24px; padding: 2rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">Select Target Languages
+                            </h3>
+                            <div style="font-size: 0.9rem; color: #64748b;"><strong id="transLangCount"
+                                    style="color: var(--teal);">0</strong> selected</div>
+                        </div>
+                        <div id="transLanguageGrid"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem;">
+                        </div>
+
+                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #f1f5f9;">
+                            <div id="transDnsAddon" onclick="toggleTranslationDns()"
+                                style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem; background: #f8fafc; border-radius: 16px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div class="checkbox-box" id="transDnsCheckbox" style="margin-bottom: 0;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4
+                                            style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem;">
+                                            DNS Setup Done-For-You</h4>
+                                        <p style="font-size: 0.85rem; color: #64748b;">We handle subdomain configuration
+                                            for all languages</p>
+                                    </div>
+                                </div>
+                                <div style="font-size: 1.125rem; font-weight: 800; color: #0f172a;">£95</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="seo-v2-no-section" id="transNoSection">
+                    <div class="seo-v2-no-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 8v4M12 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="seo-v2-no-title">No problem</h3>
+                    <p class="seo-v2-no-text">Standard site build continues in English.</p>
+                </div>
+            </div>
+
+            <!-- Step 6: Brand Assets -->
+            <div class="step" id="step6">
+                <div class="step-header">
+                    <div class="step-badge">Step 6 of 7</div>
+                    <h1 class="step-title">Brand <span class="step-title-accent">assets</span></h1>
+                    <p class="step-subtitle">Upload your logo, images, and tell us about your brand style.</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Logo
+                    </h3>
+                    <div class="upload-zone" id="logoUpload" ondrop="handleDrop(event, 'logo')"
+                        ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)"
+                        onclick="triggerUpload('logo')">
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <p class="upload-title">Drag & drop your logo or <span>browse</span></p>
+                        <p class="upload-hint">PNG, SVG, or PDF. Max 10MB.</p>
+                    </div>
+                    <input type="file" id="logoInput" accept=".png,.svg,.pdf,image/*" style="display:none"
+                        onchange="handleFileSelect(event, 'logo')">
+                    <div class="file-grid" id="logoPreview"></div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        Images
+                    </h3>
+                    <div class="upload-zone" id="imagesUpload" ondrop="handleDrop(event, 'images')"
+                        ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)"
+                        onclick="triggerUpload('images')">
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <p class="upload-title">Drag & drop images or <span>browse</span></p>
+                        <p class="upload-hint">Team photos, product shots, hero images. Max 10MB each.</p>
+                    </div>
+                    <input type="file" id="imagesInput" accept="image/*" multiple style="display:none"
+                        onchange="handleFileSelect(event, 'images')">
+                    <div class="file-grid" id="imagesPreview"></div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="13.5" cy="6.5" r="2.5"></circle>
+                            <circle cx="17.5" cy="15.5" r="2.5"></circle>
+                            <circle cx="8.5" cy="15.5" r="2.5"></circle>
+                            <path d="M13.5 9v2l3 3m-6-3l-3 3"></path>
+                        </svg>
+                        Brand Colours (Optional)
+                    </h3>
+                    <div class="colour-grid">
+                        <div class="colour-picker" onclick="document.getElementById('primaryColour').click()">
+                            <div class="colour-preview" id="primaryPreview" style="background: #1a2b4a"></div>
+                            <div>
+                                <div class="colour-label">Primary</div>
+                                <input type="text" value="#1a2b4a" id="primaryHex"
+                                    onchange="updateColour('primary', this.value)">
+                            </div>
+                            <input type="color" id="primaryColour" value="#1a2b4a"
+                                onchange="updateColourFromPicker('primary', this.value)">
+                        </div>
+                        <div class="colour-picker" onclick="document.getElementById('secondaryColour').click()">
+                            <div class="colour-preview" id="secondaryPreview" style="background: #0ea5a5"></div>
+                            <div>
+                                <div class="colour-label">Secondary</div>
+                                <input type="text" value="#0ea5a5" id="secondaryHex"
+                                    onchange="updateColour('secondary', this.value)">
+                            </div>
+                            <input type="color" id="secondaryColour" value="#0ea5a5"
+                                onchange="updateColourFromPicker('secondary', this.value)">
+                        </div>
+                    </div>
+                    <label class="checkbox-option" style="margin-top: 1rem;">
+                        <input type="checkbox" id="noColours">
+                        <div class="checkbox-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="checkbox-label">I don't have brand colours—suggest some for me</span>
+                    </label>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        Inspiration (Optional)
+                    </h3>
+                    <p class="form-hint" style="margin-bottom: 1rem;">Any websites you like the look of?</p>
+                    <div class="inspiration-list" id="inspirationList">
+                        <div class="inspiration-item">
+                            <input type="url" class="form-input" placeholder="https://example.com">
+                            <button class="inspiration-remove" onclick="this.parentElement.remove()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="add-inspiration-btn" onclick="addInspiration()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add another
+                    </button>
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label class="form-label">What do you like about them?</label>
+                        <textarea class="form-textarea" id="inspirationNotes"
+                            placeholder="e.g., Clean layout, bold typography, the way they present their services..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Review & Submit -->
+            <div class="step" id="step7">
+                <div class="step-header">
+                    <div class="step-badge">Step 7 of 7</div>
+                    <h1 class="step-title">Review & <span class="step-title-accent">submit</span></h1>
+                    <p class="step-subtitle">Double-check everything looks right before we start building.</p>
+                </div>
+
+                <div class="card">
+                    <!-- Project Summary -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                                Project
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(1)">Edit</span>
+                        </div>
+                        <div class="summary-grid">
+                            <span class="summary-label">Project Type</span>
+                            <span class="summary-value" id="summaryType">—</span>
+                            <span class="summary-label">Package</span>
+                            <span class="summary-value" id="summaryTier">—</span>
+                            <span class="summary-label">Domain</span>
+                            <span class="summary-value" id="summaryDomain">—</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Your Details -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                Your Details
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(2)">Edit</span>
+                        </div>
+                        <div class="summary-grid">
+                            <span class="summary-label">Name</span>
+                            <span class="summary-value" id="summaryName">—</span>
+                            <span class="summary-label">Email</span>
+                            <span class="summary-value" id="summaryEmail">—</span>
+                            <span class="summary-label">Business</span>
+                            <span class="summary-value" id="summaryBusiness">—</span>
+                            <span class="summary-label">Industry</span>
+                            <span class="summary-value" id="summaryIndustry">—</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Pages -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                Pages (<span id="summaryPageCount">0</span>)
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(3)">Edit</span>
+                        </div>
+                        <div id="summaryPages" style="font-size: 0.9375rem; color: var(--grey-700);">—</div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- SEO Performance -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                                SEO Booster
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(4)">Edit</span>
+                        </div>
+                        <div class="summary-grid">
+                            <span class="summary-label">Active</span>
+                            <span class="summary-value" id="summarySeoActive">No</span>
+                            <span class="summary-label">Tier</span>
+                            <span class="summary-value" id="summarySeoTier">—</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Translation -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                    </path>
+                                </svg>
+                                Translation
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(5)">Edit</span>
+                        </div>
+                        <div class="summary-grid">
+                            <span class="summary-label">Active</span>
+                            <span class="summary-value" id="summaryTransActive">No</span>
+                            <span class="summary-label">Tier</span>
+                            <span class="summary-value" id="summaryTransTier">—</span>
+                            <span class="summary-label">Languages</span>
+                            <span class="summary-value" id="summaryTransLangs">0 selected</span>
+                            <span class="summary-label">DNS Setup</span>
+                            <span class="summary-value" id="summaryTransDns">No</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Brand Assets -->
+                    <div class="summary-section">
+                        <div class="summary-header">
+                            <h4 class="summary-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                </svg>
+                                Brand Assets
+                            </h4>
+                            <span class="summary-edit" onclick="goToStep(6)">Edit</span>
+                        </div>
+                        <div class="summary-grid">
+                            <span class="summary-label">Logo</span>
+                            <span class="summary-value" id="summaryLogo">Not uploaded</span>
+                            <span class="summary-label">Images</span>
+                            <span class="summary-value" id="summaryImages">0 images</span>
+                            <span class="summary-label">Colours</span>
+                            <span class="summary-value" id="summaryColours">—</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Legal and Confirmations -->
+                    <div class="summary-section">
+                        <h4 class="summary-title" style="margin-bottom: 1.5rem;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            Confirmations
+                        </h4>
+
+                        <!-- Legal Iframes -->
+                        <div class="legal-tabs" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                            <button class="legal-tab active" onclick="switchLegalTab('terms', this)"
+                                style="background: none; border: none; font-size: 0.875rem; font-weight: 600; color: var(--teal); cursor: pointer; padding-bottom: 0.25rem; border-bottom: 2px solid var(--teal);">Terms
+                                of Service</button>
+                            <button class="legal-tab" onclick="switchLegalTab('privacy', this)"
+                                style="background: none; border: none; font-size: 0.875rem; font-weight: 600; color: var(--grey-400); cursor: pointer; padding-bottom: 0.25rem; border-bottom: 2px solid transparent;">Privacy
+                                Policy</button>
+                        </div>
+                        <div class="legal-content-wrapper"
+                            style="border: 1px solid var(--grey-200); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem;">
+                            <iframe id="legalIframe" src="terms.html"
+                                style="width: 100%; height: 200px; border: none;"></iframe>
+                        </div>
+
+                        <div class="checkbox-group" style="padding-top: 0.5rem;">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="confirmContent" required>
+                                <div class="checkbox-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="checkbox-label">I confirm all content is accurate and I have the rights
+                                    to
+                                    use all uploaded images and text.</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="confirmClock" required>
+                                <div class="checkbox-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="checkbox-label">I understand my 10-day delivery clock starts when I
+                                    submit
+                                    this form.</span>
+                            </label>
+                            </label>
+                        </div>
+
+                        <div id="checkboxWarning" class="checkbox-warning">
+                            Please confirm both checkboxes to proceed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Navigation -->
+    <div class="footer-nav">
+        <div class="footer-nav-inner">
+            <button class="btn btn-back" id="backBtn" onclick="prevStep()" style="visibility: hidden;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back
+            </button>
+            <button class="btn btn-next" id="nextBtn" onclick="handleNextClick()" disabled>
+                Continue
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="concierge-tab">
+        Start Concierge
+    </div>
+
+
+
+
+
+    <script>
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        const formData = {
+            projectType: null, // 'new' or 'existing'
+            clientName: '',
+            clientEmail: '',
+            businessName: '',
+            industry: '',
+            tier: 'growth', // Default
+            existingUrl: '',
+            action: '', // clone, redesign, updates
+            noColours: false,
+            primaryColour: '#000000',
+            secondaryColour: '#ffffff',
+            logo: [],
+            images: [],
+            pages: [], // EMPTY START
+            domainStatus: '', // yes/no
+            dnsAccess: '', // full/dns
+            seoActive: null,
+            seoTier: null,
+            translationActive: false,
+            translationTier: null,
+            translationLanguages: [],
+            translationDnsSetup: false,
+            user_id: null,
+            confirmContent: false,
+            confirmClock: false
+        };
+
+        // ============================================
+        // SUPABASE & STATE MANAGEMENT
+        // ============================================
+
+        async function initSession() {
+            // Check for existing user
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (session?.user) {
+                console.log('[initSession] User found:', session.user.id);
+                formData.user_id = session.user.id;
+                formData.clientEmail = session.user.email; // Pre-fill
+
+                // CHECK FOR EXISTING PROJECT
+                const { data: project } = await supabase
+                    .from('li10_projects')
+                    .select('status, id')
+                    .eq('user_id', session.user.id)
+                    .neq('status', 'draft') // Any status other than draft implies they should be on dashboard
+                    .maybeSingle();
+
+                if (project) {
+                    console.log('[initSession] Active project found, redirecting to dashboard...');
+                    window.location.href = 'launchedin10-dashboard.html';
+                    return;
+                }
+
+                // If existing draft, maybe load it? (Optional, skipping for now to prioritize simple flow)
+            } else {
+                console.log('[initSession] Guest user');
+            }
+        }
+
+        async function syncToSupabase() {
+            if (!formData.clientEmail) return; // Cannot sync without a key
+
+            console.log('[syncToSupabase] Syncing draft...');
+            const { data: upsertData, error } = await supabase
+                .from('li10_projects')
+                .upsert({
+                    client_email: formData.clientEmail,
+                    user_id: formData.user_id || null,
+                    business_name: formData.businessName,
+                    client_name: formData.clientName, // Explicit field
+                    project_type: formData.projectType, // Explicit field
+                    tier: formData.tier,
+                    seo_active: formData.seoActive,
+                    seo_tier: formData.seoTier,
+                    translation_active: formData.translationActive,
+                    translation_tier: formData.translationTier,
+                    translation_languages: formData.translationLanguages,
+                    translation_dns_setup: formData.translationDnsSetup,
+                    status: 'draft',
+                    notes: JSON.stringify(formData),
+                    updated_at: new Date()
+                }, { onConflict: 'client_email' })
+                .select('id, drive_folder_id')
+                .maybeSingle();
+
+            if (error) {
+                console.error('[syncToSupabase] Failed:', error);
+            } else if (upsertData) {
+                console.log('[syncToSupabase] Success', upsertData);
+                // Store IDs for file uploads
+                if (upsertData.id) formData.project_database_id = upsertData.id;
+                if (upsertData.drive_folder_id) formData.drive_folder_id = upsertData.drive_folder_id;
+            }
+        }
+
+
+        // NUCLEAR OPTION: Clear persistence to fix "Home...Page 8" issue
+        try {
+            console.log('Clearing old session data...');
+            localStorage.removeItem('li10_onboarding_data');
+        } catch (e) { }
+
+        let currentStep = 1;
+        const totalSteps = 7;
+
+        // Stripe State
+        let stripe = null;
+        let elements = null;
+        let cardNumber = null;
+        let cardExpiry = null;
+        let cardCvc = null;
+        let processingPayment = false;
+
+        const tierLimits = {
+            starter: 5,
+            growth: 12,
+            scale: 25
+        };
+
+
+
+        // ============================================
+        // STEP NAVIGATION
+        // ============================================
+        function goToStep(step) {
+            // Hide current step
+            document.querySelector('.step.active')?.classList.remove('active');
+
+            // Show target step
+            document.getElementById(`step${step}`).classList.add('active');
+
+            // Update progress
+            updateProgress(step);
+
+            // Update current step
+            currentStep = step;
+
+            // Update navigation buttons
+            updateNavButtons();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // If going to review, update summary
+            // If going to review, update summary
+            if (step === 7) {
+                updateSummary();
+            }
+
+            // Step 2 Conditional Logic
+            if (step === 2) {
+                updateConditionalSections();
+            }
+
+            // Step 3 Initialization: Render pages
+            if (step === 3) {
+                const pagesList = document.getElementById('pagesList');
+                pagesList.innerHTML = ''; // Clear existing
+
+                if (formData.pages.length === 0) {
+                    initPages();
+                } else {
+                    renderAllPages();
+                }
+            }
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                saveStepData(currentStep);
+                if (currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else if (currentStep === totalSteps) {
+                    submitProject();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                goToStep(currentStep - 1);
+            }
+        }
+
+        function updateProgress(step) {
+            // Update progress line
+            const progress = ((step - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+
+            // Update step indicators
+            document.querySelectorAll('.progress-step').forEach((el, idx) => {
+                el.classList.remove('active', 'completed');
+                if (idx + 1 < step) {
+                    el.classList.add('completed');
+                    el.querySelector('.progress-step-circle').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else if (idx + 1 === step) {
+                    el.classList.add('active');
+                    el.querySelector('.progress-step-circle').textContent = idx + 1;
+                } else {
+                    el.querySelector('.progress-step-circle').textContent = idx + 1;
+                }
+            });
+        }
+
+        function updateNavButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Show/hide back button
+            backBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+
+            // Update next button text
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = `
+                    Submit & Start My Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                `;
+                nextBtn.classList.remove('btn-next');
+                nextBtn.classList.add('btn-submit');
+            } else {
+                nextBtn.innerHTML = `
+                    Continue
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                `;
+                nextBtn.classList.remove('btn-submit');
+            }
+
+            // Check if can proceed
+            checkCanProceed();
+
+            // NOTE: We now use a static 'handleNextClick' function defined in HTML
+            // to avoid binding issues.
+        }
+
+        // STATIC CLICK HANDLER
+        function handleNextClick() {
+            if (currentStep === totalSteps) {
+                submitProject();
+            } else {
+                nextStep();
+            }
+        }
+
+        // ============================================
+        // INTERACTIVITY
+        // ============================================
+        function checkCanProceed() {
+            const nextBtn = document.getElementById('nextBtn');
+            const isValid = validateStep(currentStep);
+            // console.log(`[checkCanProceed] Step: ${currentStep}, Valid: ${isValid}`); 
+            // Commented out logging to reduce noise
+
+            if (isValid) {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+            }
+        }
+
+        function selectProjectType(type) {
+            console.log(`[selectProjectType] Selected: ${type}`);
+            formData.projectType = type;
+
+            document.querySelectorAll('.type-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.type === type);
+            });
+            // Also update conditional views immediately for better UX
+            try {
+                updateConditionalSections();
+            } catch (e) {
+                console.error('[selectProjectType] Error updating sections:', e);
+            }
+
+            console.log('[selectProjectType] Calling checkCanProceed...');
+            checkCanProceed();
+        }
+
+        function selectTier(tier) {
+            console.log(`[selectTier] Selected: ${tier}`);
+            formData.tier = tier;
+            document.querySelectorAll('.tier-card').forEach(card => {
+                if (!card.classList.contains('seo-tier-card')) {
+                    card.classList.toggle('selected', card.dataset.tier === tier);
+                }
+            });
+            checkCanProceed();
+        }
+
+        function selectSeoAnswer(answer) {
+            console.log(`[selectSeoAnswer] Selected: ${answer}`);
+            formData.seoActive = (answer === 'yes');
+
+            // Update button states
+            const btnYes = document.getElementById('seoBtnYes');
+            const btnNo = document.getElementById('seoBtnNo');
+            const tiersSection = document.getElementById('seoTiersSection');
+            const noSection = document.getElementById('seoNoSection');
+
+            btnYes.classList.toggle('selected', answer === 'yes');
+            btnNo.classList.toggle('selected-no', answer === 'no');
+
+            if (answer === 'yes') {
+                tiersSection.classList.add('visible');
+                noSection.classList.remove('visible');
+            } else {
+                tiersSection.classList.remove('visible');
+                noSection.classList.add('visible');
+                formData.seoTier = null;
+                document.querySelectorAll('.seo-v2-tier-card').forEach(c => c.classList.remove('selected'));
+            }
+            checkCanProceed();
+        }
+
+        function selectSeoTier(tier) {
+            console.log(`[selectSeoTier] Selected: ${tier}`);
+            formData.seoTier = tier;
+            document.querySelectorAll('.seo-v2-tier-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.seoTier === tier);
+            });
+            checkCanProceed();
+        }
+
+        function selectAction(action) {
+            console.log(`[selectAction] Selected: ${action}`);
+            formData.action = action;
+
+            // Visual feedback for radios
+            document.querySelectorAll('.radio-option input[name="action"]').forEach(input => {
+                const parent = input.closest('.radio-option');
+                if (input.value === action) {
+                    input.checked = true;
+                    parent.classList.add('selected');
+                } else {
+                    parent.classList.remove('selected');
+                }
+            });
+
+            // Show/hide updates text
+            const updatesDesc = document.getElementById('updatesDescription');
+            if (updatesDesc) {
+                updatesDesc.style.display = action === 'updates' ? 'block' : 'none';
+            }
+
+            checkCanProceed();
+        }
+
+        // --- Website Translation Handlers ---
+        const EU_LANGUAGES = [
+            { code: 'de', name: 'German', flag: '🇩🇪' },
+            { code: 'fr', name: 'French', flag: '🇫🇷' },
+            { code: 'es', name: 'Spanish', flag: '🇪🇸' },
+            { code: 'it', name: 'Italian', flag: '🇮🇹' },
+            { code: 'nl', name: 'Dutch', flag: '🇳🇱' },
+            { code: 'pl', name: 'Polish', flag: '🇵🇱' },
+            { code: 'pt', name: 'Portuguese', flag: '🇵🇹' },
+            { code: 'sv', name: 'Swedish', flag: '🇸🇪' },
+            { code: 'da', name: 'Danish', flag: '🇩🇰' },
+            { code: 'fi', name: 'Finnish', flag: '🇫🇮' },
+            { code: 'el', name: 'Greek', flag: '🇬🇷' },
+            { code: 'cs', name: 'Czech', flag: '🇨🇿' },
+            { code: 'hu', name: 'Hungarian', flag: '🇭🇺' },
+            { code: 'ro', name: 'Romanian', flag: '🇷🇴' },
+            { code: 'sk', name: 'Slovak', flag: '🇸🇰' },
+            { code: 'bg', name: 'Bulgarian', flag: '🇧🇬' },
+            { code: 'hr', name: 'Croatian', flag: '🇭🇷' },
+            { code: 'sl', name: 'Slovenian', flag: '🇸🇮' },
+            { code: 'et', name: 'Estonian', flag: '🇪🇪' },
+            { code: 'lv', name: 'Latvian', flag: '🇱🇻' },
+            { code: 'lt', name: 'Lithuanian', flag: '🇱🇹' },
+            { code: 'mt', name: 'Maltese', flag: '🇲🇹' },
+            { code: 'ga', name: 'Irish', flag: '🇮🇪' }
+        ];
+
+        window.selectTranslationAnswer = function (answer) {
+            formData.translationActive = (answer === 'yes');
+            document.getElementById('transBtnYes').classList.toggle('selected', answer === 'yes');
+            document.getElementById('transBtnNo').classList.toggle('selected-no', answer === 'no');
+
+            if (answer === 'yes') {
+                document.getElementById('transTiersSection').style.display = 'block';
+                document.getElementById('transNoSection').classList.remove('visible');
+                renderTranslationLanguages();
+            } else {
+                document.getElementById('transTiersSection').style.display = 'none';
+                document.getElementById('transNoSection').classList.add('visible');
+                formData.translationTier = null;
+                formData.translationLanguages = [];
+                formData.translationDnsSetup = false;
+                document.querySelectorAll('[data-trans-tier]').forEach(c => c.classList.remove('selected'));
+            }
+            checkCanProceed();
+            syncToSupabase();
+        };
+
+        window.selectTranslationTier = function (tier) {
+            formData.translationTier = tier;
+            document.querySelectorAll('[data-trans-tier]').forEach(c => c.classList.remove('selected'));
+            document.querySelector(`[data-trans-tier="${tier}"]`).classList.add('selected');
+            document.getElementById('transLanguageSection').style.display = 'block';
+            checkCanProceed();
+            syncToSupabase();
+        };
+
+        window.toggleTranslationLanguage = function (code) {
+            const idx = formData.translationLanguages.indexOf(code);
+            if (idx >= 0) {
+                formData.translationLanguages.splice(idx, 1);
+            } else {
+                formData.translationLanguages.push(code);
+            }
+            document.getElementById('transLangCount').textContent = formData.translationLanguages.length;
+            renderTranslationLanguages();
+            checkCanProceed();
+            syncToSupabase();
+        };
+
+        window.toggleTranslationDns = function () {
+            formData.translationDnsSetup = !formData.translationDnsSetup;
+            document.getElementById('transDnsAddon').classList.toggle('selected', formData.translationDnsSetup);
+            document.getElementById('transDnsCheckbox').classList.toggle('active', formData.translationDnsSetup);
+            syncToSupabase();
+        };
+
+        function renderTranslationLanguages() {
+            const grid = document.getElementById('transLanguageGrid');
+            if (!grid) return;
+            grid.innerHTML = EU_LANGUAGES.map(lang => `
+            <div class="language-chip ${formData.translationLanguages.includes(lang.code) ? 'selected' : ''}" data-code="${lang.code}" onclick="toggleTranslationLanguage('${lang.code}')">
+                <span class="flag">${lang.flag}</span>
+                <span>${lang.name}</span>
+                <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+        `).join('');
+        }
+
+        function selectDomainStatus(status) {
+            formData.domainStatus = status;
+
+            // Toggle card selection
+            document.querySelectorAll('[data-domain]').forEach(el => {
+                el.classList.toggle('selected', el.dataset.domain === status);
+            });
+
+            // specific logic for "Do you have a domain?"
+            // If yes -> show domain details
+            const details = document.getElementById('domainDetails');
+            if (details) {
+                details.style.display = status === 'yes' ? 'block' : 'none';
+            }
+
+            // Re-validate
+            checkCanProceed();
+        }
+
+        // ============================================
+        // VALIDATION
+        // ============================================
+        function validateStep(step) {
+            console.log(`[validateStep] Validating step ${step}`);
+            switch (step) {
+                case 1:
+                    return formData.projectType !== null;
+                case 2:
+                    return validateStep2();
+                case 3:
+                    return formData.pages.length > 0;
+                case 4:
+                    // SEO Validation: Must pick Yes/No, and if Yes, must pick a tier
+                    if (formData.seoActive === null) return false;
+                    if (formData.seoActive === true && !formData.seoTier) return false;
+                    return true;
+                case 5:
+                    // Translation Validation: Must pick Yes/No, and if Yes, must pick a tier and at least one language
+                    if (formData.translationActive === null) return false;
+                    if (formData.translationActive === true && (!formData.translationTier || formData.translationLanguages.length === 0)) return false;
+                    return true;
+                case 6:
+                    return true; // Assets optional
+                case 7:
+                    return document.getElementById('confirmContent').checked &&
+                        document.getElementById('confirmClock').checked;
+            }
+            return true;
+        }
+
+        // Updated toggle logic
+        function updateConditionalSections() {
+            const isNew = formData.projectType === 'new';
+            const newSection = document.getElementById('newSiteSection');
+            const existSection = document.getElementById('existingSiteSection');
+
+            if (newSection && existSection) {
+                newSection.style.display = isNew ? 'block' : 'none';
+                existSection.style.display = isNew ? 'none' : 'block';
+            }
+
+            // Update Step 2 Title dynamically
+            const titleEl = document.getElementById('step2Title');
+            if (titleEl) {
+                titleEl.textContent = isNew ? 'New Project Details' : 'Existing Project Details';
+            }
+        }
+
+        // Updated Validation for Step 2
+        function validateStep2() {
+            // Common Fields
+            const name = document.getElementById('clientName').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const business = document.getElementById('businessName').value.trim();
+            const industry = document.getElementById('industry').value;
+
+            if (!name || !email || !business || !industry) return false;
+            // Tier is now REQUIRED
+            if (!formData.tier) return false;
+
+            const isNew = formData.projectType === 'new';
+
+            if (isNew) {
+                // New logic: Domain Status required
+                if (!formData.domainStatus) return false;
+
+                if (formData.domainStatus === 'yes') {
+                    const domainIn = document.getElementById('domainName');
+                    if (domainIn && !domainIn.value.trim()) return false;
+
+                    // CRITICAL: DNS Selection required
+                    if (!formData.dnsAccess) return false;
+                }
+            } else {
+                // Update logic: URL required + Action required
+                const exUrl = document.getElementById('existingUrl');
+                if (exUrl && !exUrl.value.trim()) return false;
+                if (!formData.action) return false;
+            }
+
+            return true;
+        }
+
+        function saveStepData(step) {
+            if (step === 2) {
+                formData.clientName = document.getElementById('clientName').value.trim();
+                formData.clientEmail = document.getElementById('clientEmail').value.trim();
+                formData.businessName = document.getElementById('businessName').value.trim();
+                formData.industry = document.getElementById('industry').value;
+
+                const isNew = formData.projectType === 'new';
+                // Tier is saved via selectTier
+
+                if (!isNew) {
+                    const exUrl = document.getElementById('existingUrl');
+                    const upText = document.getElementById('updatesText');
+                    // Ensure existingUrl is defined before accessing 'value'
+                    if (exUrl) formData.existingUrl = exUrl.value.trim();
+                    if (upText) formData.updatesText = upText.value.trim();
+                    // Action is saved via selectAction
+                } else {
+                    const domName = document.getElementById('domainName');
+                    const domReg = document.getElementById('domainRegistrar');
+                    if (domName) formData.domainName = domName.value.trim();
+                    if (domReg) formData.domainRegistrar = domReg.value;
+                }
+            }
+            // SEO logic in Step 4 is handled via click handlers (selectSeoAnswer/selectSeoTier)
+
+            // Step 5 Translation logic handled via click handlers
+
+            // Step 6 Brand Assets logic
+            if (step === 6) {
+                formData.primaryColour = document.getElementById('primaryHex')?.value || '#000000';
+                formData.secondaryColour = document.getElementById('secondaryHex')?.value || '#ffffff';
+                formData.noColours = document.getElementById('noColours')?.checked || false;
+                formData.inspirationNotes = document.getElementById('inspirationNotes')?.value.trim() || '';
+
+                // Collect inspiration URLs
+                formData.inspirationUrls = [];
+                document.querySelectorAll('#inspirationList input').forEach(input => {
+                    if (input.value.trim()) {
+                        formData.inspirationUrls.push(input.value.trim());
+                    }
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem('li10_onboarding_data', JSON.stringify(formData));
+
+            // Sync to Supabase
+            syncToSupabase();
+
+            // Show save indicator temporarily
+            const indicator = document.getElementById('saveIndicator');
+            if (indicator) {
+                indicator.classList.add('visible');
+                setTimeout(() => indicator.classList.remove('visible'), 2000);
+            }
+        }
+
+        // New Page Logic
+        function initPages() {
+            // Force clear if default detected pattern
+            if (formData.pages.length === 8 && formData.pages[0].name === "Home" && formData.pages[7].name === "Page 8") {
+                formData.pages = [];
+            }
+            if (formData.pages.length === 0) {
+                // Start fresh with NO pages as requested
+                renderAllPages();
+            } else {
+                renderAllPages();
+            }
+        }
+
+        function addNewPage() {
+            const name = document.getElementById('newPageName').value.trim();
+            const headline = document.getElementById('newPageHeadline').value.trim();
+            const content = document.getElementById('newPageContent').value.trim();
+
+            if (!name) {
+                alert('Please enter a page name');
+                return;
+            }
+
+            addPageToData(name, headline, content);
+            clearPageForm();
+        }
+
+        function clearPageForm() {
+            document.getElementById('newPageName').value = '';
+            document.getElementById('newPageHeadline').value = '';
+            document.getElementById('newPageContent').value = '';
+        }
+
+        function addPageToData(name, headline, content) {
+            const maxPages = tierLimits[formData.tier] || 5;
+            if (formData.pages.length >= maxPages) {
+                alert(`Limit reached (${maxPages} pages). Upgrade package to add more.`);
+                return;
+            }
+
+            formData.pages.push({
+                id: Date.now(),
+                name: name,
+                headline: headline,
+                content: content,
+                complete: !!(headline && content)
+            });
+
+            renderAllPages();
+            checkCanProceed();
+        }
+
+        function renderAllPages() {
+            const list = document.getElementById('pagesList');
+            if (!list) return;
+
+            list.innerHTML = '';
+            formData.pages.forEach(page => {
+                const item = document.createElement('div');
+                item.className = 'page-item';
+                // Re-using styles but simplified structure
+                item.innerHTML = `
+                         <div class="page-header">
+                            <span class="page-name"><strong>${page.name}</strong></span>
+                            <div class="page-header-right">
+                                <button class="page-remove" onclick="removePage(${page.id})">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                         </div>
+                         <div class="page-content" style="padding-top: 0.5rem; font-size: 0.9rem; color: var(--grey-600);">
+                            ${page.headline ? `<div><em>${page.headline}</em></div>` : ''}
+                            <div>${page.content || '(No content details)'}</div>
+                         </div>
+                    `;
+                list.appendChild(item);
+            });
+            updatePagesCounter();
+        }
+
+        function removePage(id) {
+            formData.pages = formData.pages.filter(p => p.id !== id);
+            renderAllPages();
+            checkCanProceed();
+        }
+
+
+        function updatePagesCounter() {
+            const count = formData.pages.length;
+            const max = tierLimits[formData.tier] || 5;
+
+            const counter = document.getElementById('pagesCounter');
+            if (counter) {
+                counter.innerHTML = `<strong>${count}</strong> of <span id="maxPages">${max}</span> pages used`;
+
+                if (count >= max) {
+                    counter.style.color = 'var(--red-500)';
+                } else {
+                    counter.style.color = 'var(--grey-500)';
+                }
+            }
+        }
+
+        // ============================================
+        // STEP 4: FILE UPLOADS
+        // ============================================
+        function triggerUpload(type) {
+            document.getElementById(`${type}Input`).click();
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e, type) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            processFiles(files, type);
+        }
+
+        function handleFileSelect(e, type) {
+            const files = e.target.files;
+            processFiles(files, type);
+        }
+
+        async function processFiles(files, type) {
+            const fileArray = Array.from(files);
+
+            for (const file of fileArray) {
+                // Check file size (10MB max) - Client side check
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`${file.name} is too large. Max size is 10MB.`);
+                    continue;
+                }
+
+                // Show loading state (rudimentary)
+                const processingId = `upload-${Date.now()}`;
+                showUploadSpinner(type, processingId);
+
+                try {
+                    const uploadedUrl = await uploadFileToN8N(file);
+
+                    if (uploadedUrl) {
+                        const fileObj = {
+                            name: file.name,
+                            url: uploadedUrl,
+                            type: file.type
+                        };
+
+                        if (type === 'logo') {
+                            formData.logo.push(fileObj);
+                            renderFilePreview(fileObj, 'logoPreview', type);
+                        } else {
+                            formData.images.push(fileObj);
+                            renderFilePreview(fileObj, 'imagesPreview', type);
+                        }
+                    }
+                } catch (err) {
+                    console.error("Upload failed", err);
+                    alert(`Failed to upload ${file.name}: ${err.message}`);
+                } finally {
+                    removeUploadSpinner(processingId);
+                }
+            }
+            // Sync after uploads complete
+            syncToSupabase();
+        }
+
+        async function uploadFileToN8N(file) {
+            const webhookUrl = window.N8N_UPLOAD_WEBHOOK;
+            if (!webhookUrl) throw new Error("Upload configuration missing");
+
+            const fd = new FormData();
+            fd.append('file', file);
+            fd.append('file_name', file.name);
+            fd.append('file_type', file.type);
+            fd.append('project_id', formData.drive_folder_id || ''); // GDrive Folder ID for n8n
+            fd.append('supabase_project_id', formData.project_database_id || '');
+            fd.append('client_email', formData.clientEmail || '');
+
+            const res = await fetch(webhookUrl, {
+                method: 'POST',
+                // Note: browser automatically sets correct multipart/form-data boundary with FormData
+                body: fd
+            });
+
+            if (!res.ok) throw new Error("Server rejected upload");
+
+            const data = await res.json();
+            // N8N usually returns the last node's output. 
+            // We assume it returns an object containing the URL of the newly created file.
+            return data.url || (Array.isArray(data) && data[0]?.url) || 'https://via.placeholder.com/150?text=Uploaded';
+        }
+
+        function showUploadSpinner(type, id) {
+            const container = document.getElementById(type === 'logo' ? 'logoPreview' : 'imagesPreview');
+            const spinner = document.createElement('div');
+            spinner.id = id;
+            spinner.className = 'file-item uploading';
+            spinner.innerHTML = '<div class="spinner" style="margin:auto; border-top-color: var(--teal);"></div>';
+            container.appendChild(spinner);
+        }
+
+        function removeUploadSpinner(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function renderFilePreview(file, containerId, type) {
+            const container = document.getElementById(containerId);
+
+            const fileEl = document.createElement('div');
+            fileEl.className = 'file-item';
+
+            if (file.type.startsWith('image/')) {
+                fileEl.innerHTML = `
+                    <img src="${file.url}" alt="${file.name}">
+                    <div class="file-item-overlay">
+                        <button class="file-remove" onclick="removeFile('${file.name}', '${type}', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+            } else {
+                fileEl.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;height:100%;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <div class="file-item-overlay">
+                        <button class="file-remove" onclick="removeFile('${file.name}', '${type}', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+            }
+
+            container.appendChild(fileEl);
+        }
+
+        function removeFile(name, type, btn) {
+            if (type === 'logo') {
+                formData.logo = formData.logo.filter(f => f.name !== name);
+            } else {
+                formData.images = formData.images.filter(f => f.name !== name);
+            }
+            btn.closest('.file-item').remove();
+        }
+
+        // Colour pickers
+        function updateColour(type, value) {
+            if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                document.getElementById(`${type}Preview`).style.background = value;
+                document.getElementById(`${type}Colour`).value = value;
+                formData[`${type}Colour`] = value;
+            }
+        }
+
+        function updateColourFromPicker(type, value) {
+            document.getElementById(`${type}Hex`).value = value;
+            document.getElementById(`${type}Preview`).style.background = value;
+            formData[`${type}Colour`] = value;
+        }
+
+        // Inspiration
+        function addInspiration() {
+            const list = document.getElementById('inspirationList');
+            const item = document.createElement('div');
+            item.className = 'inspiration-item';
+            item.innerHTML = `
+                <input type="url" class="form-input" placeholder="https://example.com">
+                <button class="inspiration-remove" onclick="this.parentElement.remove()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
+            list.appendChild(item);
+        }
+
+        // ============================================
+        // STEP 6: SUMMARY
+        // ============================================
+        function updateSummary() {
+            // Project
+            document.getElementById('summaryType').textContent = formData.projectType === 'new' ? 'New Website' : 'Update / Replace';
+
+            const tierNames = { starter: 'Starter (up to 5 pages)', growth: 'Growth (up to 12 pages)', scale: 'Scale (up to 25 pages)' };
+            document.getElementById('summaryTier').textContent = tierNames[formData.tier] || '—';
+
+            document.getElementById('summaryDomain').textContent = formData.domainName || formData.existingUrl || '—';
+
+            // Your Details
+            document.getElementById('summaryName').textContent = formData.clientName || '—';
+            document.getElementById('summaryEmail').textContent = formData.clientEmail || '—';
+            document.getElementById('summaryBusiness').textContent = formData.businessName || '—';
+
+            const industryNames = {
+                retail: 'Retail',
+                professional: 'Professional Services',
+                hospitality: 'Hospitality',
+                construction: 'Construction',
+                health: 'Health & Beauty',
+                technology: 'Technology',
+                other: 'Other'
+            };
+            document.getElementById('summaryIndustry').textContent = industryNames[formData.industry] || '—';
+
+            // Pages
+            document.getElementById('summaryPageCount').textContent = formData.pages.length;
+            const pageNames = formData.pages.map(p => p.name).join(', ');
+            document.getElementById('summaryPages').textContent = pageNames || '—';
+
+            // SEO Performance
+            document.getElementById('summarySeoActive').textContent = formData.seoActive ? 'Yes' : 'No';
+            const seoTierNames = { launch: 'Launch (£99.95/mo)', boost: 'Boost (£149.95/mo)', orbit: 'Orbit (£195/mo)' };
+            document.getElementById('summarySeoTier').textContent = formData.seoActive ? (seoTierNames[formData.seoTier] || '—') : 'Not selected';
+
+            // Translation
+            document.getElementById('summaryTransActive').textContent = formData.translationActive ? 'Yes' : 'No';
+            const transTierNames = { starter: 'Starter', growth: 'Growth', business: 'Business', enterprise: 'Enterprise' };
+            document.getElementById('summaryTransTier').textContent = formData.translationActive ? (transTierNames[formData.translationTier] || '—') : 'Not selected';
+            document.getElementById('summaryTransLangs').textContent = formData.translationActive ? formData.translationLanguages.length + ' selected' : '0 selected';
+            document.getElementById('summaryTransDns').textContent = formData.translationDnsSetup ? 'Yes' : 'No';
+
+            // Brand
+            document.getElementById('summaryLogo').textContent = formData.logo.length > 0 ? '✓ Uploaded' : 'Not uploaded';
+            document.getElementById('summaryImages').textContent = `${formData.images.length} image${formData.images.length !== 1 ? 's' : ''}`;
+
+            if (formData.noColours) {
+                document.getElementById('summaryColours').textContent = 'Will be suggested';
+            } else {
+                document.getElementById('summaryColours').innerHTML = `
+                    <span style="display:inline-block;width:14px;height:14px;background:${formData.primaryColour};border-radius:3px;vertical-align:middle;margin-right:4px;"></span>
+                    ${formData.primaryColour}, 
+                    <span style="display:inline-block;width:14px;height:14px;background:${formData.secondaryColour};border-radius:3px;vertical-align:middle;margin-right:4px;margin-left:8px;"></span>
+                    ${formData.secondaryColour}
+                `;
+            }
+        }
+
+        // ============================================
+        // LEGAL TAB SWITCHING
+        // ============================================
+        function switchLegalTab(tab, btn) {
+            const iframe = document.getElementById('legalIframe');
+            iframe.src = tab === 'terms' ? 'terms.html' : 'privacy.html';
+
+            // Update tabs
+            document.querySelectorAll('.legal-tab').forEach(t => {
+                t.style.color = 'var(--grey-400)';
+                t.style.borderBottomColor = 'transparent';
+            });
+            btn.style.color = 'var(--teal)';
+            btn.style.borderBottomColor = 'var(--teal)';
+        }
+
+        // ============================================
+        // PAYMENT & SUBMISSION
+        // ============================================
+        async function submitProject() {
+            console.log('[submitProject] Starting project submission...');
+
+            // Authentication / User ID Handling
+            let userId = null;
+
+            try {
+                if (typeof window.supabase !== 'undefined' && window.supabase.auth) {
+                    console.log('[submitProject] calling supabase.auth.getUser()...');
+
+                    // Race condition handling: Wait up to 3 seconds for Supabase, else Guest
+                    const authPromise = window.supabase.auth.getUser();
+                    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve({ timeout: true }), 3000));
+
+                    const result = await Promise.race([authPromise, timeoutPromise]);
+
+                    if (result.timeout) {
+                        console.warn('[submitProject] Supabase Auth check timed out (3s). Proceeding as Guest.');
+                    } else if (result.error) {
+                        console.warn('[submitProject] Supabase Auth error:', result.error.message);
+                    } else if (result.data?.user) {
+                        userId = result.data.user.id;
+                        console.log('[submitProject] User authenticated:', userId);
+                    } else {
+                        console.log('[submitProject] No active session found. Guest mode.');
+                    }
+                } else {
+                    console.warn('[submitProject] window.supabase not found or not initialized.');
+                }
+            } catch (err) {
+                console.error('[submitProject] Unexpected auth check error:', err);
+            }
+
+            formData.user_id = userId;
+            console.log(`[submitProject] Final user_id context: ${userId}`);
+
+            openPaymentModal();
+        }
+
+        function openPaymentModal() {
+            console.log('[openPaymentModal] Opening Premium Modal...');
+
+            // 1. Remove existing
+            const existing = document.getElementById('paymentOverlay');
+            if (existing) existing.remove();
+
+            // 2. Data Calculation
+            const fullPrices = {
+                starter: { activation: 497, monthly: 99 },
+                growth: { activation: 997, monthly: 149 },
+                scale: { activation: 1997, monthly: 249 }
+            };
+            let tier = formData.tier || 'growth';
+            if (!fullPrices[tier]) tier = 'growth';
+
+            const sel = fullPrices[tier];
+            const deposit = (sel.activation / 2).toFixed(2);
+            const monthly = sel.monthly.toFixed(2);
+            const total = (sel.activation / 2 + sel.monthly).toFixed(2);
+            // Capitalize first letter
+            const tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
+
+            // 3. Create Overlay & Inject CSS
+            const overlay = document.createElement('div');
+            overlay.id = 'paymentOverlay';
+            overlay.className = 'payment-overlay';
+
+            // Defeat rogue CSS
+            overlay.style.setProperty('display', 'flex', 'important');
+            overlay.style.setProperty('opacity', '1', 'important');
+            overlay.style.setProperty('visibility', 'visible', 'important');
+            overlay.style.setProperty('pointer-events', 'auto', 'important');
+            // Core styles
+            overlay.style.position = 'fixed';
+            overlay.style.inset = '0';
+            overlay.style.zIndex = '2147483647';
+            overlay.style.background = 'rgba(15, 23, 42, 0.7)'; // matches demo
+            overlay.style.backdropFilter = 'blur(4px)';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+
+            // Inject the specific Premium CSS from payment-demo.html
+            // We scope it slightly or just inject a style tag into the overlay
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                /* Premium Modal Styles (Injected) */
+                .pm-modal {
+                    font-family: 'Inter', system-ui, sans-serif;
+                    background: #ffffff;
+                    border-radius: 16px;
+                    width: 90%;
+                    max-width: 440px;
+                    box-shadow: 0 25px 50px rgba(15,23,42,0.25);
+                    overflow: hidden;
+                    animation: pmSlideUp 0.3s ease-out forwards;
+                    transform: translateY(20px);
+                    opacity: 0;
+                }
+                @keyframes pmSlideUp {
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                .pm-header {
+                    background: linear-gradient(135deg, #1a2b4a 0%, #0f172a 100%);
+                    padding: 1.75rem 1.75rem 1.5rem;
+                    position: relative;
+                    color: white;
+                }
+                .pm-header::before {
+                    content: ''; position: absolute; top: -50%; right: -20%; width: 200px; height: 200px;
+                    background: radial-gradient(circle, rgba(14,165,165,0.15) 0%, transparent 70%);
+                    pointer-events: none;
+                }
+                .pm-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+                .pm-brand { display: flex; align-items: center; gap: 0.5rem; }
+                .pm-brand-icon { 
+                    width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 6px; 
+                    display: flex; align-items: center; justify-content: center; 
+                }
+                .pm-close {
+                    width: 32px; height: 32px; background: rgba(255,255,255,0.1); border: none; border-radius: 6px;
+                    color: rgba(255,255,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center;
+                }
+                .pm-close:hover { background: rgba(255,255,255,0.2); color: white; }
+                .pm-title { font-size: 1.375rem; font-weight: 700; margin-bottom: 0.25rem; }
+                .pm-title span { font-family: 'Playfair Display', serif; font-style: italic; color: #14b8a6; }
+                .pm-subtitle { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+                .pm-summary { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+                .pm-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+                .pm-row:last-child { border-bottom: none; }
+                .pm-label { font-size: 0.8125rem; color: rgba(255,255,255,0.6); }
+                .pm-val { font-size: 0.875rem; font-weight: 500; color: white; }
+                .pm-total { font-size: 1.25rem; font-weight: 700; color: #14b8a6; }
+                
+                .pm-body { padding: 1.75rem; }
+                .pm-secure { 
+                    display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.625rem;
+                    background: #f0fdf4; border-radius: 8px; margin-bottom: 1.5rem; 
+                }
+                .pm-secure span { font-size: 0.75rem; font-weight: 600; color: #22c55e; }
+                
+                .pm-group { margin-bottom: 1.25rem; }
+                .pm-label-input { display: block; font-size: 0.8125rem; font-weight: 500; color: #334155; margin-bottom: 0.5rem; }
+                .pm-input-box {
+                    padding: 11px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: white;
+                }
+                .pm-btn {
+                    width: 100%; padding: 1rem; margin-top: 1.5rem; background: #0ea5a5; color: white;
+                    border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;
+                    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+                }
+                .pm-btn:hover { background: #0d9488; transform: translateY(-1px); }
+                .pm-footer { padding: 1rem 1.75rem 1.5rem; background: #f8fafc; border-top: 1px solid #f1f5f9; }
+                .pm-footer-row { display: flex; gap: 1.5rem; justify-content: center; }
+                .pm-footer-item { display: flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; font-weight: 500; color: #64748b; text-transform: uppercase; }
+                
+                /* Success State */
+                .pm-success-msg { display: none; text-align: center; padding: 2rem 1rem; }
+                .pm-modal.success .pm-header { display: none; }
+                .pm-modal.success .pm-body form { display: none; }
+                .pm-modal.success .pm-success-msg { display: block; }
+                .pm-success-icon { width: 64px; height: 64px; background: #f0fdf4; border-radius: 50%; color: #22c55e; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+            `;
+            overlay.appendChild(styleTag);
+
+            // 4. Inject HTML Structure
+            const modalHTML = `
+                <div class="pm-modal">
+                    <!-- Header -->
+                    <div class="pm-header">
+                        <div class="pm-header-top">
+                            <div class="pm-brand">
+                                <div class="pm-brand-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:white;">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                    </svg>
+                                </div>
+                                <span style="font-weight:600; font-size:0.9375rem;">LaunchedIn10</span>
+                            </div>
+                            <button class="pm-close" onclick="document.getElementById('paymentOverlay').remove()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <h2 class="pm-title">Complete your <span>payment</span></h2>
+                        <p class="pm-subtitle" style="color: #64748b; font-size: 0.825rem; margin-top: 4px;">50% first payment, 50% upon completion.<br>Secure checkout powered by Stripe</p>
+                        
+                        <div class="pm-summary">
+                            <div class="pm-row">
+                                <span class="pm-label">${tierDisplay} Package (Activation)</span>
+                                <span class="pm-val">£${deposit}</span>
+                            </div>
+                            <div class="pm-row">
+                                <span class="pm-label">${tierDisplay} Care Plan (Monthly)</span>
+                                <span class="pm-val">£${monthly}</span>
+                            </div>
+                            <div class="pm-row">
+                                <span class="pm-label">Total due today</span>
+                                <span class="pm-total">£${total}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="pm-body">
+                        <div class="pm-secure">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:#22c55e;">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <span>256-bit SSL encrypted · PCI compliant</span>
+                        </div>
+                        
+                        <div id="card-errors" class="form-error" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 1rem; display: none;"></div>
+
+                        <form id="payment-form">
+                            <div class="pm-group">
+                                <label class="pm-label-input">Card holder name</label>
+                                <input type="text" class="pm-input-box" id="cardholder-name" placeholder="Name on card" style="width: 100%; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 16px; padding: 11px 12px; box-sizing: border-box;" required>
+                            </div>
+
+                            <div class="pm-group">
+                                <label class="pm-label-input">Card number</label>
+                                <div id="stripe-card-number" class="pm-input-box" style="min-height: 44px; box-sizing: border-box;"></div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+                                <div>
+                                    <label class="pm-label-input">Expiry date</label>
+                                    <div id="stripe-card-expiry" class="pm-input-box" style="min-height: 44px; box-sizing: border-box;"></div>
+                                </div>
+                                <div>
+                                    <label class="pm-label-input">CVC</label>
+                                    <div id="stripe-card-cvc" class="pm-input-box" style="min-height: 44px; box-sizing: border-box;"></div>
+                                </div>
+                            </div>
+
+                            <div class="pm-group">
+                                <label class="pm-label-input">Billing postcode</label>
+                                <input type="text" class="pm-input-box" id="billing-postcode" placeholder="SW1A 1AA" style="width: 120px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 16px; padding: 11px 12px; box-sizing: border-box;" required>
+                            </div>
+
+                            <button type="submit" class="pm-btn" id="pay-button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                Pay £${total} & Launch
+                            </button>
+                        </form>
+
+                        <!-- Success Message -->
+                        <div class="pm-success-msg">
+                            <div class="pm-success-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:32px;height:32px;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <h2 style="font-size:1.5rem; font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Payment Successful!</h2>
+                            <p style="color:#64748b; margin-bottom:2rem;">Your project has been activated. We're getting things ready for you.</p>
+                            <button class="pm-btn" onclick="window.location.href='/portal'">Go to Portal</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="pm-footer">
+                        <div class="pm-footer-row">
+                            <div class="pm-footer-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;color:#94a3b8;">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                Secure
+                            </div>
+                            <div class="pm-footer-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;color:#94a3b8;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Encrypted
+                            </div>
+                        </div>
+                        <div style="text-align:center; margin-top:0.8rem; font-size:0.68rem; color:#94a3b8;">
+                            Powered by Stripe
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Create a temp div to hold the modal content
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = modalHTML;
+            overlay.appendChild(modalContainer.children[0]);
+
+            document.body.appendChild(overlay);
+
+            // 5. Initialize Stripe + Fetch Secret
+            console.log("[openPaymentModal] Fetching clientSecret and initializing Stripe Elements...");
+
+            (async () => {
+                try {
+                    // Get User
+                    const { data: { user } } = await window.supabase.auth.getUser();
+                    const userId = user?.id;
+
+                    // Pricing is now handled entirely server-side by Stripe + Edge Function
+                    // const fullPrices = { ... };
+
+                    // Call create-checkout
+                    const { data, error: functionError } = await window.supabase.functions.invoke('create-checkout', {
+                        body: {
+                            tier,
+                            // deposit_amount and monthly_amount REMOVED to force server-side validation
+                            user_id: userId,
+                            email: formData.clientEmail,
+                            formData: formData
+                        }
+                    });
+
+                    console.log("[openPaymentModal] Function Response:", { data, functionError });
+
+                    if (functionError) {
+                        throw new Error(`Function Invocation Error: ${functionError.message}`);
+                    }
+
+                    if (data && data.error) {
+                        throw new Error(`Backend Error: ${data.error} (Context: ${data.context})`);
+                    }
+
+                    if (!data?.clientSecret) {
+                        console.error("[openPaymentModal] No clientSecret in data:", data);
+                        throw new Error('Failed to get payment secret (Invalid Response)');
+                    }
+
+                    // Store secret globally for handleStripePayment
+                    window.paymentClientSecret = data.clientSecret;
+
+                    // Initialize Elements
+                    initStripe(data.clientSecret);
+
+                    // Add event listener to form
+                    const paymentForm = document.getElementById('payment-form');
+                    if (paymentForm) {
+                        paymentForm.addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            handleStripePayment();
+                        });
+                    }
+
+                } catch (err) {
+                    console.error("[openPaymentModal] Error:", err);
+                    alert("Unable to initialize secure checkout. Please try again.");
+                    overlay.remove();
+                }
+            })();
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentOverlay').classList.remove('visible');
+        }
+
+        async function initStripe(clientSecret) {
+            const isLive = STRIPE_PUBLISHABLE_KEY && STRIPE_PUBLISHABLE_KEY.startsWith('pk_live');
+            console.log(`[initStripe] Mode: ${isLive ? 'LIVE (MUST USE HTTPS)' : 'TEST'}`);
+
+            // 1. Ensure Stripe instance
+            if (!stripe) {
+                stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+            }
+
+            // Modern API: pass the secret to elements()
+            elements = stripe.elements({ clientSecret });
+
+            const style = {
+                base: {
+                    color: '#0f172a',
+                    fontFamily: '"Inter", sans-serif',
+                    fontSmoothing: 'antialiased',
+                    fontSize: '16px',
+                    '::placeholder': { color: '#94a3b8' }
+                },
+                invalid: {
+                    color: '#ef4444',
+                    iconColor: '#ef4444'
+                }
+            };
+
+            // 3. Create fresh elements
+            cardNumber = elements.create('cardNumber', { style });
+            cardExpiry = elements.create('cardExpiry', { style });
+            cardCvc = elements.create('cardCvc', { style });
+
+            // 4. Mount
+            console.log('[initStripe] Mounting fresh iFrames to clean containers...');
+            cardNumber.mount('#stripe-card-number');
+            cardExpiry.mount('#stripe-card-expiry');
+            cardCvc.mount('#stripe-card-cvc');
+
+            // 5. Re-attach listeners
+            [cardNumber, cardExpiry, cardCvc].forEach(element => {
+                element.on('focus', () => {
+                    const elId = 'stripe-card-' + element._componentName.replace('card', '').toLowerCase();
+                    // Wait, _componentName for cardNumber is 'cardNumber'
+                    // map them correctly
+                    const map = { 'cardNumber': 'stripe-card-number', 'cardExpiry': 'stripe-card-expiry', 'cardCvc': 'stripe-card-cvc' };
+                    const realId = map[element._componentName];
+                    const target = document.getElementById(realId);
+                    if (target) target.classList.add('focused');
+                });
+                element.on('blur', () => {
+                    const map = { 'cardNumber': 'stripe-card-number', 'cardExpiry': 'stripe-card-expiry', 'cardCvc': 'stripe-card-cvc' };
+                    const realId = map[element._componentName];
+                    const target = document.getElementById(realId);
+                    if (target) target.classList.remove('focused');
+                });
+                element.on('change', (event) => {
+                    const errorEl = document.getElementById('card-errors');
+                    const map = { 'cardNumber': 'stripe-card-number', 'cardExpiry': 'stripe-card-expiry', 'cardCvc': 'stripe-card-cvc' };
+                    const realId = map[element._componentName];
+                    const target = document.getElementById(realId);
+
+                    if (event.error) {
+                        if (errorEl) {
+                            errorEl.textContent = event.error.message;
+                            errorEl.style.display = 'block';
+                        }
+                        if (target) target.classList.add('invalid');
+                    } else {
+                        if (errorEl) {
+                            errorEl.textContent = '';
+                            errorEl.style.display = 'none';
+                        }
+                        if (target) target.classList.remove('invalid');
+                    }
+                });
+            });
+        }
+
+        async function handleStripePayment() {
+            // Fix: Use global formData, not getFormData()
+            // formData is global in this script
+
+            const payBtn = document.getElementById('pay-button');
+            const originalText = payBtn.innerHTML;
+
+            payBtn.disabled = true;
+            payBtn.innerHTML = '<div class="spinner"></div> Processing...';
+
+            try {
+                // 1. Confirm Payment using the individual Card Element
+                console.log('[handleStripePayment] Confirming Card Payment...');
+
+                // When using individual Elements (cardNumber, cardExpiry, cardCvc),
+                // we must use confirmCardPayment, passing the specific card Element.
+                const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(
+                    window.paymentClientSecret, // Explicitly use the stored client secret
+                    {
+                        payment_method: {
+                            card: cardNumber, // The specific Stripe Element
+                            billing_details: {
+                                name: document.getElementById('cardholder-name')?.value || formData.clientName,
+                                email: formData.clientEmail,
+                                address: {
+                                    postal_code: document.getElementById('billing-postcode')?.value || 'SW1A 1AA',
+                                    country: 'GB'
+                                }
+                            }
+                        },
+                        return_url: window.location.origin + '/onboarding-success.html'
+                    }
+                );
+
+                if (stripeError) {
+                    throw stripeError;
+                }
+
+                // 2. Handle Success
+                console.log('[handleStripePayment] Payment Succeeded!');
+
+                // Add success class to modal to show success message
+                const modal = document.querySelector('.pm-modal');
+                if (modal) modal.classList.add('success');
+
+                // Clear local storage
+                localStorage.removeItem('li10_onboarding_data');
+
+                // Trigger n8n Webhook
+                triggerN8NWebhook({
+                    user_id: formData.user_id,
+                    tier: formData.tier,
+                    email: formData.clientEmail,
+                    name: formData.clientName,
+                    project_name: formData.projectName,
+                    payment_intent: paymentIntent?.id
+                });
+
+            } catch (err) {
+                console.error('[handleStripePayment] Error:', err);
+                const errorEl = document.getElementById('card-errors');
+                if (errorEl) {
+                    errorEl.textContent = err.message || 'Payment failed. Please try again.';
+                    errorEl.style.display = 'block';
+                }
+                payBtn.disabled = false;
+                payBtn.innerHTML = originalText;
+            }
+        }
+
+        // ============================================
+        // N8N WEBHOOK INTEGRATION
+        // ============================================
+        async function triggerN8NWebhook(data) {
+            const webhookUrl = 'https://primary-production-7562.up.railway.app/webhook/project-portal-submission'; // Replace with actual URL if known, or use placeholder
+            try {
+                console.log('Triggering n8n webhook...');
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                console.log('n8n webhook triggered successfully');
+            } catch (error) {
+                console.error('Failed to trigger n8n webhook:', error);
+                // Don't block success UI for webhook failure
+            }
+        }
+
+        // ============================================
+        // INITIALISATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Move Payment Overlay to Body to ensure visibility
+            const overlay = document.getElementById('paymentOverlay');
+            if (overlay) {
+                document.body.appendChild(overlay);
+            }
+
+            // Add input listeners for validation
+            const inputs = ['clientName', 'clientEmail', 'businessName', 'industry'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', checkCanProceed);
+                    el.addEventListener('change', checkCanProceed);
+                }
+            });
+
+            // Checkbox listeners
+            document.getElementById('confirmContent')?.addEventListener('change', (e) => {
+                formData.confirmContent = e.target.checked;
+                checkCanProceed();
+            });
+            document.getElementById('confirmClock')?.addEventListener('change', (e) => {
+                formData.confirmClock = e.target.checked;
+                checkCanProceed();
+            });
+
+            // Initialize with first step
+            updateNavButtons();
+
+            // Start Session Check
+            initSession();
+        });
+
+
+    </script>
+</body>
+
+</html>
