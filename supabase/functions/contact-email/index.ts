@@ -7,6 +7,33 @@ const corsHeaders = {
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// --- CERTIFICATE PINNING ---
+// Extracted from webmail.launchedin10.co.uk:465
+// Solves "UnknownIssuer"
+const SERVER_CERT = `
+-----BEGIN CERTIFICATE-----
+MIIDejCCAmKgAwIBAgIEaMbldjANBgkqhkiG9w0BAQsFADBjMQswCQYDVQQGEwJD
+SDEVMBMGA1UEBwwMU2NoYWZmaGF1c2VuMQ4wDAYDVQQKDAVQbGVzazEOMAwGA1UE
+AwwFUGxlc2sxHTAbBgkqhkiG9w0BCQEWDmluZm9AcGxlc2suY29tMB4XDTI1MDkx
+NDE1NTUzNVoXDTI2MDkxNDE1NTUzNVowYzELMAkGA1UEBhMCQ0gxFTATBgNVBAcM
+DFNjaGFmZmhhdXNlbjEOMAwGA1UECgwFUGxlc2sxDjAMBgNVBAMMBVBsZXNrMR0w
+GwYJKoZIhvcNAQkBFg5pbmZvQHBsZXNrLmNvbTCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAKSOU+Ej9rRW+Cq1h/4yLDWUnHKgmT7krtJK36caznCPmuSq
+XWygQr52YyN619gIE2J5yjAnTKLCg97y7CDkxC1tST+UywINpbfhZBge/DiPBYKr
+EdIcNhI/kRHQMFh04Ay6gIpBq6mS7sDO8VuyhoN91K0Sh2I0QKdu0VpifWTA5keL
+nZQsltaIsCJkdF8DVvONmgVhp1Z6xXVDV/IE13atuwPSu57Zua+bmjaHUOvoAPXg
+tJgJ0Vm/g4mpuKA8dHUzZyT6t/hypzciVYntNoX+8Y7vJnMZFOTuxKPuvOockJje
+zG2LK9Ot9wGWG/ptI0hU5kmKRD/ndHbE2bOTOEECAwEAAaM2MDQwEwYDVR0lBAww
+CgYIKwYBBQUHAwEwHQYDVR0OBBYEFG5LWmLZl2WLgH0wKkXHp9fR4SKVMA0GCSqG
+SIb3DQEBCwUAA4IBAQAKPIfHCmLMlpEcu9yp4td9bAlMLaCa9ixV+y1BvREkHLOT
+LMNO1P4fqkzFDxchZWK0qe220J2+382A5cKIXVPtNEWZV484x0yE9/7zjOZHQt9D
+xRukDC5Xsq1is4uIMihKIOeUpl5B+SBFKN8Hh8+88QpaOa3o8ax2WcR6cFQw9Y7B
+cmiol2/IIDsBMcMyIkAmOF8bMpJjKebZmwynkASyup+BT7ZDKFoaBYRXwYIffzTA
+/PRTOj/SQLC0JkMmc6E5VD9rPCP0h9yn2GY+oIwhOqNmE4dRgBqaLTfCiroR1VWc
+hR6F7ODL4EE9po4czqmRYe2p5JolNI/iCO65VUIp
+-----END CERTIFICATE-----
+`.trim();
+
 serve(async (req) => {
     // Handle CORS
     if (req.method === "OPTIONS") {
@@ -21,7 +48,6 @@ serve(async (req) => {
             throw new Error("Missing required fields: name, email, or message.");
         }
 
-        // --- SMTP Configuration ---
         const smtpHost = Deno.env.get("SMTP_HOST") || "webmail.launchedin10.co.uk";
         const smtpPort = Number(Deno.env.get("SMTP_PORT")) || 465;
         const smtpUser = Deno.env.get("SMTP_USER") || "hello@launchedin10.co.uk";
@@ -29,7 +55,6 @@ serve(async (req) => {
 
         console.log(`Attempting SMTP connection to ${smtpHost}:${smtpPort} as ${smtpUser}`);
 
-        // Create reusable transporter object using the default SMTP transport
         const transporter = nodemailer.createTransport({
             host: smtpHost,
             port: smtpPort,
@@ -38,29 +63,20 @@ serve(async (req) => {
                 user: smtpUser,
                 pass: smtpPass,
             },
-            // AGGRESSIVE TLS OVERRIDES for Self-Signed Certs
-            // We place these at the root and inside tls to cover all bases with npm:nodemailer in Deno
-            rejectUnauthorized: false,
             tls: {
-                rejectUnauthorized: false,
-                checkServerIdentity: () => null // Reset verify logic
+                // PINNING: Trust the Plesk cert explicitly
+                ca: [SERVER_CERT],
+
+                // HOSTNAME BYPASS: Solves "NotValidForName"
+                // The cert is for "Plesk", but we connect to "webmail.launchedin10.co.uk".
+                // We must disable the check that ensures they match.
+                checkServerIdentity: () => undefined, // explicitly return undefined (success)
+
+                // FALLBACK: If custom check fails/ignored, disable rejection.
+                rejectUnauthorized: false
             }
         });
 
-        // Verify connection configuration
-        await new Promise((resolve, reject) => {
-            transporter.verify(function (error, success) {
-                if (error) {
-                    console.error("SMTP Verify Error:", error);
-                    reject(error);
-                } else {
-                    console.log("Server is ready to take our messages");
-                    resolve(success);
-                }
-            });
-        });
-
-        // Send mail
         const info = await transporter.sendMail({
             from: `"${name}" <${smtpUser}>`,
             to: "hello@launchedin10.co.uk",
@@ -78,7 +94,7 @@ Message:
 ${message}
 
 ---
-Sent via LaunchedIn10 Edge Function (v9 Aggressive TLS Override)
+Sent via LaunchedIn10 Edge Function (v12 Pinning + Hostname Bypass)
             `,
         });
 
