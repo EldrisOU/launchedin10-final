@@ -13,7 +13,7 @@ const BlogFeed = () => {
             try {
                 const { data, error } = await supabase
                     .from('li10_posts')
-                    .select('id, slug, post_title, featured_image_url, created_at, yoast_description')
+                    .select('id, slug, post_title, featured_image_url, created_at, yoast_description, primary_category')
                     .eq('status', 'publish')
                     .order('created_at', { ascending: false })
                     .limit(3);
@@ -49,39 +49,44 @@ const BlogFeed = () => {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    {posts.map((post) => (
-                        <motion.article
-                            key={post.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col h-full group"
-                        >
-                            <Link to={`/blog/${post.slug}`} className="block relative aspect-[16/10] overflow-hidden">
-                                <img
-                                    src={post.featured_image_url}
-                                    alt={post.post_title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                />
-                                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            </Link>
-                            <div className="p-8 flex flex-col flex-grow">
-                                <div className="flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest mb-4">
-                                    <Calendar size={12} />
-                                    {new Date(post.created_at).toLocaleDateString()}
-                                </div>
-                                <h3 className="text-xl font-display font-bold text-primary mb-4 leading-snug group-hover:text-accent transition-colors">
-                                    <Link to={`/blog/${post.slug}`}>{post.post_title}</Link>
-                                </h3>
-                                <p className="text-sm text-text-muted line-clamp-3 mb-6">
-                                    {post.yoast_description}
-                                </p>
-                                <Link to={`/blog/${post.slug}`} className="mt-auto text-xs font-bold text-primary flex items-center gap-2 uppercase tracking-wider group/link">
-                                    Read Analysis <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform text-accent" />
+                    {posts.map((post) => {
+                        const category = (post.primary_category || 'general').toLowerCase().replace(/\s+/g, '-');
+                        const postLink = `/blog/${category}/${post.slug}`;
+
+                        return (
+                            <motion.article
+                                key={post.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col h-full group"
+                            >
+                                <Link to={postLink} className="block relative aspect-[16/10] overflow-hidden">
+                                    <img
+                                        src={post.featured_image_url}
+                                        alt={post.post_title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </Link>
-                            </div>
-                        </motion.article>
-                    ))}
+                                <div className="p-8 flex flex-col flex-grow">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest mb-4">
+                                        <Calendar size={12} />
+                                        {new Date(post.created_at).toLocaleDateString()}
+                                    </div>
+                                    <h3 className="text-xl font-display font-bold text-primary mb-4 leading-snug group-hover:text-accent transition-colors">
+                                        <Link to={postLink}>{post.post_title}</Link>
+                                    </h3>
+                                    <p className="text-sm text-text-muted line-clamp-3 mb-6">
+                                        {post.yoast_description}
+                                    </p>
+                                    <Link to={postLink} className="mt-auto text-xs font-bold text-primary flex items-center gap-2 uppercase tracking-wider group/link">
+                                        Read Analysis <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform text-accent" />
+                                    </Link>
+                                </div>
+                            </motion.article>
+                        );
+                    })}
                 </div>
             </div>
         </section>
