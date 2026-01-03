@@ -1,39 +1,24 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import nodemailer from "npm:nodemailer@6.9.7";
+import process from "node:process"; // Correct way to access process in Deno
+
+// --- FIXING CORS & TLS ---
+// 1. Set the env var using the official node:process module to avoid crashing the runtime.
+try {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+} catch (e) {
+    console.warn("Could not set process.env (non-fatal):", e);
+}
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS", // Explicitly allow POST
 };
 
-// --- CERTIFICATE PINNING ---
-const SERVER_CERT = `
------BEGIN CERTIFICATE-----
-MIIDejCCAmKgAwIBAgIEaMbldjANBgkqhkiG9w0BAQsFADBjMQswCQYDVQQGEwJD
-SDEVMBMGA1UEBwwMU2NoYWZmaGF1c2VuMQ4wDAYDVQQKDAVQbGVzazEOMAwGA1UE
-AwwFUGxlc2sxHTAbBgkqhkiG9w0BCQEWDmluZm9AcGxlc2suY29tMB4XDTI1MDkx
-NDE1NTUzNVoXDTI2MDkxNDE1NTUzNVowYzELMAkGA1UEBhMCQ0gxFTATBgNVBAcM
-DFNjaGFmZmhhdXNlbjEOMAwGA1UECgwFUGxlc2sxDjAMBgNVBAMMBVBsZXNrMR0w
-GwYJKoZIhvcNAQkBFg5pbmZvQHBsZXNrLmNvbTCCASIwDQYJKoZIhvcNAQEBBQAD
-ggEPADCCAQoCggEBAKSOU+Ej9rRW+Cq1h/4yLDWUnHKgmT7krtJK36caznCPmuSq
-XWygQr52YyN619gIE2J5yjAnTKLCg97y7CDkxC1tST+UywINpbfhZBge/DiPBYKr
-EdIcNhI/kRHQMFh04Ay6gIpBq6mS7sDO8VuyhoN91K0Sh2I0QKdu0VpifWTA5keL
-nZQsltaIsCJkdF8DVvONmgVhp1Z6xXVDV/IE13atuwPSu57Zua+bmjaHUOvoAPXg
-tJgJ0Vm/g4mpuKA8dHUzZyT6t/hypzciVYntNoX+8Y7vJnMZFOTuxKPuvOockJje
-zG2LK9Ot9wGWG/ptI0hU5kmKRD/ndHbE2bOTOEECAwEAAaM2MDQwEwYDVR0lBAww
-CgYIKwYBBQUHAwEwHQYDVR0OBBYEFG5LWmLZl2WLgH0wKkXHp9fR4SKVMA0GCSqG
-SIb3DQEBCwUAA4IBAQAKPIfHCmLMlpEcu9yp4td9bAlMLaCa9ixV+y1BvREkHLOT
-LMNO1P4fqkzFDxchZWK0qe220J2+382A5cKIXVPtNEWZV484x0yE9/7zjOZHQt9D
-xRukDC5Xsq1is4uIMihKIOeUpl5B+SBFKN8Hh8+88QpaOa3o8ax2WcR6cFQw9Y7B
-cmiol2/IIDsBMcMyIkAmOF8bMpJjKebZmwynkASyup+BT7ZDKFoaBYRXwYIffzTA
-/PRTOj/SQLC0JkMmc6E5VD9rPCP0h9yn2GY+oIwhOqNmE4dRgBqaLTfCiroR1VWc
-hR6F7ODL4EE9po4czqmRYe2p5JolNI/iCO65VUIp
------END CERTIFICATE-----
-`.trim();
-
 serve(async (req) => {
-    // Handle CORS
+    // Handle CORS - MUST BE FIRST
     if (req.method === "OPTIONS") {
         return new Response("ok", { headers: corsHeaders });
     }
@@ -47,22 +32,21 @@ serve(async (req) => {
         }
 
         const smtpHost = Deno.env.get("SMTP_HOST") || "webmail.launchedin10.co.uk";
-        const smtpPort = Number(Deno.env.get("SMTP_PORT")) || 465;
+        // Keeping Port 587 (STARTTLS) as planned
+        const smtpPort = 587;
         const smtpUser = Deno.env.get("SMTP_USER") || "hello@launchedin10.co.uk";
         const smtpPass = Deno.env.get("SMTP_PASS") || "6h9G1&om7";
 
-        console.log(`Attempting SMTP connection to ${smtpHost}:${smtpPort} as ${smtpUser}`);
+        console.log(`Attempting Connection: ${smtpHost}:${smtpPort} (User: ${smtpUser})`);
 
         const transporter = nodemailer.createTransport({
             host: smtpHost,
             port: smtpPort,
-            secure: smtpPort === 465,
+            secure: false, // 587 = Explicit TLS (starts plain)
             auth: {
                 user: smtpUser,
                 pass: smtpPass,
             },
-            // Explicitly set rejectUnauthorized: false at the transport level
-            // This is the "Nuclear Option" v2 - ensuring it overrides everything
             tls: {
                 rejectUnauthorized: false
             }
@@ -85,7 +69,7 @@ Message:
 ${message}
 
 ---
-Sent via LaunchedIn10 Edge Function (v13 Forced Insecure)
+Sent via LaunchedIn10 Edge Function (v15 Corrected Polyfill)
             `,
         });
 
