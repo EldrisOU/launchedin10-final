@@ -8,8 +8,6 @@ const corsHeaders = {
 };
 
 // --- CERTIFICATE PINNING ---
-// Extracted from webmail.launchedin10.co.uk:465
-// Solves "UnknownIssuer"
 const SERVER_CERT = `
 -----BEGIN CERTIFICATE-----
 MIIDejCCAmKgAwIBAgIEaMbldjANBgkqhkiG9w0BAQsFADBjMQswCQYDVQQGEwJD
@@ -63,16 +61,9 @@ serve(async (req) => {
                 user: smtpUser,
                 pass: smtpPass,
             },
+            // Explicitly set rejectUnauthorized: false at the transport level
+            // This is the "Nuclear Option" v2 - ensuring it overrides everything
             tls: {
-                // PINNING: Trust the Plesk cert explicitly
-                ca: [SERVER_CERT],
-
-                // HOSTNAME BYPASS: Solves "NotValidForName"
-                // The cert is for "Plesk", but we connect to "webmail.launchedin10.co.uk".
-                // We must disable the check that ensures they match.
-                checkServerIdentity: () => undefined, // explicitly return undefined (success)
-
-                // FALLBACK: If custom check fails/ignored, disable rejection.
                 rejectUnauthorized: false
             }
         });
@@ -94,7 +85,7 @@ Message:
 ${message}
 
 ---
-Sent via LaunchedIn10 Edge Function (v12 Pinning + Hostname Bypass)
+Sent via LaunchedIn10 Edge Function (v13 Forced Insecure)
             `,
         });
 
