@@ -33,14 +33,17 @@ serve(async (req) => {
         const transporter = nodemailer.createTransport({
             host: smtpHost,
             port: smtpPort,
-            secure: smtpPort === 465, // true for 465, false for other ports
+            secure: smtpPort === 465,
             auth: {
                 user: smtpUser,
                 pass: smtpPass,
             },
+            // AGGRESSIVE TLS OVERRIDES for Self-Signed Certs
+            // We place these at the root and inside tls to cover all bases with npm:nodemailer in Deno
+            rejectUnauthorized: false,
             tls: {
-                // OVERRIDING certificate validation as requested for self-signed certs
-                rejectUnauthorized: false
+                rejectUnauthorized: false,
+                checkServerIdentity: () => null // Reset verify logic
             }
         });
 
@@ -57,12 +60,12 @@ serve(async (req) => {
             });
         });
 
-        // Send mail with defined transport object
+        // Send mail
         const info = await transporter.sendMail({
-            from: `"${name}" <${smtpUser}>`, // Sender address
-            to: "hello@launchedin10.co.uk", // List of receivers
+            from: `"${name}" <${smtpUser}>`,
+            to: "hello@launchedin10.co.uk",
             replyTo: email,
-            subject: `New Lead: ${enquiryType} from ${name}`, // Subject line
+            subject: `New Lead: ${enquiryType} from ${name}`,
             text: `
 New Contact Form Submission
 
@@ -75,8 +78,8 @@ Message:
 ${message}
 
 ---
-Sent via LaunchedIn10 Edge Function (Nodemailer + Self-Signed Cert Fix)
-            `, // plain text body
+Sent via LaunchedIn10 Edge Function (v9 Aggressive TLS Override)
+            `,
         });
 
         console.log("Message sent: %s", info.messageId);
