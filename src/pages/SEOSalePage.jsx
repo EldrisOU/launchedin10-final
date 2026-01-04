@@ -39,6 +39,12 @@ const SEOSalePage = () => {
                     <h1 className="hero-title">Outrank Your Competitors <span>Before They Wake Up</span></h1>
                     <p className="hero-subtitle">Google rewards consistent, quality content. Most businesses can't keep up. Yours will. Our autonomous content engine publishes authority-building posts every single day—while your competitors scramble to catch up.</p>
 
+                    <h1 className="hero-title">
+                        Instant Quote for <span>SEO Optimization</span>
+                    </h1>
+                    <p className="hero-subtitle">
+                        Dominate search rankings. Get a professional, data-driven SEO audit and optimization plan for your website in seconds.
+                    </p>
                     <div className="hero-stats">
                         <div className="hero-stat">
                             <div className="hero-stat-value">Daily</div>

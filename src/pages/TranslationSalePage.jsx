@@ -244,7 +244,7 @@ const TranslationSalePage = () => {
                 <div className="container">
                     <span className="hero-label">EU Expansion Made Simple</span>
                     <h1 className="hero-title">Sell Across Europe <span>Without Rebuilding Your Site</span></h1>
-                    <p className="hero-subtitle">Clone and localise your existing website into any EU language. Proper structure, SEO signals, and hreflang baked in. No agencies. No six-figure costs. No waiting months for delivery.</p>
+                    <p className="hero-subtitle">Clone and localise your existing website into any EU language. Proper structure, SEO signals, and hreflang baked in. <span>No agencies. No six-figure costs. No waiting months for delivery.</span></p>
 
                     <div className="hero-stats">
                         <div className="hero-stat">

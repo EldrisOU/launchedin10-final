@@ -1,23 +1,27 @@
-/* Scoped CSS for SEO Sale Page */
 .seo-page-wrapper {
+    /* Brand Colors - Matching index.css */
     --navy: #1a2b4a;
+    --navy-deep: #0f172a;
     --navy-light: #243656;
     --teal: #0ea5a5;
     --teal-dark: #0c9090;
     --teal-light: #14b8b8;
+    --teal-bg: rgba(14, 165, 165, 0.08);
     --white: #ffffff;
+    --bg-warm: #FAFAF9;
+    --surface: #F5F5F4;
     --grey-50: #f9fafb;
     --grey-100: #f3f4f6;
     --grey-200: #e5e7eb;
-    --grey-300: #d1d5db;
-    --grey-400: #9ca3af;
     --grey-500: #6b7280;
-    --grey-600: #4b5563;
-    --grey-700: #374151;
     --grey-900: #111827;
 
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--white);
+    /* Typography */
+    --font-display: 'Cabinet Grotesk', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    font-family: var(--font-body);
+    background: var(--bg-warm);
     color: var(--grey-900);
     line-height: 1.6;
 }
@@ -33,55 +37,86 @@
 }
 
 /* ========================================
-   HERO SECTION
+   HERO SECTION - Elite Style
    ======================================== */
 .seo-page-wrapper .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    background: var(--navy);
     color: var(--white);
-    padding: 5rem 1.5rem;
+    padding: 6rem 1.5rem 8rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background gradient effect */
+.seo-page-wrapper .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(14, 165, 165, 0.15) 0%, rgba(26, 43, 74, 0) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.seo-page-wrapper .hero>.container {
+    position: relative;
+    z-index: 1;
 }
 
 .seo-page-wrapper .hero-label {
-    display: inline-block;
-    background: rgba(14, 165, 165, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
     color: var(--teal-light);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     padding: 0.5rem 1rem;
-    border-radius: 50px;
-    margin-bottom: 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .seo-page-wrapper .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 700;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
 }
 
 .seo-page-wrapper .hero-title span {
     color: var(--teal-light);
+    font-style: italic;
+    /* Editorial Italic */
+    font-family: var(--font-display);
+    font-weight: 800;
 }
 
 .seo-page-wrapper .hero-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.375rem);
-    opacity: 0.85;
-    max-width: 700px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
+    opacity: 0.9;
+    max-width: 650px;
+    margin: 0 auto 3rem;
+    font-weight: 400;
+    color: var(--grey-200);
 }
 
 .seo-page-wrapper .hero-stats {
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    gap: 4rem;
     flex-wrap: wrap;
-    margin-top: 3rem;
-    padding-top: 3rem;
+    margin-top: 4rem;
+    padding-top: 4rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -90,46 +125,56 @@
 }
 
 .seo-page-wrapper .hero-stat-value {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--teal-light);
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
 }
 
 .seo-page-wrapper .hero-stat-label {
     font-size: 0.875rem;
-    opacity: 0.7;
+    color: var(--grey-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
     margin-top: 0.25rem;
 }
 
 /* ========================================
-   PROBLEM SECTION
+   PROBLEM SECTION - Split Layout Styling
    ======================================== */
 .seo-page-wrapper .problem-section {
-    padding: 5rem 1.5rem;
-    background: var(--grey-50);
+    padding: 6rem 1.5rem;
+    background: var(--surface);
 }
 
 .seo-page-wrapper .section-header {
     text-align: center;
     max-width: 700px;
-    margin: 0 auto 3rem;
+    margin: 0 auto 4rem;
 }
 
 .seo-page-wrapper .section-label {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--teal);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--teal);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    display: block;
 }
 
 .seo-page-wrapper .section-title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin-bottom: 1rem;
-    line-height: 1.2;
 }
 
 .seo-page-wrapper .section-subtitle {
