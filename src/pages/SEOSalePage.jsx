@@ -320,7 +320,7 @@ const SEOSalePage = () => {
                                 </svg>
                             </div>
                             <h3>SEO Automation Only</h3>
-                            <p>Already have a website? Drop your email and we'll onboard you in 5 minutes.</p>
+                            <p>Already have a website? Email and we'll onboard you in 5 minutes.</p>
 
                             {/* Updated to Simple Email Button */}
                             <div className="email-capture">

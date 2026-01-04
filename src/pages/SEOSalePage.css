@@ -1,29 +1,29 @@
 /* Scoped CSS for SEO Sale Page */
 .seo-page-wrapper {
-  --navy: #1a2b4a;
-  --navy-light: #243656;
-  --teal: #0ea5a5;
-  --teal-dark: #0c9090;
-  --teal-light: #14b8b8;
-  --white: #ffffff;
-  --grey-50: #f9fafb;
-  --grey-100: #f3f4f6;
-  --grey-200: #e5e7eb;
-  --grey-300: #d1d5db;
-  --grey-400: #9ca3af;
-  --grey-500: #6b7280;
-  --grey-600: #4b5563;
-  --grey-700: #374151;
-  --grey-900: #111827;
-  
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--white);
-  color: var(--grey-900);
-  line-height: 1.6;
+    --navy: #1a2b4a;
+    --navy-light: #243656;
+    --teal: #0ea5a5;
+    --teal-dark: #0c9090;
+    --teal-light: #14b8b8;
+    --white: #ffffff;
+    --grey-50: #f9fafb;
+    --grey-100: #f3f4f6;
+    --grey-200: #e5e7eb;
+    --grey-300: #d1d5db;
+    --grey-400: #9ca3af;
+    --grey-500: #6b7280;
+    --grey-600: #4b5563;
+    --grey-700: #374151;
+    --grey-900: #111827;
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--white);
+    color: var(--grey-900);
+    line-height: 1.6;
 }
 
 .seo-page-wrapper * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .seo-page-wrapper .container {
@@ -82,7 +82,7 @@
     flex-wrap: wrap;
     margin-top: 3rem;
     padding-top: 3rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .seo-page-wrapper .hero-stat {
@@ -263,7 +263,7 @@
     right: -50%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(14,165,165,0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(14, 165, 165, 0.15) 0%, transparent 70%);
 }
 
 .seo-page-wrapper .visual-stat {
@@ -295,7 +295,7 @@
 }
 
 .seo-page-wrapper .visual-feature {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 1.25rem;
     text-align: center;
@@ -570,8 +570,8 @@
 }
 
 .seo-page-wrapper .cta-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 2.5rem 2rem;
     text-align: center;
@@ -665,4 +665,24 @@
     font-size: 0.9375rem;
     color: var(--grey-500);
     line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .seo-page-wrapper .solution-visual {
+        padding: 1.5rem;
+    }
+
+    .seo-page-wrapper .visual-stat-value {
+        font-size: 3rem;
+    }
+
+    .seo-page-wrapper .visual-features {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .seo-page-wrapper .visual-feature {
+        padding: 1rem;
+    }
 }
