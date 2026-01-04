@@ -175,7 +175,7 @@ const TranslationSalePage = () => {
                 setScanData(finalData);
                 setScanned(true);
 
-                const recTier = finalData.recommended_tier || getRecommendedTier(finalData.pages);
+                const recTier = getRecommendedTier(finalData.pages);
                 setSelectedTier(recTier);
             } else {
                 setUrlError('Could not analyze website. Please try again.');
