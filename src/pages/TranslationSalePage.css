@@ -553,6 +553,11 @@
     font-weight: 600;
 }
 
+.translation-page-wrapper .language-dropdown-wrapper {
+    position: relative;
+    margin-top: 12px;
+}
+
 .translation-page-wrapper .language-tag-remove {
     background: transparent;
     border: none;
@@ -578,16 +583,16 @@
 
 .translation-page-wrapper .language-dropdown {
     position: absolute;
-    bottom: 100%;
+    top: 100%;
     left: 0;
-    right: 0;
+    min-width: 240px;
     max-height: 200px;
     overflow-y: auto;
     background: var(--white);
     border: 1px solid var(--grey-200);
     border-radius: 12px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
-    margin-bottom: 8px;
+    margin-top: 8px;
     z-index: 100;
 }
 
