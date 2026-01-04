@@ -151,11 +151,10 @@ const TranslationSalePage = () => {
         const timeout = setTimeout(() => controller.abort(), CONFIG.SCAN_TIMEOUT);
 
         try {
-            const params = new URLSearchParams({
-                domain: extractDomain(url),
-                action: 'analyse'
-            });
-            const res = await fetch(`${CONFIG.WEBHOOK_URL}?${params.toString()}`, {
+            const res = await fetch(CONFIG.WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: normalizeUrl(url), action: 'analyse' }),
                 signal: controller.signal
             });
             clearTimeout(timeout);
@@ -193,7 +192,7 @@ const TranslationSalePage = () => {
 
         setIsSubmittingLead(true);
         try {
-            await fetch(CONFIG.WEBHOOK_URL, {
+            await fetch(CONFIG.LEAD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
