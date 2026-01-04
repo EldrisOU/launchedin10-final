@@ -5,12 +5,44 @@ import CTA from '../sections/CTA';
 import './CaseStudiesPage.css';
 
 const CaseStudiesPage = () => {
+    // KINETIC EXPANSION STATE
+    const [activeCase, setActiveCase] = React.useState(null);
+
+    const openPreview = (url, title) => {
+        setActiveCase({ url, title });
+        document.body.style.overflow = 'hidden'; // Lock scroll
+    };
+
+    const closePreview = () => {
+        setActiveCase(null);
+        document.body.style.overflow = 'unset'; // Unlock scroll
+    };
+
     return (
         <div className="case-studies-wrapper">
             <Helmet>
                 <title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>
                 <meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." />
             </Helmet>
+
+            {/* LIVE PREVIEW MODAL (KINETIC EXPANSION) */}
+            {activeCase && (
+                <div className="preview-modal-overlay" onClick={closePreview}>
+                    <div className="preview-modal-container" onClick={(e) => e.stopPropagation()}>
+                        <div className="preview-modal-header">
+                            <span className="modal-title">{activeCase.title}</span>
+                            <button className="modal-close" onClick={closePreview}>Close Preview ✕</button>
+                        </div>
+                        <div className="preview-modal-frame-wrapper">
+                            <iframe
+                                src={activeCase.url}
+                                title={activeCase.title}
+                                className="preview-modal-iframe"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* HERO SECTION */}
             <section className="hero">
@@ -34,9 +66,10 @@ const CaseStudiesPage = () => {
 
                         {/* CASE STUDY 1: PRITCHARD */}
                         <div className="case-card">
-                            <div className="case-preview">
+                            <div className="case-preview" onClick={() => openPreview('https://client-pritchardcritical-power.pages.dev/', 'Pritchard Critical Power')}>
                                 <div className="preview-header">
                                     <span className="domain">pritchardcp.co.uk</span>
+                                    <span className="preview-hint">Tap to expand ↗</span>
                                 </div>
                                 <div className="iframe-container">
                                     <iframe
@@ -45,7 +78,9 @@ const CaseStudiesPage = () => {
                                         loading="lazy"
                                     ></iframe>
                                     {/* Overlay to prevent accidental scrolls while viewing card, click to interact hints available in future */}
-                                    <div className="iframe-overlay"></div>
+                                    <div className="iframe-overlay">
+                                        <div className="overlay-btn">View Live Site</div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="case-content">
@@ -74,9 +109,9 @@ const CaseStudiesPage = () => {
                                     </div>
                                 </div>
 
-                                <a href="https://client-pritchardcritical-power.pages.dev/" target="_blank" rel="noreferrer" className="view-live-link">
+                                <button onClick={() => openPreview('https://client-pritchardcritical-power.pages.dev/', 'Pritchard Critical Power')} className="view-live-link">
                                     VIEW LIVE SITE <ArrowRight size={14} />
-                                </a>
+                                </button>
 
                                 <div className="case-quote">
                                     <p>"The site looks nothing like any other electrical contractor in Wales. That’s exactly what I wanted. Now when I’m tendering for data centre work, I look the part."</p>
@@ -87,9 +122,10 @@ const CaseStudiesPage = () => {
 
                         {/* CASE STUDY 2: DUNNET HOUSE */}
                         <div className="case-card">
-                            <div className="case-preview">
+                            <div className="case-preview" onClick={() => openPreview('https://client-dunnethouseschool.pages.dev/', 'Dunnet House School')}>
                                 <div className="preview-header">
                                     <span className="domain">dunnethouse.sch.uk</span>
+                                    <span className="preview-hint">Tap to expand ↗</span>
                                 </div>
                                 <div className="iframe-container">
                                     <iframe
@@ -97,7 +133,9 @@ const CaseStudiesPage = () => {
                                         title="Dunnet House School Live Preview"
                                         loading="lazy"
                                     ></iframe>
-                                    <div className="iframe-overlay"></div>
+                                    <div className="iframe-overlay">
+                                        <div className="overlay-btn">View Live Site</div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="case-content">
@@ -126,9 +164,9 @@ const CaseStudiesPage = () => {
                                     </div>
                                 </div>
 
-                                <a href="https://client-dunnethouseschool.pages.dev/" target="_blank" rel="noreferrer" className="view-live-link">
+                                <button onClick={() => openPreview('https://client-dunnethouseschool.pages.dev/', 'Dunnet House School')} className="view-live-link">
                                     VIEW LIVE SITE <ArrowRight size={14} />
-                                </a>
+                                </button>
 
                                 <div className="case-quote">
                                     <p>"Finally, a website that shows parents what we’re really like. It feels like us — not like a generic school template."</p>

@@ -47,14 +47,14 @@ const Navbar = () => {
                 </Link>
 
                 {/* DESKTOP NAV */}
-                <div className="hidden md:flex items-center gap-10">
+                <div className="hidden md:flex items-center gap-5">
                     {navLinks.map((link) => (
                         link.href.startsWith('/#') ? (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 className={clsx(
-                                    "text-sm font-bold transition-all uppercase tracking-widest",
+                                    "text-xs font-bold transition-all uppercase tracking-widest",
                                     isActive(link.href)
                                         ? "text-accent border-b-2 border-accent pb-1"
                                         : "text-primary/60 hover:text-accent"
@@ -67,7 +67,7 @@ const Navbar = () => {
                                 key={link.name}
                                 to={link.href}
                                 className={clsx(
-                                    "text-sm font-bold transition-all uppercase tracking-widest",
+                                    "text-xs font-bold transition-all uppercase tracking-widest",
                                     isActive(link.href)
                                         ? "text-accent border-b-2 border-accent pb-1"
                                         : "text-primary/60 hover:text-accent"
