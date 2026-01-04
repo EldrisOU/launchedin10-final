@@ -20,7 +20,8 @@ import {
 import './TranslationSalePage.css';
 
 const CONFIG = {
-    WEBHOOK_URL: 'https://n8n.eldris.ai/webhook/5aa92bb4-af01-4056-930e-81501f476802',
+    WEBHOOK_URL: 'https://n8n.eldris.ai/webhook/90651fda-c6fa-428d-bf1e-dcb9d26a7426',
+    LEAD_WEBHOOK_URL: 'https://n8n.eldris.ai/webhook/5aa92bb4-af01-4056-930e-81501f476802',
     SCAN_TIMEOUT: 60000,
     PRICING: {
         TIERS: {
