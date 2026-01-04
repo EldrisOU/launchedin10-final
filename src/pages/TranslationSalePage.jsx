@@ -119,10 +119,11 @@ const TranslationSalePage = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const getRecommendedTier = (pages) => {
-        if (pages <= 50) return 50;
-        if (pages <= 100) return 100;
-        if (pages <= 500) return 500;
+    const getRecommendedTier = (pages, posts, products) => {
+        const total = (pages || 0) + (posts || 0) + (products || 0);
+        if (total <= 50) return 50;
+        if (total <= 100) return 100;
+        if (total <= 500) return 500;
         return 999;
     };
 
@@ -184,7 +185,7 @@ const TranslationSalePage = () => {
                 setScanData(finalData);
                 setScanned(true);
 
-                const recTier = getRecommendedTier(finalData.pages);
+                const recTier = getRecommendedTier(finalData.pages, finalData.posts, finalData.products);
                 setSelectedTier(recTier);
             } else {
                 setUrlError('Could not analyze website. Please try again.');
