@@ -147,6 +147,7 @@ const TranslationSalePage = () => {
 
         setUrlError('');
         setIsScanning(true);
+        const startTime = Date.now();
 
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), CONFIG.SCAN_TIMEOUT);
@@ -172,6 +173,14 @@ const TranslationSalePage = () => {
                     recommended_tier: data.recommended_tier || null,
                     pricing_override: data.pricing_override || null
                 };
+
+                // Add artificial delay for UX (min 3 seconds)
+                const minWait = 3000;
+                const elapsed = Date.now() - startTime;
+                if (elapsed < minWait) {
+                    await new Promise(resolve => setTimeout(resolve, minWait - elapsed));
+                }
+
                 setScanData(finalData);
                 setScanned(true);
 
