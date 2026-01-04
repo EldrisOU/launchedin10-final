@@ -14,6 +14,7 @@ import CookiePolicy from './pages/CookiePolicy';
 import TermsOfService from './pages/TermsOfService';
 import SEOSalePage from './pages/SEOSalePage';
 import TranslationSalePage from './pages/TranslationSalePage';
+import CaseStudiesPage from './pages/CaseStudiesPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/blog/:category/:slug" element={<BlogPost />} />
 
             {/* SALES PAGES */}
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/seo-disruptor" element={<SEOSalePage />} />
             <Route path="/translate-me" element={<TranslationSalePage />} />
 

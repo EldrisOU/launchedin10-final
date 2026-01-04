@@ -1,0 +1,440 @@
+/* Case Studies Page Styling - Elite Design System */
+
+.case-studies-wrapper {
+    /* Brand Colors */
+    --navy: #1a2b4a;
+    --navy-deep: #0f172a;
+    --teal: #0ea5a5;
+    --teal-light: #14b8b8;
+    --bg-warm: #FAFAF9;
+    --surface: #FFFFFF;
+    --grey-100: #f3f4f6;
+    --grey-200: #e5e7eb;
+    --grey-400: #9ca3af;
+    --grey-500: #6b7280;
+    --grey-900: #111827;
+
+    /* Typography */
+    --font-display: 'Cabinet Grotesk', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    font-family: var(--font-body);
+    background: var(--bg-warm);
+    color: var(--grey-900);
+    line-height: 1.6;
+}
+
+.case-studies-wrapper .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* HERO SECTION */
+.case-studies-wrapper .hero {
+    background: var(--bg-warm);
+    text-align: center;
+    padding: 6rem 1.5rem 4rem;
+}
+
+.case-studies-wrapper .hero-label {
+    color: var(--teal);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.case-studies-wrapper .hero-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 4px;
+    /* Dots effect simulated slightly differently for CSS simplicity or SVG could be used */
+    background-image: radial-gradient(circle, var(--teal) 1px, transparent 1px);
+    background-size: 6px 6px;
+    opacity: 0.6;
+}
+
+.case-studies-wrapper .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--grey-900);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.case-studies-wrapper .hero-title span {
+    font-family: 'Playfair Display', serif;
+    /* Use Serif fallback if Playfair not loaded, or force generic serif */
+    font-family: var(--font-display);
+    /* Sticking to Cabinet as requested unless specific serif loaded */
+    font-style: italic;
+    color: var(--teal);
+    font-weight: 400;
+}
+
+.case-studies-wrapper .hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--grey-500);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* CASE GRID SECTION */
+.case-studies-wrapper .case-grid-section {
+    padding: 2rem 1.5rem 6rem;
+}
+
+.case-studies-wrapper .case-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .case-studies-wrapper .case-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.case-studies-wrapper .case-card {
+    background: var(--surface);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.case-studies-wrapper .case-preview {
+    height: 300px;
+    background: var(--grey-100);
+    position: relative;
+    border-bottom: 1px solid var(--grey-200);
+}
+
+.case-studies-wrapper .iframe-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    pointer-events: none;
+    /* Make iframe static by default */
+}
+
+.case-studies-wrapper .iframe-container iframe {
+    width: 200%;
+    /* Scale trick for better view */
+    height: 200%;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border: none;
+}
+
+.case-studies-wrapper .iframe-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.02);
+    /* Slight tint */
+    z-index: 2;
+}
+
+.case-studies-wrapper .case-content {
+    padding: 2.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-studies-wrapper .case-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.case-studies-wrapper .case-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.case-studies-wrapper .case-location {
+    font-size: 0.875rem;
+    color: var(--grey-400);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.case-studies-wrapper .case-description {
+    font-size: 0.9375rem;
+    color: var(--grey-500);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.case-studies-wrapper .case-stats {
+    display: flex;
+    background: var(--bg-warm);
+    border-radius: 12px;
+    padding: 1.5rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.case-studies-wrapper .stat {
+    text-align: center;
+}
+
+.case-studies-wrapper .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--orange);
+    /* Use orange accent for stats as per visual or teal if preferred */
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+/* Specific overrides for Pritchard vs Dunnet branding if needed (Orange vs Teal) */
+.case-studies-wrapper .case-card:nth-child(1) .stat-value {
+    color: #F97316;
+}
+
+/* Pritchard Orange */
+.case-studies-wrapper .case-card:nth-child(2) .stat-value {
+    color: #EAB308;
+}
+
+/* Dunnet Yellow/Gold */
+
+.case-studies-wrapper .stat-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--grey-400);
+    letter-spacing: 0.1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.case-studies-wrapper .stat-sub {
+    font-size: 0.5rem;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-top: 2px;
+    text-transform: none;
+}
+
+.case-studies-wrapper .view-live-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+    transition: gap 0.2s ease;
+}
+
+.case-studies-wrapper .view-live-link:hover {
+    gap: 0.75rem;
+    color: var(--teal);
+}
+
+.case-studies-wrapper .case-quote {
+    padding-top: 2rem;
+    border-top: 1px solid var(--grey-200);
+    font-family: var(--font-display);
+    font-style: italic;
+}
+
+.case-studies-wrapper .case-quote p {
+    font-size: 1.125rem;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.case-studies-wrapper .quote-author {
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--grey-500);
+}
+
+.case-studies-wrapper .quote-author span {
+    font-weight: 400;
+    color: var(--grey-400);
+}
+
+/* MID TEXT SECTION */
+.case-studies-wrapper .mid-text-section {
+    text-align: center;
+    padding: 6rem 1.5rem;
+}
+
+.case-studies-wrapper .mid-text-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--grey-900);
+    margin-bottom: 0.5rem;
+}
+
+.case-studies-wrapper .mid-text-section p {
+    font-size: 1.125rem;
+    color: var(--grey-500);
+}
+
+.case-studies-wrapper .mid-text-section span {
+    color: var(--teal);
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* PROCESS MINI SECTION */
+.case-studies-wrapper .process-mini-section {
+    padding: 6rem 1.5rem;
+    background: var(--bg-warm);
+    text-align: center;
+}
+
+.case-studies-wrapper .process-mini-section .section-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.case-studies-wrapper .process-mini-section .section-subtitle {
+    color: var(--grey-500);
+    margin-bottom: 4rem;
+}
+
+.case-studies-wrapper .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .case-studies-wrapper .process-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.case-studies-wrapper .process-card {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.case-studies-wrapper .process-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-warm);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.case-studies-wrapper .process-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+}
+
+.case-studies-wrapper .process-card p {
+    font-size: 0.875rem;
+    color: var(--grey-500);
+    line-height: 1.6;
+}
+
+/* COMING SOON SECTION */
+.case-studies-wrapper .coming-soon-section {
+    padding: 6rem 1.5rem 8rem;
+    text-align: center;
+}
+
+.case-studies-wrapper .coming-soon-section .section-title {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.case-studies-wrapper .coming-soon-section .section-subtitle {
+    color: var(--grey-500);
+    margin-bottom: 3rem;
+    font-size: 0.875rem;
+}
+
+.case-studies-wrapper .coming-soon-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.case-studies-wrapper .coming-card {
+    background: var(--surface);
+    border: 1px solid var(--grey-200);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.case-studies-wrapper .coming-card svg {
+    color: var(--teal);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.case-studies-wrapper .coming-card h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.case-studies-wrapper .coming-card p {
+    font-size: 0.75rem;
+    color: var(--grey-500);
+    line-height: 1.5;
+}
