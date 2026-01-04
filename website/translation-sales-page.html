@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Website Translation | LaunchedIn10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2b4a;
+            --navy-light: #243656;
+            --teal: #0ea5a5;
+            --teal-dark: #0c9090;
+            --teal-light: #14b8b8;
+            --teal-bg: rgba(14, 165, 165, 0.08);
+            --teal-border: rgba(14, 165, 165, 0.2);
+            --orange: #F97316;
+            --orange-hover: #ea580c;
+            --white: #ffffff;
+            --grey-50: #f9fafb;
+            --grey-100: #f3f4f6;
+            --grey-200: #e5e7eb;
+            --grey-300: #d1d5db;
+            --grey-400: #9ca3af;
+            --grey-500: #6b7280;
+            --grey-600: #4b5563;
+            --grey-700: #374151;
+            --grey-900: #111827;
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--grey-900);
+            line-height: 1.6;
+            padding-bottom: 100px; /* Space for calculator widget */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 5rem 1.5rem;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: rgba(14, 165, 165, 0.2);
+            color: var(--teal-light);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-title span { color: var(--teal-light); }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            opacity: 0.85;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 2.5rem; font-weight: 800; color: var(--teal-light); }
+        .hero-stat-label { font-size: 0.875rem; opacity: 0.7; margin-top: 0.25rem; }
+
+        /* ========================================
+           PROBLEM SECTION
+           ======================================== */
+        .problem-section {
+            padding: 5rem 1.5rem;
+            background: var(--grey-50);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--grey-500);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .problem-grid { grid-template-columns: 1fr; }
+        }
+
+        .problem-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--grey-200);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .problem-icon svg { width: 24px; height: 24px; color: #ef4444; }
+        .problem-card h3 { font-size: 1.125rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+        .problem-card p { font-size: 0.9375rem; color: var(--grey-500); line-height: 1.6; }
+
+        /* ========================================
+           SOLUTION SECTION
+           ======================================== */
+        .solution-section { padding: 5rem 1.5rem; }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .solution-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
+        .solution-content h2 {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .solution-content p {
+            font-size: 1.0625rem;
+            color: var(--grey-600);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .solution-list { list-style: none; }
+
+        .solution-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            color: var(--grey-700);
+        }
+
+        .solution-list li svg {
+            width: 22px;
+            height: 22px;
+            color: var(--teal);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .solution-visual {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(14,165,165,0.15) 0%, transparent 70%);
+        }
+
+        .visual-stat { text-align: center; position: relative; z-index: 1; }
+        .visual-stat-value { font-size: 4rem; font-weight: 800; color: var(--teal-light); line-height: 1; }
+        .visual-stat-label { font-size: 1.125rem; opacity: 0.8; margin-top: 0.5rem; }
+
+        .visual-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .visual-feature {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .visual-feature-value { font-size: 1.5rem; font-weight: 700; }
+        .visual-feature-label { font-size: 0.8125rem; opacity: 0.7; margin-top: 0.25rem; }
+
+        /* ========================================
+           HOW IT WORKS
+           ======================================== */
+        .how-section {
+            padding: 5rem 1.5rem;
+            background: var(--grey-50);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .steps-grid { grid-template-columns: 1fr; } }
+
+        .step-card { text-align: center; position: relative; }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 auto 1.25rem;
+        }
+
+        .step-card h3 { font-size: 1.0625rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+        .step-card p { font-size: 0.9375rem; color: var(--grey-500); line-height: 1.5; }
+
+        /* ========================================
+           PRICING SECTION
+           ======================================== */
+        .pricing-section { padding: 5rem 1.5rem; }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1024px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .tiers-grid { grid-template-columns: 1fr; } }
+
+        .tier-card {
+            background: var(--white);
+            border: 2px solid var(--grey-200);
+            border-radius: 16px;
+            padding: 1.75rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .tier-card:hover {
+            border-color: var(--grey-300);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tier-card.popular { border-color: var(--teal); }
+
+        .tier-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: var(--white);
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .tier-name { font-size: 1.125rem; font-weight: 700; color: var(--navy); margin-bottom: 0.125rem; }
+        .tier-pages { font-size: 0.8125rem; color: var(--grey-500); margin-bottom: 1.25rem; }
+        .tier-pricing { margin-bottom: 1.25rem; }
+        .tier-monthly { display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 0.375rem; }
+        .tier-currency { font-size: 1rem; font-weight: 600; color: var(--grey-500); }
+        .tier-amount { font-size: 2rem; font-weight: 800; color: var(--navy); }
+        .tier-period { font-size: 0.8125rem; color: var(--grey-400); }
+        .tier-onboarding { font-size: 0.8125rem; color: var(--grey-500); }
+        .tier-onboarding strong { color: var(--grey-700); font-weight: 600; }
+
+        .tier-features {
+            list-style: none;
+            padding-top: 1rem;
+            border-top: 1px solid var(--grey-100);
+        }
+
+        .tier-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--grey-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-feature svg { width: 16px; height: 16px; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: var(--navy);
+            border-radius: 12px;
+            color: var(--white);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-note-text { font-size: 0.9375rem; }
+        .pricing-note-highlight { font-weight: 700; color: var(--teal-light); }
+
+        /* ========================================
+           CTA SECTION
+           ======================================== */
+        .cta-section {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: var(--orange-hover);
+            transform: translateY(-2px);
+        }
+
+        .cta-hint {
+            font-size: 0.875rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+        }
+
+        /* ========================================
+           FAQ SECTION
+           ======================================== */
+        .faq-section {
+            padding: 5rem 1.5rem;
+            background: var(--grey-50);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--grey-200);
+        }
+
+        .faq-question { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; }
+        .faq-answer { font-size: 0.9375rem; color: var(--grey-500); line-height: 1.6; }
+
+
+        /* ══════════════════════════════════════════════════════════════════════════════════
+           CALCULATOR WIDGET (Rebranded from Eldris)
+           ══════════════════════════════════════════════════════════════════════════════════ */
+        .widget-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .widget-wrapper {
+            width: 100%;
+            max-width: 480px;
+            pointer-events: auto;
+            margin: 0 16px 16px;
+        }
+
+        /* Collapsed Bar */
+        .widget-bar {
+            background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 100%);
+            border-radius: 16px;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .widget-bar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .widget-bar.hidden {
+            transform: translateY(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .bar-content { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .bar-icon { font-size: 20px; }
+        .bar-text { font-size: 15px; font-weight: 600; color: white; }
+
+        .bar-cta {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .bar-cta:hover { background: var(--orange-hover); }
+
+        @media (max-width: 480px) {
+            .widget-wrapper { margin: 0 12px 12px; }
+            .widget-bar { padding: 0 16px; height: 56px; }
+            .bar-text { font-size: 14px; }
+            .bar-cta { padding: 8px 16px; font-size: 13px; }
+        }
+
+        @media (max-width: 360px) {
+            .widget-wrapper { margin: 0 8px 8px; }
+            .bar-text { font-size: 13px; }
+            .bar-cta { padding: 6px 12px; font-size: 12px; }
+        }
+
+        /* Expanded Panel */
+        .widget-panel {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .widget-panel.expanded {
+            max-height: 90vh;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 100%);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title { font-size: 18px; font-weight: 700; color: white; }
+
+        .panel-close {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .panel-close:hover { background: rgba(255, 255, 255, 0.25); }
+
+        .panel-body {
+            padding: 24px;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 480px) {
+            .widget-wrapper.expanded { margin: 0; }
+            .widget-panel { border-radius: 20px 20px 0 0; }
+            .panel-body { padding: 20px; }
+        }
+
+        /* Section Styling */
+        .calc-section { margin-bottom: 24px; }
+        .calc-section-label { font-size: 13px; font-weight: 600; color: var(--grey-600); margin-bottom: 10px; }
+
+        /* URL Input */
+        .url-row { display: flex; gap: 12px; }
+
+        .url-input {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 2px solid var(--grey-200);
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .url-input:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(14, 165, 165, 0.1);
+        }
+
+        .url-input.error { border-color: var(--error); }
+        .url-input::placeholder { color: var(--grey-400); }
+
+        .scan-btn {
+            padding: 14px 20px;
+            background: var(--teal);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .scan-btn:hover:not(:disabled) { background: var(--teal-dark); }
+        .scan-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .url-error { font-size: 13px; color: var(--error); margin-top: 8px; display: none; }
+        .url-error.visible { display: block; }
+
+        @media (max-width: 480px) {
+            .url-row { flex-direction: column; }
+            .scan-btn { text-align: center; }
+        }
+
+        /* Scan Results */
+        .scan-results {
+            display: none;
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .scan-results.visible { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scan-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--grey-200);
+        }
+
+        .scan-check {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .scan-domain { font-size: 15px; font-weight: 600; color: var(--grey-900); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+        .stat-box {
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-value { font-size: 24px; font-weight: 800; color: var(--teal); line-height: 1; }
+        .stat-label { font-size: 11px; font-weight: 600; color: var(--grey-500); text-transform: uppercase; margin-top: 4px; }
+
+        /* Language Selection */
+        .selected-languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .no-languages { font-size: 14px; color: var(--grey-400); font-style: italic; }
+
+        .language-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--teal);
+            color: white;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .language-tag-remove {
+            width: 18px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .language-tag-remove:hover { background: rgba(255, 255, 255, 0.35); }
+
+        .language-dropdown-wrapper { position: relative; }
+
+        .add-language-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: var(--grey-50);
+            border: 2px dashed var(--grey-300);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--grey-600);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .add-language-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: var(--teal-bg);
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: 12px;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 8px;
+            z-index: 100;
+        }
+
+        .language-dropdown.visible { display: block; }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            font-size: 14px;
+        }
+
+        .language-option:hover { background: var(--grey-50); }
+        .language-option.disabled { opacity: 0.4; cursor: not-allowed; background: var(--grey-50); }
+        .language-option-flag { font-size: 18px; }
+
+        /* Tier Options */
+        .tier-options { display: flex; flex-direction: column; gap: 8px; }
+
+        .tier-option { cursor: pointer; }
+        .tier-option input { display: none; }
+
+        .tier-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: var(--grey-50);
+            border: 2px solid var(--grey-200);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .tier-option:hover .tier-btn { border-color: var(--grey-300); }
+        .tier-option input:checked + .tier-btn { border-color: var(--teal); background: var(--teal-bg); }
+        .tier-option.recommended .tier-btn { border-color: var(--teal); }
+
+        .tier-left { display: flex; align-items: center; gap: 12px; }
+
+        .tier-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--grey-300);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .tier-option input:checked + .tier-btn .tier-radio {
+            border-color: var(--teal);
+            background: var(--teal);
+        }
+
+        .tier-option input:checked + .tier-btn .tier-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .tier-label-text { font-size: 14px; font-weight: 600; color: var(--grey-900); }
+        .tier-pages-text { font-size: 13px; color: var(--grey-500); }
+
+        .tier-rec-tag {
+            display: none;
+            margin-left: 8px;
+            padding: 2px 8px;
+            background: var(--teal);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .tier-option.recommended .tier-rec-tag { display: inline-block; }
+        .tier-price-text { font-size: 14px; font-weight: 700; color: var(--grey-700); }
+
+        /* Pricing Box */
+        .pricing-box {
+            background: var(--navy);
+            border-radius: 16px;
+            padding: 20px;
+            color: var(--white);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .price-row .price-label { opacity: 0.8; }
+        .price-row .price-value { font-weight: 600; }
+
+        .price-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 8px;
+            padding-top: 16px;
+        }
+
+        .price-row.total .price-label { opacity: 1; font-weight: 600; font-size: 15px; }
+        .price-row.total .price-value { font-size: 24px; font-weight: 800; color: var(--teal-light); }
+
+        .price-monthly {
+            text-align: right;
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        .price-monthly strong { opacity: 1; font-weight: 700; }
+
+        /* CTA Button */
+        .calc-cta-btn {
+            width: 100%;
+            padding: 16px 28px;
+            margin-top: 20px;
+            background: var(--orange);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .calc-cta-btn:hover:not(:disabled) {
+            background: var(--orange-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .calc-cta-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .trust-line {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--grey-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .stats-grid { gap: 8px; }
+            .stat-box { padding: 10px 8px; }
+            .stat-value { font-size: 20px; }
+            .stat-label { font-size: 10px; }
+            .tier-btn { padding: 12px 14px; }
+            .tier-label-text { font-size: 13px; }
+            .tier-pages-text { font-size: 12px; }
+            .tier-price-text { font-size: 13px; }
+            .tier-rec-tag { font-size: 9px; padding: 2px 6px; }
+            .pricing-box { padding: 16px; }
+            .price-row { font-size: 13px; }
+            .price-row.total .price-value { font-size: 20px; }
+            .trust-line { flex-wrap: wrap; gap: 10px 16px; justify-content: center; }
+            .language-tag { padding: 6px 10px; font-size: 12px; }
+            .language-tag-remove { width: 16px; height: 16px; font-size: 12px; }
+        }
+
+        @media (max-width: 340px) {
+            .panel-body { padding: 16px; }
+            .calc-section { margin-bottom: 20px; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .stat-box { padding: 8px 4px; }
+            .stat-value { font-size: 18px; }
+            .tier-left { gap: 8px; }
+            .tier-radio { width: 18px; height: 18px; }
+            .calc-cta-btn { padding: 14px 20px; font-size: 14px; }
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 6px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Modal */
+        .scan-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 320px;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid var(--grey-100);
+        }
+
+        .scan-modal.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .scan-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(2px);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .scan-modal-backdrop.visible { opacity: 1; pointer-events: auto; }
+
+        .spinner.large {
+            width: 48px;
+            height: 48px;
+            border-width: 4px;
+            border-color: var(--grey-100);
+            border-top-color: var(--teal);
+            margin: 0 auto 20px;
+        }
+
+        .scan-status { font-size: 17px; font-weight: 700; color: var(--grey-900); margin-bottom: 8px; }
+        .scan-countdown { font-size: 14px; color: var(--grey-500); font-weight: 500; }
+
+        /* CTA Options in Widget */
+        .cta-options-widget {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .cta-option-card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .cta-option-card:hover {
+            border-color: var(--teal);
+            background: var(--teal-bg);
+        }
+
+        .cta-option-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--grey-900);
+            margin-bottom: 4px;
+        }
+
+        .cta-option-desc {
+            font-size: 13px;
+            color: var(--grey-500);
+            margin-bottom: 12px;
+        }
+
+        .cta-option-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--orange);
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .cta-option-card:hover .cta-option-btn {
+            background: var(--orange-hover);
+        }
+
+        .cta-email-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cta-email-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--grey-200);
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .cta-email-input:focus {
+            border-color: var(--teal);
+        }
+
+        .cta-email-btn {
+            padding: 10px 16px;
+            background: var(--teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .cta-email-btn:hover {
+            background: var(--teal-dark);
+        }
+
+        .cta-email-success {
+            display: none;
+            padding: 10px;
+            background: var(--success-bg);
+            border-radius: 8px;
+            color: var(--success);
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .cta-email-success.visible {
+            display: block;
+        }
+
+        @media (max-width: 400px) {
+            .cta-email-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero-label">EU Expansion Made Simple</span>
+            <h1 class="hero-title">Sell Across Europe <span>Without Rebuilding Your Site</span></h1>
+            <p class="hero-subtitle">Clone and localise your existing website into any EU language. Proper structure, SEO signals, and hreflang baked in. No agencies. No six-figure costs. No waiting months for delivery.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">23</div>
+                    <div class="hero-stat-label">EU Languages</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">&lt;1hr</div>
+                    <div class="hero-stat-label">Sites Go Live</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">£29.95</div>
+                    <div class="hero-stat-label">From /month</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Reality</div>
+                <h2 class="section-title">EU Expansion Fails for Boring Reasons</h2>
+                <p class="section-subtitle">Demand isn't the issue. Friction is. Localisation projects get stuck in cost, complexity, and constant rework.</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Agency Timelines</h3>
+                    <p>Traditional localisation takes months. By the time you launch, the market opportunity has shifted. Your competitors got there first.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Six-Figure Quotes</h3>
+                    <p>Agencies charge tens of thousands per language. Every content update becomes another invoice. Budgets drain before traction builds.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3>Technical Nightmares</h3>
+                    <p>Plugins break layouts. Developers quote weeks for "simple" changes. You end up managing multiple disconnected sites.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="solution-section">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-content">
+                    <h2>Clone Once. Sell Everywhere.</h2>
+                    <p>We clone your existing website into any EU language—complete with SEO structure, hreflang tags, and proper URL architecture. You don't need a new build. You don't need a plugin project. You need a system that scales as your business grows.</p>
+                    
+                    <ul class="solution-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span><strong>Full site clone</strong> — Every page, form, and product in your target language</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span><strong>SEO-ready structure</strong> — Localised URLs, metadata, and hreflang signals</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span><strong>No dev required</strong> — We handle the technical complexity</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span><strong>Updates sync</strong> — Change your main site, translations follow</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="solution-visual">
+                    <div class="visual-stat">
+                        <div class="visual-stat-value">23</div>
+                        <div class="visual-stat-label">EU languages available</div>
+                    </div>
+                    <div class="visual-features">
+                        <div class="visual-feature">
+                            <div class="visual-feature-value">&lt;1hr</div>
+                            <div class="visual-feature-label">Site live</div>
+                        </div>
+                        <div class="visual-feature">
+                            <div class="visual-feature-value">100%</div>
+                            <div class="visual-feature-label">SEO structure</div>
+                        </div>
+                        <div class="visual-feature">
+                            <div class="visual-feature-value">Zero</div>
+                            <div class="visual-feature-label">Dev work needed</div>
+                        </div>
+                        <div class="visual-feature">
+                            <div class="visual-feature-value">UK</div>
+                            <div class="visual-feature-label">Based support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title">Live in Under an Hour. Seriously.</h2>
+                <p class="section-subtitle">No calls. No back-and-forth. No waiting.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Scan Your Site</h3>
+                    <p>Enter your URL. We analyse pages, forms, and products automatically</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Choose Languages</h3>
+                    <p>Select from 23 EU languages. Add as many as you need</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Pay & Run</h3>
+                    <p>Secure checkout. Your clones start building immediately</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Go Live</h3>
+                    <p>Localised sites ready in under an hour. DNS setup available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Pricing</div>
+                <h2 class="section-title">Predictable. Per Language. No Surprises.</h2>
+                <p class="section-subtitle">Expand one market at a time with complete control over costs.</p>
+            </div>
+
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <h3 class="tier-name">Starter</h3>
+                    <p class="tier-pages">Up to 50 pages</p>
+                    <div class="tier-pricing">
+                        <div class="tier-monthly"><span class="tier-currency">£</span><span class="tier-amount">29.95</span><span class="tier-period">/mo</span></div>
+                        <div class="tier-onboarding"><strong>£195</strong> per language setup</div>
+                    </div>
+                    <ul class="tier-features">
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Full site clone</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>SEO metadata</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Hreflang setup</span></li>
+                    </ul>
+                </div>
+
+                <div class="tier-card popular">
+                    <span class="tier-badge">Most Popular</span>
+                    <h3 class="tier-name">Growth</h3>
+                    <p class="tier-pages">Up to 100 pages</p>
+                    <div class="tier-pricing">
+                        <div class="tier-monthly"><span class="tier-currency">£</span><span class="tier-amount">49.95</span><span class="tier-period">/mo</span></div>
+                        <div class="tier-onboarding"><strong>£345</strong> per language setup</div>
+                    </div>
+                    <ul class="tier-features">
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Starter</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Priority processing</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Form translations</span></li>
+                    </ul>
+                </div>
+
+                <div class="tier-card">
+                    <h3 class="tier-name">Business</h3>
+                    <p class="tier-pages">Up to 500 pages</p>
+                    <div class="tier-pricing">
+                        <div class="tier-monthly"><span class="tier-currency">£</span><span class="tier-amount">79.95</span><span class="tier-period">/mo</span></div>
+                        <div class="tier-onboarding"><strong>£795</strong> per language setup</div>
+                    </div>
+                    <ul class="tier-features">
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Growth</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>E-commerce support</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Dynamic content</span></li>
+                    </ul>
+                </div>
+
+                <div class="tier-card">
+                    <h3 class="tier-name">Enterprise</h3>
+                    <p class="tier-pages">500+ pages</p>
+                    <div class="tier-pricing">
+                        <div class="tier-monthly"><span class="tier-currency">£</span><span class="tier-amount">129.95</span><span class="tier-period">/mo</span></div>
+                        <div class="tier-onboarding"><strong>£1,495</strong> per language setup</div>
+                    </div>
+                    <ul class="tier-features">
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Business</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Dedicated support</span></li>
+                        <li class="tier-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Custom integrations</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pricing-note">
+                <p class="pricing-note-text"><span class="pricing-note-highlight">DNS setup done-for-you: £95</span> — We handle subdomain configuration so your translated sites go live with zero technical work from you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Sell Across Europe?</h2>
+        <p class="cta-subtitle">Scan your site below. See exactly what it'll cost. No surprises.</p>
+        <button class="cta-btn" onclick="document.getElementById('widgetBar').click()">Calculate My Cost →</button>
+        <p class="cta-hint">Free scan. No commitment.</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">Common Questions</h2>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 class="faq-question">Do I need to rebuild my website?</h3>
+                    <p class="faq-answer">No. We clone from your existing URL. Your original site stays untouched. We create separate, fully translated versions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">What about SEO?</h3>
+                    <p class="faq-answer">Each clone includes localised URLs, translated metadata, and proper hreflang tags. Google understands exactly which language version to show in each market.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">Will dynamic elements work?</h3>
+                    <p class="faq-answer">Most do. Some JavaScript-heavy components may need minor adjustment. We'll flag anything during the scan process.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">What about DNS setup?</h3>
+                    <p class="faq-answer">Self-serve instructions included, or we do it for you for £95. Either way, your translated sites get proper subdomain URLs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════════════════════════════════
+         CALCULATOR WIDGET
+         ══════════════════════════════════════════════════════════════════════════════════ -->
+    <div class="widget-container">
+        <div class="widget-wrapper" id="widgetWrapper">
+
+            <!-- Collapsed Bar -->
+            <div class="widget-bar" id="widgetBar">
+                <div class="bar-content">
+                    <span class="bar-icon">🌐</span>
+                    <span class="bar-text">Translate your website into 23 EU languages</span>
+                </div>
+                <button class="bar-cta" id="barCta">Get Quote</button>
+            </div>
+
+            <!-- Expanded Panel -->
+            <div class="widget-panel" id="widgetPanel">
+
+                <div class="panel-header">
+                    <span class="panel-title">Website Translation Calculator</span>
+                    <button class="panel-close" id="panelClose">×</button>
+                </div>
+
+                <div class="panel-body">
+
+                    <!-- URL Input -->
+                    <div class="calc-section">
+                        <div class="calc-section-label">Your Website</div>
+                        <div class="url-row">
+                            <input type="url" id="urlInput" class="url-input" placeholder="yourwebsite.com" autocomplete="url" />
+                            <button type="button" id="scanBtn" class="scan-btn">Scan Site</button>
+                        </div>
+                        <div id="urlError" class="url-error"></div>
+
+                        <div id="scanResults" class="scan-results">
+                            <div class="scan-header">
+                                <div class="scan-check">✓</div>
+                                <span class="scan-domain" id="scannedDomain">yoursite.com</span>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value" id="statPages">0</div>
+                                    <div class="stat-label">Pages</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value" id="statForms">0</div>
+                                    <div class="stat-label">Forms</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value" id="statProducts">0</div>
+                                    <div class="stat-label">Products</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="calc-section">
+                        <div class="calc-section-label">Target Languages</div>
+                        <div class="selected-languages" id="selectedLanguages">
+                            <span class="no-languages">No languages selected</span>
+                        </div>
+                        <div class="language-dropdown-wrapper">
+                            <button type="button" class="add-language-btn" id="addLangBtn">+ Add language</button>
+                            <div class="language-dropdown" id="langDropdown"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tier Selection -->
+                    <div class="calc-section">
+                        <div class="calc-section-label">Site Size Tier</div>
+                        <div class="tier-options" id="tierOptions">
+                            <label class="tier-option" data-tier="50">
+                                <input type="radio" name="tier" value="50" checked />
+                                <span class="tier-btn">
+                                    <span class="tier-left">
+                                        <span class="tier-radio"></span>
+                                        <span><span class="tier-label-text">Starter</span><span class="tier-pages-text"> · ≤50 pages</span><span class="tier-rec-tag">Recommended</span></span>
+                                    </span>
+                                    <span class="tier-price-text">£29.95/mo</span>
+                                </span>
+                            </label>
+                            <label class="tier-option" data-tier="100">
+                                <input type="radio" name="tier" value="100" />
+                                <span class="tier-btn">
+                                    <span class="tier-left">
+                                        <span class="tier-radio"></span>
+                                        <span><span class="tier-label-text">Growth</span><span class="tier-pages-text"> · ≤100 pages</span><span class="tier-rec-tag">Recommended</span></span>
+                                    </span>
+                                    <span class="tier-price-text">£49.95/mo</span>
+                                </span>
+                            </label>
+                            <label class="tier-option" data-tier="500">
+                                <input type="radio" name="tier" value="500" />
+                                <span class="tier-btn">
+                                    <span class="tier-left">
+                                        <span class="tier-radio"></span>
+                                        <span><span class="tier-label-text">Business</span><span class="tier-pages-text"> · ≤500 pages</span><span class="tier-rec-tag">Recommended</span></span>
+                                    </span>
+                                    <span class="tier-price-text">£79.95/mo</span>
+                                </span>
+                            </label>
+                            <label class="tier-option" data-tier="999">
+                                <input type="radio" name="tier" value="999" />
+                                <span class="tier-btn">
+                                    <span class="tier-left">
+                                        <span class="tier-radio"></span>
+                                        <span><span class="tier-label-text">Enterprise</span><span class="tier-pages-text"> · 500+ pages</span><span class="tier-rec-tag">Recommended</span></span>
+                                    </span>
+                                    <span class="tier-price-text">£129.95/mo</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="pricing-box">
+                        <div class="price-row">
+                            <span class="price-label">Setup (<span id="priceClones">0</span> × £<span id="priceOnboardingRate">195</span>)</span>
+                            <span class="price-value" id="priceSetup">£0</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">First month</span>
+                            <span class="price-value" id="priceMonthly">£0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span class="price-label">Due Today</span>
+                            <span class="price-value" id="priceTotal">£0</span>
+                        </div>
+                        <div class="price-monthly">
+                            Then <strong id="priceRecurring">£0</strong>/month
+                        </div>
+                    </div>
+
+                    <!-- CTA Options -->
+                    <div class="cta-options-widget">
+                        <a href="/portal" class="cta-option-card">
+                            <div class="cta-option-title">Website + Translation Bundle</div>
+                            <div class="cta-option-desc">Building a new site? Add translation from day one</div>
+                            <span class="cta-option-btn">Start Website Build →</span>
+                        </a>
+                        <div class="cta-option-card">
+                            <div class="cta-option-title">Translation Only</div>
+                            <div class="cta-option-desc">Already have a website? Drop your email for fast setup</div>
+                            <div class="cta-email-form" id="translationEmailForm">
+                                <input type="email" class="cta-email-input" id="translationEmail" placeholder="your@email.com" />
+                                <button type="button" class="cta-email-btn" id="translationEmailBtn" onclick="handleTranslationEmail()">Get Started</button>
+                            </div>
+                            <div class="cta-email-success" id="translationEmailSuccess">✓ We'll be in touch within 5 minutes</div>
+                        </div>
+                    </div>
+
+                    <div class="trust-line">
+                        <span>🔒 Secure checkout</span>
+                        <span>⚡ Live in under 1hr</span>
+                        <span>💬 UK support</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scanning Modal -->
+            <div class="scan-modal-backdrop" id="scanModalBackdrop"></div>
+            <div class="scan-modal" id="scanModal">
+                <div class="scan-modal-content">
+                    <div class="spinner large"></div>
+                    <div class="scan-status">Scanning your site...</div>
+                    <div class="scan-countdown" id="scanCountdown">Scanning...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // CONFIGURATION
+        // ═══════════════════════════════════════════════════════════════════════════
+        const CONFIG = {
+            WEBHOOK_URL: 'https://portal.eldris.ai/api/proxy/webhook', // UPDATE: Point to LI10 portal when ready
+            PORTAL_URL: 'https://portal.eldris.ai', // UPDATE: Point to LI10 portal when ready
+            SCAN_TIMEOUT: 60000,
+            PRICING: {
+                TIERS: {
+                    50: { onboarding: 195, monthly: 29.95, pages: 50, id: 'starter', pid: '' },
+                    100: { onboarding: 345, monthly: 49.95, pages: 100, id: 'growth', pid: '' },
+                    500: { onboarding: 795, monthly: 79.95, pages: 500, id: 'business', pid: '' },
+                    999: { onboarding: 1495, monthly: 129.95, pages: 9999, id: 'enterprise', pid: '' }
+                }
+            }
+        };
+
+        const LANGUAGES = [
+            { code: 'de', flag: '🇩🇪', name: 'German' },
+            { code: 'fr', flag: '🇫🇷', name: 'French' },
+            { code: 'es', flag: '🇪🇸', name: 'Spanish' },
+            { code: 'it', flag: '🇮🇹', name: 'Italian' },
+            { code: 'nl', flag: '🇳🇱', name: 'Dutch' },
+            { code: 'pl', flag: '🇵🇱', name: 'Polish' },
+            { code: 'pt', flag: '🇵🇹', name: 'Portuguese' },
+            { code: 'sv', flag: '🇸🇪', name: 'Swedish' },
+            { code: 'da', flag: '🇩🇰', name: 'Danish' },
+            { code: 'fi', flag: '🇫🇮', name: 'Finnish' },
+            { code: 'el', flag: '🇬🇷', name: 'Greek' },
+            { code: 'cs', flag: '🇨🇿', name: 'Czech' },
+            { code: 'hu', flag: '🇭🇺', name: 'Hungarian' },
+            { code: 'ro', flag: '🇷🇴', name: 'Romanian' },
+            { code: 'bg', flag: '🇧🇬', name: 'Bulgarian' },
+            { code: 'sk', flag: '🇸🇰', name: 'Slovak' },
+            { code: 'hr', flag: '🇭🇷', name: 'Croatian' },
+            { code: 'lt', flag: '🇱🇹', name: 'Lithuanian' },
+            { code: 'lv', flag: '🇱🇻', name: 'Latvian' },
+            { code: 'et', flag: '🇪🇪', name: 'Estonian' },
+            { code: 'sl', flag: '🇸🇮', name: 'Slovenian' },
+            { code: 'mt', flag: '🇲🇹', name: 'Maltese' },
+            { code: 'ga', flag: '🇮🇪', name: 'Irish' }
+        ];
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // STATE
+        // ═══════════════════════════════════════════════════════════════════════════
+        const state = {
+            expanded: false,
+            scanned: false,
+            url: '',
+            scanData: null,
+            selectedLanguages: [],
+            selectedTier: 50
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // DOM
+        // ═══════════════════════════════════════════════════════════════════════════
+        const DOM = {
+            wrapper: document.getElementById('widgetWrapper'),
+            bar: document.getElementById('widgetBar'),
+            barCta: document.getElementById('barCta'),
+            panel: document.getElementById('widgetPanel'),
+            panelClose: document.getElementById('panelClose'),
+            urlInput: document.getElementById('urlInput'),
+            urlError: document.getElementById('urlError'),
+            scanBtn: document.getElementById('scanBtn'),
+            scanResults: document.getElementById('scanResults'),
+            scannedDomain: document.getElementById('scannedDomain'),
+            statPages: document.getElementById('statPages'),
+            statForms: document.getElementById('statForms'),
+            statProducts: document.getElementById('statProducts'),
+            selectedLanguages: document.getElementById('selectedLanguages'),
+            addLangBtn: document.getElementById('addLangBtn'),
+            langDropdown: document.getElementById('langDropdown'),
+            tierOptions: document.getElementById('tierOptions'),
+            priceClones: document.getElementById('priceClones'),
+            priceOnboardingRate: document.getElementById('priceOnboardingRate'),
+            priceSetup: document.getElementById('priceSetup'),
+            priceMonthly: document.getElementById('priceMonthly'),
+            priceTotal: document.getElementById('priceTotal'),
+            priceRecurring: document.getElementById('priceRecurring'),
+            scanModal: document.getElementById('scanModal'),
+            scanModalBackdrop: document.getElementById('scanModalBackdrop'),
+            scanCountdown: document.getElementById('scanCountdown')
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // EXPAND/COLLAPSE
+        // ═══════════════════════════════════════════════════════════════════════════
+        function expand() {
+            state.expanded = true;
+            DOM.bar.classList.add('hidden');
+            DOM.panel.classList.add('expanded');
+            DOM.wrapper.classList.add('expanded');
+            DOM.urlInput.focus();
+        }
+
+        function collapse() {
+            state.expanded = false;
+            DOM.panel.classList.remove('expanded');
+            DOM.wrapper.classList.remove('expanded');
+            setTimeout(() => DOM.bar.classList.remove('hidden'), 200);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // URL VALIDATION
+        // ═══════════════════════════════════════════════════════════════════════════
+        function isValidUrl(string) {
+            const pattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w\-./?%&=]*)?$/i;
+            return pattern.test(string.trim());
+        }
+
+        function normalizeUrl(url) {
+            let n = url.trim().toLowerCase();
+            if (!n.startsWith('http://') && !n.startsWith('https://')) n = 'https://' + n;
+            return n;
+        }
+
+        function extractDomain(url) {
+            try {
+                return new URL(normalizeUrl(url)).hostname.replace('www.', '');
+            } catch {
+                return url.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+            }
+        }
+
+        function showError(msg) {
+            DOM.urlError.textContent = msg;
+            DOM.urlError.classList.add('visible');
+            DOM.urlInput.classList.add('error');
+        }
+
+        function hideError() {
+            DOM.urlError.classList.remove('visible');
+            DOM.urlInput.classList.remove('error');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // WEBHOOK
+        // ═══════════════════════════════════════════════════════════════════════════
+        async function callWebhook(url) {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), CONFIG.SCAN_TIMEOUT);
+
+            try {
+                const res = await fetch(CONFIG.WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: normalizeUrl(url), action: 'analyse' }),
+                    signal: controller.signal
+                });
+                clearTimeout(timeout);
+
+                if (res.ok) {
+                    const raw = await res.json();
+                    const data = Array.isArray(raw) ? raw[0].json : raw;
+
+                    return {
+                        pages: data.pages || 0,
+                        forms: data.forms || 0,
+                        products: data.products || 0,
+                        recommended_tier: data.recommended_tier || null,
+                        pricing_override: data.pricing_override || null
+                    };
+                }
+            } catch (e) {
+                clearTimeout(timeout);
+            }
+
+            if (!state.scanned) {
+                showError('Could not analyze website. Please try again.');
+                throw new Error('Scan failed');
+            }
+            return null;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // TIER RECOMMENDATION
+        // ═══════════════════════════════════════════════════════════════════════════
+        function getRecommendedTier(pages) {
+            if (pages <= 50) return 50;
+            if (pages <= 100) return 100;
+            if (pages <= 500) return 500;
+            return 999;
+        }
+
+        function setRecommendedTier(tier) {
+            document.querySelectorAll('.tier-option').forEach(el => el.classList.remove('recommended'));
+            const option = document.querySelector(`.tier-option[data-tier="${tier}"]`);
+            if (option) {
+                option.classList.add('recommended');
+                option.querySelector('input').checked = true;
+                state.selectedTier = tier;
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // SCAN
+        // ═══════════════════════════════════════════════════════════════════════════
+        async function handleScan() {
+            const url = DOM.urlInput.value.trim();
+            if (!url) { showError('Please enter your website URL'); return; }
+            if (!isValidUrl(url)) { showError('Please enter a valid URL'); return; }
+
+            hideError();
+            state.url = normalizeUrl(url);
+
+            DOM.scanModal.classList.add('visible');
+            DOM.scanModalBackdrop.classList.add('visible');
+            DOM.scanCountdown.textContent = 'Scanning...';
+
+            try {
+                const data = await callWebhook(url);
+                DOM.scanModal.classList.remove('visible');
+                DOM.scanModalBackdrop.classList.remove('visible');
+
+                if (!data) return;
+
+                state.scanData = data;
+                state.scanned = true;
+
+                DOM.scannedDomain.textContent = extractDomain(url);
+                DOM.statPages.textContent = data.pages;
+                DOM.statForms.textContent = data.forms;
+                DOM.statProducts.textContent = data.products;
+                DOM.scanResults.classList.add('visible');
+
+                const recommendedTier = data.recommended_tier || getRecommendedTier(data.pages);
+                setRecommendedTier(recommendedTier);
+
+                DOM.scanBtn.textContent = 'Rescan';
+
+                calculatePricing();
+
+            } catch (e) {
+                DOM.scanModal.classList.remove('visible');
+                DOM.scanModalBackdrop.classList.remove('visible');
+                showError('Scan failed. Please try again.');
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // LANGUAGE SELECTION
+        // ═══════════════════════════════════════════════════════════════════════════
+        function renderLanguageDropdown() {
+            DOM.langDropdown.innerHTML = LANGUAGES.map(lang => {
+                const selected = state.selectedLanguages.includes(lang.code);
+                return `
+                    <div class="language-option ${selected ? 'disabled' : ''}" data-code="${lang.code}">
+                        <span class="language-option-flag">${lang.flag}</span>
+                        <span>${lang.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSelectedLanguages() {
+            if (state.selectedLanguages.length === 0) {
+                DOM.selectedLanguages.innerHTML = '<span class="no-languages">No languages selected</span>';
+            } else {
+                DOM.selectedLanguages.innerHTML = state.selectedLanguages.map(code => {
+                    const lang = LANGUAGES.find(l => l.code === code);
+                    return `
+                        <span class="language-tag">
+                            ${lang.flag} ${lang.name}
+                            <button type="button" class="language-tag-remove" data-code="${code}">×</button>
+                        </span>
+                    `;
+                }).join('');
+            }
+            calculatePricing();
+        }
+
+        function addLanguage(code) {
+            if (!state.selectedLanguages.includes(code)) {
+                state.selectedLanguages.push(code);
+                renderSelectedLanguages();
+                renderLanguageDropdown();
+            }
+            DOM.langDropdown.classList.remove('visible');
+        }
+
+        function removeLanguage(code) {
+            state.selectedLanguages = state.selectedLanguages.filter(c => c !== code);
+            renderSelectedLanguages();
+            renderLanguageDropdown();
+        }
+
+        function toggleDropdown() {
+            DOM.langDropdown.classList.toggle('visible');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // TIER SELECTION
+        // ═══════════════════════════════════════════════════════════════════════════
+        function updateTierSelection() {
+            const selected = document.querySelector('input[name="tier"]:checked');
+            if (selected) {
+                state.selectedTier = parseInt(selected.value);
+                calculatePricing();
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // PRICING
+        // ═══════════════════════════════════════════════════════════════════════════
+        function calculatePricing() {
+            const langs = state.selectedLanguages.length;
+            const baseTier = CONFIG.PRICING.TIERS[state.selectedTier];
+
+            let onboarding = baseTier.onboarding;
+            let monthly = baseTier.monthly;
+
+            if (state.scanned && state.scanData) {
+                const override = state.scanData.pricing_override;
+                const recommendedTier = state.scanData.recommended_tier || getRecommendedTier(state.scanData.pages || 0);
+
+                if (override && state.selectedTier === recommendedTier) {
+                    onboarding = override.onboarding ?? baseTier.onboarding;
+                    monthly = override.monthly ?? baseTier.monthly;
+                }
+            }
+
+            const setup = langs * onboarding;
+            const monthlyTotal = monthly;
+            const total = setup + monthlyTotal;
+
+            DOM.priceClones.textContent = langs;
+            DOM.priceOnboardingRate.textContent = onboarding.toLocaleString();
+            DOM.priceSetup.textContent = '£' + setup.toLocaleString();
+            DOM.priceMonthly.textContent = '£' + monthlyTotal.toFixed(2);
+            DOM.priceTotal.textContent = '£' + total.toLocaleString('en-GB', { minimumFractionDigits: 2 });
+            DOM.priceRecurring.textContent = '£' + monthlyTotal.toFixed(2);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════════════════════════════════════
+        function init() {
+            DOM.bar.addEventListener('click', expand);
+            DOM.barCta.addEventListener('click', (e) => { e.stopPropagation(); expand(); });
+            DOM.panelClose.addEventListener('click', collapse);
+
+            DOM.urlInput.addEventListener('input', hideError);
+            DOM.urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleScan(); });
+            DOM.scanBtn.addEventListener('click', handleScan);
+
+            DOM.addLangBtn.addEventListener('click', toggleDropdown);
+            DOM.langDropdown.addEventListener('click', (e) => {
+                const option = e.target.closest('.language-option');
+                if (option && !option.classList.contains('disabled')) {
+                    addLanguage(option.dataset.code);
+                }
+            });
+            DOM.selectedLanguages.addEventListener('click', (e) => {
+                if (e.target.classList.contains('language-tag-remove')) {
+                    removeLanguage(e.target.dataset.code);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.language-dropdown-wrapper')) {
+                    DOM.langDropdown.classList.remove('visible');
+                }
+            });
+
+            DOM.tierOptions.addEventListener('change', updateTierSelection);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && state.expanded) collapse();
+            });
+
+            renderLanguageDropdown();
+            calculatePricing();
+        }
+
+        init();
+    })();
+
+    // Email handler for translation-only path
+    function handleTranslationEmail() {
+        var email = document.getElementById('translationEmail').value.trim();
+        var btn = document.getElementById('translationEmailBtn');
+        var form = document.getElementById('translationEmailForm');
+        var success = document.getElementById('translationEmailSuccess');
+
+        if (!email || !email.includes('@')) {
+            document.getElementById('translationEmail').focus();
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        // Send to your backend endpoint
+        fetch('YOUR_BACKEND_ENDPOINT', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                service: 'website_translation',
+                source: 'translation_sales_page',
+                timestamp: new Date().toISOString()
+            })
+        })
+        .then(function() {
+            form.style.display = 'none';
+            success.classList.add('visible');
+        })
+        .catch(function() {
+            form.style.display = 'none';
+            success.classList.add('visible');
+        });
+    }
+
+    // Allow Enter key to submit
+    document.getElementById('translationEmail').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleTranslationEmail();
+        }
+    });
+    </script>
+
+</body>
+</html>

@@ -18,6 +18,7 @@ const Navbar = () => {
         { name: 'Home', href: '/' },
         { name: 'Process', href: '/#process' },
         { name: 'SEO Disruptor', href: '/seo-disruptor' },
+        { name: 'Translate Me', href: '/translate-me' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'The Lab', href: '/blog' },
     ];

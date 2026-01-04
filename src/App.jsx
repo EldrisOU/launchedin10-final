@@ -13,6 +13,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookiePolicy from './pages/CookiePolicy';
 import TermsOfService from './pages/TermsOfService';
 import SEOSalePage from './pages/SEOSalePage';
+import TranslationSalePage from './pages/TranslationSalePage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
 
             {/* SALES PAGES */}
             <Route path="/seo-disruptor" element={<SEOSalePage />} />
+            <Route path="/translate-me" element={<TranslationSalePage />} />
 
             {/* LEGAL & POLICY */}
             <Route path="/privacy" element={<PrivacyPolicy />} />
