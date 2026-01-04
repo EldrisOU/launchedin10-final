@@ -668,7 +668,7 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .seo-page-wrapper .solution-visual {
         padding: 1.5rem;
     }
@@ -677,12 +677,26 @@
         font-size: 3rem;
     }
 
+    .seo-page-wrapper .visual-stat-label {
+        font-size: 1rem;
+    }
+
     .seo-page-wrapper .visual-features {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
     }
 
     .seo-page-wrapper .visual-feature {
         padding: 1rem;
+    }
+
+    .seo-page-wrapper .visual-feature-value {
+        font-size: 1.25rem;
+    }
+
+    .seo-page-wrapper .visual-feature-label {
+        font-size: 0.75rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 }
