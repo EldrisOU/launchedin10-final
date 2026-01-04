@@ -151,10 +151,11 @@ const TranslationSalePage = () => {
         const timeout = setTimeout(() => controller.abort(), CONFIG.SCAN_TIMEOUT);
 
         try {
-            const res = await fetch(CONFIG.WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: normalizeUrl(url), action: 'analyse' }),
+            const params = new URLSearchParams({
+                domain: extractDomain(url),
+                action: 'analyse'
+            });
+            const res = await fetch(`${CONFIG.WEBHOOK_URL}?${params.toString()}`, {
                 signal: controller.signal
             });
             clearTimeout(timeout);
