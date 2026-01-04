@@ -16,19 +16,24 @@ const Contact = () => {
         setStatus('submitting');
 
         try {
-            const response = await fetch('https://acheexsffdcuzidpiwbh.supabase.co/functions/v1/contact-email', {
+            // Using n8n Webhook (Dedicated Contact Form Endpoint)
+            const response = await fetch('https://n8n.eldris.ai/webhook/6d27c4a7-ad6f-4137-9719-7a6a79ab92ca', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    form_type: 'main_contact', // Distinguish from sales page leads
+                    submitted_at: new Date().toISOString()
+                }),
             });
 
-            const result = await response.json();
-            if (result.ok) {
+            // n8n returns 200 OK text/plain or JSON usually
+            if (response.ok) {
                 setStatus('success');
             } else {
-                console.error('Email error:', result.error);
+                console.error('n8n Error:', response.statusText);
                 setStatus('error');
             }
         } catch (error) {
