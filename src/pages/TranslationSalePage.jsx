@@ -516,8 +516,8 @@ const TranslationSalePage = () => {
                                                 <div className="stat-label">Pages</div>
                                             </div>
                                             <div className="stat-box">
-                                                <div className="stat-value">{scanData.forms}</div>
-                                                <div className="stat-label">Forms</div>
+                                                <div className="stat-value">{scanData.posts}</div>
+                                                <div className="stat-label">Posts</div>
                                             </div>
                                             <div className="stat-box">
                                                 <div className="stat-value">{scanData.products}</div>
