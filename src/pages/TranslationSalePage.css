@@ -728,6 +728,40 @@
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.translation-page-wrapper .email-capture-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.translation-page-wrapper .email-input-widget {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--grey-300);
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+
+.translation-page-wrapper .email-input-widget:focus {
+    border-color: var(--teal);
+}
+
+.translation-page-wrapper .email-success-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
 }
 
 .translation-page-wrapper .scan-modal-backdrop {

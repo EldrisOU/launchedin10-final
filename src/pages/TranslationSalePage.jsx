@@ -20,7 +20,7 @@ import {
 import './TranslationSalePage.css';
 
 const CONFIG = {
-    WEBHOOK_URL: 'https://portal.eldris.ai/api/proxy/webhook',
+    WEBHOOK_URL: 'https://n8n.eldris.ai/webhook/5aa92bb4-af01-4056-930e-81501f476802',
     SCAN_TIMEOUT: 60000,
     PRICING: {
         TIERS: {
@@ -70,6 +70,9 @@ const TranslationSalePage = () => {
     const [selectedTier, setSelectedTier] = useState(50);
     const [showLangDropdown, setShowLangDropdown] = useState(false);
     const [pricing, setPricing] = useState({ setup: 0, monthly: 0, total: 0 });
+    const [leadEmail, setLeadEmail] = useState('');
+    const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+    const [leadSubmitted, setLeadSubmitted] = useState(false);
 
     const dropdownRef = useRef(null);
 
@@ -157,12 +160,13 @@ const TranslationSalePage = () => {
             clearTimeout(timeout);
 
             if (res.ok) {
-                const raw = await res.json();
-                const data = Array.isArray(raw) ? raw[0].json : raw;
+                const dataRaw = await res.json();
+                const data = Array.isArray(dataRaw) ? dataRaw[0] : dataRaw;
                 const finalData = {
-                    pages: data.pages || 0,
-                    forms: data.forms || 0,
-                    products: data.products || 0,
+                    pages: parseInt(data.pages) || 0,
+                    posts: parseInt(data.posts) || 0,
+                    products: parseInt(data.product_count || data.products) || 0,
+                    forms: parseInt(data.forms) || 0,
                     recommended_tier: data.recommended_tier || null,
                     pricing_override: data.pricing_override || null
                 };
@@ -179,6 +183,32 @@ const TranslationSalePage = () => {
             setUrlError('Scan failed. Please try again.');
         } finally {
             setIsScanning(false);
+        }
+    };
+
+    const handleLeadSubmit = async (e) => {
+        if (e) e.preventDefault();
+        if (!leadEmail || !leadEmail.includes('@')) return;
+
+        setIsSubmittingLead(true);
+        try {
+            await fetch(CONFIG.WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: leadEmail,
+                    action: 'lead',
+                    service: 'translation',
+                    url: url ? normalizeUrl(url) : 'no-url-provided'
+                })
+            });
+            setLeadSubmitted(true);
+        } catch (e) {
+            console.error('Lead submission failed', e);
+            // Show success anyway for UX fallback
+            setLeadSubmitted(true);
+        } finally {
+            setIsSubmittingLead(false);
         }
     };
 
@@ -580,11 +610,30 @@ const TranslationSalePage = () => {
                                     <div className="cta-option-desc">Building a new site? Add translation from day one</div>
                                     <span className="cta-option-btn">Start Website Build →</span>
                                 </a>
-                                <a href={mailtoLink} className="cta-option-card">
+                                <div className="cta-option-card">
                                     <div className="cta-option-title">Translation Only</div>
-                                    <div className="cta-option-desc">Already have a website? Email and we'll onboard you in 5 minutes.</div>
-                                    <span className="cta-option-btn">Get Started →</span>
-                                </a>
+                                    <div className="cta-option-desc">Already have a website? Drop your email and we'll onboard you in 5 minutes.</div>
+
+                                    {!leadSubmitted ? (
+                                        <form className="email-capture-form" onSubmit={handleLeadSubmit}>
+                                            <input
+                                                type="email"
+                                                className="email-input-widget"
+                                                placeholder="your@email.com"
+                                                value={leadEmail}
+                                                onChange={(e) => setLeadEmail(e.target.value)}
+                                                required
+                                            />
+                                            <button type="submit" className="cta-option-btn" disabled={isSubmittingLead}>
+                                                {isSubmittingLead ? 'Sending...' : 'Get Started →'}
+                                            </button>
+                                        </form>
+                                    ) : (
+                                        <div className="email-success-widget">
+                                            <CheckCircle2 size={16} /> We'll be in touch within 5 minutes
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="trust-line">

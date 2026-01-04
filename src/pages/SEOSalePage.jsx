@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SEOSalePage.css';
 
 const SEOSalePage = () => {
+    const [email, setEmail] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleEmailSubmit = async (e) => {
+        if (e) e.preventDefault();
+        if (!email || !email.includes('@')) return;
+
+        setIsSubmitting(true);
+        try {
+            await fetch('https://n8n.eldris.ai/webhook/5aa92bb4-af01-4056-930e-81501f476802', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    action: 'lead',
+                    service: 'seo_automation',
+                    source: 'seo_sales_page'
+                })
+            });
+            setSubmitted(true);
+        } catch (error) {
+            console.error('Email submission error:', error);
+            setSubmitted(true); // Fallback success
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
     return (
         <div className="seo-page-wrapper">
             {/* Hero */}
@@ -324,9 +352,25 @@ const SEOSalePage = () => {
 
                             {/* Updated to Simple Email Button */}
                             <div className="email-capture">
-                                <a href="mailto:hello@launchedin10.co.uk?subject=Inquiry from SEO Disruptor Page" className="cta-btn email-submit" style={{ width: '100%', display: 'block', textAlign: 'center' }}>
-                                    Get Started
-                                </a>
+                                {!submitted ? (
+                                    <form className="email-form" onSubmit={handleEmailSubmit}>
+                                        <input
+                                            type="email"
+                                            className="email-input"
+                                            placeholder="your@email.com"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                        />
+                                        <button type="submit" className="email-submit" disabled={isSubmitting}>
+                                            {isSubmitting ? 'Sending...' : 'Get Started'}
+                                        </button>
+                                    </form>
+                                ) : (
+                                    <div className="email-success visible">
+                                        ✓ We'll be in touch within 5 minutes
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
