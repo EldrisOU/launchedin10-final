@@ -204,17 +204,27 @@ const Contact = () => {
                                     ></textarea>
                                 </div>
 
+                                <button
+                                    type="submit"
+                                    disabled={status === 'submitting'}
+                                    className="w-full bg-primary hover:bg-primary-light text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                >
+                                    {status === 'submitting' ? (
+                                        <>Sending...</>
+                                    ) : (
+                                        <>Send Message <Send size={18} /></>
+                                    )}
                                 </button>
                                 <p className="text-[10px] text-text-muted mt-4 text-center">
-                                    This site is protected by reCAPTCHA and the Google 
-                                    <a href="https://policies.google.com/privacy" className="underline hover:text-accent ml-1">Privacy Policy</a> and 
+                                    This site is protected by reCAPTCHA and the Google
+                                    <a href="https://policies.google.com/privacy" className="underline hover:text-accent ml-1">Privacy Policy</a> and
                                     <a href="https://policies.google.com/terms" className="underline hover:text-accent ml-1">Terms of Service</a> apply.
                                 </p>
                             </form>
                         )}
+                    </div>
                 </div>
             </div>
-        </div>
         </section >
     );
 };
