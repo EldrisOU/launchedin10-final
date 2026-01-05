@@ -43,6 +43,76 @@ const SILO_CATEGORIES = [
     { id: 'industry-spotlights', name: 'Industry Spotlights', description: 'Sector-specific insights and emerging technology trends.' }
 ];
 
+const ORG_SCHEMA = {
+    "@type": "Organization",
+    "@id": "https://launchedin10.co.uk/#organization",
+    "name": "LaunchedIn10",
+    "url": "https://launchedin10.co.uk",
+    "logo": {
+        "@type": "ImageObject",
+        "@id": "https://launchedin10.co.uk/#logo",
+        "url": "https://launchedin10.co.uk/assets/logo.svg",
+        "contentUrl": "https://launchedin10.co.uk/assets/logo.svg",
+        "caption": "LaunchedIn10"
+    },
+    "image": { "@id": "https://launchedin10.co.uk/#logo" },
+    "sameAs": [
+        "https://linkedin.com/company/launchedin10"
+    ]
+};
+
+const WEBSITE_SCHEMA = {
+    "@type": "WebSite",
+    "@id": "https://launchedin10.co.uk/#website",
+    "url": "https://launchedin10.co.uk",
+    "name": "LaunchedIn10",
+    "publisher": { "@id": "https://launchedin10.co.uk/#organization" }
+};
+
+function injectSchema(html, pageType, pageData) {
+    const graph = [ORG_SCHEMA, WEBSITE_SCHEMA];
+
+    if (pageType === 'Article') {
+        graph.push({
+            "@type": "Article",
+            "@id": `${pageData.url}#article`,
+            "isPartOf": { "@id": `${pageData.url}#webpage` },
+            "author": {
+                "@type": "Person",
+                "name": pageData.author || "LaunchedIn10 Strategist",
+                "url": "https://launchedin10.co.uk"
+            },
+            "headline": pageData.title,
+            "datePublished": pageData.datePublished,
+            "dateModified": pageData.dateModified || pageData.datePublished,
+            "mainEntityOfPage": { "@id": `${pageData.url}#webpage` },
+            "publisher": { "@id": "https://launchedin10.co.uk/#organization" },
+            "image": {
+                "@type": "ImageObject",
+                "url": pageData.image
+            },
+            "description": pageData.description
+        });
+    } else if (pageType === 'Service') {
+        graph.push({
+            "@type": "Service",
+            "@id": `${pageData.url}#service`,
+            "name": pageData.title,
+            "description": pageData.description,
+            "provider": { "@id": "https://launchedin10.co.uk/#organization" },
+            "areaServed": "GB",
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": pageData.title,
+                "itemListElement": pageData.offers || []
+            }
+        });
+    }
+
+    const schemaScript = `\n    <script type="application/ld+json">\n    ${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 4)}\n    </script>\n`;
+    return html.replace('</head>', `${schemaScript}</head>`);
+}
+
 function generatePostCardHtml(post) {
     const title = post.post_title || post.title || 'Untitled Post';
     const dateStr = post.published_at || post.created_at;
@@ -178,6 +248,12 @@ async function generateBlogIndex(postsByCategory, distDir, shell) {
     html = html.replace('<title>LaunchedIn10</title>', '<title>Website Insights & Growth Guides | LaunchedIn10 Blog</title>');
     html = html.replace('</head>', '<meta name="description" content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog" /></head>');
 
+    html = injectSchema(html, 'CollectionPage', {
+        url: 'https://launchedin10.co.uk/blog',
+        title: 'Website Insights & Growth Guides | LaunchedIn10 Blog',
+        description: 'Expert guides on website design, SEO fundamentals, and business growth for UK SMEs.'
+    });
+
     const preRenderedHtml = `
     <div id="root">
         <div class="bg-[var(--bg-warm)] min-h-screen">
@@ -221,6 +297,12 @@ async function generateCategoryPages(postsByCategory, distDir, shell) {
         html = html.replace('<title>LaunchedIn10</title>', `<title>${silo.name} Insights | LaunchedIn10 Blog</title>`);
         html = html.replace('</head>', `<meta name="description" content="Expert guides on ${silo.name} for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog/${silo.id}" /></head>`);
 
+        html = injectSchema(html, 'CollectionPage', {
+            url: `https://launchedin10.co.uk/blog/${silo.id}`,
+            title: `${silo.name} Insights | LaunchedIn10 Blog`,
+            description: `Expert guides on ${silo.name} for UK SMEs.`
+        });
+
         const preRenderedHtml = `
         <div id="root">
             <div class="bg-[var(--bg-warm)] min-h-screen">
@@ -263,6 +345,16 @@ async function generateIndividualPosts(posts, distDir, shell) {
         let html = shell;
         html = html.replace('<title>LaunchedIn10</title>', `<title>${title} | LaunchedIn10</title>`);
         html = html.replace('</head>', `<link rel="canonical" href="https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/" /></head>`);
+
+        html = injectSchema(html, 'Article', {
+            url: `https://launchedin10.co.uk/blog/${catSlug}/${postSlug}`,
+            title: title,
+            description: post.excerpt || 'Technical SEO and business growth insights.',
+            datePublished: post.published_at || post.created_at,
+            dateModified: post.updated_at,
+            image: post.featured_image_url,
+            author: post.author_name
+        });
 
         let postContent = post.post_content || '';
         // YouTube transformation... (omitting details for brevity in search replacement, but keeping logic)
@@ -412,6 +504,12 @@ async function generateCaseStudiesPage(distDir, shell) {
     html = html.replace('<title>LaunchedIn10</title>', '<title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>');
     html = html.replace('</head>', '<meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." /><link rel="canonical" href="https://launchedin10.co.uk/case-studies" /></head>');
 
+    html = injectSchema(html, 'CollectionPage', {
+        url: 'https://launchedin10.co.uk/case-studies',
+        title: 'Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies',
+        description: 'See real examples of high-performance websites built and launched in just 10 days.'
+    });
+
     const preRenderedHtml = `
     <div id="root">
         <div class="case-studies-wrapper">
@@ -460,6 +558,12 @@ async function generateSEOSalePage(distDir, shell) {
     let html = shell;
     html = html.replace('<title>LaunchedIn10</title>', '<title>Daily SEO Content Automation | Outrank Competitors Automatically</title>');
     html = html.replace('</head>', '<meta name="description" content="Our autonomous SEO engine publishes authority-building posts every single day. Outrank competitors while you sleep." /><link rel="canonical" href="https://launchedin10.co.uk/seo-automation" /></head>');
+
+    html = injectSchema(html, 'Service', {
+        url: 'https://launchedin10.co.uk/seo-automation',
+        title: 'Daily SEO Content Automation',
+        description: 'Our autonomous SEO engine publishes authority-building posts every single day.'
+    });
 
     const preRenderedHtml = `
     <div id="root">
@@ -529,6 +633,12 @@ async function generateTranslationSalePage(distDir, shell) {
     let html = shell;
     html = html.replace('<title>LaunchedIn10</title>', '<title>Expand to Europe: Website Translation & Localisation | LaunchedIn10</title>');
     html = html.replace('</head>', '<meta name="description" content="Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in. Live in under an hour." /><link rel="canonical" href="https://launchedin10.co.uk/website-translation" /></head>');
+
+    html = injectSchema(html, 'Service', {
+        url: 'https://launchedin10.co.uk/website-translation',
+        title: 'Website Translation & Localisation',
+        description: 'Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in.'
+    });
 
     const preRenderedHtml = `
     <div id="root">

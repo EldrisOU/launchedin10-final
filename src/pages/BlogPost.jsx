@@ -105,49 +105,6 @@ const BlogPost = () => {
 
     const publishedAt = new Date(post.published_at || post.created_at);
 
-    // Entity Schema Graph (Elite Connected Graph)
-    const schemaData = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Organization",
-                "@id": "https://launchedin10.co.uk/#organization",
-                "name": "LaunchedIn10",
-                "url": "https://launchedin10.co.uk",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://launchedin10.co.uk/assets/logo.svg"
-                }
-            },
-            {
-                "@type": "WebSite",
-                "@id": "https://launchedin10.co.uk/#website",
-                "url": "https://launchedin10.co.uk",
-                "name": "LaunchedIn10",
-                "publisher": { "@id": "https://launchedin10.co.uk/#organization" }
-            },
-            {
-                "@type": "Article",
-                "@id": `https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}#article`,
-                "isPartOf": { "@id": `https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}#webpage` },
-                "author": {
-                    "@type": "Person",
-                    "name": post.author_name || 'LaunchedIn10 Strategist',
-                    "url": "https://launchedin10.co.uk"
-                },
-                "headline": post.post_title,
-                "datePublished": post.published_at || post.created_at,
-                "dateModified": post.updated_at,
-                "mainEntityOfPage": { "@id": `https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}#webpage` },
-                "publisher": { "@id": "https://launchedin10.co.uk/#organization" },
-                "image": {
-                    "@type": "ImageObject",
-                    "url": post.featured_image_url
-                },
-                "description": post.excerpt || post.yoast_description
-            }
-        ]
-    };
 
     return (
         <div className="bg-[var(--bg-warm)] min-h-screen">
@@ -163,10 +120,6 @@ const BlogPost = () => {
                 <meta property="og:type" content="article" />
                 <meta property="og:url" content={`https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}`} />
 
-                {/* Structured Data */}
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
 
             <div className="max-w-screen-xl mx-auto px-4 pt-48 pb-24">

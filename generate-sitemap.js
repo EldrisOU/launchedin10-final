@@ -23,7 +23,16 @@ async function generateSitemap() {
     if (error) throw error;
 
     const baseUrl = 'https://launchedin10.co.uk';
-    const staticPages = ['', '/privacy', '/terms', '/cookies', '/blog'];
+    const staticPages = [
+      '',
+      '/privacy',
+      '/terms',
+      '/cookies',
+      '/blog',
+      '/case-studies',
+      '/seo-automation',
+      '/website-translation'
+    ];
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
