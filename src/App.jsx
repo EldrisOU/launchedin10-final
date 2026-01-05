@@ -35,8 +35,8 @@ function App() {
 
             {/* SALES PAGES */}
             <Route path="/case-studies" element={<CaseStudiesPage />} />
-            <Route path="/seo-disruptor" element={<SEOSalePage />} />
-            <Route path="/translate-me" element={<TranslationSalePage />} />
+            <Route path="/seo-automation" element={<SEOSalePage />} />
+            <Route path="/website-translation" element={<TranslationSalePage />} />
 
             {/* LEGAL & POLICY */}
             <Route path="/privacy" element={<PrivacyPolicy />} />

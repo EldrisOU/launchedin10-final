@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../sections/Hero';
 import Problem from '../sections/Problem';
@@ -15,6 +16,22 @@ import Contact from '../sections/Contact';
 import CTA from '../sections/CTA';
 
 const Home = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        // Handle incoming hash links (e.g. from blog pages)
+        if (location.hash) {
+            const id = location.hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                // Short delay to ensure DOM is fully ready and images/layout shifted
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    }, [location.hash]);
+
     // Elite Organization, Website & FAQ Schema Graph
     const faqs = [
         {

@@ -18,8 +18,8 @@ const Navbar = () => {
         { name: 'Home', href: '/' },
         { name: 'Case Studies', href: '/case-studies' },
         { name: 'Process', href: '/#process' },
-        { name: 'SEO Disruptor', href: '/seo-disruptor' },
-        { name: 'Translate Me', href: '/translate-me' },
+        { name: 'SEO Disruptor', href: '/seo-automation' },
+        { name: 'Translate Me', href: '/website-translation' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'The Lab', href: '/blog' },
     ];
