@@ -116,9 +116,8 @@ const CaseStudiesPage = () => {
                                 </div>
 
                                 <div className="case-actions">
-                                    <a href="https://client-pritchardcritical-power.pages.dev/" target="_blank" rel="noreferrer" className="case-link">
-                                        VIEW LIVE SITE
-                                        <ArrowRight size={16} />
+                                    <a href="https://client-pritchardcritical-power.pages.dev/" target="_blank" rel="noreferrer" className="case-link" aria-label="View Live Site">
+                                        <ArrowRight size={20} />
                                     </a>
                                     <button className="case-toggle" onClick={() => toggleStory('pritchard')}>
                                         <span>Full Story</span>
@@ -205,9 +204,43 @@ const CaseStudiesPage = () => {
                                     </div>
                                 </div>
 
-                                <button onClick={() => openPreview('https://client-dunnethouseschool.pages.dev/', 'Dunnet House School')} className="view-live-link">
-                                    VIEW LIVE SITE <ArrowRight size={14} />
-                                </button>
+                                <div className="case-actions">
+                                    <a href="https://client-dunnethouseschool.pages.dev/" target="_blank" rel="noreferrer" className="case-link" aria-label="View Live Site">
+                                        <ArrowRight size={20} />
+                                    </a>
+                                    <button className="case-toggle" onClick={() => toggleStory('dunnethouse')}>
+                                        <span>Full Story</span>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            className={expandedStories['dunnethouse'] ? 'rotated' : ''}
+                                        >
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div className={`case-story ${expandedStories['dunnethouse'] ? 'expanded' : ''}`}>
+                                    <div className="case-story-inner">
+                                        <div className="story-section">
+                                            <h4>The Challenge</h4>
+                                            <p>Dunnet House School needed to modernize its digital presence without losing the warmth and family atmosphere that defines it. The previous site was outdated and didn't clearly communicate their unique value proposition to prospective parents.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Solution</h4>
+                                            <p>We designed a welcoming, accessible website using a soft, sophisticated color palette that reflects the school's heritage. The new structure simplifies navigation for parents while ensuring all regulatory information is easily found.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Result</h4>
+                                            <p>A compliant, engaging website that truly represents the school's ethos. Initial feedback from parents has been overwhelmingly positive, citing ease of use and the warm, inviting visual design.</p>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div className="case-quote">
                                     <p>"Finally, a website that shows parents what we’re really like. It feels like us — not like a generic school template."</p>

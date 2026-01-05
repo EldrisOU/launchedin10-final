@@ -98,6 +98,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    align-items: start;
+    /* Prevents cards from stretching to match height */
 }
 
 @media (max-width: 900px) {
