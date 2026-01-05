@@ -617,7 +617,7 @@ const TranslationSalePage = () => {
 
                             {/* CTA Options */}
                             <div className="cta-options-widget">
-                                <a href="https://app.launchedin10.co.uk" className="cta-option-card">
+                                <a href="https://portal.launchedin10.co.uk" className="cta-option-card">
                                     <div className="cta-option-title">Website + Translation Bundle</div>
                                     <div className="cta-option-desc">Building a new site? Add translation from day one</div>
                                     <span className="cta-option-btn">Start Website Build →</span>

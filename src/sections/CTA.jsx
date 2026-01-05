@@ -23,7 +23,7 @@ const CTA = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="https://app.launchedin10.co.uk" className="group inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-primary bg-white hover:bg-gray-50 transition-all shadow-luxury-elevated hover:shadow-luxury-glow min-w-[240px] rounded-none transform hover:-translate-y-1">
+                    <a href="https://portal.launchedin10.co.uk" className="group inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-primary bg-white hover:bg-gray-50 transition-all shadow-luxury-elevated hover:shadow-luxury-glow min-w-[240px] rounded-none transform hover:-translate-y-1">
                         Start Your Build
                         <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" size={24} />
                     </a>

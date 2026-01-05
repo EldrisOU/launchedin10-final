@@ -92,7 +92,7 @@ const Navbar = () => {
                         )
                     ))}
                     <a
-                        href="https://app.launchedin10.co.uk"
+                        href="https://portal.launchedin10.co.uk"
                         className="bg-primary text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-primary-light transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 uppercase tracking-widest"
                     >
                         Start Build
@@ -142,7 +142,7 @@ const Navbar = () => {
                         )
                     ))}
                     <a
-                        href="https://app.launchedin10.co.uk"
+                        href="https://portal.launchedin10.co.uk"
                         onClick={() => setIsMenuOpen(false)}
                         className="bg-primary text-white py-4 rounded-xl text-center font-bold uppercase tracking-widest"
                     >

@@ -340,7 +340,7 @@ const SEOSalePage = () => {
                             </div>
                             <h3>Website + SEO Bundle</h3>
                             <p>Getting a new website built? Add SEO automation and launch with content momentum from day one.</p>
-                            <a href="https://app.launchedin10.co.uk" className="cta-btn">Explore Website Packages</a>
+                            <a href="https://portal.launchedin10.co.uk" className="cta-btn">Explore Website Packages</a>
                         </div>
 
                         {/* SEO Only */}
