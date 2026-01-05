@@ -16,6 +16,19 @@ const Contact = () => {
         setStatus('submitting');
 
         try {
+            // Execute reCAPTCHA v3
+            if (!window.grecaptcha) {
+                console.error('reCAPTCHA not loaded');
+                setStatus('error');
+                return;
+            }
+
+            const recaptchaToken = await new Promise((resolve) => {
+                window.grecaptcha.ready(() => {
+                    window.grecaptcha.execute('6LeYX0AsAAAAAH7gGaHnoyZwqWgeMTlem5QR6JiS', { action: 'submit' }).then(resolve);
+                });
+            });
+
             // Using n8n Webhook (Dedicated Contact Form Endpoint)
             const response = await fetch('https://n8n.eldris.ai/webhook/6d27c4a7-ad6f-4137-9719-7a6a79ab92ca', {
                 method: 'POST',
@@ -24,6 +37,7 @@ const Contact = () => {
                 },
                 body: JSON.stringify({
                     ...formData,
+                    recaptcha_token: recaptchaToken,
                     form_type: 'main_contact', // Distinguish from sales page leads
                     submitted_at: new Date().toISOString()
                 }),
@@ -190,23 +204,18 @@ const Contact = () => {
                                     ></textarea>
                                 </div>
 
-                                <button
-                                    type="submit"
-                                    disabled={status === 'submitting'}
-                                    className="w-full bg-primary hover:bg-primary-light text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                                >
-                                    {status === 'submitting' ? (
-                                        <>Sending...</>
-                                    ) : (
-                                        <>Send Message <Send size={18} /></>
-                                    )}
                                 </button>
+                                <p className="text-[10px] text-text-muted mt-4 text-center">
+                                    This site is protected by reCAPTCHA and the Google 
+                                    <a href="https://policies.google.com/privacy" className="underline hover:text-accent ml-1">Privacy Policy</a> and 
+                                    <a href="https://policies.google.com/terms" className="underline hover:text-accent ml-1">Terms of Service</a> apply.
+                                </p>
                             </form>
                         )}
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+        </section >
     );
 };
 

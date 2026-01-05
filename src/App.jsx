@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ConciergePanel from './components/ConciergePanel';
+import CookieConsent from './components/layout/CookieConsent';
 
 import Home from './pages/Home';
 import BlogIndex from './pages/BlogIndex';
@@ -50,6 +51,7 @@ function App() {
 
           <Footer />
           <ConciergePanel />
+          <CookieConsent />
         </div>
       </BrowserRouter>
     </HelmetProvider>
