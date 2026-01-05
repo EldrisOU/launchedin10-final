@@ -7,10 +7,16 @@ import './CaseStudiesPage.css';
 const CaseStudiesPage = () => {
     // KINETIC EXPANSION STATE
     const [activeCase, setActiveCase] = React.useState(null);
+    // EXPANDABLE STORY STATE
+    const [expandedStories, setExpandedStories] = React.useState({});
 
     const openPreview = (url, title) => {
         setActiveCase({ url, title });
         document.body.style.overflow = 'hidden'; // Lock scroll
+    };
+
+    const toggleStory = (id) => {
+        setExpandedStories(prev => ({ ...prev, [id]: !prev[id] }));
     };
 
     const closePreview = () => {
@@ -65,7 +71,7 @@ const CaseStudiesPage = () => {
                     <div className="case-grid">
 
                         {/* CASE STUDY 1: PRITCHARD */}
-                        <div className="case-card">
+                        <div className={`case-card ${expandedStories['pritchard'] ? 'expanded' : ''}`}>
                             <div className="case-preview" onClick={() => openPreview('https://client-pritchardcritical-power.pages.dev/', 'Pritchard Critical Power')}>
                                 <div className="preview-header">
                                     <span className="domain">pritchardcp.co.uk</span>
@@ -109,9 +115,37 @@ const CaseStudiesPage = () => {
                                     </div>
                                 </div>
 
-                                <button onClick={() => openPreview('https://client-pritchardcritical-power.pages.dev/', 'Pritchard Critical Power')} className="view-live-link">
-                                    VIEW LIVE SITE <ArrowRight size={14} />
-                                </button>
+                                <div className="case-actions">
+                                    <a href="https://client-pritchardcritical-power.pages.dev/" target="_blank" rel="noreferrer" className="case-link">
+                                        VIEW LIVE SITE
+                                        <ArrowRight size={16} />
+                                    </a>
+                                    <button className="case-toggle" onClick={() => toggleStory('pritchard')}>
+                                        <span>Full Story</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div className="case-story">
+                                    <div className="case-story-inner">
+                                        <div className="story-section">
+                                            <h4>The Challenge</h4>
+                                            <p>Gareth Pritchard had 30 years of electrical experience but his existing brand was generic — lost among thousands of UK sparkies. As he pivoted to specialist data centre work, he needed a website that signalled serious capability, not domestic call-outs.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Solution</h4>
+                                            <p>We created Pritchard Critical Power — a complete rebrand with an industrial aesthetic (anthracite black, molten copper) that photographs beautifully against server rooms. Five pages of conversion-focused copy, B2B positioning, and technical credibility signals.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Result</h4>
+                                            <p>A distinctive online presence that positions Gareth for the contracts he actually wants — data centre operators, colocation providers, and enterprise IT teams.</p>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div className="case-quote">
                                     <p>"The site looks nothing like any other electrical contractor in Wales. That’s exactly what I wanted. Now when I’m tendering for data centre work, I look the part."</p>
