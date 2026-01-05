@@ -240,6 +240,53 @@
     align-items: center;
 }
 
+.case-toggle svg.rotated {
+    transform: rotate(180deg);
+}
+
+/* Ensure link matches toggle style if they sit together, or keep existing button style?
+   User provided <a class="case-link">. I will add a default style for that to be safe. */
+.case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+    text-decoration: none;
+    /* No underline unless hovered maybe? */
+}
+
+.case-link:hover {
+    color: var(--teal);
+}
+
+.case-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+.case-story {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Smoother expansion */
+}
+
+.case-story.expanded {
+    max-height: 1200px;
+    /* Increased buffer safely */
+}
+
+.case-story-inner {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-light);
+}
+
 .case-studies-wrapper .stat-sub {
     font-size: 0.5rem;
     font-weight: 400;

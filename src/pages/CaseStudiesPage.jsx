@@ -122,13 +122,20 @@ const CaseStudiesPage = () => {
                                     </a>
                                     <button className="case-toggle" onClick={() => toggleStory('pritchard')}>
                                         <span>Full Story</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            className={expandedStories['pritchard'] ? 'rotated' : ''}
+                                        >
                                             <polyline points="6 9 12 15 18 9" />
                                         </svg>
                                     </button>
                                 </div>
 
-                                <div className="case-story">
+                                <div className={`case-story ${expandedStories['pritchard'] ? 'expanded' : ''}`}>
                                     <div className="case-story-inner">
                                         <div className="story-section">
                                             <h4>The Challenge</h4>
@@ -155,7 +162,7 @@ const CaseStudiesPage = () => {
                         </div>
 
                         {/* CASE STUDY 2: DUNNET HOUSE */}
-                        <div className="case-card">
+                        <div className={`case-card ${expandedStories['dunnethouse'] ? 'expanded' : ''}`}>
                             <div className="case-preview" onClick={() => openPreview('https://client-dunnethouseschool.pages.dev/', 'Dunnet House School')}>
                                 <div className="preview-header">
                                     <span className="domain">dunnethouse.sch.uk</span>
