@@ -30,6 +30,19 @@ const Navbar = () => {
         return location.pathname === href;
     };
 
+    const handleNavClick = (e, href) => {
+        if (href.startsWith('/#')) {
+            const hash = href.replace('/#', '');
+            const element = document.getElementById(hash);
+            if (element && location.pathname === '/') {
+                e.preventDefault();
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Update URL without jump
+                window.history.pushState(null, '', `/#${hash}`);
+            }
+        }
+    };
+
     return (
         <nav className={clsx(
             "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-20 flex items-center",
@@ -53,6 +66,7 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.href}
+                                onClick={(e) => handleNavClick(e, link.href)}
                                 className={clsx(
                                     "text-xs font-bold transition-all uppercase tracking-widest",
                                     isActive(link.href)
@@ -102,7 +116,10 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.href}
-                                onClick={() => setIsMenuOpen(false)}
+                                onClick={(e) => {
+                                    handleNavClick(e, link.href);
+                                    setIsMenuOpen(false);
+                                }}
                                 className={clsx(
                                     "text-lg font-bold transition-colors",
                                     isActive(link.href) ? "text-accent" : "text-primary hover:text-accent"
