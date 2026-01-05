@@ -158,7 +158,12 @@ async function generateAll() {
     await generateCategoryPages(postsByCategory, distDir, masterShell);
     await generateIndividualPosts(posts, distDir, masterShell);
 
-    console.log('🎉 [ELITE] Phase 1 Generation Complete.');
+    // PHASE 2: HIGH-VALUE SILOS
+    await generateCaseStudiesPage(distDir, masterShell);
+    await generateSEOSalePage(distDir, masterShell);
+    await generateTranslationSalePage(distDir, masterShell);
+
+    console.log('🎉 [ELITE] Phase 2 Generation Complete.');
     process.exit(0);
 }
 
@@ -292,6 +297,284 @@ async function generateIndividualPosts(posts, distDir, shell) {
         fs.mkdirSync(outputDir, { recursive: true });
         fs.writeFileSync(path.join(outputDir, 'index.html'), html);
     }
+}
+
+/**
+ * ------------------------------------------------------------------
+ *  PHASE 2: HIGH-VALUE PAGES
+ * ------------------------------------------------------------------
+ */
+
+async function generateCaseStudiesPage(distDir, shell) {
+    console.log('🔨 [ELITE] Generating Case Studies Page...');
+
+    const CASE_STUDIES = [
+        {
+            id: 'pritchard',
+            title: 'Pritchard Critical Power',
+            location: 'Pontypool, Wales',
+            tag: 'ELECTRICAL',
+            date: '03/01/2026',
+            description: 'A 30-year veteran electrician pivoting to specialist data centre and AI compute infrastructure. Bold, industrial brand that stands apart from generic trade websites.',
+            stats: [
+                { value: '8', label: 'DAYS', sub: 'From Brief' },
+                { value: '5', label: 'PAGES', sub: '' },
+                { value: 'B2B', label: 'FOCUS', sub: '' }
+            ],
+            challenge: 'Gareth Pritchard had 30 years of electrical experience but his existing brand was generic — lost among thousands of UK sparkies. As he pivoted to specialist data centre work, he needed a website that signalled serious capability, not domestic call-outs.',
+            solution: 'We created Pritchard Critical Power — a complete rebrand with an industrial aesthetic (anthracite black, molten copper) that photographs beautifully against server rooms. Five pages of conversion-focused copy, B2B positioning, and technical credibility signals.',
+            result: 'A distinctive online presence that positions Gareth for the contracts he actually wants — data centre operators, colocation providers, and enterprise IT teams.',
+            quote: 'The site looks nothing like any other electrical contractor in Wales. That’s exactly what I wanted. Now when I’m tendering for data centre work, I look the part.',
+            author: 'Gareth Pritchard, Managing Director',
+            url: 'https://client-pritchardcritical-power.pages.dev/',
+            domain: 'pritchardcp.co.uk'
+        },
+        {
+            id: 'dunnethouse',
+            title: 'Dunnet House School',
+            location: 'Caithness, Scotland',
+            tag: 'EDUCATION',
+            date: '02/01/2026',
+            description: 'An independent primary school in the Scottish Highlands. Warm, sophisticated design that conveys trust to parents — while meeting Education Scotland compliance.',
+            stats: [
+                { value: '9', label: 'DAYS', sub: 'From Brief' },
+                { value: '6', label: 'PAGES', sub: '' },
+                { value: '100%', label: 'COMPLIANT', sub: '' }
+            ],
+            challenge: 'Dunnet House School needed to modernize its digital presence without losing the warmth and family atmosphere that defines it. The previous site was outdated and didn\'t clearly communicate their unique value proposition to prospective parents.',
+            solution: 'We designed a welcoming, accessible website using a soft, sophisticated color palette that reflects the school\'s heritage. The new structure simplifies navigation for parents while ensuring all regulatory information is easily found.',
+            result: 'A compliant, engaging website that truly represents the school\'s ethos. Initial feedback from parents has been overwhelmingly positive, citing ease of use and the warm, inviting visual design.',
+            quote: 'Finally, a website that shows parents what we’re really like. It feels like us — not like a generic school template.',
+            author: 'Mrs Fiona MacLeod, Headteacher',
+            url: 'https://client-dunnethouseschool.pages.dev/',
+            domain: 'dunnethouse.sch.uk'
+        }
+    ];
+
+    const caseCardsHtml = CASE_STUDIES.map(cs => `
+        <div class="case-card">
+            <div class="case-preview">
+                <div class="preview-header">
+                    <span class="domain">${cs.domain}</span>
+                    <span class="preview-hint">Live Preview ↗</span>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="${cs.url}" title="${cs.title} Live Preview" loading="lazy"></iframe>
+                    <div class="iframe-overlay">
+                        <div class="overlay-btn">View Live Site</div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-content">
+                <div class="case-meta">
+                    <span class="meta-date">${cs.date}</span>
+                    <span class="meta-tag">${cs.tag}</span>
+                </div>
+                <h2 class="case-title">${cs.title}</h2>
+                <p class="case-location">${cs.location}</p>
+                <p class="case-description">${cs.description}</p>
+
+                <div class="case-stats">
+                    ${cs.stats.map(s => `
+                        <div class="stat">
+                            <div class="stat-value">${s.value}</div>
+                            <div class="stat-label flex-col">${s.label}${s.sub ? `<span class="stat-sub">${s.sub}</span>` : ''}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="case-story expanded" style="margin-top:2rem; display:block !important; opacity:1 !important;">
+                    <div class="case-story-inner">
+                        <div class="story-section">
+                            <h4 style="color:var(--teal); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem;">The Challenge</h4>
+                            <p style="font-size:1.1rem; line-height:1.6; color:var(--text-secondary);">${cs.challenge}</p>
+                        </div>
+                        <div class="story-section" style="margin-top:2rem;">
+                            <h4 style="color:var(--teal); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem;">The Solution</h4>
+                            <p style="font-size:1.1rem; line-height:1.6; color:var(--text-secondary);">${cs.solution}</p>
+                        </div>
+                        <div class="story-section" style="margin-top:2rem;">
+                            <h4 style="color:var(--teal); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem;">The Result</h4>
+                            <p style="font-size:1.1rem; line-height:1.6; color:var(--text-secondary);">${cs.result}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-quote" style="margin-top:3rem; padding-top:2rem; border-top:1px solid var(--border-subtle);">
+                    <p style="font-family:var(--font-display); font-size:1.25rem; font-weight:700; color:var(--navy); line-height:1.4; font-style:italic;">"${cs.quote}"</p>
+                    <div class="quote-author" style="margin-top:1rem; font-size:0.9rem; color:var(--text-muted); font-weight:700;">— ${cs.author}</div>
+                </div>
+            </div>
+        </div>
+    `).join('\n');
+
+    let html = shell;
+    html = html.replace('<title>LaunchedIn10</title>', '<title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>');
+    html = html.replace('</head>', '<meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." /><link rel="canonical" href="https://launchedin10.co.uk/case-studies" /></head>');
+
+    const preRenderedHtml = `
+    <div id="root">
+        <div class="case-studies-wrapper">
+            <section class="hero py-48 px-4 bg-gradient-to-b from-[var(--bg-warm)] to-white">
+                <div class="max-w-screen-lg mx-auto text-center">
+                    <div class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6">Trusted by UK Founders</div>
+                    <h1 class="text-6xl md:text-8xl font-display font-bold text-[var(--navy)] mb-8 leading-[1.05]">
+                        Real Websites.<br />
+                        <span class="text-[var(--teal)]">Live in 10 Days.</span>
+                    </h1>
+                    <p class="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+                        No templates. No drag-and-drop. No 12-week timelines.<br /> Professional websites built for your business — managed forever.
+                    </p>
+                </div>
+            </section>
+            
+            <section class="case-grid-section py-32 px-4 bg-white">
+                <div class="max-w-screen-xl mx-auto">
+                    <div class="case-grid grid gap-16 lg:gap-24">
+                        ${caseCardsHtml}
+                    </div>
+                </div>
+            </section>
+
+            <section class="mid-text-section py-40 px-4 bg-[var(--navy)] text-white text-center">
+                <div class="max-w-screen-lg mx-auto">
+                    <h3 class="text-4xl md:text-5xl font-display font-bold mb-8">There's a reason you're still looking.</h3>
+                    <p class="text-xl text-[var(--teal)] font-medium">The website design services market is broken. <span class="text-white">We fixed it.</span></p>
+                </div>
+            </section>
+        </div>
+    </div>`;
+
+    html = html.replace('<div id="root"></div>', preRenderedHtml);
+    html = html.replace(/\.\/assets\//g, '/assets/');
+
+    const outputDir = path.join(distDir, 'case-studies');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'index.html'), html);
+    console.log('✅ [ELITE] Case Studies Page Generated.');
+}
+
+async function generateSEOSalePage(distDir, shell) {
+    console.log('🔨 [ELITE] Generating SEO Sale Page...');
+
+    let html = shell;
+    html = html.replace('<title>LaunchedIn10</title>', '<title>Daily SEO Content Automation | Outrank Competitors Automatically</title>');
+    html = html.replace('</head>', '<meta name="description" content="Our autonomous SEO engine publishes authority-building posts every single day. Outrank competitors while you sleep." /><link rel="canonical" href="https://launchedin10.co.uk/seo-automation" /></head>');
+
+    const preRenderedHtml = `
+    <div id="root">
+        <div class="seo-page-wrapper">
+            <section class="hero pt-48 pb-32 px-4 text-center bg-gradient-to-b from-[var(--bg-warm)] to-white">
+                <div class="max-w-screen-lg mx-auto">
+                    <span class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6 block">The SEO Market Disruptor</span>
+                    <h1 class="text-6xl md:text-8xl font-display font-bold text-[var(--navy)] mb-8 leading-[1.05]">Outrank Your Competitors <span class="text-[var(--teal)]">Before They Wake Up</span></h1>
+                    <p class="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed mb-16">Google rewards consistent, quality content. Most businesses can't keep up. Yours will. Our autonomous content engine publishes authority-building posts every single day—while your competitors scramble to catch up.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto border-y border-[var(--border-subtle)] py-12">
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-2">Daily</div>
+                            <div class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">Fresh Content Published</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-2">1,200+</div>
+                            <div class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">Words Per Post</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-2">12hrs</div>
+                            <div class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">First Post Live</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="problem-section py-32 px-4 bg-white">
+                <div class="max-w-screen-lg mx-auto">
+                    <div class="text-center mb-24">
+                        <div class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6">The Hard Truth</div>
+                        <h2 class="text-4xl md:text-6xl font-display font-bold text-[var(--navy)] mb-8">Google Changed the Rules. Most Businesses Are Drowning.</h2>
+                        <p class="text-xl text-[var(--text-secondary)]">The algorithm now demands consistent, high-quality content at scale. Without it, you're invisible.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-[var(--bg-warm)] p-10 rounded-3xl border border-[var(--border-subtle)]">
+                            <h3 class="text-xl font-bold text-[var(--navy)] mb-4">Your Competitors Are Moving</h3>
+                            <p class="text-[var(--text-secondary)]">While you're planning your content calendar, they're publishing. Every day you wait is another day they're building authority you'll have to fight for.</p>
+                        </div>
+                        <div class="bg-[var(--bg-warm)] p-10 rounded-3xl border border-[var(--border-subtle)]">
+                            <h3 class="text-xl font-bold text-[var(--navy)] mb-4">Content Costs Are Killing You</h3>
+                            <p class="text-[var(--text-secondary)]">Freelancers charge £50-£100 per post. Agencies want retainers. By the time you've budgeted, your competitors have published 30 more articles.</p>
+                        </div>
+                        <div class="bg-[var(--bg-warm)] p-10 rounded-3xl border border-[var(--border-subtle)]">
+                            <h3 class="text-xl font-bold text-[var(--navy)] mb-4">You Can't Scale Manually</h3>
+                            <p class="text-[var(--text-secondary)]">Google's new quality signals favour volume and consistency. One post a week doesn't cut it anymore. You need daily output to compete.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>`;
+
+    html = html.replace('<div id="root"></div>', preRenderedHtml);
+    html = html.replace(/\.\/assets\//g, '/assets/');
+
+    const outputDir = path.join(distDir, 'seo-automation');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'index.html'), html);
+    console.log('✅ [ELITE] SEO Sale Page Generated.');
+}
+
+async function generateTranslationSalePage(distDir, shell) {
+    console.log('🔨 [ELITE] Generating Translation Sale Page...');
+
+    let html = shell;
+    html = html.replace('<title>LaunchedIn10</title>', '<title>Expand to Europe: Website Translation & Localisation | LaunchedIn10</title>');
+    html = html.replace('</head>', '<meta name="description" content="Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in. Live in under an hour." /><link rel="canonical" href="https://launchedin10.co.uk/website-translation" /></head>');
+
+    const preRenderedHtml = `
+    <div id="root">
+        <div class="translation-page-wrapper">
+            <section class="hero pt-48 pb-32 px-4 text-center bg-gradient-to-b from-[var(--bg-warm)] to-white">
+                <div class="max-w-screen-lg mx-auto">
+                    <span class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6 block">EU Expansion Made Simple</span>
+                    <h1 class="text-6xl md:text-8xl font-display font-bold text-[var(--navy)] mb-8 leading-[1.05]">Sell Across Europe <span class="text-[var(--teal)]">Without Rebuilding Your Site</span></h1>
+                    <p class="text-xl text-[var(--text-secondary)] max-w-4xl mx-auto leading-relaxed mb-16">Clone and localise your existing website into any EU language. Proper structure, SEO signals, and hreflang baked in. <span>No agencies. No six-figure costs. No waiting months for delivery.</span></p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto border border-[var(--border-subtle)] rounded-3xl p-10 bg-white shadow-sm">
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-1">23</div>
+                            <div class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">EU Languages</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-1">&lt;1hr</div>
+                            <div class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Sites Go Live</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-[var(--navy)] mb-1">£29.95</div>
+                            <div class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">From /month</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="problem-section py-32 px-4 bg-white text-center">
+                <div class="max-w-screen-lg mx-auto">
+                    <div class="mb-24">
+                        <div class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6">The Reality</div>
+                        <h2 class="text-4xl md:text-6xl font-display font-bold text-[var(--navy)] mb-8">EU Expansion Fails for Boring Reasons</h2>
+                        <p class="text-xl text-[var(--text-secondary)]">Demand isn't the issue. Friction is. Localisation projects get stuck in cost, complexity, and constant rework.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>`;
+
+    html = html.replace('<div id="root"></div>', preRenderedHtml);
+    html = html.replace(/\.\/assets\//g, '/assets/');
+
+    const outputDir = path.join(distDir, 'website-translation');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'index.html'), html);
+    console.log('✅ [ELITE] Translation Sale Page Generated.');
 }
 
 generateAll();
