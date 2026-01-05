@@ -186,7 +186,7 @@ const CaseStudiesPage = () => {
                                 <h2 className="case-title">Dunnet House School</h2>
                                 <p className="case-location">Caithness, Scotland</p>
                                 <p className="case-description">
-                                    An independent primary school in the Scottish Highlands. Warm, sophisticated design that conveys trust to parents — while meeting Education Scotland compliance requirements.
+                                    An independent primary school in the Scottish Highlands. Warm, sophisticated design that conveys trust to parents — while meeting Education Scotland compliance.
                                 </p>
 
                                 <div className="case-stats">

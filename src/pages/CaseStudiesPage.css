@@ -206,6 +206,23 @@
     margin-bottom: 2rem;
 }
 
+@media (max-width: 480px) {
+    .case-studies-wrapper .case-stats {
+        padding: 1rem 0.75rem;
+        /* Reduce padding on mobile */
+        gap: 0.5rem;
+    }
+
+    .case-studies-wrapper .stat-value {
+        font-size: 1.5rem;
+        /* Slightly smaller numbers */
+    }
+
+    .case-studies-wrapper .stat-label {
+        font-size: 0.55rem;
+    }
+}
+
 .case-studies-wrapper .stat {
     text-align: center;
 }
