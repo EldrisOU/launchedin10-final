@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import {
     Calendar,
@@ -13,7 +13,8 @@ import {
     Clock,
     CheckCircle2,
     TrendingUp,
-    Target
+    Target,
+    ArrowLeft
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -47,8 +48,21 @@ const SILO_CATEGORIES = [
 
 const BlogIndex = () => {
     const { category } = useParams();
+    const location = useLocation();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (!loading && location.hash) {
+            const id = location.hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    }, [loading, location.hash]);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -103,14 +117,23 @@ const BlogIndex = () => {
         ? SILO_CATEGORIES.filter(s => s.id === category || s.name.toLowerCase().replace(/ /g, '-') === category)
         : SILO_CATEGORIES;
 
-    // Group posts by category
+    // Group posts by category (Robust matching)
     const groupedPosts = activeSilos.reduce((acc, silo) => {
-        acc[silo.name] = posts.filter(p => p.primary_category === silo.name);
+        acc[silo.name] = posts.filter(p =>
+            p.primary_category?.toLowerCase().trim() === silo.name.toLowerCase().trim()
+        );
         return acc;
     }, {});
 
     return (
-        <div className="bg-[var(--bg-warm)] min-h-screen">
+        <div className="bg-[var(--bg-warm)] min-h-screen blog-index-context">
+            <style>{`
+                .blog-index-context {
+                    font-size: 16px !important;
+                }
+                .blog-index-context h1 { font-size: clamp(2.5rem, 8vw, 4.5rem) !important; }
+                .blog-index-context .category-block { margin-bottom: 4rem !important; }
+            `}</style>
             <Helmet>
                 <title>{category ? `${activeSilos[0]?.name} Insights` : 'Website Insights & Growth Guides'} | LaunchedIn10 Blog</title>
                 <meta name="description" content={category ? `Expert guides on ${activeSilos[0]?.name} for UK SMEs.` : "Expert guides on website design, SEO fundamentals, and business growth for UK SMEs."} />
@@ -133,11 +156,27 @@ const BlogIndex = () => {
                         {category ? `${activeSilos[0]?.name} Archive` : 'Elite Digital Intelligence'}
                     </motion.div>
 
+                    {category && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="mb-6"
+                        >
+                            <Link
+                                to="/blog"
+                                className="inline-flex items-center gap-2 text-xs font-bold text-[var(--text-muted)] hover:text-[var(--teal)] transition-colors uppercase tracking-widest"
+                            >
+                                <ArrowLeft size={14} />
+                                Back to Intelligence Lab
+                            </Link>
+                        </motion.div>
+                    )}
+
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-display font-bold text-[var(--navy)] mb-8 tracking-tight leading-[1.05]"
+                        className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-[var(--navy)] mb-8 tracking-tight leading-[1.05]"
                     >
                         {category ? activeSilos[0]?.name : 'Grow Your Business with Daily'} <span className="relative inline-block">
                             {category ? 'Insights' : 'SEO Content That Ranks'}
@@ -176,7 +215,7 @@ const BlogIndex = () => {
 
             {/* SEO VALUE SECTION */}
             <section className="py-32 px-4 bg-white">
-                <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div className="max-w-screen-2xl mx-auto grid md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-8">
                         <h2 className="text-4xl font-display font-bold text-[var(--navy)] leading-tight tracking-tight">
                             Strategic Content Designed for <span className="text-[var(--teal)] italic">Disruption</span>.
@@ -226,7 +265,7 @@ const BlogIndex = () => {
 
             {/* CATEGORY GRID */}
             <section className="py-32 px-4 bg-[var(--bg-warm)]">
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-2xl mx-auto">
                     <div className="text-center mb-24">
                         <h2 className="text-4xl font-display font-bold text-[var(--navy)] tracking-tight mb-4">
                             The Knowledge <span className="text-[var(--teal)]">{category ? 'Silo' : 'Silos'}</span>
@@ -234,13 +273,13 @@ const BlogIndex = () => {
                         <p className="text-[var(--text-secondary)]">{category ? `Curated intelligence for ${activeSilos[0]?.name}.` : 'Explore curated clusters of professional digital intelligence.'}</p>
                     </div >
 
-                    <div className="space-y-24">
+                    <div className={category ? "max-w-screen-2xl mx-auto space-y-16" : "space-y-24"}>
                         {activeSilos.map((silo) => {
                             const siloPosts = groupedPosts[silo.name] || [];
                             if (siloPosts.length === 0) return null;
 
                             return (
-                                <div key={silo.id} className="category-block bg-white rounded-3xl p-8 md:p-12 border border-[var(--border-subtle)] shadow-sm">
+                                <div key={silo.id} id={silo.id} className="category-block bg-white rounded-3xl p-8 md:p-12 border border-[var(--border-subtle)] shadow-sm scroll-mt-32">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12 pb-8 border-b border-[var(--border-subtle)]">
                                         <div className="flex items-center gap-6">
                                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--navy)] to-[var(--navy-deep)] flex items-center justify-center text-[var(--teal)] shadow-lg">
@@ -253,7 +292,7 @@ const BlogIndex = () => {
                                         </div>
                                         {!category && (
                                             <Link
-                                                to={`/blog/${silo.id}`}
+                                                to={`/blog/${silo.id}#${silo.id}`}
                                                 className="inline-flex items-center gap-2 text-sm font-bold text-[var(--teal)] hover:text-[var(--navy)] transition-colors group"
                                             >
                                                 View Archive
@@ -328,7 +367,7 @@ const BlogIndex = () => {
 
             {/* CALL TO ACTION */}
             < section className="py-32 px-4" >
-                <div className="max-w-screen-xl mx-auto rounded-[3rem] bg-[var(--navy)] p-12 md:p-24 text-center relative overflow-hidden shadow-2xl">
+                <div className="max-w-screen-2xl mx-auto rounded-[3rem] bg-[var(--navy)] p-12 md:p-24 text-center relative overflow-hidden shadow-2xl">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--teal)] opacity-10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3" />
                     <div className="relative z-10 max-w-2xl mx-auto">
                         <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-8 tracking-tight">

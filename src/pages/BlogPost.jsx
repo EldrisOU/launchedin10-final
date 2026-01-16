@@ -107,7 +107,40 @@ const BlogPost = () => {
 
 
     return (
-        <div className="bg-[var(--bg-warm)] min-h-screen">
+        <div className="bg-[var(--bg-warm)] min-h-screen blog-post-context">
+            <style>{`
+                .blog-post-context {
+                    font-size: 16px !important;
+                }
+                .blog-post-context h1 { font-size: clamp(2.5rem, 6vw, 4.5rem) !important; }
+                
+                /* Dynamic CTA Styles */
+                .dynamic-cta-container .cta-box {
+                    background: var(--navy);
+                    padding: 4rem 3rem;
+                    border-radius: 3rem;
+                    text-align: center;
+                    color: white;
+                    margin: 4rem 0;
+                    box-shadow: var(--shadow-xl);
+                }
+                .dynamic-cta-container h3 { color: white !important; font-size: 2.5rem !important; margin-bottom: 2rem !important; }
+                .dynamic-cta-container p { color: rgba(255,255,255,0.7) !important; margin-bottom: 3rem !important; font-size: 1.125rem !important; }
+                .dynamic-cta-container .cta-button {
+                    background: var(--teal) !important;
+                    color: white !important;
+                    padding: 1.25rem 3rem !important;
+                    border-radius: 1rem !important;
+                    font-weight: 700 !important;
+                    display: inline-block;
+                    transition: all 0.3s ease;
+                }
+                .dynamic-cta-container .cta-button:hover {
+                    background: white !important;
+                    color: var(--navy) !important;
+                    transform: translateY(-4px);
+                }
+            `}</style>
             <Helmet>
                 <title>{post.post_title} | LaunchedIn10 Intelligence</title>
                 <meta name="description" content={post.excerpt || post.yoast_description} />
@@ -122,7 +155,7 @@ const BlogPost = () => {
 
             </Helmet>
 
-            <div className="max-w-screen-xl mx-auto px-4 pt-48 pb-24">
+            <div className="max-w-screen-2xl mx-auto px-4 pt-48 pb-24">
                 {/* Semantic Breadcrumb Style Navigation */}
                 <div className="flex items-center gap-4 text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest mb-12">
                     <Link to="/blog" className="hover:text-[var(--teal)] transition-colors inline-flex items-center gap-2">
@@ -133,7 +166,7 @@ const BlogPost = () => {
                     <span className="text-[var(--teal)]">{post.primary_category}</span>
                 </div>
 
-                <article className="max-w-screen-lg mx-auto">
+                <article className="max-w-screen-2xl mx-auto">
                     <header className="mb-20 text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -239,7 +272,7 @@ const BlogPost = () => {
                         {/* Content */}
                         <div className="lg:w-3/4 order-1 lg:order-2">
                             <div
-                                className="blog-content prose prose-xl prose-slate max-w-none 
+                                className="blog-content prose prose-lg prose-slate max-w-none 
                                 prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--navy)] prose-headings:tracking-tight
                                 prose-p:text-[var(--text-primary)] prose-p:leading-relaxed prose-p:mb-10
                                 prose-a:text-[var(--teal)] prose-a:font-bold prose-a:no-underline hover:prose-a:underline
@@ -316,23 +349,49 @@ const BlogPost = () => {
                     </div>
                 </article>
 
-                {/* Integration Bottom CTA */}
-                <section className="mt-32 p-16 md:p-24 bg-[var(--navy)] rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl">
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--teal)]/20 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="relative z-10 max-w-3xl mx-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tight">Evolve Your Digital Footprint.</h2>
-                            <p className="text-xl text-white/70 mb-12 leading-relaxed">Stop building standard websites. Start building revenue-generating assets that dominate your niche.</p>
-                            <a href="https://portal.launchedin10.co.uk" className="bg-[var(--teal)] text-white px-12 py-6 rounded-2xl font-bold hover:bg-white hover:text-[var(--navy)] transition-all inline-block shadow-2xl hover:-translate-y-1 text-lg">
-                                Deploy Your Elite Vision
-                            </a>
-                        </motion.div>
+                {/* Dynamic CTA from post data */}
+                {post.cta_block ? (
+                    <div className="dynamic-cta-container mt-32">
+                        {post.cta_block.startsWith('{') ? (
+                            (() => {
+                                try {
+                                    const data = JSON.parse(post.cta_block);
+                                    return (
+                                        <section className="p-16 md:p-24 bg-[var(--navy)] rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl">
+                                            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--teal)]/20 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                                            <div className="relative z-10 max-w-3xl mx-auto">
+                                                <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tight">{data.headline}</h2>
+                                                {data.subheadline && <p className="text-xl text-white/70 mb-12 leading-relaxed">{data.subheadline}</p>}
+                                                <Link to="/#pricing" className="bg-[var(--teal)] text-white px-12 py-6 rounded-2xl font-bold hover:bg-white hover:text-[var(--navy)] transition-all inline-block shadow-2xl hover:-translate-y-1 text-lg">
+                                                    {data.button || 'Deploy Your Elite Vision'}
+                                                </Link>
+                                            </div>
+                                        </section>
+                                    );
+                                } catch (e) { return null; }
+                            })()
+                        ) : (
+                            <div dangerouslySetInnerHTML={{ __html: post.cta_block }} />
+                        )}
                     </div>
-                </section>
+                ) : (
+                    <section className="mt-32 p-16 md:p-24 bg-[var(--navy)] rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl">
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--teal)]/20 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="relative z-10 max-w-3xl mx-auto">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tight">Evolve Your Digital Footprint.</h2>
+                                <p className="text-xl text-white/70 mb-12 leading-relaxed">Stop building standard websites. Start building revenue-generating assets that dominate your niche.</p>
+                                <a href="https://portal.launchedin10.co.uk" className="bg-[var(--teal)] text-white px-12 py-6 rounded-2xl font-bold hover:bg-white hover:text-[var(--navy)] transition-all inline-block shadow-2xl hover:-translate-y-1 text-lg">
+                                    Deploy Your Elite Vision
+                                </a>
+                            </motion.div>
+                        </div>
+                    </section>
+                )}
             </div>
         </div>
     );
