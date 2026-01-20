@@ -224,7 +224,7 @@ async function generateAll() {
         postsByCategory[post.category].push(post);
     });
 
-    await generateBlogIndex(postsByCategory, distDir, masterShell);
+    await generateBlogIndex(postsByCategory, posts, distDir, masterShell);
     await generateCategoryPages(postsByCategory, distDir, masterShell);
     await generateIndividualPosts(posts, distDir, masterShell);
 
@@ -239,7 +239,7 @@ async function generateAll() {
     process.exit(0);
 }
 
-async function generateBlogIndex(postsByCategory, distDir, shell) {
+async function generateBlogIndex(postsByCategory, allPosts, distDir, shell) {
     console.log('🔨 [ELITE] Generating Blog Index...');
 
     const silosHtml = SILO_CATEGORIES.map(silo => {
@@ -255,6 +255,10 @@ async function generateBlogIndex(postsByCategory, distDir, shell) {
         title: 'Website Insights & Growth Guides | LaunchedIn10 Blog',
         description: 'Expert guides on website design, SEO fundamentals, and business growth for UK SMEs.'
     });
+
+    // Get 6 most recent posts for the "Latest Intelligence" Grid
+    const recentPosts = allPosts.slice(0, 6);
+    const recentPostsHtml = recentPosts.map(generatePostCardHtml).join('\n');
 
     const preRenderedHtml = `
     <div id="root">
@@ -287,6 +291,21 @@ async function generateBlogIndex(postsByCategory, distDir, shell) {
                             <li class="flex gap-3 items-start text-[var(--text-primary)] font-medium">Semantic Siloing for Search Dominance</li>
                             <li class="flex gap-3 items-start text-[var(--text-primary)] font-medium">Connected Entity Schema Implementation</li>
                         </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LATEST INTELLIGENCE GRID (New for SSG Hardening) -->
+            <section class="py-24 px-4 bg-[var(--bg-warm)] border-t border-[var(--border-subtle)]">
+                <div class="max-w-screen-2xl mx-auto">
+                    <div class="flex items-center gap-4 mb-12">
+                         <div class="w-12 h-12 rounded-2xl bg-[var(--navy)] text-[var(--teal)] flex items-center justify-center shadow-lg">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        </div>
+                        <h3 class="text-3xl font-display font-bold text-[var(--navy)]">Latest Intelligence</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${recentPostsHtml}
                     </div>
                 </div>
             </section>
@@ -371,18 +390,35 @@ async function generateHomepage(distDir, shell) {
                                 <a href="#process" class="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-primary bg-transparent border-2 border-primary/10 rounded-none transition-all min-w-[200px]">How It Works</a>
                             </div>
                         </div>
-                        <div class="lg:col-span-4 relative mt-12 lg:mt-0 hidden lg:block">
-                            <div class="relative z-10 bg-white p-8 shadow-luxury-elevated border-l-4 border-accent max-w-sm ml-auto">
-                                <div class="space-y-6">
-                                    <div class="text-3xl font-display font-bold text-primary">10 Days</div>
-                                    <div class="text-3xl font-display font-bold text-primary">Flat Rate</div>
-                                    <div class="text-3xl font-display font-bold text-accent font-serif italic">Bespoke</div>
-                                </div>
-                            </div>
+                        <!-- ... (Hero Image Block reused from above) ... -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SERVICES MANIFESTO -->
+            <section class="py-24 bg-primary text-white">
+                <div class="max-w-screen-2xl mx-auto px-4">
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 class="text-5xl font-display font-bold mb-8">The 10-Day Standard</h2>
+                            <p class="text-xl text-white/80 leading-relaxed mb-6">
+                                We believe speed is a feature. In a world where agencies take 12 weeks to deliver a Wordpress template, we deliver bespoke, hand-coded React applications in 10 days.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-8">
+                             <div class="p-8 bg-white/5 border border-white/10">
+                                <div class="text-4xl font-bold text-accent mb-2">10</div>
+                                <div class="text-sm font-bold uppercase tracking-widest">Days to Launch</div>
+                             </div>
+                             <div class="p-8 bg-white/5 border border-white/10">
+                                <div class="text-4xl font-bold text-accent mb-2">100%</div>
+                                <div class="text-sm font-bold uppercase tracking-widest">Google Compliance</div>
+                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
             <section id="problem" class="py-24 bg-white relative">
                 <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-16">
@@ -392,15 +428,15 @@ async function generateHomepage(distDir, shell) {
                     <div class="grid md:grid-cols-3 gap-8 mb-16">
                         <div class="bg-white p-8 rounded-2xl shadow-luxury border border-gray-100">
                             <h3 class="text-xl font-display font-bold text-primary mb-4">The DIY Trap</h3>
-                            <p class="text-text-muted leading-relaxed">You started with Wix or Squarespace. Three weekends later, it still looks like a template. You're a business owner, not a website designer.</p>
+                            <p class="text-text-muted leading-relaxed">You started with Wix or Squarespace. Three weekends later, it still looks like a template.</p>
                         </div>
                         <div class="bg-white p-8 rounded-2xl shadow-luxury border border-gray-100">
                             <h3 class="text-xl font-display font-bold text-primary mb-4">The Agency Black Hole</h3>
-                            <p class="text-text-muted leading-relaxed">You paid £5,000+ for a "bespoke" website. Twelve weeks later, you're still "in revisions." When you finally launch, they vanish.</p>
+                            <p class="text-text-muted leading-relaxed">You paid £5,000+ for a "bespoke" website. Twelve weeks later, you're still "in revisions."</p>
                         </div>
                         <div class="bg-white p-8 rounded-2xl shadow-luxury border border-gray-100">
                             <h3 class="text-xl font-display font-bold text-primary mb-4">The AI Gamble</h3>
-                            <p class="text-text-muted leading-relaxed">It generated something in 30 seconds—and it looks like it. Generic. Soulless. Identical to ten thousand other sites.</p>
+                            <p class="text-text-muted leading-relaxed">It generated something in 30 seconds—and it looks like it. Generic. Soulless.</p>
                         </div>
                     </div>
                 </div>
