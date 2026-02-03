@@ -23,6 +23,30 @@
 </head>
 
 <body>
+  <!-- SEO: Static navigation for crawlers (hidden once React hydrates) -->
+  <nav id="seo-nav" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/blog/website-design">Website Design</a>
+    <a href="/blog/seo-fundamentals">SEO Fundamentals</a>
+    <a href="/blog/business-growth">Business Growth</a>
+    <a href="/blog/industry-spotlights">Industry Spotlights</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/seo-automation">SEO Automation</a>
+    <a href="/website-translation">Website Translation</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/cookies">Cookie Policy</a>
+  </nav>
+  <noscript>
+    <nav style="padding:20px;background:#f5f5f5;">
+      <a href="/" style="margin-right:15px;">Home</a>
+      <a href="/blog" style="margin-right:15px;">Blog</a>
+      <a href="/case-studies" style="margin-right:15px;">Case Studies</a>
+      <a href="/seo-automation" style="margin-right:15px;">SEO Automation</a>
+      <a href="/website-translation" style="margin-right:15px;">Website Translation</a>
+    </nav>
+  </noscript>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

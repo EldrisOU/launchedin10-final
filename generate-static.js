@@ -444,7 +444,26 @@ async function generateHomepage(distDir, shell) {
         </main>
     `;
 
-    html = html.replace(/<body[^>]*>([\s\S]*?)<\/body>/, `<body><div id="root">${content}</div></body>`);
+    // SEO Navigation Block for Googlebot crawlability
+    const seoNavBlock = `
+    <!-- SEO: Static navigation for crawlers (hidden, off-screen) -->
+    <nav id="seo-nav" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/blog/website-design">Website Design</a>
+        <a href="/blog/seo-fundamentals">SEO Fundamentals</a>
+        <a href="/blog/business-growth">Business Growth</a>
+        <a href="/blog/industry-spotlights">Industry Spotlights</a>
+        <a href="/case-studies">Case Studies</a>
+        <a href="/seo-automation">SEO Automation</a>
+        <a href="/website-translation">Website Translation</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/cookies" rel="nofollow">Cookie Policy</a>
+    </nav>
+    `;
+
+    html = html.replace(/<body[^>]*>([\s\S]*?)<\/body>/, `<body>${seoNavBlock}<div id="root">${content}</div></body>`);
 
     const outputPath = path.join(distDir, 'index.html');
     fs.writeFileSync(outputPath, html);
