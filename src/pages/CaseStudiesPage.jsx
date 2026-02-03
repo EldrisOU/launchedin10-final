@@ -313,6 +313,38 @@ const CaseStudiesPage = () => {
                 </div>
             </section>
 
+            {/* Related Insights - Internal Linking Section */}
+            <section className="related-section" style={{ padding: '6rem 0', background: 'var(--bg-warm, #f8f7f4)' }}>
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <span className="section-label" style={{ display: 'inline-block', marginBottom: '1rem' }}>Related Intelligence</span>
+                        <h2 className="section-title">Explore Our Services & Insights</h2>
+                        <p className="section-subtitle">Deep-dive resources to help grow your business online.</p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                        <a href="/blog/website-design" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Website Design</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Guides on building high-performance websites that convert.</p>
+                        </a>
+                        <a href="/seo-automation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>SEO Disruptor</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Automate content production and outrank competitors.</p>
+                        </a>
+                        <a href="/website-translation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>EU Translation</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Expand across Europe with fully localised websites.</p>
+                        </a>
+                    </div>
+
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>
+                            Explore our <a href="/blog" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>content intelligence hub</a> or <a href="/#pricing" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>view website packages</a>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
             {/* CTA SECTION */}
             <CTA />
 

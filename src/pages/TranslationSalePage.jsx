@@ -424,6 +424,38 @@ const TranslationSalePage = () => {
                 <p className="cta-hint">Free scan. No commitment.</p>
             </section>
 
+            {/* Related Insights - Internal Linking Section */}
+            <section className="related-section" style={{ padding: '6rem 0', background: 'var(--bg-warm, #f8f7f4)' }}>
+                <div className="container">
+                    <div className="section-header">
+                        <div className="section-label">Related Intelligence</div>
+                        <h2 className="section-title">Business Growth Resources</h2>
+                        <p className="section-subtitle">Insights for UK businesses expanding their reach.</p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
+                        <a href="/blog/business-growth" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Business Growth</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Scaling strategies and digital presence insights for UK businesses.</p>
+                        </a>
+                        <a href="/seo-automation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>SEO Disruptor</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Automate content production and outrank competitors.</p>
+                        </a>
+                        <a href="/case-studies" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Case Studies</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Real results from businesses we've launched.</p>
+                        </a>
+                    </div>
+
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>
+                            Explore our <a href="/blog" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>content intelligence hub</a> or <a href="/#pricing" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>view website packages</a>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
             {/* FAQ Section */}
             <section className="faq-section">
                 <div className="container">
