@@ -35,28 +35,28 @@ const SEOSalePage = () => {
             {/* Hero */}
             <section className="hero">
                 <div className="container">
-                    <span className="hero-label">The SEO Market Disruptor</span>
-                    <h1 className="hero-title">Outrank Your Competitors <span>Before They Wake Up</span></h1>
-                    <p className="hero-subtitle">Google rewards consistent, quality content. Most businesses can't keep up. Yours will. Our autonomous content engine publishes authority-building posts every single day—while your competitors scramble to catch up.</p>
+                    <span className="hero-label">The AEO Pioneer</span>
+                    <h1 className="hero-title">Be the Answer <span>AI Recommends</span></h1>
+                    <p className="hero-subtitle">When customers ask ChatGPT, Gemini, or Perplexity for help — will your business be cited? Our autonomous content engine builds the authority signals AI systems trust, so your business becomes the recommended solution.</p>
 
                     <h1 className="hero-title">
-                        Instant Quote for <span>SEO Optimization</span>
+                        Instant Quote for <span>AEO Automation</span>
                     </h1>
                     <p className="hero-subtitle">
-                        Dominate search rankings. Get a professional, data-driven SEO audit and optimization plan for your website in seconds.
+                        Dominate AI recommendations. Get a professional, data-driven AEO audit and optimization plan for your website in seconds.
                     </p>
                     <div className="hero-stats">
                         <div className="hero-stat">
                             <div className="hero-stat-value">Daily</div>
-                            <div className="hero-stat-label">Fresh Content Published</div>
+                            <div className="hero-stat-label">Authority Content Published</div>
                         </div>
                         <div className="hero-stat">
-                            <div className="hero-stat-value">1,200+</div>
-                            <div className="hero-stat-label">Words Per Post</div>
+                            <div className="hero-stat-value">AEO</div>
+                            <div className="hero-stat-label">AI Engine Optimised</div>
                         </div>
                         <div className="hero-stat">
                             <div className="hero-stat-value">12hrs</div>
-                            <div className="hero-stat-label">First Post Live</div>
+                            <div className="hero-stat-label">First Content Live</div>
                         </div>
                     </div>
                 </div>
@@ -66,9 +66,9 @@ const SEOSalePage = () => {
             <section className="problem-section">
                 <div className="container">
                     <div className="section-header">
-                        <div className="section-label">The Hard Truth</div>
-                        <h2 className="section-title">Google Changed the Rules. Most Businesses Are Drowning.</h2>
-                        <p className="section-subtitle">The algorithm now demands consistent, high-quality content at scale. Without it, you're invisible.</p>
+                        <div className="section-label">The Shift No One's Talking About</div>
+                        <h2 className="section-title">AI Is Becoming the First Place Customers Look. Most Businesses Aren't Ready.</h2>
+                        <p className="section-subtitle">Search engines still matter — but AI assistants are rapidly becoming the default research tool. If AI doesn't recommend you, you're invisible to a growing segment of buyers.</p>
                     </div>
 
                     <div className="problem-grid">
@@ -79,8 +79,8 @@ const SEOSalePage = () => {
                                     <polyline points="12 6 12 12 16 14"></polyline>
                                 </svg>
                             </div>
-                            <h3>Your Competitors Are Moving</h3>
-                            <p>While you're planning your content calendar, they're publishing. Every day you wait is another day they're building authority you'll have to fight for.</p>
+                            <h3>Your Content Isn't AI-Readable</h3>
+                            <p>Most websites are built for humans but invisible to AI. Unstructured content, poor schema, and thin authority signals mean AI skips over you when sourcing answers.</p>
                         </div>
                         <div className="problem-card">
                             <div className="problem-icon">
@@ -89,8 +89,8 @@ const SEOSalePage = () => {
                                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                                 </svg>
                             </div>
-                            <h3>Content Costs Are Killing You</h3>
-                            <p>Freelancers charge £50-£100 per post. Agencies want retainers. By the time you've budgeted, your competitors have published 30 more articles.</p>
+                            <h3>Competitors Are Publishing Faster</h3>
+                            <p>While you plan quarterly content, AI-savvy competitors are building topical authority daily. The gap compounds every single day you wait.</p>
                         </div>
                         <div className="problem-card">
                             <div className="problem-icon">
@@ -98,8 +98,8 @@ const SEOSalePage = () => {
                                     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                                 </svg>
                             </div>
-                            <h3>You Can't Scale Manually</h3>
-                            <p>Google's new quality signals favour volume and consistency. One post a week doesn't cut it anymore. You need daily output to compete.</p>
+                            <h3>SEO Alone Won't Save You</h3>
+                            <p>Google still matters — but the businesses winning tomorrow are optimising for both search engines AND AI engines. AEO is the missing layer.</p>
                         </div>
                     </div>
                 </div>
@@ -110,21 +110,21 @@ const SEOSalePage = () => {
                 <div className="container">
                     <div className="solution-grid">
                         <div className="solution-content">
-                            <h2>Show Up Before Them. Every. Single. Day.</h2>
-                            <p>While your competitors are still briefing freelancers, your content is already live and ranking. Our agentic system scans Google Trends for breakout keywords, writes comprehensive posts targeting what people are searching for right now, and publishes directly to your site—automatically.</p>
+                            <h2>Become the Source AI Trusts. Automatically.</h2>
+                            <p>Our agentic system builds the structured, authoritative content that AI engines actively seek. We publish daily, interlink intelligently, and embed the signals that make your business the answer AI recommends — without you lifting a finger.</p>
 
                             <ul className="solution-list">
                                 <li>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span><strong>Breakout keyword targeting</strong> — We find what's trending before your competitors do</span>
+                                    <span><strong>AI-grade structure</strong> — Schema markup, FAQ blocks, and citation-ready formatting baked into every post</span>
                                 </li>
                                 <li>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span><strong>Authority stacking</strong> — Posts interlink automatically to build topical dominance</span>
+                                    <span><strong>Topical authority stacking</strong> — Posts interlink to build the depth AI systems reward</span>
                                 </li>
                                 <li>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span><strong>SEO-optimised from the start</strong> — Metadata, schema, internal links—all handled</span>
+                                    <span><strong>E-E-A-T signals</strong> — Experience, Expertise, Authority, Trust — baked into your content DNA</span>
                                 </li>
                                 <li>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -144,12 +144,12 @@ const SEOSalePage = () => {
                                     <div className="visual-feature-label">Publish frequency</div>
                                 </div>
                                 <div className="visual-feature">
-                                    <div className="visual-feature-value">1,200+</div>
-                                    <div className="visual-feature-label">Words per post</div>
+                                    <div className="visual-feature-value">AEO + SEO</div>
+                                    <div className="visual-feature-label">Dual optimised</div>
                                 </div>
                                 <div className="visual-feature">
-                                    <div className="visual-feature-value">Trending</div>
-                                    <div className="visual-feature-label">Keyword targeting</div>
+                                    <div className="visual-feature-value">Schema</div>
+                                    <div className="visual-feature-label">AI-ready structured data</div>
                                 </div>
                                 <div className="visual-feature">
                                     <div className="visual-feature-value">Monthly</div>
@@ -325,11 +325,11 @@ const SEOSalePage = () => {
             {/* CTA */}
             <section className="cta-section">
                 <div className="cta-container">
-                    <h2 className="cta-title">Your Competitors Won't Wait. Neither Should You.</h2>
-                    <p className="cta-subtitle">Every day without consistent content is a day they're building authority you'll have to fight for. Start publishing today.</p>
+                    <h2 className="cta-title">AI Is Changing Discovery. Are You Ready?</h2>
+                    <p className="cta-subtitle">The businesses who adapt now will be the ones AI recommends tomorrow. Every day without AEO-optimised content is a day your competitors are building the authority you'll have to fight for.</p>
 
                     <div className="cta-options">
-                        {/* Website + SEO */}
+                        {/* Website + AEO */}
                         <div className="cta-card">
                             <div className="cta-card-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -338,12 +338,12 @@ const SEOSalePage = () => {
                                     <line x1="9" y1="21" x2="9" y2="9"></line>
                                 </svg>
                             </div>
-                            <h3>Website + SEO Bundle</h3>
-                            <p>Getting a new website built? Add SEO automation and launch with content momentum from day one.</p>
+                            <h3>Website + AEO Bundle</h3>
+                            <p>Getting a new website built? Launch with AEO from day one. Structured for both search engines and AI engines.</p>
                             <a href="https://portal.launchedin10.co.uk" className="cta-btn">Explore Website Packages</a>
                         </div>
 
-                        {/* SEO Only */}
+                        {/* AEO Only */}
                         <div className="cta-card">
                             <div className="cta-card-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -353,8 +353,8 @@ const SEOSalePage = () => {
                                     <line x1="8" y1="11" x2="14" y2="11"></line>
                                 </svg>
                             </div>
-                            <h3>SEO Automation Only</h3>
-                            <p>Already have a website? Email and we'll onboard you in 5 minutes.</p>
+                            <h3>AEO Automation Only</h3>
+                            <p>Already have a website? We'll add the AEO layer in 5 minutes. Email us.</p>
 
                             {/* Updated to Simple Email Button */}
                             <div className="email-capture">
@@ -388,14 +388,14 @@ const SEOSalePage = () => {
                 <div className="container">
                     <div className="section-header">
                         <div className="section-label">Related Intelligence</div>
-                        <h2 className="section-title">Explore Our SEO Guides</h2>
+                        <h2 className="section-title">Explore Our AEO & Growth Guides</h2>
                         <p className="section-subtitle">Deep-dive resources from our content lab.</p>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
                         <a href="/blog/seo-fundamentals" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
-                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>SEO Fundamentals</h3>
-                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Technical SEO guides and authority-building strategies.</p>
+                            <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>AEO Fundamentals</h3>
+                            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Technical guides for AI engine visibility and structured content.</p>
                         </a>
                         <a href="/blog/business-growth" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Business Growth</h3>
@@ -425,16 +425,16 @@ const SEOSalePage = () => {
 
                     <div className="faq-grid">
                         <div className="faq-item">
-                            <h3 className="faq-question">Will AI content actually rank?</h3>
-                            <p className="faq-answer">Yes. Google rewards consistent, quality content—regardless of how it's created. Our posts are optimised for readability, keyword targeting, and the technical signals that matter. We're seeing clients rank for competitive terms within 30-60 days.</p>
+                            <h3 className="faq-question">What is AEO?</h3>
+                            <p className="faq-answer">AI Engine Optimization is the practice of structuring your content so AI assistants — ChatGPT, Gemini, Perplexity — cite your business when answering user questions. It's the next evolution beyond SEO.</p>
                         </div>
                         <div className="faq-item">
-                            <h3 className="faq-question">What about duplicate content?</h3>
-                            <p className="faq-answer">Every post is unique. Our system scans your existing content and the web to avoid overlaps. No templates, no spinning—original content every time.</p>
+                            <h3 className="faq-question">Will my SEO suffer if I focus on AEO?</h3>
+                            <p className="faq-answer">No. AEO and SEO are complementary. Our content is optimised for both. The structured data and authority signals that help AI also help Google.</p>
                         </div>
                         <div className="faq-item">
-                            <h3 className="faq-question">How do you know what topics to write about?</h3>
-                            <p className="faq-answer">We use Google Trends to identify breakout keywords in your industry before they peak. This means you're publishing content for searches that are growing—not yesterday's news.</p>
+                            <h3 className="faq-question">How do AI engines decide what to cite?</h3>
+                            <p className="faq-answer">AI systems favour content with clear structure, topical depth, and E-E-A-T signals (Experience, Expertise, Authority, Trust). We build all of this into every post.</p>
                         </div>
                         <div className="faq-item">
                             <h3 className="faq-question">Can I cancel anytime?</h3>
