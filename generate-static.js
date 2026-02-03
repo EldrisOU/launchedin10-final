@@ -243,7 +243,11 @@ async function generateBlogIndex(postsByCategory, allPosts, distDir, shell) {
     console.log('🔨 [ELITE] Generating Blog Index...');
 
     const silosHtml = SILO_CATEGORIES.map(silo => {
-        return generateSiloHtml(silo, postsByCategory[silo.name] || []);
+        // Sort by date (most recent first) and limit to 3 posts per category
+        const categoryPosts = (postsByCategory[silo.name] || [])
+            .sort((a, b) => new Date(b.published_at || b.created_at) - new Date(a.published_at || a.created_at))
+            .slice(0, 3);
+        return generateSiloHtml(silo, categoryPosts);
     }).join('\n');
 
     let html = shell;
