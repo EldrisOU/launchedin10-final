@@ -98,8 +98,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    align-items: start;
-    /* Prevents cards from stretching to match height */
+    align-items: stretch;
+    /* Cards stretch to match height */
 }
 
 @media (max-width: 900px) {
@@ -116,6 +116,10 @@
     border: 1px solid rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
+}
+
+.case-studies-wrapper .case-card.full-width {
+    grid-column: 1 / -1;
 }
 
 .case-studies-wrapper .case-preview {

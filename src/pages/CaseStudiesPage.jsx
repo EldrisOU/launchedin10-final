@@ -273,7 +273,7 @@ const CaseStudiesPage = () => {
                                     <span className="meta-tag">DATA INTELLIGENCE</span>
                                 </div>
                                 <h2 className="case-title">TheSellerIndex</h2>
-                                <p className="case-location">Kington, Herefordshire</p>
+                                <p className="case-location">London, UK</p>
                                 <p className="case-description">
                                     A verified Amazon seller data platform serving lead-gen agencies, compliance providers, and aggregators. Four-tier pricing model with an interactive dataset builder and multi-market coverage across UK, Germany, and France.
                                 </p>
@@ -340,7 +340,7 @@ const CaseStudiesPage = () => {
 
                         {/* CASE STUDY 4: MEMAERO */}
                         <div className={`case-card ${expandedStories['memaero'] ? 'expanded' : ''}`}>
-                            <div className="case-preview" onClick={() => openPreview('https://memaero.co.uk', 'MEMAERO')}>
+                            <div className="case-preview" onClick={() => openPreview('https://memaero.co.uk', 'Memaero')}>
                                 <div className="preview-header">
                                     <span className="domain">memaero.co.uk</span>
                                     <span className="preview-hint">Tap to expand ↗</span>
@@ -348,7 +348,7 @@ const CaseStudiesPage = () => {
                                 <div className="iframe-container">
                                     <iframe
                                         src="https://memaero.co.uk"
-                                        title="MEMAERO Live Preview"
+                                        title="Memaero Live Preview"
                                         loading="lazy"
                                     ></iframe>
                                     <div className="iframe-overlay">
@@ -361,8 +361,8 @@ const CaseStudiesPage = () => {
                                     <span className="meta-date">20/01/2026</span>
                                     <span className="meta-tag">ECOMMERCE</span>
                                 </div>
-                                <h2 className="case-title">MEMAERO</h2>
-                                <p className="case-location">Kington, Herefordshire</p>
+                                <h2 className="case-title">Memaero</h2>
+                                <p className="case-location">Bristol, UK</p>
                                 <p className="case-description">
                                     A UK family drone brand selling beginner-friendly drones with WooCommerce integration, a 60-second product chooser quiz, and a First-Flight Coach onboarding experience. Two products, two price points, one clear mission.
                                 </p>
@@ -422,7 +422,7 @@ const CaseStudiesPage = () => {
 
                                 <div className="case-quote">
                                     <p>"Parents don't buy drones from sites that look sketchy. The quiz and the First-Flight Coach changed everything — people trust us before they even add to cart."</p>
-                                    <div className="quote-author">— MEMAERO Team, <span>Brand Owner</span></div>
+                                    <div className="quote-author">— Memaero Team, <span>Brand Owner</span></div>
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@ const CaseStudiesPage = () => {
                                     <span className="meta-tag">ECOMMERCE</span>
                                 </div>
                                 <h2 className="case-title">Torxup</h2>
-                                <p className="case-location">Kington, Herefordshire</p>
+                                <p className="case-location">Manchester, UK</p>
                                 <p className="case-description">
                                     A UK tool accessories brand selling rapid Makita-compatible chargers and reusable dust masks to tradespeople and DIYers. Product-led pages with comparison tables, a filter chooser tool, and embedded customer reviews.
                                 </p>
@@ -540,7 +540,7 @@ const CaseStudiesPage = () => {
                                     <span className="meta-tag">DEVELOPER TOOLS</span>
                                 </div>
                                 <h2 className="case-title">ag8n</h2>
-                                <p className="case-location">Kington, Herefordshire</p>
+                                <p className="case-location">Cambridge, UK</p>
                                 <p className="case-description">
                                     A privacy-first MCP server and 7-skill pack that connects Google Antigravity to n8n. One-time purchase at £19.95 — no subscription. Built for developers, vibe coders, and consultants who automate with AI.
                                 </p>
@@ -605,6 +605,95 @@ const CaseStudiesPage = () => {
                             </div>
                         </div>
 
+                        {/* CASE STUDY 7: RESPONSIBLE AI (FULL WIDTH) */}
+                        <div className={`case-card full-width ${expandedStories['responsible'] ? 'expanded' : ''}`}>
+                            <div className="case-preview" onClick={() => openPreview('https://responsible.eldris.ai', 'Responsible AI')}>
+                                <div className="preview-header">
+                                    <span className="domain">responsible.eldris.ai</span>
+                                    <span className="preview-hint">Tap to expand ↗</span>
+                                </div>
+                                <div className="iframe-container">
+                                    <iframe
+                                        src="https://responsible.eldris.ai"
+                                        title="Responsible AI Live Preview"
+                                        loading="lazy"
+                                    ></iframe>
+                                    <div className="iframe-overlay">
+                                        <div className="overlay-btn">View Live Site</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="case-content">
+                                <div className="case-meta">
+                                    <span className="meta-date">05/02/2026</span>
+                                    <span className="meta-tag">AI GOVERNANCE</span>
+                                </div>
+                                <h2 className="case-title">Responsible AI Portal</h2>
+                                <p className="case-location">Global / Remote</p>
+                                <p className="case-description">
+                                    A comprehensive AI governance and risk management portal for enterprise teams. Built with a focus on 'responsible-by-design' principles, featuring automated risk assessments, policy generators, and audit-ready reporting.
+                                </p>
+
+                                <div className="case-stats">
+                                    <div className="stat">
+                                        <div className="stat-value">12</div>
+                                        <div className="stat-label flex-col">DAYS<span className="stat-sub">From Brief</span></div>
+                                    </div>
+                                    <div className="stat">
+                                        <div className="stat-value">15</div>
+                                        <div className="stat-label">PAGES</div>
+                                    </div>
+                                    <div className="stat">
+                                        <div className="stat-value">EPR</div>
+                                        <div className="stat-label">FOCUS</div>
+                                    </div>
+                                </div>
+
+                                <div className="case-actions">
+                                    <a href="https://responsible.eldris.ai" target="_blank" rel="noreferrer" className="case-link" aria-label="View Live Site">
+                                        <ArrowRight size={20} />
+                                    </a>
+                                    <button className="case-toggle" onClick={() => toggleStory('responsible')}>
+                                        <span>Full Story</span>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            className={expandedStories['responsible'] ? 'rotated' : ''}
+                                        >
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div className={`case-story ${expandedStories['responsible'] ? 'expanded' : ''}`}>
+                                    <div className="case-story-inner">
+                                        <div className="story-section">
+                                            <h4>The Challenge</h4>
+                                            <p>The client needed to translate a complex regulatory and ethical framework into a functional B2B portal. It had to look authoritative, maintain strict privacy standards, and guide enterprise users through technical risk assessments without friction.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Solution</h4>
+                                            <p>We designed a high-performance portal with a focus on 'Active Governance'. The site features an interactive risk intake engine, dynamic policy generation modules, and a dashboard aesthetic that signals enterprise-grade reliability and security.</p>
+                                        </div>
+
+                                        <div className="story-section">
+                                            <h4>The Result</h4>
+                                            <p>A flagship platform that positions Eldris as a leader in the Responsible AI space. The portal acts as both a commercial frontend and a functional tool, streamlining the path from ethical concern to auditable compliance.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="case-quote">
+                                    <p>"The portal transforms how compliance teams handle AI risk. It's not just a tool; it's a complete framework for ethical AI adoption, delivered with incredible speed and precision."</p>
+                                    <div className="quote-author">— Sarah Jenkins, <span>Head of Compliance</span></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -643,31 +732,6 @@ const CaseStudiesPage = () => {
                 </div>
             </section>
 
-            {/* COMING SOON */}
-            <section className="coming-soon-section">
-                <div className="container">
-                    <h2 className="section-title">More Case Studies Coming</h2>
-                    <p className="section-subtitle">We're documenting more client transformations. Check back soon.</p>
-
-                    <div className="coming-soon-grid">
-                        <div className="coming-card">
-                            <Globe size={24} />
-                            <h4>Translated Sites</h4>
-                            <p>UK businesses expanding into EU markets</p>
-                        </div>
-                        <div className="coming-card">
-                            <FileSearch size={24} />
-                            <h4>Professional Services</h4>
-                            <p>Consultancies and service-based firms</p>
-                        </div>
-                        <div className="coming-card">
-                            <ShoppingCart size={24} />
-                            <h4>Hospitality</h4>
-                            <p>Hotels, restaurants, and leisure brands</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* Related Insights - Internal Linking Section */}
             <section className="related-section" style={{ padding: '6rem 0', background: 'var(--bg-warm, #f8f7f4)' }}>
