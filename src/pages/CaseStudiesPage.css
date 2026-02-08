@@ -248,6 +248,26 @@
 }
 
 /* Dunnet Yellow/Gold */
+.case-studies-wrapper .case-card:nth-child(3) .stat-value {
+    color: #1a2b4a;
+}
+
+/* TheSellerIndex Navy */
+.case-studies-wrapper .case-card:nth-child(4) .stat-value {
+    color: #0ea5a5;
+}
+
+/* MEMAERO Teal */
+.case-studies-wrapper .case-card:nth-child(5) .stat-value {
+    color: #ef4444;
+}
+
+/* Torxup Red */
+.case-studies-wrapper .case-card:nth-child(6) .stat-value {
+    color: #8b5cf6;
+}
+
+/* ag8n Purple */
 
 .case-studies-wrapper .stat-label {
     font-size: 0.625rem;
