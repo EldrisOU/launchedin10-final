@@ -75,6 +75,14 @@ const ConciergePanel = () => {
     };
 
     const handleOptionClick = (option) => {
+        // Human Sentiment Filter: If the option label/value implies speaking to someone, trigger lead form
+        const humanKeywords = /human|person|someone|technician|representative|agent|expert|talk to|speak to/i;
+        if (humanKeywords.test(option.label) || humanKeywords.test(option.value)) {
+            setIsLeadCapture(true);
+            setLeadData(prev => ({ ...prev, ctaType: 'contact' }));
+            return; // Exit early, do not send as message
+        }
+
         // User selection becomes a message
         addMessage({ text: option.label, sender: 'user', type: 'text' });
 
@@ -109,6 +117,16 @@ const ConciergePanel = () => {
             return;
         }
 
+        // Detect sentiment: If user wants a human/person, trigger lead capture immediately
+        const humanKeywords = /human|person|someone|technician|representative|agent|expert|talk to|speak to/i;
+        if (humanKeywords.test(input)) {
+            addMessage({ text: input, sender: 'user', type: 'text' });
+            setInput('');
+            setIsLeadCapture(true);
+            setLeadData(prev => ({ ...prev, ctaType: 'contact' }));
+            return; // Don't send as generic message to n8n
+        }
+
         addMessage({ text: input, sender: 'user', type: 'text' });
         setInput('');
         simulateThinking(input);
@@ -128,17 +146,22 @@ const ConciergePanel = () => {
         const lastBotMsg = currentMessages.filter(m => m.sender === 'bot').pop();
         const contextText = lastBotMsg ? lastBotMsg.text : "Bot Greeting";
 
+        const payload = {
+            message: userInput,
+            intent: 'message',
+            sessionId: sessionId.current,
+            page: location.pathname + location.hash,
+            context: String(contextText || "Bot Greeting")
+        };
+
+        // DEBUG: Ensure we see exactly what is being sent in the browser console
+        console.log("[Concierge] Sending Payload:", payload);
+
         try {
             const response = await fetch('https://n8n.eldris.ai/webhook/eldris-chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: userInput,
-                    intent: 'message', // Default intent for standard AI interaction
-                    sessionId: sessionId.current,
-                    page: location.pathname + location.hash,
-                    context: String(contextText || "Bot Greeting") // FORCE STRING
-                })
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) throw new Error('Network response was not ok');
@@ -222,7 +245,8 @@ const ConciergePanel = () => {
                     email: leadData.email,
                     cta: leadData.ctaType,
                     sessionId: sessionId.current,
-                    page: location.pathname + location.hash
+                    page: location.pathname + location.hash,
+                    context: String(messagesRef.current.filter(m => m.sender === 'bot').pop()?.text || "Bot Greeting")
                 })
             });
 
