@@ -9,6 +9,8 @@ const ConciergePanel = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [isLeadCapture, setIsLeadCapture] = useState(false);
+    const [leadData, setLeadData] = useState({ name: '', email: '', ctaType: '' });
     const inputRef = useRef(null);
 
     // Session ID for the chat session
@@ -69,7 +71,20 @@ const ConciergePanel = () => {
     const handleOptionClick = (option) => {
         // User selection becomes a message
         addMessage({ text: option.label, sender: 'user', type: 'text' });
-        simulateThinking(option.value); // Send full descriptive value
+
+        if (option.isCTA) {
+            // Handle specific CTA types (e.g., checkout, call)
+            if (option.cta.startsWith('checkout')) {
+                // Navigate or trigger checkout logic (currently simulated with message)
+                simulateThinking(`I'd like to proceed with ${option.cta.split('-')[1] || 'checkout'}`);
+            } else if (option.cta === 'call') {
+                simulateThinking("I'd like to book a call.");
+            } else {
+                simulateThinking(option.value);
+            }
+        } else {
+            simulateThinking(option.value); // Send full descriptive value
+        }
     };
 
     const handleSend = () => {
@@ -99,6 +114,7 @@ const ConciergePanel = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: userInput,
+                    intent: 'message', // Default intent for standard AI interaction
                     sessionId: sessionId.current,
                     page: location.pathname + location.hash,
                     context: contextText // Sending previous bot question as context
@@ -109,11 +125,35 @@ const ConciergePanel = () => {
 
             const data = await response.json();
 
-            // Assume n8n returns { output: "text response", options: [...] }
             let responseText = data.output || data.message || "I received your message.";
             let responseOptions = data.options || [];
 
-            addMessage({ text: responseText, sender: 'bot', type: 'text' });
+            // -- NEW: CTA PARSING LOGIC --
+            const ctaRegex = /<cta:([^>]+)>/g;
+            const ctaMatches = [...responseText.matchAll(ctaRegex)];
+
+            // Remove the raw tags from the text before displaying
+            const cleanText = responseText.replace(ctaRegex, '').trim();
+            addMessage({ text: cleanText, sender: 'bot', type: 'text' });
+
+            if (ctaMatches.length > 0) {
+                const ctaType = ctaMatches[0][1];
+
+                // If the CTA is for email or contact, trigger lead capture mode
+                if (ctaType === 'email' || ctaType === 'contact') {
+                    setIsLeadCapture(true);
+                    setLeadData(prev => ({ ...prev, ctaType }));
+                } else {
+                    // Otherwise, render it as an option / button
+                    setTimeout(() => {
+                        addMessage({
+                            type: 'options',
+                            sender: 'bot',
+                            options: [{ label: `Proceed with ${ctaType.replace('-', ' ')}`, value: cleanText, isCTA: true, cta: ctaType }]
+                        });
+                    }, 500);
+                }
+            }
 
             if (responseOptions.length > 0) {
                 setTimeout(() => {
@@ -125,6 +165,56 @@ const ConciergePanel = () => {
             console.error("Chat Error:", error);
             addMessage({
                 text: "I'm having trouble connecting right now. Please try again.",
+                sender: 'bot',
+                type: 'text'
+            });
+        } finally {
+            setIsTyping(false);
+        }
+    };
+
+    const handleLeadSubmit = async (e) => {
+        e.preventDefault();
+        if (!leadData.name || !leadData.email) return;
+
+        setIsTyping(true);
+        setIsLeadCapture(false);
+
+        addMessage({
+            text: `Contact request submitted for ${leadData.name} (${leadData.email})`,
+            sender: 'user',
+            type: 'text'
+        });
+
+        try {
+            const response = await fetch('https://n8n.eldris.ai/webhook/eldris-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: "Lead Capture Submission",
+                    intent: 'contact_team',
+                    name: leadData.name,
+                    email: leadData.email,
+                    cta: leadData.ctaType,
+                    sessionId: sessionId.current,
+                    page: location.pathname + location.hash
+                })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+            const responseText = data.output || data.message || "Thank you. Your request has been sent to the team.";
+
+            addMessage({ text: responseText, sender: 'bot', type: 'text' });
+
+            // Reset lead data
+            setLeadData({ name: '', email: '', ctaType: '' });
+
+        } catch (error) {
+            console.error("Lead Submit Error:", error);
+            addMessage({
+                text: "There was an issue sending your request. Please try again or use our contact form.",
                 sender: 'bot',
                 type: 'text'
             });
@@ -247,23 +337,83 @@ const ConciergePanel = () => {
 
                                 {/* INPUT AREA - GROUPED WITH CONTENT */}
                                 <div className="relative w-full">
-                                    <input
-                                        ref={inputRef}
-                                        type="text"
-                                        value={input}
-                                        onChange={(e) => setInput(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                                        placeholder="Speak to us..."
-                                        className="w-full bg-black/10 border border-white/10 rounded-2xl pl-6 pr-14 py-4 text-white placeholder:text-white/40 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all text-base backdrop-blur-md"
-                                        disabled={isTyping}
-                                    />
-                                    <button
-                                        onClick={handleSend}
-                                        disabled={!input.trim() || isTyping}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 bg-white text-accent rounded-xl hover:bg-white/90 disabled:opacity-0 disabled:scale-75 transition-all shadow-lg block"
-                                    >
-                                        <Send size={18} strokeWidth={2.5} />
-                                    </button>
+                                    <AnimatePresence mode="wait">
+                                        {isLeadCapture ? (
+                                            <motion.form
+                                                key="lead-form"
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                onSubmit={handleLeadSubmit}
+                                                className="w-full space-y-4 bg-white/5 p-6 rounded-2xl border border-white/10"
+                                            >
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-widest pl-1">Full Name</label>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        placeholder="Enter your name"
+                                                        value={leadData.name}
+                                                        onChange={(e) => setLeadData(prev => ({ ...prev, name: e.target.value }))}
+                                                        className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:border-white/40 outline-none transition-all"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-widest pl-1">Work Email</label>
+                                                    <input
+                                                        type="email"
+                                                        required
+                                                        placeholder="email@company.com"
+                                                        value={leadData.email}
+                                                        onChange={(e) => setLeadData(prev => ({ ...prev, email: e.target.value }))}
+                                                        className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:border-white/40 outline-none transition-all"
+                                                    />
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-3 pt-2">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setIsLeadCapture(false)}
+                                                        className="py-3 px-4 rounded-xl text-white/50 text-sm font-bold hover:text-white transition-colors"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        disabled={!leadData.name || !leadData.email || isTyping}
+                                                        className="py-3 px-4 bg-white text-accent rounded-xl text-sm font-bold hover:bg-white/90 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                                                    >
+                                                        {isTyping ? <Loader2 className="animate-spin" size={16} /> : "Submit Request"}
+                                                    </button>
+                                                </div>
+                                            </motion.form>
+                                        ) : (
+                                            <motion.div
+                                                key="standard-input"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                className="relative w-full"
+                                            >
+                                                <input
+                                                    ref={inputRef}
+                                                    type="text"
+                                                    value={input}
+                                                    onChange={(e) => setInput(e.target.value)}
+                                                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                                    placeholder="Speak to us..."
+                                                    className="w-full bg-black/10 border border-white/10 rounded-2xl pl-6 pr-14 py-4 text-white placeholder:text-white/40 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all text-base backdrop-blur-md"
+                                                    disabled={isTyping}
+                                                />
+                                                <button
+                                                    onClick={handleSend}
+                                                    disabled={!input.trim() || isTyping}
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 bg-white text-accent rounded-xl hover:bg-white/90 disabled:opacity-0 disabled:scale-75 transition-all shadow-lg block"
+                                                >
+                                                    <Send size={18} strokeWidth={2.5} />
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                             </div>
 
