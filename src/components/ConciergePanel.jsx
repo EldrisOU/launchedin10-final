@@ -12,6 +12,12 @@ const ConciergePanel = () => {
     const [isLeadCapture, setIsLeadCapture] = useState(false);
     const [leadData, setLeadData] = useState({ name: '', email: '', ctaType: '' });
     const inputRef = useRef(null);
+    const messagesRef = useRef([]);
+
+    // Keep messagesRef in sync
+    useEffect(() => {
+        messagesRef.current = messages;
+    }, [messages]);
 
     // Session ID for the chat session
     const sessionId = useRef(`session-${Math.random().toString(36).substr(2, 9)}`);
@@ -73,12 +79,11 @@ const ConciergePanel = () => {
         addMessage({ text: option.label, sender: 'user', type: 'text' });
 
         if (option.isCTA) {
-            // Handle specific CTA types (e.g., checkout, call)
-            if (option.cta.startsWith('checkout')) {
-                // Navigate or trigger checkout logic (currently simulated with message)
+            // Focus ONLY on email/contact leads per user rules
+            if (option.cta === 'email' || option.cta === 'contact') {
+                simulateThinking(option.value);
+            } else if (option.cta.startsWith('checkout')) {
                 simulateThinking(`I'd like to proceed with ${option.cta.split('-')[1] || 'checkout'}`);
-            } else if (option.cta === 'call') {
-                simulateThinking("I'd like to book a call.");
             } else {
                 simulateThinking(option.value);
             }
@@ -103,10 +108,10 @@ const ConciergePanel = () => {
     };
 
     const processResponse = async (userInput) => {
-
-        // Find the last bot message for context
-        const lastBotMsg = messages.filter(m => m.sender === 'bot').pop();
-        const contextText = lastBotMsg ? lastBotMsg.text : "No prior context";
+        // Use Ref for messages to avoid closure traps and ensure context is always sent
+        const currentMessages = messagesRef.current;
+        const lastBotMsg = currentMessages.filter(m => m.sender === 'bot').pop();
+        const contextText = lastBotMsg ? lastBotMsg.text : "Bot Greeting";
 
         try {
             const response = await fetch('https://n8n.eldris.ai/webhook/eldris-chat', {
