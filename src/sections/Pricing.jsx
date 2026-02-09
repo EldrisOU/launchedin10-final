@@ -1,4 +1,6 @@
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
+import SafeEmail from '../components/common/SafeEmail';
+import clsx from 'clsx'; // Assuming clsx is needed for the SafeEmail className
 
 const PricingCard = ({ tier, popular = false }) => {
     return (
@@ -60,12 +62,16 @@ const PricingCard = ({ tier, popular = false }) => {
                 </div>
             </div>
 
-            <a href="https://portal.launchedin10.co.uk" className={`w-full mt-8 py-4 px-6 rounded-lg font-bold transition-all transform hover:-translate-y-0.5 text-center block ${popular
-                ? 'bg-primary text-white hover:bg-primary-light shadow-lg hover:shadow-accent/40'
-                : 'border-2 border-primary/10 text-primary hover:border-primary hover:bg-primary hover:text-white'
-                }`}>
+            <SafeEmail
+                className={clsx(
+                    "w-full mt-8 py-4 px-6 rounded-lg font-bold transition-all transform hover:-translate-y-0.5 text-center block",
+                    popular
+                        ? "bg-primary text-white hover:bg-primary-light shadow-lg hover:shadow-accent/40"
+                        : "border-2 border-primary/10 text-primary hover:border-primary hover:bg-primary hover:text-white"
+                )}
+            >
                 {popular ? 'Get Started' : 'Choose ' + tier.name}
-            </a>
+            </SafeEmail>
         </div>
     );
 };

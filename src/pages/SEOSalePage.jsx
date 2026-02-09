@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './SEOSalePage.css';
+import { ArrowRight, Check, Search, TrendingUp, BarChart, Globe, Zap, Shield, Rocket, MessageCircle } from 'lucide-react';
+import SafeEmail from '../components/common/SafeEmail';
+import Navbar from '../components/layout/Navbar';
 
 const SEOSalePage = () => {
     const [email, setEmail] = useState('');
@@ -340,7 +343,10 @@ const SEOSalePage = () => {
                             </div>
                             <h3>Website + AEO Bundle</h3>
                             <p>Getting a new website built? Launch with AEO from day one. Structured for both search engines and AI engines.</p>
-                            <a href="https://portal.launchedin10.co.uk" className="cta-btn">Explore Website Packages</a>
+                            <SafeEmail className="inline-flex items-center text-accent font-bold hover:underline">
+                                Explore Website Packages
+                                <ArrowRight size={16} className="ml-1" />
+                            </SafeEmail>
                         </div>
 
                         {/* AEO Only */}

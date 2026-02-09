@@ -197,6 +197,31 @@ function assignCategory(post) {
  *  MAIN GENERATION CONTROLLER
  * ------------------------------------------------------------------
  */
+/**
+ * 
+ *  API GENERATION (Categories JSON)
+ * 
+ */
+async function generateCategoriesApi(posts, distDir) {
+    console.log('🔨 [ELITE] Generating Categories API...');
+
+    const uniqueCategories = [
+        ...new Set(
+            posts
+                .map((post) => post.primary_category)
+                .filter((cat) => !!cat)
+        ),
+    ].sort();
+
+    const outputDir = path.join(distDir, 'api');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(
+        path.join(outputDir, 'categories.json'),
+        JSON.stringify(uniqueCategories)
+    );
+    console.log('✅ [ELITE] Categories API Generated.');
+}
+
 async function generateAll() {
     console.log('🚀 [ELITE] Starting Zero-JS Phased Generation (Phase 1)...');
 
@@ -227,6 +252,7 @@ async function generateAll() {
     await generateBlogIndex(postsByCategory, posts, distDir, masterShell);
     await generateCategoryPages(postsByCategory, distDir, masterShell);
     await generateIndividualPosts(posts, distDir, masterShell);
+    await generateCategoriesApi(posts, distDir);
 
     // PHASE 2: HIGH-VALUE SILOS
     await generateCaseStudiesPage(distDir, masterShell);
@@ -390,7 +416,7 @@ async function generateHomepage(distDir, shell) {
                                 The anti-agency service. We design, build, and manage your bespoke website for a flat monthly fee. No templates. No freelancers. No headaches.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-5">
-                                <a href="https://portal.launchedin10.co.uk" class="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-white bg-primary rounded-none hover:bg-primary-light transition-all shadow-luxury-elevated min-w-[200px]">Start Your Build</a>
+                                <a href="javascript:void(0)" onclick="const e='aGVsbG9AbGF1bmNoZWRpbjEwLmNvLnVr'; window.location.href='mailto:'+atob(e)+'?subject='+encodeURIComponent('Start Your Build')+'&body='+encodeURIComponent('Hi, I\'d like to start my build.')" class="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-white bg-primary rounded-none hover:bg-primary-light transition-all shadow-luxury-elevated min-w-[200px]">Start Your Build</a>
                                 <a href="#process" class="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-primary bg-transparent border-2 border-primary/10 rounded-none transition-all min-w-[200px]">How It Works</a>
                             </div>
                         </div>

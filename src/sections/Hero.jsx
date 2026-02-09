@@ -1,4 +1,5 @@
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import SafeEmail from '../components/common/SafeEmail';
 
 const Hero = () => {
     return (
@@ -42,10 +43,12 @@ const Hero = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up delay-300">
-                            <a href="https://portal.launchedin10.co.uk" className="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-white bg-primary rounded-none hover:bg-primary-light transition-all shadow-luxury-elevated hover:shadow-luxury-glow transform hover:-translate-y-0.5 min-w-[200px]">
+                            <SafeEmail
+                                className="group inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-white bg-accent hover:bg-accent-light transition-all shadow-luxury-glow hover:shadow-luxury-glow-intense min-w-[280px] rounded-none transform hover:-translate-y-1"
+                            >
                                 Start Your Build
-                                <ArrowRight className="ml-3" size={20} />
-                            </a>
+                                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" size={24} />
+                            </SafeEmail>
                             <a href="#process" className="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-primary bg-transparent border-2 border-primary/10 hover:border-primary rounded-none transition-all min-w-[200px]">
                                 How It Works
                             </a>

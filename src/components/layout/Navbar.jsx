@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Rocket, Menu, X } from 'lucide-react';
+import { Rocket, Menu, X, ArrowRight } from 'lucide-react';
 import { clsx } from 'clsx';
+import SafeEmail from '../common/SafeEmail';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -91,12 +92,12 @@ const Navbar = () => {
                             </Link>
                         )
                     ))}
-                    <a
-                        href="https://portal.launchedin10.co.uk"
-                        className="bg-primary text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-primary-light transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 uppercase tracking-widest"
+                    <SafeEmail
+                        className="inline-flex items-center px-6 py-2.5 text-sm font-bold text-white bg-accent hover:bg-accent-light transition-all shadow-luxury-glow hover:shadow-luxury-glow-intense rounded-none group"
                     >
                         Start Build
-                    </a>
+                        <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
+                    </SafeEmail>
                 </div>
 
                 {/* MOBILE BUTTON */}
@@ -141,13 +142,12 @@ const Navbar = () => {
                             </Link>
                         )
                     ))}
-                    <a
-                        href="https://portal.launchedin10.co.uk"
+                    <SafeEmail
                         onClick={() => setIsMenuOpen(false)}
-                        className="bg-primary text-white py-4 rounded-xl text-center font-bold uppercase tracking-widest"
+                        className="bg-accent text-white py-4 rounded-none text-center font-bold uppercase tracking-widest"
                     >
                         Start Build
-                    </a>
+                    </SafeEmail>
                 </div>
             )}
         </nav>

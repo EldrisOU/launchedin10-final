@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import SafeEmail from '../components/common/SafeEmail';
+import Navbar from '../components/layout/Navbar';
 import {
     Globe,
     Check,
@@ -649,11 +651,14 @@ const TranslationSalePage = () => {
 
                             {/* CTA Options */}
                             <div className="cta-options-widget">
-                                <a href="https://portal.launchedin10.co.uk" className="cta-option-card">
+                                <SafeEmail
+                                    className="cta-option-card"
+                                    subject="Website + Translation Bundle Inquiry"
+                                >
                                     <div className="cta-option-title">Website + Translation Bundle</div>
                                     <div className="cta-option-desc">Building a new site? Add translation from day one</div>
                                     <span className="cta-option-btn">Start Website Build →</span>
-                                </a>
+                                </SafeEmail>
                                 <div className="cta-option-card">
                                     <div className="cta-option-title">Translation Only</div>
                                     <div className="cta-option-desc">Already have a website? Drop your email and we'll onboard you in 5 minutes.</div>

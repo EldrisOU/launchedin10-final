@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import SafeEmail from '../components/common/SafeEmail';
 
 const CTA = () => {
     return (
@@ -23,13 +24,13 @@ const CTA = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="https://portal.launchedin10.co.uk" className="group inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-primary bg-white hover:bg-gray-50 transition-all shadow-luxury-elevated hover:shadow-luxury-glow min-w-[240px] rounded-none transform hover:-translate-y-1">
+                    <SafeEmail className="group inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-primary bg-white hover:bg-gray-50 transition-all shadow-luxury-elevated hover:shadow-luxury-glow min-w-[240px] rounded-none transform hover:-translate-y-1">
                         Start Your Build
                         <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" size={24} />
-                    </a>
-                    <a href="mailto:hello@launchedin10.co.uk" className="text-white/80 hover:text-white font-medium border-b border-white/20 hover:border-white transition-colors pb-0.5">
+                    </SafeEmail>
+                    <SafeEmail className="text-white/80 hover:text-white font-medium border-b border-white/20 hover:border-white transition-colors pb-0.5">
                         Ask a Question
-                    </a>
+                    </SafeEmail>
                 </div>
             </div>
         </section>

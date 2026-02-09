@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import SafeEmail from '../components/common/SafeEmail';
 import {
     Calendar,
     User,
@@ -385,9 +386,9 @@ const BlogPost = () => {
                             >
                                 <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tight">Evolve Your Digital Footprint.</h2>
                                 <p className="text-xl text-white/70 mb-12 leading-relaxed">Stop building standard websites. Start building revenue-generating assets that dominate your niche.</p>
-                                <a href="https://portal.launchedin10.co.uk" className="bg-[var(--teal)] text-white px-12 py-6 rounded-2xl font-bold hover:bg-white hover:text-[var(--navy)] transition-all inline-block shadow-2xl hover:-translate-y-1 text-lg">
+                                <SafeEmail className="bg-[var(--teal)] text-white px-12 py-6 rounded-2xl font-bold hover:bg-white hover:text-[var(--navy)] transition-all inline-block shadow-2xl hover:-translate-y-1 text-lg">
                                     Deploy Your Elite Vision
-                                </a>
+                                </SafeEmail>
                             </motion.div>
                         </div>
                     </section>

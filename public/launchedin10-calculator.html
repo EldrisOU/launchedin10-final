@@ -1354,7 +1354,7 @@
         // [CALC-015] State & Config
         const CONFIG = {
             webhookUrl: 'https://n8n.eldris.ai/webhook/90651fda-c6fa-428d-bf1e-dcb9d26a7426', // Direct n8n URL
-            portalUrl: 'https://portal.launchedin10.co.uk',
+            portalEmail: 'aGVsbG9AbGF1bmNoZWRpbjEwLmNvLnVr', // hello@launchedin10.co.uk
             scanDuration: 15,
             tiers: {
                 starter: { pages: 5, posts: 25, products: 10, activation: 497, monthly: 99 },
@@ -1722,7 +1722,13 @@
                 ref: 'calculator'
             });
 
-            window.location.href = `${CONFIG.portalUrl}?${params.toString()}`;
+            const subject = `Build Request: ${state.scannedUrl}`;
+            const body = `Hi,\n\nI'd like to start my build for ${state.scannedUrl}.\n\nQuote Details:\n- Tier: ${state.selectedTier}\n- Pages: ${state.scanResults.pages}\n- Posts: ${state.scanResults.posts}\n- Products: ${state.scanResults.products}\n- Overage: £${overage.cost}\n- Total Activation: £${total}\n- Monthly: £${tier.monthly}\n\nReference: Calculator Quote`;
+
+            const decoded = atob(CONFIG.portalEmail);
+            const mailtoUrl = `mailto:${decoded}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            window.location.href = mailtoUrl;
         }
 
         // [CALC-027] Email Quote
