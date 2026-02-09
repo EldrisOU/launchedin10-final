@@ -80,6 +80,9 @@ const ConciergePanel = () => {
 
         if (option.isCTA) {
             // Focus ONLY on email/contact leads per user rules
+            // Explicitly block any 'call' CTA that might slip through
+            if (option.cta === 'call' || option.cta.includes('phone')) return;
+
             if (option.cta === 'email' || option.cta === 'contact') {
                 simulateThinking(option.value);
             } else if (option.cta.startsWith('checkout')) {
@@ -88,12 +91,24 @@ const ConciergePanel = () => {
                 simulateThinking(option.value);
             }
         } else {
+            // Final safety filter for non-CTA options
+            if (option.value.toLowerCase().includes('call') || option.label.toLowerCase().includes('call')) {
+                console.warn("Blocked 'call' request locally.");
+                return;
+            }
             simulateThinking(option.value); // Send full descriptive value
         }
     };
 
     const handleSend = () => {
         if (!input.trim()) return;
+
+        // Final filter: Block any manual mention of "call"
+        if (input.toLowerCase().includes('call') || input.toLowerCase().includes('phone')) {
+            setInput('');
+            return;
+        }
+
         addMessage({ text: input, sender: 'user', type: 'text' });
         setInput('');
         simulateThinking(input);
@@ -122,7 +137,7 @@ const ConciergePanel = () => {
                     intent: 'message', // Default intent for standard AI interaction
                     sessionId: sessionId.current,
                     page: location.pathname + location.hash,
-                    context: contextText // Sending previous bot question as context
+                    context: String(contextText || "Bot Greeting") // FORCE STRING
                 })
             });
 
@@ -131,7 +146,12 @@ const ConciergePanel = () => {
             const data = await response.json();
 
             let responseText = data.output || data.message || "I received your message.";
-            let responseOptions = data.options || [];
+            // FILTER: Remove any options that mention "call" or "phone" to prevent user from clicking them
+            let responseOptions = (data.options || []).filter(opt =>
+                !opt.label.toLowerCase().includes('call') &&
+                !opt.label.toLowerCase().includes('phone') &&
+                !opt.value.toLowerCase().includes('call')
+            );
 
             // -- NEW: CTA PARSING LOGIC --
             const ctaRegex = /<cta:([^>]+)>/g;
@@ -148,8 +168,8 @@ const ConciergePanel = () => {
                 if (ctaType === 'email' || ctaType === 'contact') {
                     setIsLeadCapture(true);
                     setLeadData(prev => ({ ...prev, ctaType }));
-                } else {
-                    // Otherwise, render it as an option / button
+                } else if (!ctaType.includes('call') && !ctaType.includes('phone')) {
+                    // Otherwise, render it as an option / button, but ONLY if not 'call'
                     setTimeout(() => {
                         addMessage({
                             type: 'options',
