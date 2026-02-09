@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Check } from 'lucide-react';
 import SafeEmail from '../components/common/SafeEmail';
 
 const Hero = () => {
