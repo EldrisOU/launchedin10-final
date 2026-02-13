@@ -3,6 +3,3 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://launchedin10.co.uk/sitemap.xml
-
-# Crawl Delay for aggressive bots
-Crawl-delay: 5

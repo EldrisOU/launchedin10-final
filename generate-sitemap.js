@@ -38,23 +38,27 @@ async function generateSitemap() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
     // 1. Static Pages
+    const buildDate = new Date().toISOString().split('T')[0];
+    const legalPages = ['/privacy', '/terms', '/cookies'];
     staticPages.forEach(page => {
+      const freq = legalPages.includes(page) ? 'monthly' : (page === '' ? 'daily' : 'weekly');
       xml += `
   <url>
     <loc>${baseUrl}${page}</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>${buildDate}</lastmod>
+    <changefreq>${freq}</changefreq>
     <priority>${page === '' ? '1.0' : '0.8'}</priority>
   </url>`;
     });
 
     // 2. Dynamic Posts
     console.log(`📦 [ELITE] Processing ${posts.length} posts for sitemap...`);
-    const categories = new Set();
+    const categorySlugs = new Set();
 
     posts.forEach(post => {
       const categoryName = post.primary_category || 'Digital Strategy';
       const categorySlug = categoryName.toLowerCase().replace(/ /g, '-');
-      categories.add(categoryName);
+      categorySlugs.add(categorySlug);
 
       xml += `
   <url>
@@ -65,12 +69,12 @@ async function generateSitemap() {
   </url>`;
     });
 
-    // 3. Category Silos
-    categories.forEach(catName => {
-      const catSlug = catName.toLowerCase().replace(/ /g, '-');
+    // 3. Category Silos (deduplicated by slug)
+    categorySlugs.forEach(catSlug => {
       xml += `
   <url>
     <loc>${baseUrl}/blog/${catSlug}</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
