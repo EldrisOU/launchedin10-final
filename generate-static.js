@@ -277,7 +277,7 @@ async function generateBlogIndex(postsByCategory, allPosts, distDir, shell) {
     }).join('\n');
 
     let html = shell;
-    html = html.replace('<title>LaunchedIn10</title>', '<title>Website Insights & Growth Guides | LaunchedIn10 Blog</title>');
+    html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Website Insights & Growth Guides | LaunchedIn10 Blog</title>');
     html = html.replace('</head>', '<meta name="description" content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog" /></head>');
 
     html = injectSchema(html, 'CollectionPage', {
@@ -377,7 +377,7 @@ async function generateHomepage(distDir, shell) {
 
     // Inject Meta Tags
     let html = shell
-        .replace('<title>LaunchedIn10</title>', '<title>High-Performance Web Design in 10 Days | LaunchedIn10</title>')
+        .replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>High-Performance Web Design in 10 Days | LaunchedIn10</title>')
         .replace('</head>', `
     <meta name="description" content="We build elite, revenue-generating web assets for ambitious businesses. Custom high-performance websites delivered in 10 days. Disrupt your market today.">
     <link rel="canonical" href="https://launchedin10.co.uk">
@@ -510,7 +510,7 @@ async function generateCategoryPages(postsByCategory, distDir, shell) {
         const postsHtml = posts.map(generatePostCardHtml).join('\n');
         let html = shell;
 
-        html = html.replace('<title>LaunchedIn10</title>', `<title>${silo.name} Insights | LaunchedIn10 Blog</title>`);
+        html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', `<title>${silo.name} Insights | LaunchedIn10 Blog</title>`);
         html = html.replace('</head>', `<meta name="description" content="Expert guides on ${silo.name} for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog/${silo.id}" /></head>`);
 
         html = injectSchema(html, 'CollectionPage', {
@@ -567,7 +567,7 @@ async function generateIndividualPosts(posts, distDir, shell) {
         const title = post.post_title || post.title;
 
         let html = shell;
-        html = html.replace('<title>LaunchedIn10</title>', `<title>${title} | LaunchedIn10</title>`);
+        html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', `<title>${title} | LaunchedIn10</title>`);
         html = html.replace('</head>', `<link rel="canonical" href="https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/" /></head>`);
 
         html = injectSchema(html, 'Article', {
@@ -768,7 +768,7 @@ async function generateCaseStudiesPage(distDir, shell) {
     `).join('\n');
 
     let html = shell;
-    html = html.replace('<title>LaunchedIn10</title>', '<title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>');
+    html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>');
     html = html.replace('</head>', '<meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." /><link rel="canonical" href="https://launchedin10.co.uk/case-studies" /></head>');
 
     html = injectSchema(html, 'CollectionPage', {
@@ -823,7 +823,7 @@ async function generateSEOSalePage(distDir, shell) {
     console.log('🔨 [ELITE] Generating SEO Sale Page...');
 
     let html = shell;
-    html = html.replace('<title>LaunchedIn10</title>', '<title>Daily SEO Content Automation | Outrank Competitors Automatically</title>');
+    html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Daily SEO Content Automation | Outrank Competitors Automatically</title>');
     html = html.replace('</head>', '<meta name="description" content="Our autonomous SEO engine publishes authority-building posts every single day. Outrank competitors while you sleep." /><link rel="canonical" href="https://launchedin10.co.uk/seo-automation" /></head>');
 
     html = injectSchema(html, 'Service', {
@@ -1000,7 +1000,7 @@ async function generateTranslationSalePage(distDir, shell) {
     console.log('🔨 [ELITE] Generating Translation Sale Page...');
 
     let html = shell;
-    html = html.replace('<title>LaunchedIn10</title>', '<title>Expand to Europe: Website Translation & Localisation | LaunchedIn10</title>');
+    html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Expand to Europe: Website Translation & Localisation | LaunchedIn10</title>');
     html = html.replace('</head>', '<meta name="description" content="Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in. Live in under an hour." /><link rel="canonical" href="https://launchedin10.co.uk/website-translation" /></head>');
 
     html = injectSchema(html, 'Service', {
@@ -1264,7 +1264,7 @@ async function generateLegalPages(distDir, shell) {
 
     for (const page of pages) {
         let html = shell
-            .replace('<title>LaunchedIn10</title>', `<title>${page.title} | LaunchedIn10</title>`)
+            .replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', `<title>${page.title} | LaunchedIn10</title>`)
             .replace('</head>', `<meta name="robots" content="noindex, follow" /></head>`);
 
         const bodyHtml = `

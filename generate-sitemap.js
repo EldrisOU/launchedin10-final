@@ -44,7 +44,7 @@ async function generateSitemap() {
       const freq = legalPages.includes(page) ? 'monthly' : (page === '' ? 'daily' : 'weekly');
       xml += `
   <url>
-    <loc>${baseUrl}${page}</loc>
+    <loc>${baseUrl}${page === '' ? '/' : page + '/'}</loc>
     <lastmod>${buildDate}</lastmod>
     <changefreq>${freq}</changefreq>
     <priority>${page === '' ? '1.0' : '0.8'}</priority>
@@ -62,7 +62,7 @@ async function generateSitemap() {
 
       xml += `
   <url>
-    <loc>${baseUrl}/blog/${categorySlug}/${post.slug}</loc>
+    <loc>${baseUrl}/blog/${categorySlug}/${post.slug}/</loc>
     <lastmod>${new Date(post.updated_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -73,7 +73,7 @@ async function generateSitemap() {
     categorySlugs.forEach(catSlug => {
       xml += `
   <url>
-    <loc>${baseUrl}/blog/${catSlug}</loc>
+    <loc>${baseUrl}/blog/${catSlug}/</loc>
     <lastmod>${buildDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
