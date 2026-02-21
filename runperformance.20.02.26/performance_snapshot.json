@@ -1,0 +1,8096 @@
+{
+  "site": "launchedin10",
+  "siteUrl": "sc-domain:launchedin10.co.uk",
+  "liveSiteUrl": "https://launchedin10.co.uk/",
+  "gsc": {
+    "rows": [
+      {
+        "keys": [
+          "in 10",
+          "https://launchedin10.co.uk/",
+          "DESKTOP",
+          "gbr"
+        ],
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 80
+      },
+      {
+        "keys": [
+          "launched in",
+          "https://launchedin10.co.uk/",
+          "MOBILE",
+          "gbr"
+        ],
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 7
+      }
+    ],
+    "responseAggregationType": "byPage"
+  },
+  "ga4": {
+    "dimensionHeaders": [
+      {
+        "name": "pagePath"
+      },
+      {
+        "name": "country"
+      },
+      {
+        "name": "city"
+      },
+      {
+        "name": "hostname"
+      }
+    ],
+    "metricHeaders": [
+      {
+        "name": "activeUsers",
+        "type": "TYPE_INTEGER"
+      },
+      {
+        "name": "averageSessionDuration",
+        "type": "TYPE_SECONDS"
+      },
+      {
+        "name": "engagementRate",
+        "type": "TYPE_FLOAT"
+      }
+    ],
+    "rows": [
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "23"
+          },
+          {
+            "value": "380.28190642727276"
+          },
+          {
+            "value": "0.60909090909090913"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Santa Clara"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "12"
+          },
+          {
+            "value": "50.290363416666672"
+          },
+          {
+            "value": "0.33333333333333331"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "11"
+          },
+          {
+            "value": "268.731803125"
+          },
+          {
+            "value": "0.96875"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "9"
+          },
+          {
+            "value": "23.184069666666666"
+          },
+          {
+            "value": "0.22222222222222221"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "9"
+          },
+          {
+            "value": "57.778312555555544"
+          },
+          {
+            "value": "0.55555555555555558"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "9"
+          },
+          {
+            "value": "260.15138151515151"
+          },
+          {
+            "value": "0.75757575757575757"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Germany"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "6"
+          },
+          {
+            "value": "66.673393166666671"
+          },
+          {
+            "value": "0.33333333333333331"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "6"
+          },
+          {
+            "value": "31.625089666666668"
+          },
+          {
+            "value": "0.16666666666666666"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Poland"
+          },
+          {
+            "value": "Elblag"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "63.4291008"
+          },
+          {
+            "value": "0.6"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "49.5721542"
+          },
+          {
+            "value": "0.4"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "41.2373766"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "297.21392555555553"
+          },
+          {
+            "value": "0.88888888888888884"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "40.1064565"
+          },
+          {
+            "value": "0.875"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Lithuania"
+          },
+          {
+            "value": "Vilnius"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "100.583229"
+          },
+          {
+            "value": "0.75"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "268.80019283333331"
+          },
+          {
+            "value": "0.66666666666666663"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "23.2485176"
+          },
+          {
+            "value": "0.8"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "698.29985733333331"
+          },
+          {
+            "value": "0.83333333333333337"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "269.11335066666669"
+          },
+          {
+            "value": "0.83333333333333337"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Ireland"
+          },
+          {
+            "value": "Dublin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "1.8657413333333333"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Romania"
+          },
+          {
+            "value": "Floresti"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "70.020356333333339"
+          },
+          {
+            "value": "0.66666666666666663"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "89.858820666666659"
+          },
+          {
+            "value": "0.66666666666666663"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Boardman"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "7.8663096666666661"
+          },
+          {
+            "value": "0.33333333333333331"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Council Bluffs"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "3.3206100000000003"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Council Bluffs"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "1.6619380000000001"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Gunnison"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "37.784338333333331"
+          },
+          {
+            "value": "0.33333333333333331"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Santa Clara"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "62.188955333333332"
+          },
+          {
+            "value": "0.33333333333333331"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "Poland"
+          },
+          {
+            "value": "Elblag"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "54.351849666666673"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "66.734707333333333"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/automation-playbook-elite-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "381.94984316666665"
+          },
+          {
+            "value": "0.83333333333333337"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/building-strong-digital-presence-uk-business-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "151.262654"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-disruptor"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "122.727658125"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/translate-me"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "306.67614575"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "3"
+          },
+          {
+            "value": "113.403382"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "13.6297795"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "47.700412"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "France"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "50.600264"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Italy"
+          },
+          {
+            "value": "Milan"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "46.8806995"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Italy"
+          },
+          {
+            "value": "Milan"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "87.317466"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Netherlands"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "97.894444"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Poland"
+          },
+          {
+            "value": "Warsaw"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "96.3872675"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "52.656528666666667"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "905.0811721428571"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "37.970240583333336"
+          },
+          {
+            "value": "0.58333333333333337"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Aspen"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Boardman"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "5.63511"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Okemos"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "95.4661665"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Okemos"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "87.8903065"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Diego"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "1640.0197936"
+          },
+          {
+            "value": "0.6"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "63.2165265"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "Lithuania"
+          },
+          {
+            "value": "Vilnius"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "57.829529"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "Romania"
+          },
+          {
+            "value": "Floresti"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "57.5777585"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "81.639949"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Okemos"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "64.7086905"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation/automation-playbook-elite-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "41.197255"
+          },
+          {
+            "value": "0.75"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "89.69065466666666"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/building-strong-digital-presence-uk-business-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "9.152234"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/building-strong-digital-presence-uk-business-growth/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "5.198961"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "131.076800375"
+          },
+          {
+            "value": "0.625"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "14.324043000000001"
+          },
+          {
+            "value": "0.66666666666666663"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "12.967354"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/digital-marketing-tradespeople-electricians-plumbers-online/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "4.3993915"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/digital-marketing-tradespeople-electricians-plumbers-online/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "3.902726"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/professional-services-websites-consultants-agencies-clients-online/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "8.6447815"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-schools-uk-educational-institutions/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "719.3271155"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-schools-uk-educational-institutions/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "7.105316"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-tradespeople-trade-businesses-uk/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "11.72973"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/professional-services-websites-consultants-agencies-clients-online"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "69.339246"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/technical-seo-fundamentals-uk-business-owners/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "2.449097"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "18.1089045"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/<div class="
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "68.3878605"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "486.63930600000003"
+          },
+          {
+            "value": "0.8"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "57.78558725"
+          },
+          {
+            "value": "0.75"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "6.379101"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "13.8084"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "21.771955"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "8.64411"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/cookies"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "11.0610015"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/pricing/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "16.1287235"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "55.419085999999993"
+          },
+          {
+            "value": "0.6"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "2"
+          },
+          {
+            "value": "16.515953200000002"
+          },
+          {
+            "value": "0.6"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Australia"
+          },
+          {
+            "value": "Sydney"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.568016"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "877.0695275"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "Sylhet"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "408.43995633333333"
+          },
+          {
+            "value": "0.66666666666666663"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Brazil"
+          },
+          {
+            "value": "Rio de Janeiro"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "43.517815"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "France"
+          },
+          {
+            "value": "Montlucon"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "France"
+          },
+          {
+            "value": "Paris"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Germany"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "8.200132"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "India"
+          },
+          {
+            "value": "Bengaluru"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.991184"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Indonesia"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.987451"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Ireland"
+          },
+          {
+            "value": "Dublin"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Ireland"
+          },
+          {
+            "value": "Dublin"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Sweden"
+          },
+          {
+            "value": "Falkenberg"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "Sweden"
+          },
+          {
+            "value": "Hudiksvall"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Bath"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "52.205761"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "0219e789.launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "124.955178"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "61e4c844.launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "864.795719"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "6ee1e368.launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "103.005623"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "835c4ee7.launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "29.6881345"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "e9374c91.launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "496.389299"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-website.eldriseu.workers.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "15.620965"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "82.628501"
+          },
+          {
+            "value": "0.75"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": ""
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ashburn"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Aspen"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.003193"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1649.891882"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cape Coral"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.993049"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Council Bluffs"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "East Los Angeles"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.503837"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Flower Mound"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.292407"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Foxfield"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.757044"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Gunnison"
+          },
+          {
+            "value": "launchedin10-final.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.118887"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Gunnison"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.037121"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "9.886799"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "49.478694"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Okemos"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.97744"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Jose"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.959611"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Jose"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.410947"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.90842"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "Sylhet"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.205335"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "12.64052"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "774.2925785"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1635.565367"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "12.372799"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1605.274853"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "44.404283"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.255179"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "West Chicago"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "54.589579"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "Italy"
+          },
+          {
+            "value": "Milan"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "57.446802"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "52.595819"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Gunnison"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "86.082682"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Santa Clara"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "74.62953"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/automation/automation-playbook-elite-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.645293"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "118.213899"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.4997945"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/automation-playbook-elite-growth"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "15.352137"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/automation-playbook-elite-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "835c4ee7.launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "229.2167005"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/building-strong-digital-presence-uk-business-growth/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "255.497426"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/building-strong-digital-presence-uk-business-growth/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "19.122548"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "Sylhet"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "6.200421"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "854.543828"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "6743.7128343333325"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "6.700856"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.596399"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "13.098216"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "16.538943"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "41.806217"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/customer-retention-uk-small-businesses-keeping-customers"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "314.691664"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/education/websites-for-schools-uk-educational-institutions/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.967208"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-insights/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "729.058465"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1435.618447"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/digital-marketing-tradespeople-electricians-plumbers-online"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/digital-marketing-tradespeople-electricians-plumbers-online/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Los Angeles"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "20.95584"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/digital-marketing-tradespeople-electricians-plumbers-online/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.889123"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/professional-services-websites-consultants-agencies-clients-online/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.912443"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-schools-uk-educational-institutions"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "148.87947"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-schools-uk-educational-institutions"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "19.435567"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-schools-uk-educational-institutions/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.259763"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-tradespeople-trade-businesses-uk"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-tradespeople-trade-businesses-uk/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "61e4c844.launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "327.746087"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-tradespeople-trade-businesses-uk/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.788557"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/industry-spotlights/websites-for-tradespeople-trade-businesses-uk/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.827042"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "22.356234"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.371302"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/aws-database-migration-service-2026"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "66.752353"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/aws-database-migration-service-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.406341"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "18.676166"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.241522"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.988078"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "9.4817"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "21.436936"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/local-seo-uk-small-businesses-rank-area-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.43784"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/migration-database-8-steps-safe-data-transfer/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "11.86472"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/technical-seo-fundamentals-uk-business-owners/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.282145"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/technical-seo-fundamentals-uk-business-owners/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/web-page-seo-analysis-guide-2026-interactive/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.496322"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.294368"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "37.91694"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/service-business/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "8.980653"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/service-business/websites-for-service-businesses-uk-consultants-agencies/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "24.0875585"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/trades/websites-for-tradespeople-trade-businesses-uk/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.66094"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "6.21424475"
+          },
+          {
+            "value": "0.75"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "56.173212"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "18.431382"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ensley"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.000211"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.071769"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Los Angeles"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "21.34011"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "22.071171"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-design-avoid-diy-2026-guide"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "12.660302999999999"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ensley"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.442874"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.024231"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.461918"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.203985"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-web-designs-10-steps-cost-clarity/<div class="
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.673595"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-website-design-avoid-hidden-fees-2026"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "15.960819"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-website-design-avoid-hidden-fees-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "9.925259"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-website-design-avoid-hidden-fees-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Los Angeles"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.11192"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/bespoke-website-design-avoid-hidden-fees-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.926963"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/data-migration-9-essential-steps-site/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.776316"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Heysham"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "14.160762"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ensley"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "42.830728"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.930058"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Los Angeles"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "6.912753"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/ecommerce-websites-uk-online-retailers/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.030072"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/low-cost-web-design-affordable-site-updates/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "31.259228"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/low-cost-website-design-2026-guide/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.887581"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.715942"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.679986"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ensley"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "27.009003"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.39734"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/mobile-first-website-design-uk-businesses-2025/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "13.946491"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/seo-web-design-agency-2026-guide-picking/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Ensley"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/seo-web-design-agency-2026-guide-picking/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "19.60448"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/seo-web-design-agency-2026-guide-picking/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/seo-web-design-agency-2026-guide-picking/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.752137"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "24.239428"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "16.904895"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.279627"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.010515"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-design-cost-2026-breakdown-small/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.586691"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-design-prices-uk-2026-transparent/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.36769"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-design-prices-uk-2026-transparent/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "9.353745"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/web-page-maintenance-7-key-tasks-explained/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "14.438444"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/webflow-pricing-2026-uk-guide-small/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "20.632641"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-construction-cost-2026-uk-breakdown/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "25.506094"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-creation-cost-uk-pricing-guide-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "12.997975"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-cost-breakdown-uk-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "28.438434"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-cost-uk-2026-breakdown-no"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "25.439768"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-cost-uk-2026-breakdown-no/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "16.19276"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-cost-uk-2026-breakdown-no/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.4288"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-small-business-2026-cost-tips/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.728312"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-design-small-business-2026-cost-tips/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "15.420788"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-development-cost-uk-2026-guide-small/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "47.092525"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-development-cost-uk-2026-guide-small/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "San Antonio"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "49.133615"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-maintenance-includes-2026/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.06993"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/website-redesign-uk-step-by-step-guide/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.218895"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-site-maintenance-services-complete/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "8.4483684999999991"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-site-maintenance-services-complete/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "18.266347"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-web-design-agency-skip-template"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-web-design-agency-skip-template/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.269644"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-web-design-agency-skip-template/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Los Angeles"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.881116"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-web-design-agency-skip-template/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.325896"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-website-design-firm-2026-guide/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Austin"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "26.345027"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-website-design-firm-2026-guide/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "17.810872"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-website-design-firm-2026-guide/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Pittsburgh"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "2.67374"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/website-design/wordpress-website-maintenance-services-uk/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.500617"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/websites-for-schools-uk-educational-institutions"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "177.100682"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/websites-for-tradespeople-trade-businesses-uk"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/blog/websites-for-tradespeople-trade-businesses-uk"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.001457"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.502177"
+          },
+          {
+            "value": "0.5"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.550111"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.447121"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/case-studies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "29.998941"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/contact/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "87.048553"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/cookies"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "3.141887"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/cookies"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.257291"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/cookies/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.17633"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/cookies/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.823044"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/dashboard"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "57.114032"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/dashboard.html"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "11.917509"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/index.html"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "4.311277"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/portfolio/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "23.454706"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/privacy"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "342.445297"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/privacy"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.218187"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/privacy"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "8.205942"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/privacy/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10-app.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "40.287064"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/privacy/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "5.327906"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "25.169048"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "7.934903"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-automation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.863277"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-disruptor"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "Sylhet"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/seo-disruptor"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "51.42672266666667"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/services/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "localhost"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "15.308543"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/services/starter/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "11.887531"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/terms"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "33.6437885"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/terms"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "17.733452"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/terms"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.65583"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/terms/"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "1.929437"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/terms/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "40.811108"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/translate-me"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "Sylhet"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0.772068"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/translate-me"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Lancaster"
+          },
+          {
+            "value": "launchedin10website.pages.dev"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "810.68241733333332"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation"
+          },
+          {
+            "value": "Bangladesh"
+          },
+          {
+            "value": "(not set)"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation"
+          },
+          {
+            "value": "United Kingdom"
+          },
+          {
+            "value": "Manchester"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "0"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Cleveland"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "10.707549"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "Jersey City"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "11.656276"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "dimensionValues": [
+          {
+            "value": "/website-translation/"
+          },
+          {
+            "value": "United States"
+          },
+          {
+            "value": "New York"
+          },
+          {
+            "value": "launchedin10.co.uk"
+          }
+        ],
+        "metricValues": [
+          {
+            "value": "1"
+          },
+          {
+            "value": "8.563014"
+          },
+          {
+            "value": "1"
+          }
+        ]
+      }
+    ],
+    "rowCount": 294,
+    "metadata": {
+      "currencyCode": "GBP",
+      "timeZone": "Etc/GMT"
+    },
+    "kind": "analyticsData#runReport"
+  },
+  "technical_health": [
+    {
+      "path": "/",
+      "url": "https://launchedin10.co.uk/",
+      "lastmod": "UNKNOWN",
+      "status": "PASS",
+      "coverage": "Submitted and indexed",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog",
+      "url": "https://launchedin10.co.uk/blog",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "Discovered - currently not indexed",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/",
+      "url": "https://launchedin10.co.uk/blog/",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers",
+      "url": "https://launchedin10.co.uk/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers",
+      "lastmod": "2026-01-03",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/website-design/ecommerce-websites-uk-online-retailers/",
+      "url": "https://launchedin10.co.uk/blog/website-design/ecommerce-websites-uk-online-retailers/",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/",
+      "url": "https://launchedin10.co.uk/blog/business-growth/website-lead-generation-visitors-customers-uk-businesses/",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/",
+      "url": "https://launchedin10.co.uk/blog/seo-fundamentals/websites-for-service-businesses-uk-consultants-agencies/",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/case-studies",
+      "url": "https://launchedin10.co.uk/case-studies",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "Discovered - currently not indexed",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/seo-automation",
+      "url": "https://launchedin10.co.uk/seo-automation",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    },
+    {
+      "path": "/blog/automation-playbook-elite-growth",
+      "url": "https://launchedin10.co.uk/blog/automation-playbook-elite-growth",
+      "lastmod": "UNKNOWN",
+      "status": "NEUTRAL",
+      "coverage": "URL is unknown to Google",
+      "mobileUsability": "VERDICT_UNSPECIFIED"
+    }
+  ],
+  "sitemap_summary": {
+    "count": 52
+  },
+  "timestamp": "2026-02-06T21:00:54.363Z"
+}

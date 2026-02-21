@@ -1,0 +1,154 @@
+{
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-02-20",
+    "prior_audit": "2026-02-13",
+    "auditor": "Google PhD SEO Architect",
+    "protocol": "DeepRank v1.1 (PhD Deep Systems Edition)",
+    "gsc_data": {
+        "period": "90_days",
+        "total_queries": 4,
+        "total_impressions": 6,
+        "total_clicks": 0,
+        "delta_vs_prior": "+2 queries, +4 impressions (from 2 queries / 2 impressions)",
+        "queries": [
+            {
+                "query": "digital agency pricing models 2026 how much does web design cost",
+                "position": 10.67,
+                "impressions": 3,
+                "clicks": 0,
+                "url": "https://launchedin10.co.uk/blog/business-growth/business-web-design-pricing-transparent-cost/",
+                "note": "NEW — first long-tail match. Cluster content working."
+            },
+            {
+                "query": "web design costs 2026",
+                "position": 88,
+                "impressions": 1,
+                "clicks": 0,
+                "url": "https://launchedin10.co.uk/blog/business-growth/business-web-design-pricing-transparent-cost/",
+                "note": "NEW — deep position but validates thematic relevance."
+            },
+            {
+                "query": "launched in",
+                "position": 7.0,
+                "impressions": 1,
+                "clicks": 0,
+                "url": "https://launchedin10.co.uk/"
+            },
+            {
+                "query": "in 10",
+                "position": 80.0,
+                "impressions": 1,
+                "clicks": 0,
+                "url": "https://launchedin10.co.uk/"
+            }
+        ]
+    },
+    "ga4_summary": {
+        "total_traffic": 545,
+        "tier_a_human": 318,
+        "tier_c_bot": 0,
+        "bot_inflation_percentage": "41.65%",
+        "top_uk_sources": [
+            {
+                "city": "Lancaster",
+                "activeUsers": 24,
+                "engagement_rate": "61.5%",
+                "avg_session": "371s"
+            },
+            {
+                "city": "Manchester",
+                "activeUsers": 2,
+                "engagement_rate": "58.3%",
+                "avg_session": "38s"
+            }
+        ],
+        "bot_hotspots": [
+            {
+                "city": "Santa Clara",
+                "activeUsers": 12,
+                "engagement_rate": "33.3%",
+                "classification": "TIER_C_BOT"
+            },
+            {
+                "city": "Cleveland",
+                "activeUsers": 9,
+                "engagement_rate": "55.6%",
+                "classification": "TIER_B_GREY"
+            },
+            {
+                "city": "Council Bluffs",
+                "activeUsers": 3,
+                "engagement_rate": "0%",
+                "classification": "TIER_C_BOT"
+            },
+            {
+                "city": "Dublin (Ireland)",
+                "activeUsers": 6,
+                "engagement_rate": "0%",
+                "classification": "TIER_C_BOT"
+            }
+        ]
+    },
+    "sitemap_audit": {
+        "total_urls": 88,
+        "indexed": 1,
+        "unknown_to_google": 5,
+        "redirect_errors": 3,
+        "status": "CRITICAL — 1/88 indexed (1.1%)",
+        "redirect_errors_detail": [
+            {
+                "url": "/blog",
+                "lastmod": "2026-02-15",
+                "issue": "Redirect error — /blog redirects to /blog/ but sitemap lists /blog",
+                "severity": "HIGH"
+            },
+            {
+                "url": "/case-studies",
+                "lastmod": "2026-02-15",
+                "issue": "Redirect error — /case-studies redirects to /case-studies/",
+                "severity": "MEDIUM"
+            },
+            {
+                "url": "/website-translation",
+                "lastmod": "2026-02-15",
+                "issue": "Redirect error — /website-translation redirects",
+                "severity": "MEDIUM"
+            }
+        ]
+    },
+    "indexing_status": {
+        "homepage": "Submitted and indexed",
+        "blog_index": "Redirect error",
+        "content_pages": "URL is unknown to Google",
+        "root_cause": "Domain age (~7.5 weeks). Low crawl budget.",
+        "trajectory": "POSITIVE — 2 new content queries emerging vs. only brand queries before."
+    },
+    "orbit_3_flow_audit": {
+        "total_pending": 61,
+        "category_distribution": {
+            "Website Design": 23,
+            "Industry Spotlights": 12,
+            "Business Growth": 11,
+            "Seo Fundamentals (BUG)": 11,
+            "Regulatory Compliance": 4
+        },
+        "data_quality_issues": [
+            {
+                "issue": "Category casing: 'Seo Fundamentals' should be 'SEO Fundamentals'",
+                "severity": "MEDIUM",
+                "affected_rows": 11
+            }
+        ]
+    },
+    "technical_findings": {
+        "ssg_pipeline": "SOUND",
+        "organizational_schema": "PRESENT",
+        "redirect_chain_debt": "3 URLs in sitemap trigger redirect errors",
+        "cloudflare_subdomains": "Traffic hitting .pages.dev subdomains — potential duplicate content risk"
+    },
+    "zombie_pruning": {
+        "targets": [],
+        "note": "All content < 2 months old. 6-month grace period applies."
+    },
+    "kill_list": []
+}

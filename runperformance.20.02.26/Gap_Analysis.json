@@ -1,0 +1,38 @@
+{
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-02-20",
+    "technical_debt_gaps": [
+        {
+            "issue": "Sitemap Redirect Errors (3 URLs)",
+            "impact": "HIGH",
+            "description": "/blog, /case-studies, /website-translation listed in sitemap without trailing slashes but server redirects to trailing-slash variants. Wasting extremely limited crawl budget on 301 chains.",
+            "action": "Update generate-sitemap.js to emit trailing-slash URLs for all static pages that redirect."
+        },
+        {
+            "issue": "Indexing Gap — 1/88 URLs indexed (1.1%)",
+            "impact": "CRITICAL",
+            "description": "Only homepage is indexed after 7.5 weeks. However, 2 new content-based queries appeared this cycle, indicating topical crawling is beginning.",
+            "action": "Continue GSC URL submissions for priority content pages. Monitor for next audit cycle."
+        },
+        {
+            "issue": "Cloudflare .pages.dev Duplicate Content Risk",
+            "impact": "MEDIUM",
+            "description": "GA4 shows traffic to launchedin10website.pages.dev, launchedin10-final.pages.dev, and launchedin10-app.pages.dev. These subdomains may compete with the canonical domain.",
+            "action": "Add X-Robots-Tag: noindex header or meta noindex to all .pages.dev preview deployments via Cloudflare headers."
+        },
+        {
+            "issue": "orbit_3_flow Category Casing Bug",
+            "impact": "MEDIUM",
+            "description": "11 rows use 'Seo Fundamentals' instead of 'SEO Fundamentals'. Will cause duplicate category silos when processed.",
+            "action": "UPDATE orbit_3_flow SET category = 'SEO Fundamentals' WHERE category = 'Seo Fundamentals' AND website_url ILIKE '%launchedin10%'"
+        }
+    ],
+    "content_opportunities": [],
+    "content_pipeline_assessment": {
+        "existing_pipeline": 61,
+        "status": "SATURATED — 61 pending entries already cover all 5 category silos. No new content gaps to ingest this cycle.",
+        "recommendation": "Focus on processing existing pipeline rather than adding new gaps. Priority should be indexing acceleration and technical fixes."
+    },
+    "zombie_pruning_targets": [],
+    "note": "Zero zombie targets — all content < 2 months old. 6-month incubation grace period strictly enforced."
+}
