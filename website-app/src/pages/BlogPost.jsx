@@ -172,7 +172,7 @@ const BlogPost = () => {
             <div className="max-w-screen-xl mx-auto px-4 pt-48 pb-24">
                 {/* Semantic Breadcrumb Style Navigation */}
                 <div className="flex items-center gap-4 text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest mb-12">
-                    <Link to="/blog" className="hover:text-[var(--teal)] transition-colors inline-flex items-center gap-2">
+                    <Link to="/blog/" className="hover:text-[var(--teal)] transition-colors inline-flex items-center gap-2">
                         <ArrowLeft size={14} />
                         Intelligence Lab
                     </Link>

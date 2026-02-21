@@ -278,10 +278,10 @@ async function generateBlogIndex(postsByCategory, allPosts, distDir, shell) {
 
     let html = shell;
     html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Website Insights & Growth Guides | LaunchedIn10 Blog</title>');
-    html = html.replace('</head>', '<meta name="description" content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog" /></head>');
+    html = html.replace('</head>', '<meta name="description" content="Expert guides on website design, SEO fundamentals, and business growth for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog/" /></head>');
 
     html = injectSchema(html, 'CollectionPage', {
-        url: 'https://launchedin10.co.uk/blog',
+        url: 'https://launchedin10.co.uk/blog/',
         title: 'Website Insights & Growth Guides | LaunchedIn10 Blog',
         description: 'Expert guides on website design, SEO fundamentals, and business growth for UK SMEs.'
     });
@@ -479,17 +479,17 @@ async function generateHomepage(distDir, shell) {
     <!-- SEO: Static navigation for crawlers (hidden, off-screen) -->
     <nav id="seo-nav" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
         <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/blog/website-design">Website Design</a>
-        <a href="/blog/seo-fundamentals">SEO Fundamentals</a>
-        <a href="/blog/business-growth">Business Growth</a>
-        <a href="/blog/industry-spotlights">Industry Spotlights</a>
-        <a href="/case-studies">Case Studies</a>
-        <a href="/seo-automation">SEO Automation</a>
-        <a href="/website-translation">Website Translation</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/cookies" rel="nofollow">Cookie Policy</a>
+        <a href="/blog/">Blog</a>
+        <a href="/blog/website-design/">Website Design</a>
+        <a href="/blog/seo-fundamentals/">SEO Fundamentals</a>
+        <a href="/blog/business-growth/">Business Growth</a>
+        <a href="/blog/industry-spotlights/">Industry Spotlights</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/seo-automation/">SEO Automation</a>
+        <a href="/website-translation/">Website Translation</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
+        <a href="/cookies/" rel="nofollow">Cookie Policy</a>
     </nav>
     `;
 
@@ -511,10 +511,10 @@ async function generateCategoryPages(postsByCategory, distDir, shell) {
         let html = shell;
 
         html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', `<title>${silo.name} Insights | LaunchedIn10 Blog</title>`);
-        html = html.replace('</head>', `<meta name="description" content="Expert guides on ${silo.name} for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog/${silo.id}" /></head>`);
+        html = html.replace('</head>', `<meta name="description" content="Expert guides on ${silo.name} for UK SMEs." /><link rel="canonical" href="https://launchedin10.co.uk/blog/${silo.id}/" /></head>`);
 
         html = injectSchema(html, 'CollectionPage', {
-            url: `https://launchedin10.co.uk/blog/${silo.id}`,
+            url: `https://launchedin10.co.uk/blog/${silo.id}/`,
             title: `${silo.name} Insights | LaunchedIn10 Blog`,
             description: `Expert guides on ${silo.name} for UK SMEs.`
         });
@@ -525,7 +525,7 @@ async function generateCategoryPages(postsByCategory, distDir, shell) {
                 <section class="relative pt-48 pb-32 px-4 overflow-hidden bg-gradient-to-b from-[var(--bg-warm)] to-[var(--surface)]">
                     <div class="max-w-screen-lg mx-auto text-center relative z-10">
                         <div class="mb-6">
-                            <a href="/blog" class="inline-flex items-center gap-2 text-xs font-bold text-[var(--text-muted)] hover:text-[var(--teal)] transition-colors uppercase tracking-widest">
+                            <a href="/blog/" class="inline-flex items-center gap-2 text-xs font-bold text-[var(--text-muted)] hover:text-[var(--teal)] transition-colors uppercase tracking-widest">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                                 Back to Intelligence Lab
                             </a>
@@ -571,7 +571,7 @@ async function generateIndividualPosts(posts, distDir, shell) {
         html = html.replace('</head>', `<link rel="canonical" href="https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/" /></head>`);
 
         html = injectSchema(html, 'Article', {
-            url: `https://launchedin10.co.uk/blog/${catSlug}/${postSlug}`,
+            url: `https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/`,
             title: title,
             description: post.excerpt || 'Technical SEO and business growth insights.',
             datePublished: post.published_at || post.created_at,
@@ -592,7 +592,7 @@ async function generateIndividualPosts(posts, distDir, shell) {
             <div class="bg-[var(--bg-warm)] min-h-screen blog-post-context">
                 <div class="max-w-screen-2xl mx-auto px-4 pt-48 pb-24">
                     <div class="flex items-center gap-4 text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest mb-12">
-                        <a href="/blog" class="hover:text-[var(--teal)] transition-colors inline-flex items-center gap-2">
+                        <a href="/blog/" class="hover:text-[var(--teal)] transition-colors inline-flex items-center gap-2">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                             Intelligence Lab
                         </a>
@@ -769,10 +769,10 @@ async function generateCaseStudiesPage(distDir, shell) {
 
     let html = shell;
     html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies</title>');
-    html = html.replace('</head>', '<meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." /><link rel="canonical" href="https://launchedin10.co.uk/case-studies" /></head>');
+    html = html.replace('</head>', '<meta name="description" content="See real examples of high-performance websites built and launched in just 10 days. No templates. No delays. Just results." /><link rel="canonical" href="https://launchedin10.co.uk/case-studies/" /></head>');
 
     html = injectSchema(html, 'CollectionPage', {
-        url: 'https://launchedin10.co.uk/case-studies',
+        url: 'https://launchedin10.co.uk/case-studies/',
         title: 'Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies',
         description: 'See real examples of high-performance websites built and launched in just 10 days.'
     });
@@ -824,10 +824,10 @@ async function generateSEOSalePage(distDir, shell) {
 
     let html = shell;
     html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Daily SEO Content Automation | Outrank Competitors Automatically</title>');
-    html = html.replace('</head>', '<meta name="description" content="Our autonomous SEO engine publishes authority-building posts every single day. Outrank competitors while you sleep." /><link rel="canonical" href="https://launchedin10.co.uk/seo-automation" /></head>');
+    html = html.replace('</head>', '<meta name="description" content="Our autonomous SEO engine publishes authority-building posts every single day. Outrank competitors while you sleep." /><link rel="canonical" href="https://launchedin10.co.uk/seo-automation/" /></head>');
 
     html = injectSchema(html, 'Service', {
-        url: 'https://launchedin10.co.uk/seo-automation',
+        url: 'https://launchedin10.co.uk/seo-automation/',
         title: 'Daily SEO Content Automation',
         description: 'Our autonomous SEO engine publishes authority-building posts every single day.'
     });
@@ -1001,10 +1001,10 @@ async function generateTranslationSalePage(distDir, shell) {
 
     let html = shell;
     html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Expand to Europe: Website Translation & Localisation | LaunchedIn10</title>');
-    html = html.replace('</head>', '<meta name="description" content="Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in. Live in under an hour." /><link rel="canonical" href="https://launchedin10.co.uk/website-translation" /></head>');
+    html = html.replace('</head>', '<meta name="description" content="Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in. Live in under an hour." /><link rel="canonical" href="https://launchedin10.co.uk/website-translation/" /></head>');
 
     html = injectSchema(html, 'Service', {
-        url: 'https://launchedin10.co.uk/website-translation',
+        url: 'https://launchedin10.co.uk/website-translation/',
         title: 'Website Translation & Localisation',
         description: 'Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in.'
     });
