@@ -88,6 +88,7 @@ async function generateSitemap() {
 
   } catch (err) {
     console.error('❌ [ELITE] Sitemap generation failed:', err);
+    process.exit(1);  // FAIL BUILD — never deploy a sitemap with 0 posts
   }
 }
 
