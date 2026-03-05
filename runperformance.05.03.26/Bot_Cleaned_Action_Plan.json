@@ -1,0 +1,132 @@
+{
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-03-05",
+    "prior_audit": "2026-02-20",
+    "auditor": "Google PhD SEO Architect",
+    "protocol": "DeepRank v1.1 (PhD Deep Systems Edition)",
+    "user_context": "Sitemap only started indexing last week due to technical issues.",
+    "gsc_data": {
+        "period": "90_days",
+        "total_queries": 27,
+        "total_impressions": 61,
+        "total_clicks": 0,
+        "delta_vs_prior": "+23 queries (4→27), +55 impressions (6→61). 0 clicks unchanged.",
+        "keyword_clusters": [
+            {
+                "cluster": "construction websites",
+                "queries": 4,
+                "impressions": 15,
+                "best_position": 19.0,
+                "url": "https://launchedin10.co.uk/blog/industry-spotlights/why-website-design-for-construction",
+                "note": "Strongest UK keyword cluster. Mobile+Desktop presence."
+            },
+            {
+                "cluster": "managed dedicated hosting",
+                "queries": 8,
+                "impressions": 27,
+                "best_position": 4.0,
+                "url": "https://launchedin10.co.uk/blog/industry-spotlights/dedicated-server-managed-hosting-worth",
+                "note": "NEAR FEATURED SNIPPET — Position 4.0 on US Desktop. Highest impression cluster."
+            },
+            {
+                "cluster": "web design pricing",
+                "queries": 4,
+                "impressions": 6,
+                "best_position": 10.7,
+                "url": "https://launchedin10.co.uk/blog/business-growth/business-web-design-pricing-transparent-cost/",
+                "note": "Commercial intent keyword. Page-1 proximity."
+            },
+            {
+                "cluster": "brand queries",
+                "queries": 2,
+                "impressions": 3,
+                "best_position": 7.0,
+                "url": "https://launchedin10.co.uk/",
+                "note": "Navigational. Expected."
+            }
+        ]
+    },
+    "ga4_summary": {
+        "total_traffic": 604,
+        "tier_a_human": 183,
+        "tier_a_percentage": "30.3%",
+        "tier_b_grey": 280,
+        "tier_b_percentage": "46.4%",
+        "tier_c_bot": 141,
+        "tier_c_percentage": "23.3%",
+        "bot_inflation_percentage": "69.7%",
+        "top_uk_pages": [
+            { "path": "/", "users": 49 },
+            { "path": "/blog", "users": 15 },
+            { "path": "/blog/", "users": 13 },
+            { "path": "/blog/business-growth/customer-retention-uk-small-businesses-keeping-customers", "users": 7 },
+            { "path": "/blog/website-design/ecommerce-websites-uk-online-retailers/", "users": 6 },
+            { "path": "/website-translation", "users": 6 }
+        ],
+        "bot_hotspots": [
+            { "source": "*.pages.dev hostnames", "users": 79, "classification": "TIER_C_BOT" },
+            { "source": "Santa Clara, CA", "users": 16, "classification": "TIER_C_BOT" },
+            { "source": "localhost", "users": 14, "classification": "TIER_C_BOT" },
+            { "source": "Council Bluffs, IA", "users": 7, "classification": "TIER_C_BOT" },
+            { "source": "Jersey City, NJ", "users": 38, "classification": "TIER_B_GREY" },
+            { "source": "Pittsburgh, PA", "users": 23, "classification": "TIER_B_GREY" }
+        ]
+    },
+    "sitemap_audit": {
+        "total_urls": 83,
+        "indexed": 2,
+        "indexed_percentage": "2.4%",
+        "unknown_to_google": 5,
+        "redirect_errors": 2,
+        "delta_vs_prior": "URLs: 88→83 (-5). Indexed: 1→2 (+1). Redirect errors: 3→2 (-1, /blog now indexed).",
+        "persistent_redirect_errors": [
+            {
+                "url": "/case-studies",
+                "coverage": "Redirect error",
+                "lastmod": "2026-02-26",
+                "severity": "HIGH",
+                "prior_status": "Also flagged in Feb 20 audit — UNRESOLVED"
+            },
+            {
+                "url": "/website-translation",
+                "coverage": "Redirect error",
+                "lastmod": "2026-02-26",
+                "severity": "HIGH",
+                "prior_status": "Also flagged in Feb 20 audit — UNRESOLVED"
+            }
+        ]
+    },
+    "action_plan": {
+        "P1_critical": {
+            "title": "Resolve Persistent Redirect Errors",
+            "urls": ["/case-studies", "/website-translation"],
+            "action": "Verify generate-sitemap.js trailing-slash fix was deployed. Verify live sitemap.xml. Check for server-side redirect chains.",
+            "priority": "CRITICAL — wasting limited crawl budget on 33-day-old domain"
+        },
+        "P2_high": {
+            "title": ".pages.dev Duplicate Content Re-verification",
+            "action": "Verify X-Robots-Tag: noindex is actually being served on *.pages.dev preview deployments. 79 GA4 users still hitting these hostnames.",
+            "priority": "HIGH"
+        },
+        "P3_medium": {
+            "title": "Stale lastmod Dates",
+            "action": "4 blog posts have lastmod dates of 2026-01-01/01-03, predating site go-live. Review generate-sitemap.js date logic.",
+            "priority": "MEDIUM"
+        },
+        "P4_monitor": {
+            "title": "Content Pipeline — No Ingestion Required",
+            "status": "SATURATED — 61 pending entries. Focus on indexing acceleration.",
+            "priority": "MONITOR"
+        },
+        "P5_monitor": {
+            "title": "Zero Clicks — Expected for Domain Age",
+            "status": "Escalate to Position 1 Recovery Protocol if zero clicks persist past Day 60 with >10 indexed pages.",
+            "priority": "MONITOR"
+        }
+    },
+    "incubation_grace_period": "ALL 83 URLs are < 6 months old. Zero zombie pruning targets. Strict temporal grace enforced.",
+    "kill_list": [],
+    "zombie_pruning_targets": [],
+    "content_opportunities": [],
+    "note": "Sitemap technical issues confirmed by user. Indexing velocity positive (2→27 GSC queries in 13 days). Focus on technical fixes, not content expansion."
+}

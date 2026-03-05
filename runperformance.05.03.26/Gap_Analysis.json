@@ -1,0 +1,68 @@
+{
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-03-05",
+    "technical_debt_gaps": [
+        {
+            "issue": "Persistent Redirect Errors (2 URLs) — Carry-over from Feb 20",
+            "impact": "CRITICAL",
+            "description": "/case-studies and /website-translation still showing 'Redirect error' in GSC URL Inspection despite being flagged in Feb 20 audit. Either the generate-sitemap.js trailing-slash fix was never deployed, or there are server-side redirect issues.",
+            "action": "1) Check live sitemap.xml for correct trailing-slash URLs. 2) curl-test /case-studies/ and /website-translation/ for 200 OK. 3) If fix exists but wasn't deployed, trigger build+deploy.",
+            "carry_over": true
+        },
+        {
+            "issue": "Indexing Gap — 2/83 URLs indexed (2.4%)",
+            "impact": "HIGH",
+            "description": "Only homepage and /blog/ are indexed after 33 days. However, user confirms sitemap only started indexing last week due to technical issues, and GSC shows explosive query growth (2→27). Trajectory is POSITIVE.",
+            "action": "Continue monitoring. Re-submit sitemap if not already done post-fix. No premature interventions.",
+            "carry_over": false
+        },
+        {
+            "issue": ".pages.dev Traffic Persists (79 GA4 users)",
+            "impact": "MEDIUM",
+            "description": "Despite _headers noindex commit (639edc2 on Feb 20), 79 users still appear on *.pages.dev hostnames in GA4. May indicate headers not being served correctly.",
+            "action": "Verify X-Robots-Tag: noindex header on launchedin10website.pages.dev, launchedin10-final.pages.dev, launchedin10-app.pages.dev.",
+            "carry_over": true
+        },
+        {
+            "issue": "Stale lastmod Dates (4 blog posts pre-date go-live)",
+            "impact": "LOW",
+            "description": "4 blog posts in sitemap have lastmod of 2026-01-01 or 2026-01-03, but site went live Feb 1. May reduce crawl priority signals.",
+            "action": "Audit generate-sitemap.js date generation logic. Ensure dates reflect actual publish/update timestamps from Supabase.",
+            "carry_over": false
+        }
+    ],
+    "content_opportunities": [],
+    "content_pipeline_assessment": {
+        "existing_pipeline": 61,
+        "status": "SATURATED — 61 pending entries across 5 category silos (Website Design, Business Growth, SEO Fundamentals, Industry Spotlights, Industry Insights). No new content gaps to ingest.",
+        "recommendation": "Focus on indexing acceleration. Content factory is ahead of Google's crawl capacity for this domain age."
+    },
+    "keyword_trajectory": {
+        "emerging_clusters": [
+            {
+                "cluster": "managed dedicated hosting",
+                "queries": 8,
+                "impressions": 27,
+                "best_position": 4.0,
+                "assessment": "Near-Featured-Snippet. Strongest signal. Organic ranking without any backlinks."
+            },
+            {
+                "cluster": "construction websites 2026",
+                "queries": 4,
+                "impressions": 15,
+                "best_position": 19.0,
+                "assessment": "Industry spotlight content resonating. Page-2 UK positions."
+            },
+            {
+                "cluster": "web design pricing/costs",
+                "queries": 4,
+                "impressions": 6,
+                "best_position": 10.7,
+                "assessment": "Commercial intent. Bottom of page 1 on long-tail variant."
+            }
+        ],
+        "trajectory_assessment": "EXPLOSIVE GROWTH — Queries 2→4→27 across 3 audit cycles. Validates topical authority strategy."
+    },
+    "zombie_pruning_targets": [],
+    "note": "Zero zombie targets. All content < 2 months old. 6-month incubation grace period strictly enforced. Next audit should check if indexed pages > 10 — if not, escalate to Position 1 Recovery Protocol."
+}
