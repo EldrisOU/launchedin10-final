@@ -145,14 +145,14 @@ const BlogPost = () => {
             <Helmet>
                 <title>{post.post_title} | LaunchedIn10 Intelligence</title>
                 <meta name="description" content={post.excerpt || post.yoast_description} />
-                <link rel="canonical" href={`https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}`} />
+                <link rel="canonical" href={`https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}/`} />
 
                 {/* OG Tags */}
                 <meta property="og:title" content={post.post_title} />
                 <meta property="og:description" content={post.excerpt || post.yoast_description} />
                 <meta property="og:image" content={post.featured_image_url} />
                 <meta property="og:type" content="article" />
-                <meta property="og:url" content={`https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}`} />
+                <meta property="og:url" content={`https://launchedin10.co.uk/blog/${post.primary_category?.toLowerCase().replace(/ /g, '-') || 'strategy'}/${post.slug}/`} />
 
             </Helmet>
 

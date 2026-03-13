@@ -137,7 +137,7 @@ const BlogIndex = () => {
             <Helmet>
                 <title>{category ? `${activeSilos[0]?.name} Insights` : 'Website Insights & Growth Guides'} | LaunchedIn10 Blog</title>
                 <meta name="description" content={category ? `Expert guides on ${activeSilos[0]?.name} for UK SMEs.` : "Expert guides on website design, SEO fundamentals, and business growth for UK SMEs."} />
-                <link rel="canonical" href={category ? `https://launchedin10.co.uk/blog/${category}` : "https://launchedin10.co.uk/blog"} />
+                <link rel="canonical" href={category ? `https://launchedin10.co.uk/blog/${category}/` : "https://launchedin10.co.uk/blog/"} />
             </Helmet>
 
             {/* HERO SECTION */}

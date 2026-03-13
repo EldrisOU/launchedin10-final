@@ -1,0 +1,35 @@
+# LaunchedIn10
+
+> High-performance web design delivered in 10 days. Elite, revenue-generating digital assets for ambitious UK businesses.
+
+## About
+
+LaunchedIn10 is a UK-based web design and development agency specialising in bespoke, high-performance websites delivered in 10 working days. We build custom digital assets — not templates — designed to generate revenue and dominate search rankings.
+
+## Core Services
+
+- **Bespoke Web Design**: Custom-designed websites built from scratch, no templates, no page builders
+- **10-Day Delivery**: Full website design, development, and deployment in 10 working days
+- **SEO-First Architecture**: Every site built with technical SEO baked into the foundation
+- **Website Translation**: Multi-language website localisation for UK businesses expanding internationally
+- **SEO Automation**: Automated SEO monitoring and optimisation for ongoing organic growth
+
+## Key Pages
+
+- Homepage: https://launchedin10.co.uk/
+- Blog (Intelligence Lab): https://launchedin10.co.uk/blog/
+- Case Studies: https://launchedin10.co.uk/case-studies/
+- SEO Automation: https://launchedin10.co.uk/seo-automation/
+- Website Translation: https://launchedin10.co.uk/website-translation/
+
+## Blog Categories
+
+- Website Design: https://launchedin10.co.uk/blog/website-design/
+- Business Growth: https://launchedin10.co.uk/blog/business-growth/
+- SEO Fundamentals: https://launchedin10.co.uk/blog/seo-fundamentals/
+- Industry Spotlights: https://launchedin10.co.uk/blog/industry-spotlights/
+
+## Contact
+
+- Website: https://launchedin10.co.uk
+- Location: United Kingdom
