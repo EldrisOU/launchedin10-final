@@ -436,11 +436,11 @@ const TranslationSalePage = () => {
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
-                        <a href="/blog/business-growth" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                        <a href="/blog/business-growth/" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Business Growth</h3>
                             <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Scaling strategies and digital presence insights for UK businesses.</p>
                         </a>
-                        <a href="/seo-automation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                        <a href="/seo-automation/" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>SEO Disruptor</h3>
                             <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Automate content production and outrank competitors.</p>
                         </a>

@@ -743,15 +743,15 @@ const CaseStudiesPage = () => {
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                        <a href="/blog/website-design" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                        <a href="/blog/website-design/" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Website Design</h3>
                             <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Guides on building high-performance websites that convert.</p>
                         </a>
-                        <a href="/seo-automation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                        <a href="/seo-automation/" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>SEO Disruptor</h3>
                             <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Automate content production and outrank competitors.</p>
                         </a>
-                        <a href="/website-translation" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
+                        <a href="/website-translation/" style={{ background: 'white', padding: '2rem', borderRadius: '1.5rem', textDecoration: 'none', border: '1px solid rgba(26,43,74,0.1)', transition: 'all 0.3s ease' }}>
                             <h3 style={{ color: 'var(--navy, #1a2b4a)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>EU Translation</h3>
                             <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>Expand across Europe with fully localised websites.</p>
                         </a>

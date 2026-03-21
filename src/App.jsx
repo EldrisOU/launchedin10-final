@@ -44,7 +44,7 @@ function App() {
             <Route path="/terms" element={<TermsOfService />} />
 
             {/* SEO REDIRECTS - Handle legacy flat structures */}
-            <Route path="/blog/:slug" element={<Navigate to="/blog" replace />} />
+            <Route path="/blog/:slug" element={<Navigate to="/blog/" replace />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

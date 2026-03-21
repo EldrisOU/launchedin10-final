@@ -163,7 +163,7 @@ const BlogIndex = () => {
                             className="mb-6"
                         >
                             <Link
-                                to="/blog"
+                                to="/blog/"
                                 className="inline-flex items-center gap-2 text-xs font-bold text-[var(--text-muted)] hover:text-[var(--teal)] transition-colors uppercase tracking-widest"
                             >
                                 <ArrowLeft size={14} />
@@ -312,7 +312,7 @@ const BlogIndex = () => {
                                                 className="post-card group flex flex-col bg-[var(--bg-warm)] rounded-2xl border border-[var(--border-subtle)] overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-500"
                                             >
                                                 <Link
-                                                    to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}`}
+                                                    to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}/`}
                                                     className="block aspect-[16/10] overflow-hidden bg-[var(--navy)]"
                                                 >
                                                     <img
@@ -333,7 +333,7 @@ const BlogIndex = () => {
                                                     </div>
 
                                                     <h4 className="text-lg font-bold text-[var(--navy)] mb-3 leading-snug group-hover:text-[var(--teal)] transition-colors">
-                                                        <Link to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}`}>
+                                                        <Link to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}/`}>
                                                             {post.post_title}
                                                         </Link>
                                                     </h4>
@@ -348,7 +348,7 @@ const BlogIndex = () => {
                                                             {post.read_time || 5} Min Read
                                                         </div>
                                                         <Link
-                                                            to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}`}
+                                                            to={`/blog/${post.primary_category.toLowerCase().replace(/ /g, '-')}/${post.slug}/`}
                                                             className="text-[var(--navy)] hover:text-[var(--teal)] transition-colors"
                                                         >
                                                             Full Guide

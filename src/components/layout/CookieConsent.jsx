@@ -55,7 +55,7 @@ const CookieConsent = () => {
 
                         <p className="text-sm text-text-muted mb-6 leading-relaxed">
                             We use essential cookies to make our site work and analytics to improve your experience.
-                            Read our <Link to="/cookies" className="text-accent hover:underline font-medium">Cookie Policy</Link> for details.
+                            Read our <Link to="/cookies/" className="text-accent hover:underline font-medium">Cookie Policy</Link> for details.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-3">

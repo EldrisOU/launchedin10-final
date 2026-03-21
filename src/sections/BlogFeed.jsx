@@ -43,7 +43,7 @@ const BlogFeed = () => {
                             How we disrupt industries in 10 days. Deep dives into automation, conversion strategy, and high-performance design.
                         </p>
                     </div>
-                    <Link to="/blog" className="group flex items-center gap-2 font-bold text-primary uppercase tracking-widest text-sm border-b-2 border-accent pb-2 hover:text-accent transition-all">
+                    <Link to="/blog/" className="group flex items-center gap-2 font-bold text-primary uppercase tracking-widest text-sm border-b-2 border-accent pb-2 hover:text-accent transition-all">
                         View The Lab <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
@@ -51,7 +51,7 @@ const BlogFeed = () => {
                 <div className="grid md:grid-cols-3 gap-8">
                     {posts.map((post) => {
                         const category = (post.primary_category || 'general').toLowerCase().replace(/\s+/g, '-');
-                        const postLink = `/blog/${category}/${post.slug}`;
+                        const postLink = `/blog/${category}/${post.slug}/`;
 
                         return (
                             <motion.article
