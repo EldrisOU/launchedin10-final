@@ -17,7 +17,7 @@ const Navbar = () => {
     const location = useLocation();
     const navLinks = [
         { name: 'Home', href: '/' },
-        { name: 'Case Studies', href: '/case-studies' },
+        { name: 'Case Studies', href: '/case-studies/' },
         { name: 'Process', href: '/#process' },
         { name: 'SEO Disruptor', href: '/seo-automation' },
         { name: 'Translate Me', href: '/website-translation' },
