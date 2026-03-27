@@ -1,0 +1,116 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-03-27",
+    "run_number": 6,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-03-21",
+    "bot_inflation_pct": 31.9,
+    "tier_a_sessions": 142,
+    "honest_assessment": "LaunchedIn10 is a pre-authority site with 108 published posts and growing impressions but zero organic clicks and zero AI citations. The single biggest blocker is structural: all JSON-LD schema is client-side only (React Helmet) and invisible to AI crawlers. Bing has zero content indexed, blocking ChatGPT/Copilot citation potential entirely. Fix the SSR schema injection and Bing submission, then wait for the content library to age and index. More content is not the answer right now — structural fixes and patience are."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-001",
+      "priority": "P1",
+      "status": "open",
+      "description": "Inject JSON-LD schema into the static index.html <head> instead of relying on React Helmet. render_compare confirms ssrHasJsonLd=false — Googlebot's initial HTML fetch sees zero structured data. While Google's JS renderer catches some of it (FAQ rich results detected on homepage), AI crawlers like GPTBot, ClaudeBot, and PerplexityBot do NOT execute JavaScript. This means LI10's Organization, WebSite, Service, and FAQPage schema are invisible to every AI answer engine. Moving the core @graph schema block into index.html makes it visible to all crawlers on first fetch.",
+      "prompt": "Read the current index.html at EldrisOU/launchedin10-final. Add a <script type='application/ld+json'> block in the <head> containing the @graph schema currently in Home.jsx (Organization, WebSite, Service, FAQPage). Keep the React Helmet version as well for SPA navigation, but the static version in index.html ensures SSR visibility. Verify by running render_compare on the live site after deployment — ssrHasJsonLd should be true.",
+      "created_date": "2026-03-27",
+      "verification": "Run render_compare on https://launchedin10.co.uk/ — ssrHasJsonLd should change from false to true.",
+      "codebase_path": "index.html",
+      "estimated_impact": "Makes structured data visible to all AI crawlers and Googlebot's initial fetch. Prerequisite for AI citation eligibility."
+    },
+    {
+      "id": "ACT-LI10-002",
+      "priority": "P1",
+      "status": "open",
+      "description": "Submit all LI10 sitemap URLs to Bing Webmaster Tools. Bing has only discovered the homepage (today, size=0) and has zero knowledge of any other page on the site. This means LaunchedIn10 does not exist in the Bing index, which feeds ChatGPT and Microsoft Copilot. Until Bing crawls and indexes these pages, LI10 has zero chance of being cited by ChatGPT or Copilot — the two largest AI answer engines by volume.",
+      "prompt": "Submit the LI10 sitemap to Bing WMT using the tested API command: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/\",\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/case-studies/\"]}'. Then submit the full sitemap URL via Bing WMT dashboard or API. Verify with GetUrlInfo after 48 hours — DocumentSize should be >0.",
+      "created_date": "2026-03-27",
+      "verification": "Run Bing GetUrlInfo on homepage and /blog/ after 48 hours. DocumentSize should be >0 and LastCrawledDate should be recent.",
+      "estimated_impact": "Opens LI10 to ChatGPT and Copilot citation pool. Currently at zero Bing presence."
+    },
+    {
+      "id": "ACT-LI10-003",
+      "priority": "P1",
+      "status": "open",
+      "description": "Fix /website-translation/ not being indexed by Google. GSC URL Inspection reports 'Discovered - currently not indexed' — Google knows the URL exists but has chosen not to index it. This is a commercial service page that generates zero organic visibility. The page may lack sufficient unique content or internal linking to trigger indexation. Request indexing via GSC URL Inspection API, add more internal links pointing to this page from blog posts, and verify the page has sufficient unique content (not thin).",
+      "prompt": "Request indexing for https://launchedin10.co.uk/website-translation/ via GSC URL Inspection. Check the page content — if it's thin (<500 words), flag for content expansion. Search the codebase for internal links to /website-translation/ and count them. If fewer than 3 blog posts link to it, identify 3 relevant posts and add contextual links. Verify via gsc_inspect_url after 48-72 hours.",
+      "created_date": "2026-03-27",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/website-translation/ — status should change from 'Discovered - currently not indexed' to 'Submitted and indexed' within 1-2 weeks.",
+      "codebase_path": "src/pages/TranslationSalePage.jsx",
+      "estimated_impact": "Unlocks a commercial service page for organic visibility."
+    },
+    {
+      "id": "ACT-LI10-004",
+      "priority": "P2",
+      "status": "open",
+      "description": "Fix duplicate FAQPage schema error on /case-studies/. GSC Rich Results Test reports 'Duplicate field FAQPage' ERROR on this page. This means the case studies page is injecting FAQPage schema twice — likely from both the page component and a shared FAQ component. The duplicate suppresses FAQ rich results, which are valuable for SERP real estate. Identify which two components inject FAQ schema and remove the duplicate.",
+      "prompt": "Read CaseStudiesPage.jsx from EldrisOU/launchedin10-final. Search for all FAQPage schema injections (JSON-LD with @type FAQPage). The page likely has two: one from the page component itself and one from a shared FAQ section. Remove the duplicate, keeping only the primary one. Verify by running rich_results_test on https://launchedin10.co.uk/case-studies/ after deployment.",
+      "created_date": "2026-03-27",
+      "verification": "Run gsc_inspect_url on /case-studies/ — rich results should show FAQ without 'Duplicate field' error.",
+      "codebase_path": "src/pages/CaseStudiesPage.jsx"
+    },
+    {
+      "id": "ACT-LI10-005",
+      "priority": "P2",
+      "status": "open",
+      "description": "Add Article JSON-LD schema to BlogPost.jsx. All 108 blog posts currently have zero Article structured data — no datePublished, no dateModified, no author, no headline in schema. This prevents Google from showing article rich results and makes it impossible for AI systems to extract publication metadata. Article schema should be generated dynamically from the Supabase post data (published_at, updated_at, post_title, author_name).",
+      "prompt": "Edit BlogPost.jsx in EldrisOU/launchedin10-final. Add a Helmet script block injecting Article JSON-LD using the post data: @type Article, headline from post_title, datePublished from published_at, dateModified from updated_at or published_at, author as Organization (LaunchedIn10), publisher as Organization with logo. Use @graph structure wrapping Article + BreadcrumbList. Include the post's featured image as the image property. Test with rich_results_test on a live blog post after deployment.",
+      "created_date": "2026-03-27",
+      "verification": "Run rich_results_test on any blog post URL — should detect Article schema with valid dates.",
+      "codebase_path": "src/pages/BlogPost.jsx",
+      "estimated_impact": "Enables article rich results across 108 blog posts and provides AI systems with publication metadata."
+    },
+    {
+      "id": "ACT-LI10-006",
+      "priority": "P2",
+      "status": "open",
+      "description": "Configure GA4 conversion events for LaunchedIn10. GA4 currently reports 0 conversions across all pages because no conversion events are set up. Without conversion tracking, CRO analysis is impossible and the business cannot measure ROI from organic/AI traffic. At minimum, configure: contact form submission, CTA button clicks (pricing section 'Get Started' buttons), and /case-studies/ page views as a micro-conversion.",
+      "prompt": "Add GA4 event tracking to the LaunchedIn10 codebase. In the Contact.jsx component, fire a gtag event on form submission: gtag('event', 'generate_lead', {event_category: 'contact_form'}). In the Pricing.jsx component, fire gtag('event', 'begin_checkout', {event_category: 'pricing_cta'}) on CTA button clicks. Then mark both as conversion events in GA4 Admin > Events > Mark as conversion. Verify events appear in GA4 Realtime report after deployment.",
+      "created_date": "2026-03-27",
+      "verification": "Check GA4 Admin > Events — generate_lead and begin_checkout should appear. Test by submitting the form and clicking a CTA."
+    },
+    {
+      "id": "ACT-LI10-007",
+      "priority": "P3",
+      "status": "open",
+      "description": "Deploy an IndexNow key file for launchedin10.co.uk to enable Bing crawl acceleration. Currently no IndexNow key is deployed (CONTEXT.md confirms 'NOT DEPLOYED'). Without this, IndexNow pings for new/updated content will fail with HTTP 422. The key file must be placed at /public/{key}.txt in the repo and deployed via Cloudflare Pages. Once live, the automated n8n publishing flow can ping IndexNow after each new post.",
+      "prompt": "Generate an IndexNow key (use 'launchedin10-indexnow-2026' as the key string). Create the file public/launchedin10-indexnow-2026.txt containing just the key string. After deployment, verify with curl https://launchedin10.co.uk/launchedin10-indexnow-2026.txt — should return 200 with the key. Then update CONTEXT.md in the runperformance skill to reflect the new key.",
+      "created_date": "2026-03-27",
+      "verification": "curl https://launchedin10.co.uk/launchedin10-indexnow-2026.txt returns 200 with key content.",
+      "codebase_path": "public/launchedin10-indexnow-2026.txt"
+    },
+    {
+      "id": "ACT-LI10-008",
+      "priority": "P3",
+      "status": "open",
+      "description": "Update robots.txt with explicit AI crawler Allow rules. The current robots.txt is minimal (Allow: / with sitemap reference). While Allow: / technically permits all crawlers, explicitly naming AI user-agents (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, ChatGPT-User, Google-Extended) with Allow rules signals positive intent and prevents accidental blocking if more restrictive rules are added later. This is a defensive best practice, not a fix for an active problem.",
+      "prompt": "Edit public/robots.txt in EldrisOU/launchedin10-final. Add explicit Allow rules for AI crawlers: User-agent: GPTBot / Allow: / , User-agent: ClaudeBot / Allow: / , User-agent: PerplexityBot / Allow: / , User-agent: OAI-SearchBot / Allow: / , User-agent: ChatGPT-User / Allow: / , User-agent: Google-Extended / Allow: / . Keep the existing User-agent: * / Allow: / and Sitemap line. Verify after deployment by fetching /robots.txt.",
+      "created_date": "2026-03-27",
+      "verification": "curl https://launchedin10.co.uk/robots.txt should show explicit AI crawler Allow rules.",
+      "codebase_path": "public/robots.txt"
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-PREV-001",
+      "description": "Trailing-slash inconsistencies causing GSC redirect errors — fixed 21.03.26 via systematic trailing-slash normalisation across all internal links and canonical tags.",
+      "status": "completed",
+      "completed_date": "2026-03-21"
+    },
+    {
+      "id": "ACT-LI10-PREV-002",
+      "description": "Legacy sitemap for redirect-fix URLs — sitemap-redirectfix.xml created and submitted 21.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-21"
+    },
+    {
+      "id": "ACT-LI10-PREV-003",
+      "description": "llms.txt deployment — created and deployed 13.03.26. Live and valid.",
+      "status": "completed",
+      "completed_date": "2026-03-13"
+    }
+  ]
+}
