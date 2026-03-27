@@ -1,0 +1,179 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-03-27",
+  "protocol": "DeepRank v3.0",
+  "gsc_summary": {
+    "total_impressions_sampled": 86,
+    "total_clicks": 0,
+    "unique_queries": 30,
+    "best_position_query": "is managed dedicated server worth it",
+    "best_position": 4,
+    "property_format": "sc-domain:launchedin10.co.uk"
+  },
+  "ga4_summary": {
+    "property_id": "properties/517814343",
+    "total_sessions_90d": 908,
+    "on_domain_sessions": 774,
+    "off_domain_sessions": 134,
+    "tier_a_human": 142,
+    "tier_b_grey": 139,
+    "tier_c_bot": 151,
+    "bot_inflation_pct": 31.9,
+    "ai_referrals": {
+      "chatgpt": 0,
+      "perplexity": 0,
+      "claude": 0,
+      "copilot": 0,
+      "gemini": 0,
+      "total": 0
+    },
+    "organic_sessions": 53,
+    "direct_sessions": 296,
+    "cpc_sessions": 6,
+    "social_sessions": 3
+  },
+  "bing_status": {
+    "homepage_discovered": "2026-03-27",
+    "homepage_crawled": "2026-03-27",
+    "homepage_size": 0,
+    "other_pages_discovered": 0,
+    "note": "Homepage discovered today but size=0 (not fully crawled). All other pages undiscovered by Bing."
+  },
+  "sitemap_health": {
+    "sitemap_url_count": 117,
+    "legacy_redirect_count": 16,
+    "submitted_date": "2026-03-21",
+    "gsc_indexed_field": 0,
+    "note": "GSC API reports indexed=0 but individual URL inspections confirm core pages ARE indexed."
+  },
+  "technical_issues": [
+    {
+      "severity": "P1",
+      "issue": "SSR has no JSON-LD — all schema client-side only",
+      "evidence": "render_compare: ssrHasJsonLd=false",
+      "affected": "All pages"
+    },
+    {
+      "severity": "P1",
+      "issue": "/website-translation/ not indexed",
+      "evidence": "GSC inspection: Discovered - currently not indexed",
+      "affected": "/website-translation/"
+    },
+    {
+      "severity": "P1",
+      "issue": "Zero Bing presence — blocks ChatGPT/Copilot citations",
+      "evidence": "Bing WMT: homepage size=0, all other pages undiscovered",
+      "affected": "All pages"
+    },
+    {
+      "severity": "P2",
+      "issue": "Duplicate FAQPage schema on /case-studies/",
+      "evidence": "GSC rich results test: ERROR Duplicate field FAQPage",
+      "affected": "/case-studies/"
+    },
+    {
+      "severity": "P2",
+      "issue": "No Article schema on blog posts",
+      "evidence": "BlogPost.jsx has no JSON-LD Article markup",
+      "affected": "108 blog posts"
+    },
+    {
+      "severity": "P2",
+      "issue": "No GA4 conversion events configured",
+      "evidence": "All pages show 0 conversions — no events set up",
+      "affected": "All pages"
+    },
+    {
+      "severity": "P3",
+      "issue": "No IndexNow key deployed",
+      "evidence": "CONTEXT.md: launchedin10.co.uk key NOT DEPLOYED",
+      "affected": "Bing crawl acceleration"
+    },
+    {
+      "severity": "P3",
+      "issue": "robots.txt lacks AI crawler Allow rules",
+      "evidence": "robots.txt has basic Allow: / only",
+      "affected": "AI crawler discoverability"
+    }
+  ],
+  "intent_clusters": [
+    {
+      "cluster": "Web Design Cost/Pricing",
+      "queries": ["web design cost uk 2026", "website construction cost", "digital agency pricing models 2026", "cost of web development"],
+      "existing_pages": 4,
+      "verdict": "B",
+      "reason": "4+ pages targeting cost queries — cannibalisation risk. Consolidate."
+    },
+    {
+      "cluster": "Affordable Web Design UK",
+      "queries": ["affordable website designers", "affordable website design company"],
+      "existing_pages": 2,
+      "verdict": "B",
+      "reason": "Two pages competing. Position ~86. Consolidate."
+    },
+    {
+      "cluster": "Construction Web Design",
+      "queries": ["construction websites 2026", "website design for construction companies"],
+      "existing_pages": 2,
+      "verdict": "B",
+      "reason": "Position 19 — closest to ranking. Two pages splitting authority."
+    },
+    {
+      "cluster": "Managed Dedicated Hosting",
+      "queries": ["managed dedicated hosting", "is managed dedicated server worth it"],
+      "existing_pages": 2,
+      "verdict": "B",
+      "reason": "Position 4 on USA query. Not core to LI10 service offering."
+    }
+  ],
+  "ghost_urls": [
+    {
+      "url": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/",
+      "query": "affordable website designers",
+      "position": 85.9,
+      "impressions": 26,
+      "expiry_estimate": "Aug-Nov 2026"
+    },
+    {
+      "url": "/blog/industry-spotlights/dedicated-server-managed-hosting-worth/",
+      "query": "managed dedicated hosting",
+      "position": 36,
+      "impressions": 24,
+      "expiry_estimate": "Aug-Nov 2026"
+    }
+  ],
+  "near_ranking": [
+    {
+      "url": "/blog/industry-spotlights/why-website-design-for-construction/",
+      "query": "construction websites 2026",
+      "position": 19,
+      "impressions": 15
+    },
+    {
+      "url": "/blog/website-design/website-construction-cost-2026-uk-breakdown/",
+      "query": "website construction cost",
+      "position": 10.75,
+      "impressions": 4
+    },
+    {
+      "url": "/blog/industry-spotlights/dedicated-server-managed-hosting-worth/",
+      "query": "is managed dedicated server worth it",
+      "position": 4,
+      "impressions": 2
+    }
+  ],
+  "pipeline": {
+    "li10_posts_total": 108,
+    "li10_posts_published": 108,
+    "orbit3flow_total": 95,
+    "orbit3flow_processed": 95,
+    "orbit3flow_pending": 0
+  },
+  "citation_matrix": {
+    "queries_tested": 6,
+    "ai_overviews_triggered": 0,
+    "our_domain_cited": 0,
+    "competitor_tier1_findings": 0,
+    "note": "No AI Overviews triggering for any LI10 target queries. Zero AI citations."
+  }
+}
