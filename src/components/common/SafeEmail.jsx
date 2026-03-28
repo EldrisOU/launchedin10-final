@@ -24,6 +24,15 @@ const SafeEmail = ({ className, children, subject = '', body = '', ...props }) =
                 mailtoUrl += `?${params.join('&')}`;
             }
 
+            // GA4: Track CTA click as begin_checkout
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'begin_checkout', {
+                    event_category: 'conversion',
+                    event_label: 'email_cta_click',
+                    value: 1
+                });
+            }
+
             window.location.href = mailtoUrl;
         } catch (err) {
             console.error('Email decode failed:', err);

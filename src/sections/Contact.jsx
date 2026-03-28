@@ -45,6 +45,14 @@ const Contact = () => {
 
             // n8n returns 200 OK text/plain or JSON usually
             if (response.ok) {
+                // GA4: Track successful lead generation
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', 'generate_lead', {
+                        event_category: 'engagement',
+                        event_label: formData.enquiryType,
+                        value: 1
+                    });
+                }
                 setStatus('success');
             } else {
                 console.error('n8n Error:', response.statusText);

@@ -10,6 +10,17 @@ const CaseStudiesPage = () => {
     // EXPANDABLE STORY STATE
     const [expandedStories, setExpandedStories] = React.useState({});
 
+    // GA4: Track case studies page view as micro-conversion
+    React.useEffect(() => {
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'view_case_studies', {
+                event_category: 'engagement',
+                event_label: 'case_studies_page',
+                value: 1
+            });
+        }
+    }, []);
+
     const openPreview = (url, title) => {
         setActiveCase({ url, title });
         document.body.style.overflow = 'hidden'; // Lock scroll
