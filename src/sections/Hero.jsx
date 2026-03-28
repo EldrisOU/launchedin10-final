@@ -38,7 +38,7 @@ const Hero = () => {
                             Managed Forever.
                         </h1>
 
-                        <p className="text-xl md:text-2xl text-text-muted mb-12 max-w-2xl leading-relaxed font-light animate-fade-in-up delay-200">
+                        <p className="speakable-summary text-xl md:text-2xl text-text-muted mb-12 max-w-2xl leading-relaxed font-light animate-fade-in-up delay-200">
                             The anti-agency service. We design, build, and manage your bespoke website for a flat monthly fee. No templates. No freelancers. No headaches.
                         </p>
 

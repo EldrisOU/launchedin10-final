@@ -56,9 +56,23 @@ const ORG_SCHEMA = {
         "caption": "LaunchedIn10"
     },
     "image": { "@id": "https://launchedin10.co.uk/#logo" },
+    "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Lancashire",
+        "addressCountry": "GB"
+    },
+    "areaServed": "GB",
     "sameAs": [
+        "https://x.com/launchedin10",
         "https://linkedin.com/company/launchedin10"
-    ]
+    ],
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "hello@launchedin10.co.uk",
+        "availableLanguage": "English"
+    },
+    "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days."
 };
 
 const WEBSITE_SCHEMA = {
@@ -66,7 +80,12 @@ const WEBSITE_SCHEMA = {
     "@id": "https://launchedin10.co.uk/#website",
     "url": "https://launchedin10.co.uk",
     "name": "LaunchedIn10",
-    "publisher": { "@id": "https://launchedin10.co.uk/#organization" }
+    "publisher": { "@id": "https://launchedin10.co.uk/#organization" },
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://launchedin10.co.uk/blog?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
 };
 
 function injectSchema(html, pageType, pageData) {
@@ -75,6 +94,19 @@ function injectSchema(html, pageType, pageData) {
     html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
 
     const graph = [ORG_SCHEMA, WEBSITE_SCHEMA];
+
+    // Add WebPage with SpeakableSpecification to every page (aidiscovery P3.20)
+    const pageUrl = pageData.url || 'https://launchedin10.co.uk/';
+    graph.push({
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        "url": pageUrl,
+        "isPartOf": { "@id": "https://launchedin10.co.uk/#website" },
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".speakable-summary"]
+        }
+    });
 
     if (pageType === 'Article') {
         graph.push({
@@ -116,6 +148,25 @@ function injectSchema(html, pageType, pageData) {
             "@type": "BreadcrumbList",
             "itemListElement": breadcrumbItems
         });
+
+        // VideoObject extraction (aidiscovery P3.20b, DEF-G3 compliant regex)
+        if (pageData.postContent) {
+            const ytRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/)([\w-]{11})/g;
+            const videoIds = [...new Set([...pageData.postContent.matchAll(ytRegex)].map(m => m[1]))];
+            videoIds.forEach((id, idx) => {
+                graph.push({
+                    "@type": "VideoObject",
+                    "name": `${pageData.title}${videoIds.length > 1 ? ` — Video ${idx + 1}` : ''}`,
+                    "description": pageData.description,
+                    "thumbnailUrl": `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+                    "uploadDate": pageData.datePublished,
+                    "contentUrl": `https://www.youtube.com/watch?v=${id}`,
+                    "embedUrl": `https://www.youtube.com/embed/${id}`,
+                    "inLanguage": "en",
+                    "publisher": { "@id": "https://launchedin10.co.uk/#organization" }
+                });
+            });
+        }
     } else if (pageType === 'Service') {
         graph.push({
             "@type": "Service",
@@ -137,7 +188,51 @@ function injectSchema(html, pageType, pageData) {
             "serviceType": "High-Performance Web Design",
             "provider": { "@id": "https://launchedin10.co.uk/#organization" },
             "areaServed": "GB",
-            "description": "Professional custom websites built for conversion and speed, delivered in exactly 10 days."
+            "description": "Professional custom websites built for conversion and speed, delivered in exactly 10 days.",
+            "offers": [
+                {
+                    "@type": "Offer",
+                    "name": "Starter",
+                    "price": "497",
+                    "priceCurrency": "GBP",
+                    "description": "Starter activation — up to 5 pages, template-based design, 10-day delivery, migration included",
+                    "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "price": "99",
+                        "priceCurrency": "GBP",
+                        "unitText": "MONTH",
+                        "description": "Monthly management — hosting, SSL, GDPR, 48h email support"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Growth",
+                    "price": "997",
+                    "priceCurrency": "GBP",
+                    "description": "Growth activation — up to 12 pages, semi-custom design, lead capture forms, local SEO setup, migration included",
+                    "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "price": "149",
+                        "priceCurrency": "GBP",
+                        "unitText": "MONTH",
+                        "description": "Monthly management — priority hosting, Google Business Profile, 24h email & chat support"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Scale",
+                    "price": "1997",
+                    "priceCurrency": "GBP",
+                    "description": "Scale activation — up to 25 pages, fully custom design, e-commerce ready, 6-month SEO strategy, migration included",
+                    "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "price": "249",
+                        "priceCurrency": "GBP",
+                        "unitText": "MONTH",
+                        "description": "Monthly management — enterprise hosting, compliance audit, quarterly strategy call"
+                    }
+                }
+            ]
         });
         graph.push({
             "@type": "FAQPage",
@@ -441,7 +536,7 @@ async function generateHomepage(distDir, shell) {
     </head>`);
 
     // Inject Homepage-specific schema (Service + FAQPage) via SSG — this is the ONLY route that gets FAQPage
-    html = injectSchema(html, 'Homepage', {});
+    html = injectSchema(html, 'Homepage', { url: 'https://launchedin10.co.uk/' });
 
     // Inject Hero & Core Content
     const content = `
@@ -631,7 +726,8 @@ async function generateIndividualPosts(posts, distDir, shell) {
             image: post.featured_image_url,
             author: post.author_name,
             category: post.category_name || catSlug,
-            categorySlug: catSlug
+            categorySlug: catSlug,
+            postContent: post.post_content || ''
         });
 
         let postContent = post.post_content || '';
@@ -693,6 +789,7 @@ async function generateIndividualPosts(posts, distDir, shell) {
                             </aside>
 
                             <div class="lg:w-3/4 order-1 lg:order-2">
+                                <p class="speakable-summary text-lg text-[var(--text-secondary)] mb-8 leading-relaxed font-light">${post.excerpt || ''}</p>
                                 <div class="blog-content prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--navy)] prose-p:text-[var(--text-primary)]">
                                     ${postContent}
                                 </div>

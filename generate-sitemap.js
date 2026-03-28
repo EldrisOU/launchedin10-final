@@ -11,13 +11,22 @@ const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1N
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// DEF-G3 compliant regex — catches iframe, bare URL, and embed patterns
+const YT_REGEX = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/)([\w-]{11})/g;
+
+function extractVideoIds(content) {
+    if (!content) return [];
+    return [...new Set([...content.matchAll(YT_REGEX)].map(m => m[1]))];
+}
+
 async function generateSitemap() {
   try {
     console.log('🚀 [ELITE] Generating Sitemap (v3.5.0)...');
 
+    // DEF-G1 fix: Select post_content, post_title, excerpt for video extraction
     const { data: posts, error } = await supabase
       .from('li10_posts')
-      .select('slug, updated_at, primary_category')
+      .select('slug, updated_at, primary_category, post_content, post_title, excerpt')
       .eq('status', 'publish');
 
     if (error) throw error;
@@ -34,8 +43,10 @@ async function generateSitemap() {
       '/website-translation'
     ];
 
+    // DEF-G2 fix: Add xmlns:video namespace
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">`;
 
     // 1. Static Pages
     const buildDate = new Date().toISOString().split('T')[0];
@@ -51,21 +62,42 @@ async function generateSitemap() {
   </url>`;
     });
 
-    // 2. Dynamic Posts
+    // 2. Dynamic Posts (with video:video blocks)
     console.log(`📦 [ELITE] Processing ${posts.length} posts for sitemap...`);
     const categorySlugs = new Set();
+    let videoCount = 0;
 
     posts.forEach(post => {
       const categoryName = post.primary_category || 'Digital Strategy';
       const categorySlug = categoryName.toLowerCase().replace(/ /g, '-');
       categorySlugs.add(categorySlug);
 
+      const videoIds = extractVideoIds(post.post_content);
+
       xml += `
   <url>
     <loc>${baseUrl}/blog/${categorySlug}/${post.slug}/</loc>
     <lastmod>${new Date(post.updated_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.7</priority>`;
+
+      // Video sitemap blocks (DEF-G1/G2/G3 compliant)
+      videoIds.forEach((id, idx) => {
+        videoCount++;
+        const videoTitle = post.post_title || post.slug;
+        const videoDesc = (post.excerpt || videoTitle).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const safeTitle = videoTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        xml += `
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/${id}/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>${safeTitle}${videoIds.length > 1 ? ` — Video ${idx + 1}` : ''}</video:title>
+      <video:description>${videoDesc}</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=${id}</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/${id}</video:player_loc>
+    </video:video>`;
+      });
+
+      xml += `
   </url>`;
     });
 
@@ -85,6 +117,7 @@ async function generateSitemap() {
     const distPath = path.resolve('dist', 'sitemap.xml');
     fs.writeFileSync(distPath, xml);
     console.log(`✅ [ELITE] Sitemap generated at ${distPath}`);
+    console.log(`🎬 [ELITE] ${videoCount} video:video blocks from ${posts.filter(p => extractVideoIds(p.post_content).length > 0).length} posts`);
 
   } catch (err) {
     console.error('❌ [ELITE] Sitemap generation failed:', err);
