@@ -1,0 +1,110 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-03-30",
+    "run_number": 7,
+    "protocol": "DeepRank v3.0",
+    "ga4_property": "properties/517814343",
+    "gsc_property": "sc-domain:launchedin10.co.uk"
+  },
+  "gsc_summary": {
+    "period": "2025-12-30 to 2026-03-30",
+    "total_impressions": 140,
+    "total_clicks": 0,
+    "ctr": 0,
+    "unique_queries": 42,
+    "unique_pages_with_impressions": 15
+  },
+  "ga4_summary": {
+    "period": "90 days",
+    "total_sessions_all_hosts": 865,
+    "on_domain_sessions": 732,
+    "off_domain_sessions": 133,
+    "tier_a_sessions": 155,
+    "tier_c_sessions": 150,
+    "bot_inflation_pct": 82.1,
+    "google_organic_sessions": 53,
+    "bing_organic_sessions": 2,
+    "ai_citation_sessions": 0,
+    "conversions": 0
+  },
+  "ai_citations": {
+    "chatgpt": 0,
+    "perplexity": 0,
+    "claude": 0,
+    "copilot": 0,
+    "gemini": 0,
+    "ai_overview": 0,
+    "total": 0,
+    "ai_overview_queries_tested": 10,
+    "ai_overview_triggers": 0
+  },
+  "bing_crawl": {
+    "homepage": {"discovered": "2026-03-27", "crawled": "2026-03-27", "size": 0},
+    "blog": {"discovered": null, "crawled": null, "size": 0},
+    "seo_automation": {"discovered": null, "crawled": null, "size": 0},
+    "website_translation": {"discovered": null, "crawled": null, "size": 0},
+    "case_studies": {"discovered": null, "crawled": null, "size": 0}
+  },
+  "url_inspections": {
+    "homepage": {"status": "Submitted and indexed", "last_crawled": "2026-03-23", "rich_results": "FAQ PASS"},
+    "blog": {"status": "Submitted and indexed", "last_crawled": "2026-03-22"},
+    "seo_automation": {"status": "Submitted and indexed", "last_crawled": "2026-02-21"},
+    "case_studies": {"status": "Submitted and indexed", "last_crawled": "2026-03-21", "rich_results": "FAQ ERROR - Duplicate FAQPage"},
+    "website_translation_slash": {"status": "URL is unknown to Google", "last_crawled": null},
+    "website_translation_no_slash": {"status": "Redirect error", "last_crawled": "2026-02-17"},
+    "dedicated_server_hosting": {"status": "Submitted and indexed", "last_crawled": "2026-02-25"},
+    "construction_websites": {"status": "Submitted and indexed", "last_crawled": "2026-02-25"}
+  },
+  "sitemap": {
+    "url": "https://launchedin10.co.uk/sitemap.xml",
+    "total_urls": 117,
+    "submitted": "2026-03-21",
+    "last_downloaded": "2026-03-21",
+    "indexed_per_gsc": 0,
+    "redirect_sitemap_urls": 16
+  },
+  "schema_coverage": {
+    "organization": "100%",
+    "website_search_action": "100%",
+    "webpage_speakable": "100%",
+    "article": "100% blog posts",
+    "breadcrumb_list": "100% blog posts",
+    "video_object": "74 posts",
+    "faq_page": "homepage only",
+    "service_pricing": "homepage + commercial pages",
+    "data_ai_summary": "Hero.jsx"
+  },
+  "near_ranking_queries": [
+    {"query": "is managed dedicated server worth it", "impressions": 2, "position": 4.0, "country": "USA"},
+    {"query": "construction company website design trends 2026", "impressions": 4, "position": 8.5, "country": "BRA/ESP/USA"},
+    {"query": "website construction cost", "impressions": 4, "position": 10.75, "country": "GBR"},
+    {"query": "digital agency pricing models 2026", "impressions": 3, "position": 10.7, "country": "GBR"},
+    {"query": "cost of web development", "impressions": 1, "position": 11.0, "country": "GBR"},
+    {"query": "construction websites 2026", "impressions": 15, "position": 24.0, "country": "GBR"}
+  ],
+  "ghost_equity": [
+    {"query": "affordable website designers", "impressions": 26, "position": 86, "country": "GBR"},
+    {"query": "managed dedicated hosting variants", "impressions": 33, "position": 52, "country": "GBR"},
+    {"query": "seo foundations", "impressions": 9, "position": 77, "country": "GBR"}
+  ],
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "velocity_posts_per_day": 0
+  },
+  "content_freshness": {
+    "commercial_pages_stale": 0,
+    "all_commercial_lastmod": "2026-03-28",
+    "oldest_blog_post": "2025-12-28",
+    "freshness_gate": "PASS"
+  },
+  "remediation_verdicts": {
+    "verdict_a_new_content": 0,
+    "verdict_b_surgical": 0,
+    "verdict_c_sister_property": 0,
+    "note": "No new content needed. All near-ranking queries have existing pages. Site needs authority time."
+  }
+}
