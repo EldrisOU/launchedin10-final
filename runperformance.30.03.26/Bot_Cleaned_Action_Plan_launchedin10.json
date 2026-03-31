@@ -49,11 +49,14 @@
     {
       "id": "ACT-LI10-012",
       "priority": "P2",
-      "status": "open",
+      "status": "partial",
       "description": "Investigate and resolve Bing size=0 and page non-discovery. Bing WMT shows the homepage was discovered on 27.03.26 with DocumentSize=0 (not fully crawled \u2014 content not in Bing index). All other pages (/blog/, /seo-automation/, /website-translation/, /case-studies/) have never been discovered by Bing at all. The IndexNow key file is deployed (40b3efc5ab8e4c0e9ca6163daca5d29e.txt) and submit-bing-indexnow.js exists with 117 URLs, but Bing is still not crawling. This is the same cross-portfolio issue affecting responsible.eldris.ai, cosmetics.eldris.ai, thesellerindex.com \u2014 likely Cloudflare bot protection returning challenge pages to Bingbot. Until resolved, LI10 is completely invisible to ChatGPT retrieval and Microsoft Copilot.",
       "prompt": "This is a cross-portfolio Cloudflare investigation. For launchedin10.co.uk specifically: 1) Check Cloudflare dashboard for Bot Fight Mode or Super Bot Fight Mode \u2014 if enabled, it may challenge Bingbot with JavaScript challenges that Bingbot cannot pass. 2) Check WAF rules for any bot-blocking rules. 3) Submit key pages directly via Bing WMT SubmitUrlBatch API: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/\",\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/case-studies/\"]}'. 4) Run IndexNow batch ping with key 40b3efc5ab8e4c0e9ca6163daca5d29e. 5) Re-check Bing GetUrlInfo after 48 hours \u2014 DocumentSize should be >0.",
       "created_date": "2026-03-30",
-      "verification": "Run Bing GetUrlInfo on homepage and /blog/ after 48 hours. DocumentSize should be >0 and LastCrawledDate should show a recent date."
+      "verification": "Run Bing GetUrlInfo on homepage and /blog/ after 48 hours. DocumentSize should be >0 and LastCrawledDate should show a recent date.",
+      "actioned_date": "2026-03-31",
+      "evidence": "Bing WMT SubmitUrlBatch: success ({\"d\":null}) for 5 URLs. IndexNow batch ping to api.indexnow.org: HTTP 200. Bing GetUrlInfo baseline: homepage DiscoveryDate=2026-03-27, LastCrawledDate=2026-03-27 00:23 UTC, DocumentSize=0, HttpStatus=0. /blog/ never discovered (min DateTime). DocumentSize=0 and HttpStatus=0 confirms Cloudflare is returning a JS challenge or empty response to Bingbot. Cloudflare dashboard investigation (Bot Fight Mode / WAF rules) requires operator access -- cross-portfolio fix needed. Re-check GetUrlInfo 2026-04-02: DocumentSize should be >0 if Cloudflare is not blocking.",
+      "operator_action_required": "Check Cloudflare dashboard for launchedin10.co.uk: 1) Security > Bots > Bot Fight Mode -- disable or add Bingbot exception. 2) Security > WAF > Custom Rules -- check for any rules matching known bots. 3) If using Cloudflare Verified Bots, ensure Bingbot is in the verified bots list and not being challenged."
     },
     {
       "id": "ACT-LI10-013",
