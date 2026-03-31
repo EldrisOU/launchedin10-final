@@ -415,7 +415,7 @@ const SEOSalePage = () => {
 
                     <div style={{ textAlign: 'center', marginTop: '3rem' }}>
                         <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.9rem' }}>
-                            Need a website first? <a href="/website-translation" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>Explore our Translation service</a> or <a href="/#pricing" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>view website packages</a>.
+                            Need a website first? <a href="/website-translation/" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>Explore our Translation service</a> or <a href="/#pricing" style={{ color: 'var(--teal, #0ea5a5)', fontWeight: '600' }}>view website packages</a>.
                         </p>
                     </div>
                 </div>
