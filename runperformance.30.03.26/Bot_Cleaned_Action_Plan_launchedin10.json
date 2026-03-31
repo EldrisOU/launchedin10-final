@@ -37,11 +37,13 @@
     {
       "id": "ACT-LI10-011",
       "priority": "P2",
-      "status": "open",
+      "status": "pending_recrawl",
       "description": "Request re-crawl of /case-studies/ to clear the duplicate FAQPage schema error. GSC URL Inspection (last crawled 21.03.26) still reports 'Duplicate field FAQPage' ERROR. However, the fix IS deployed and live \u2014 render_compare (30.03.26) confirms the page now has only Organization+WebSite+WebPage schema, no FAQPage at all. The SSG injectSchema function was fixed on 28.03.26 to isolate FAQPage to the homepage only. Google just hasn't re-crawled since the fix. Requesting indexing will trigger a re-crawl and should clear the error.",
       "prompt": "Request indexing for https://launchedin10.co.uk/case-studies/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. The fix is already live (confirmed by render_compare 30.03.26 \u2014 ssrJsonLdTypes shows only Org, WebSite, WebPage, no FAQPage). Wait 48-72 hours, then re-run gsc_inspect_url to verify the duplicate FAQPage error is cleared from the rich results section.",
       "created_date": "2026-03-30",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ \u2014 richResultsResult should no longer contain 'Duplicate field FAQPage' error."
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ \u2014 richResultsResult should no longer contain 'Duplicate field FAQPage' error.",
+      "inspected_date": "2026-03-31",
+      "evidence": "GSC inspect 31.03.26: page is Submitted and indexed (PASS). lastCrawlTime=2026-03-21 (pre-fix). FAQPage duplicate ERROR still in GSC cache -- stale. render_compare 30.03.26 confirms fix is live (no FAQPage in ssrJsonLdTypes). Also detected: Breadcrumbs + Review snippets (new). Operator must click Request Indexing in GSC UI to trigger re-crawl. Re-check after 48-72h -- FAQPage error should clear."
     },
     {
       "id": "ACT-LI10-012",
