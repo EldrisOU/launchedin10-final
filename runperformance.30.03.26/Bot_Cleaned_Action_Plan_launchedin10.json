@@ -1,1 +1,129 @@
-
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-03-30",
+    "run_number": 7,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-03-27",
+    "bot_inflation_pct": 82.1,
+    "tier_a_sessions": 155,
+    "honest_assessment": "LaunchedIn10 is in a patience phase. The 28.03.26 remediation sprint was comprehensive \u2014 schema coverage jumped from <15% to >90%, SSR JSON-LD is confirmed working, AI crawler access is configured, IndexNow key is deployed, GA4 events are live. Two prior audit actions were prematurely marked complete (/website-translation still unknown to Google, /case-studies FAQPage error persists in GSC cache). The Bing size=0 cross-portfolio issue blocks all AI citation potential. Fix the two indexing gaps, resubmit the sitemap, investigate Cloudflare/Bing, then wait. 108 posts with 0 clicks and ~140 impressions = pre-authority. Time is the intervention."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-009",
+      "priority": "P1",
+      "status": "completed",
+      "description": "Force-submit /website-translation/ to Google for indexing. This commercial service page has never been crawled by Google at its canonical URL (with trailing slash). GSC URL Inspection returns 'URL is unknown to Google'. The non-trailing-slash variant (/website-translation) shows 'Redirect error' from a crawl attempt on 17.02.26 \u2014 Cloudflare returns a 308 redirect to /website-translation/ which Google failed to follow. The page serves correctly (render_compare confirms 200, SSR JSON-LD with Service schema, proper canonical). This was ACT-LI10-003 in the prior audit, marked completed on 28.03.26 but the page remains unindexed.",
+      "prompt": "Request indexing for https://launchedin10.co.uk/website-translation/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. Then verify internal links: read index.html from EldrisOU/launchedin10-final \u2014 check the SEO nav links. The nav currently has <a href=\"/website-translation\"> without trailing slash. Update to /website-translation/ to match the canonical. Also search the codebase for other links to /website-translation and ensure they all use the trailing-slash version. Re-check via gsc_inspect_url after 72 hours \u2014 status should change from 'URL is unknown to Google' to 'Crawled' or 'Submitted and indexed'.",
+      "created_date": "2026-03-30",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/website-translation/ \u2014 status should change from 'URL is unknown to Google' to 'Submitted and indexed' within 1-2 weeks.",
+      "codebase_path": "index.html (SEO nav)",
+      "estimated_impact": "Unlocks a commercial service page for Google organic visibility. Currently generating 0 impressions, 0 clicks.",
+      "completed_date": "2026-03-31",
+      "evidence": "GSC inspection 31.03.26: coverageState=Discovered-currently-not-indexed (improved from URL unknown). Four internal links updated to /website-translation/ in index.html (x2), Navbar.jsx, SEOSalePage.jsx. Commit 86d2da8 pushed. Re-check 2026-04-03."
+    },
+    {
+      "id": "ACT-LI10-010",
+      "priority": "P1",
+      "status": "completed",
+      "description": "Resubmit sitemap.xml to GSC. The sitemap was updated on 28.03.26 with 74 VideoObject video entries, updated lastmod dates, and structural changes from the AEO remediation sprint. GSC last downloaded the sitemap on 21.03.26 \u2014 9 days ago \u2014 and is working with outdated data. The sitemap report shows 117 submitted, 0 indexed (pages are indexed via other discovery paths but the stale download means Google doesn't know about the video sitemap or updated dates). Resubmission will prompt a re-download.",
+      "prompt": "Use gsc_submit_sitemap to resubmit https://launchedin10.co.uk/sitemap.xml to sc-domain:launchedin10.co.uk. Then verify via gsc_list_sitemaps that lastSubmitted has updated. Check back in 48 hours \u2014 lastDownloaded should show a recent date.",
+      "created_date": "2026-03-30",
+      "verification": "Run gsc_list_sitemaps on sc-domain:launchedin10.co.uk \u2014 lastDownloaded should update from 2026-03-21 to a recent date within 48-72 hours.",
+      "completed_date": "2026-03-31",
+      "evidence": "gsc_submit_sitemap success 31.03.26 20:41 UTC. lastSubmitted=2026-03-31T20:41:44Z, isPending=true. lastDownloaded still 2026-03-21 -- re-check 2026-04-02 to confirm download."
+    },
+    {
+      "id": "ACT-LI10-011",
+      "priority": "P2",
+      "status": "open",
+      "description": "Request re-crawl of /case-studies/ to clear the duplicate FAQPage schema error. GSC URL Inspection (last crawled 21.03.26) still reports 'Duplicate field FAQPage' ERROR. However, the fix IS deployed and live \u2014 render_compare (30.03.26) confirms the page now has only Organization+WebSite+WebPage schema, no FAQPage at all. The SSG injectSchema function was fixed on 28.03.26 to isolate FAQPage to the homepage only. Google just hasn't re-crawled since the fix. Requesting indexing will trigger a re-crawl and should clear the error.",
+      "prompt": "Request indexing for https://launchedin10.co.uk/case-studies/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. The fix is already live (confirmed by render_compare 30.03.26 \u2014 ssrJsonLdTypes shows only Org, WebSite, WebPage, no FAQPage). Wait 48-72 hours, then re-run gsc_inspect_url to verify the duplicate FAQPage error is cleared from the rich results section.",
+      "created_date": "2026-03-30",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ \u2014 richResultsResult should no longer contain 'Duplicate field FAQPage' error."
+    },
+    {
+      "id": "ACT-LI10-012",
+      "priority": "P2",
+      "status": "open",
+      "description": "Investigate and resolve Bing size=0 and page non-discovery. Bing WMT shows the homepage was discovered on 27.03.26 with DocumentSize=0 (not fully crawled \u2014 content not in Bing index). All other pages (/blog/, /seo-automation/, /website-translation/, /case-studies/) have never been discovered by Bing at all. The IndexNow key file is deployed (40b3efc5ab8e4c0e9ca6163daca5d29e.txt) and submit-bing-indexnow.js exists with 117 URLs, but Bing is still not crawling. This is the same cross-portfolio issue affecting responsible.eldris.ai, cosmetics.eldris.ai, thesellerindex.com \u2014 likely Cloudflare bot protection returning challenge pages to Bingbot. Until resolved, LI10 is completely invisible to ChatGPT retrieval and Microsoft Copilot.",
+      "prompt": "This is a cross-portfolio Cloudflare investigation. For launchedin10.co.uk specifically: 1) Check Cloudflare dashboard for Bot Fight Mode or Super Bot Fight Mode \u2014 if enabled, it may challenge Bingbot with JavaScript challenges that Bingbot cannot pass. 2) Check WAF rules for any bot-blocking rules. 3) Submit key pages directly via Bing WMT SubmitUrlBatch API: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/\",\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/case-studies/\"]}'. 4) Run IndexNow batch ping with key 40b3efc5ab8e4c0e9ca6163daca5d29e. 5) Re-check Bing GetUrlInfo after 48 hours \u2014 DocumentSize should be >0.",
+      "created_date": "2026-03-30",
+      "verification": "Run Bing GetUrlInfo on homepage and /blog/ after 48 hours. DocumentSize should be >0 and LastCrawledDate should show a recent date."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries for position movement. Several queries are approaching page 1: 'is managed dedicated server worth it' at position 4 (USA, 2 impressions), 'construction company website design trends 2026' at position 7-10 (non-UK), 'website construction cost' at position 10.75 (UK, 4 impressions), 'digital agency pricing models 2026' at position 10.7 (UK, 3 impressions). At current impression volumes (1-4 per query), these need time to build, not intervention. If any crosses into position 1-5 with >10 impressions at next audit, consider surgical content expansion.",
+      "prompt": "Monitoring item \u2014 no action required until next audit. At next audit (2026-04-06), re-query GSC search analytics for these specific terms and compare positions: 'is managed dedicated server worth it', 'construction company website design trends 2026', 'website construction cost', 'digital agency pricing models 2026', 'construction websites 2026'. If any query has moved to position 1-5 with >10 impressions, read the ranking page and recommend: FAQ expansion, internal link additions, or content freshness update.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit. Any improvement >5 positions = positive authority signal."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor GA4 conversion events deployed 28.03.26. Three events configured: generate_lead (contact form), begin_checkout (pricing CTA clicks), view_case_studies (case studies page views). Zero conversions recorded in 2 days \u2014 expected given the deployment recency and low traffic volume (732 on-domain sessions in 90 days, ~155 Tier A). Need 30 days of data to establish baseline conversion rate. If still zero after 30 days, verify event tracking fires correctly via GA4 Realtime.",
+      "prompt": "Monitoring item \u2014 no action required until 2026-04-28. At next audit, check GA4 for generate_lead and begin_checkout event counts. If >0, assess which pages drive conversions. If still zero after 30 days (2026-04-28), verify tracking by visiting the site, submitting the contact form, and checking GA4 Realtime for the generate_lead event. If it doesn't fire, read Contact.jsx and Pricing.jsx to debug the gtag calls.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 Admin > Events after 30 days. generate_lead and begin_checkout should show event counts >0."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-001",
+      "description": "Static JSON-LD in index.html for SSR visibility. Deployed 28.03.26. Confirmed by render_compare: ssrHasJsonLd=true, types=[Organization, WebSite, WebPage, Service, FAQPage].",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "render_compare 30.03.26: ssrHasJsonLd=true on homepage."
+    },
+    {
+      "id": "ACT-LI10-005",
+      "description": "Article JSON-LD schema on all blog posts via SSG. Includes datePublished, dateModified, author, BreadcrumbList, and VideoObject extraction for 74 posts with YouTube embeds.",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "generate-static.js injectSchema function verified: Article schema with BreadcrumbList and VideoObject."
+    },
+    {
+      "id": "ACT-LI10-006",
+      "description": "GA4 conversion events configured: generate_lead, begin_checkout, view_case_studies. Code changes deployed 28.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "GA4 events appear in codebase. Monitoring for data accumulation (ACT-LI10-014)."
+    },
+    {
+      "id": "ACT-LI10-007",
+      "description": "IndexNow key file deployed at /40b3efc5ab8e4c0e9ca6163daca5d29e.txt. Submit script created (submit-bing-indexnow.js, 117 URLs).",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "Key file exists in repo at public/40b3efc5ab8e4c0e9ca6163daca5d29e.txt."
+    },
+    {
+      "id": "ACT-LI10-008",
+      "description": "AI crawler explicit Allow rules added to robots.txt. GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, ChatGPT-User, Google-Extended, Applebot-Extended, CCBot, Bingbot all explicitly allowed.",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "robots.txt verified: 10 AI crawlers with explicit Allow rules."
+    },
+    {
+      "id": "ACT-LI10-PREV-001",
+      "description": "Trailing-slash normalisation across all internal links and canonical tags. Fixed 21.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-21"
+    },
+    {
+      "id": "ACT-LI10-PREV-002",
+      "description": "Legacy redirect sitemap (sitemap-redirectfix.xml) created and submitted 21.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-21"
+    },
+    {
+      "id": "ACT-LI10-PREV-003",
+      "description": "llms.txt deployed 13.03.26. Lists core pages and blog categories.",
+      "status": "completed",
+      "completed_date": "2026-03-13"
+    }
+  ]
+}
