@@ -1,0 +1,126 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-04-06",
+    "run_number": 8,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-03-30",
+    "bot_inflation_pct": 54.5,
+    "tier_a_sessions": 120,
+    "honest_assessment": "LaunchedIn10 needs one surgical code fix — remove FAQPage from Home.jsx homeSchema to eliminate the sitewide duplicate FAQPage schema error — and then patience. The Bing homepage breakthrough (size=9,373 from 0) validates the SSR approach. GSC impressions up 43%, first position 1 hit on an accessibility query. 108 posts, 0 clicks, 0 AI citations — pre-authority patience phase. The content library is large enough, the AEO infrastructure is comprehensive. Time is the intervention."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-015",
+      "priority": "P1",
+      "status": "open",
+      "description": "Remove FAQPage from homeSchema in Home.jsx to fix sitewide duplicate FAQPage schema error. Root cause: generate-static.js (line 238) injects FAQPage into the homepage via SSG — this is correct and works. But Home.jsx (line 125) ALSO includes FAQPage in the homeSchema @graph, rendered via React Helmet. During JavaScript hydration, Google's renderer sees BOTH, producing 'Duplicate field FAQPage' ERROR on the homepage. Worse: this leaks to ALL other pages — /case-studies/ (re-crawled 04.04.26) now shows 3 duplicate FAQPage items because the SPA briefly renders the Home component during initial React Router resolution. This blocks FAQ rich results sitewide and degrades Google's trust in all structured data on the domain.",
+      "prompt": "Fix the duplicate FAQPage schema on launchedin10.co.uk. Open src/pages/Home.jsx in the EldrisOU/launchedin10-final repo. Find the homeSchema object (around line 87-160) which contains an @graph array. Remove the entire FAQPage entry from the @graph array (the object with '@type': 'FAQPage' containing the mainEntity array of Questions — approximately lines 125-155). Keep everything else in the @graph (Organization, WebSite, WebPage, Service). The FAQPage is already correctly injected by generate-static.js during SSG build — the React Helmet version is redundant and causes duplication. After removing, run the SSG build (node generate-static.js) and verify the homepage SSG output still contains exactly ONE FAQPage JSON-LD block. Deploy to Cloudflare Pages. After deployment, use render_compare on https://launchedin10.co.uk/ to verify ssrJsonLdTypes still includes FAQPage. Then request re-crawl via gsc_inspect_url on https://launchedin10.co.uk/ and https://launchedin10.co.uk/case-studies/ — the duplicate FAQPage error should clear within 48-72 hours.",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/ and https://launchedin10.co.uk/case-studies/ after 72 hours. richResultsResult should no longer contain 'Duplicate field FAQPage' error. Homepage should show FAQ PASS with valid items.",
+      "codebase_path": "src/pages/Home.jsx",
+      "estimated_impact": "Clears schema errors on every page of the site. Unlocks FAQ rich results on the homepage (12 Q&A pairs). Restores Google's trust in structured data across the domain.",
+      "evidence": "gsc_inspect_url 06.04.26: homepage richResultsResult FAIL, 2 duplicate FAQPage items. /case-studies/ richResultsResult FAIL, 3 duplicate FAQPage items. render_compare: SSR has only 1 FAQPage (from SSG). Duplication occurs at JS rendering time from React Helmet."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "priority": "P2",
+      "status": "open",
+      "description": "Request re-crawl of /seo-automation/ — Google has not crawled this commercial service page since 21.02.26 (44 days ago). The SSR JSON-LD deployment on 28.03.26 added Service schema, WebPage+Speakable, and Organization schema to this page, but Google is still evaluating the pre-SSR version with no structured data. The page is indexed and ranks but Google's cached version is significantly outdated. A re-crawl will update Google's understanding of the page's structured data and content freshness signals.",
+      "prompt": "Request indexing for https://launchedin10.co.uk/seo-automation/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. Wait 72 hours, then re-check — lastCrawlTime should update from 2026-02-21 to a recent date. After re-crawl, run render_compare on the URL to verify SSR JSON-LD types match what Google now sees.",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/seo-automation/ — lastCrawlTime should update from 2026-02-21 to a date after 2026-04-06.",
+      "estimated_impact": "Updates Google's cached version of a commercial service page with 44 days of improvements (SSR JSON-LD, Service schema, Speakable markup)."
+    },
+    {
+      "id": "ACT-LI10-017",
+      "priority": "P2",
+      "status": "open",
+      "description": "Submit remaining commercial pages to Bing via SubmitUrlBatch API. The Bing homepage breakthrough (size=9,373) confirms SSR content is now crawlable by Bingbot. However, /blog/, /case-studies/, and /website-translation/ have never been discovered by Bing. /seo-automation/ was discovered 05.04.26 but has size=0 (not fully crawled yet). Submitting these URLs will accelerate Bing discovery and indexing, expanding the ChatGPT/Copilot retrieval pool beyond just the homepage.",
+      "prompt": "Submit key pages to Bing for crawling using the Bing Webmaster Tools API. Run this command: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/case-studies/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/seo-automation/\"]}'. Expected response: {\"d\":null} = success. Then wait 48 hours and check Bing GetUrlInfo on each URL — DocumentSize should be >0 for at least one page.",
+      "created_date": "2026-04-06",
+      "verification": "Run Bing GetUrlInfo on /blog/, /case-studies/, /website-translation/ after 48 hours. At least one should show DocumentSize>0 and DiscoveryDate set."
+    },
+    {
+      "id": "ACT-LI10-009",
+      "priority": "P2",
+      "status": "open",
+      "description": "/website-translation/ still not indexed by Google despite being re-submitted on 31.03.26 and internal links fixed. GSC status improved from 'URL is unknown to Google' (30.03.26) to 'Discovered - currently not indexed' (06.04.26). The only referring URL is a 301 redirect page (/9-frameworks-react-trends...). The page is in the sitemap (sitemap-redirectfix.xml). This is a patience item — Google has discovered the URL but hasn't prioritised crawling it yet. No further action beyond monitoring unless it remains unindexed by 13.04.26.",
+      "prompt": "Monitoring item. At next audit (2026-04-13), run gsc_inspect_url on https://launchedin10.co.uk/website-translation/ via sc-domain:launchedin10.co.uk. If status is still 'Discovered - currently not indexed' after 13 days since re-submission, consider: 1) Adding an internal link from the homepage content (not just nav) to /website-translation/ to strengthen crawl signals. 2) Running indexing_batch_notify with URL_UPDATED on the URL. 3) Checking if Cloudflare's trailing-slash redirect (308) is still causing issues by inspecting /website-translation (without slash).",
+      "created_date": "2026-03-30",
+      "verification": "gsc_inspect_url should show 'Submitted and indexed' by 2026-04-13."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries for position movement. Several queries showed improvement this audit: first-ever position 1 hit on 'which website accessibility checkers WCAG compliant' (USA, 1 impression). 'website construction cost' stable at pos 10.75 (GBR, 4 impressions). 'digital agency pricing models 2026' at pos 8.25 (GBR, 4 impressions). 'is managed dedicated server worth it' at pos 4 (USA, 2 impressions). At current impression volumes (1-4 per query), these need time, not intervention.",
+      "prompt": "Monitoring item — no action required until next audit. At next audit (2026-04-13), re-query GSC search analytics and compare positions for: 'website construction cost', 'digital agency pricing models 2026', 'is managed dedicated server worth it', 'accessibility checkers WCAG'. If any query has moved to position 1-3 with >10 impressions, read the ranking page and recommend: FAQ expansion, internal link additions, or content freshness update.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit. Any improvement >5 positions = positive authority signal."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor GA4 conversion events deployed 28.03.26. Three events configured: generate_lead, begin_checkout, view_case_studies. Zero conversions recorded in 9 days — expected given deployment recency and low traffic volume (~120 Tier A sessions in 90 days). Need 30 days of data to establish baseline conversion rate.",
+      "prompt": "Monitoring item — no action required until 2026-04-28. At next audit, check GA4 for generate_lead and begin_checkout event counts. If >0, assess which pages drive conversions. If still zero after 30 days, verify tracking by visiting the site, submitting the contact form, and checking GA4 Realtime for the generate_lead event.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 events after 30 days. generate_lead and begin_checkout should show event counts >0."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-010",
+      "description": "Sitemap.xml resubmission. Submitted 31.03.26 via gsc_submit_sitemap. GSC lastDownloaded updated from 21.03.26 to 03.04.26 — confirmed re-download with updated content (117 web + 74 video URLs).",
+      "status": "completed",
+      "completed_date": "2026-04-03",
+      "evidence": "gsc_list_sitemaps 06.04.26: lastDownloaded=2026-04-03T20:12:44.987Z, isPending=false, 0 errors, 0 warnings."
+    },
+    {
+      "id": "ACT-LI10-011",
+      "description": "Case-studies duplicate FAQPage — SSG fix deployed 28.03.26 (FAQPage isolated to homepage). SSG fix was correct but the ROOT CAUSE is React Helmet in Home.jsx, not the SSG. Superseded by ACT-LI10-015 which addresses the actual React-level duplication.",
+      "status": "superseded",
+      "completed_date": "2026-04-06",
+      "evidence": "render_compare 06.04.26: /case-studies/ SSR has no FAQPage (SSG fix works). But gsc_inspect_url 06.04.26 still shows 3 duplicate FAQPage items (from JS rendering). Root cause: Home.jsx React Helmet."
+    },
+    {
+      "id": "ACT-LI10-012",
+      "description": "Bing size=0 investigation. Root cause was timing: Bingbot crawled 27.03.26 before SSR deployment (28.03.26), receiving empty React SPA shell. After SSR deployment, Bing re-crawled 31.03.26 and got full SSR content (size=9,373). Homepage is now in the Bing index. Cloudflare Bot Fight Mode was NOT the cause — confirmed no blocking rules. Other pages still undiscovered — addressed by ACT-LI10-017.",
+      "status": "completed",
+      "completed_date": "2026-03-31",
+      "evidence": "Bing GetUrlInfo 06.04.26: homepage discovered=27.03.26, crawled=31.03.26, size=9,373. Prior: size=0."
+    },
+    {
+      "id": "ACT-LI10-001",
+      "description": "Static JSON-LD in index.html for SSR visibility. Deployed 28.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-28",
+      "evidence": "render_compare 06.04.26: ssrHasJsonLd=true on all pages."
+    },
+    {
+      "id": "ACT-LI10-005",
+      "description": "Article JSON-LD schema on all blog posts via SSG.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-006",
+      "description": "GA4 conversion events configured: generate_lead, begin_checkout, view_case_studies.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-007",
+      "description": "IndexNow key file deployed at /40b3efc5ab8e4c0e9ca6163daca5d29e.txt.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-008",
+      "description": "AI crawler explicit Allow rules added to robots.txt. 10 crawlers allowed.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    }
+  ]
+}
