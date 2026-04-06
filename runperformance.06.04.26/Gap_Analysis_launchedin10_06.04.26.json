@@ -1,0 +1,108 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-04-06",
+  "run_number": 8,
+  "gsc_summary": {
+    "impressions_90d": 200,
+    "clicks_90d": 0,
+    "unique_queries": 50,
+    "best_position": 1,
+    "best_position_query": "which website accessibility checkers can make my website wcag compliant",
+    "best_position_page": "/blog/website-design/accessibility-checker-website-essential/",
+    "best_position_country": "USA"
+  },
+  "ga4_summary": {
+    "on_domain_sessions": 241,
+    "tier_a_sessions": 120,
+    "organic_sessions": 40,
+    "ai_citations": 0,
+    "bing_organic": 2,
+    "conversions": 0,
+    "bot_inflation_pct": 54.5
+  },
+  "bing_summary": {
+    "homepage_size": 9373,
+    "homepage_crawled": "2026-03-31",
+    "pages_discovered": 2,
+    "pages_with_content": 1,
+    "notes": "Homepage fully crawled. /seo-automation/ discovered 05.04 but size=0. /blog/, /case-studies/, /website-translation/ never discovered."
+  },
+  "technical_health": {
+    "indexed_pages": 4,
+    "not_indexed": 1,
+    "sitemap_urls": 117,
+    "sitemap_videos": 74,
+    "sitemap_indexed": 0,
+    "sitemap_last_downloaded": "2026-04-03",
+    "schema_errors": "Duplicate FAQPage on all pages (React Helmet leak from Home.jsx)",
+    "stale_crawl_pages": ["/seo-automation/ (44 days)"]
+  },
+  "intent_clusters": [
+    {
+      "cluster": "affordable website designers",
+      "queries": ["affordable web designers", "affordable website designers", "affordable website design companies", "best affordable web design companies", "cheapest web designers", "inexpensive web designers"],
+      "total_impressions": 30,
+      "avg_position": 87,
+      "page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/",
+      "verdict": "Monitor — too deep (pos 85+), no movement from prior audit",
+      "remediation": "None"
+    },
+    {
+      "cluster": "website cost / pricing",
+      "queries": ["website construction cost", "cost of web development", "web design costs 2026", "digital agency pricing models 2026", "fixed price web design"],
+      "total_impressions": 11,
+      "avg_position": 14,
+      "page": "Various cost/pricing blog posts",
+      "verdict": "B — surgical. Near page 1 on several queries.",
+      "remediation": "Monitor positions. If any crosses pos 1-5 with >10 imp, expand FAQ and refresh content."
+    },
+    {
+      "cluster": "managed dedicated hosting",
+      "queries": ["is managed dedicated server worth it", "dedicated server managed hosting", "managed dedicated hosting services", "managed dedicated server web hosting"],
+      "total_impressions": 33,
+      "avg_position": 45,
+      "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-worth/",
+      "verdict": "Monitor — building slowly. Best variant at pos 4 (USA).",
+      "remediation": "None — content is ranking naturally."
+    },
+    {
+      "cluster": "construction websites",
+      "queries": ["construction websites 2026", "construction company website design trends 2026", "construction company web design", "website design for construction companies"],
+      "total_impressions": 20,
+      "avg_position": 20,
+      "page": "/blog/industry-spotlights/why-website-design-for-construction/",
+      "verdict": "Monitor — trending from pos 30 toward pos 20.",
+      "remediation": "None — natural authority building."
+    },
+    {
+      "cluster": "accessibility / WCAG",
+      "queries": ["which website accessibility checkers WCAG compliant", "website compliance tools"],
+      "total_impressions": 2,
+      "avg_position": 16,
+      "page": "/blog/website-design/accessibility-checker-website-essential/",
+      "verdict": "B — surgical if volume grows. FIRST POSITION 1 HIT.",
+      "remediation": "Monitor. If impressions grow, expand the page's FAQ section."
+    }
+  ],
+  "citation_matrix": {
+    "queries_tested": 5,
+    "ai_overview_triggers": 0,
+    "our_citations": 0,
+    "competitor_citations": 0,
+    "notes": "UK web design commercial queries consistently do not trigger Google AI Overviews. Zero citations across ChatGPT, Perplexity, Copilot, Claude. No competitor Tier 1 citations because no AI systems answer these queries with source attribution."
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "orbit_3_flow_stalled": 0,
+    "velocity_7d": 0
+  },
+  "cross_portfolio": {
+    "intent_boundary_clean": true,
+    "draft_deep_links": [
+      "Blog post on e-commerce websites -> responsible.eldris.ai (EU RP for sellers expanding to EU)",
+      "Blog post on GDPR/privacy -> epr.eldris.ai (EPR/WEEE for electronics retailers)"
+    ]
+  }
+}
