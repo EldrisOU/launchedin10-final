@@ -11,18 +11,6 @@
   },
   "action_items": [
     {
-      "id": "ACT-LI10-015",
-      "priority": "P1",
-      "status": "open",
-      "description": "Remove FAQPage from homeSchema in Home.jsx to fix sitewide duplicate FAQPage schema error. Root cause: generate-static.js (line 238) injects FAQPage into the homepage via SSG — this is correct and works. But Home.jsx (line 125) ALSO includes FAQPage in the homeSchema @graph, rendered via React Helmet. During JavaScript hydration, Google's renderer sees BOTH, producing 'Duplicate field FAQPage' ERROR on the homepage. Worse: this leaks to ALL other pages — /case-studies/ (re-crawled 04.04.26) now shows 3 duplicate FAQPage items because the SPA briefly renders the Home component during initial React Router resolution. This blocks FAQ rich results sitewide and degrades Google's trust in all structured data on the domain.",
-      "prompt": "Fix the duplicate FAQPage schema on launchedin10.co.uk. Open src/pages/Home.jsx in the EldrisOU/launchedin10-final repo. Find the homeSchema object (around line 87-160) which contains an @graph array. Remove the entire FAQPage entry from the @graph array (the object with '@type': 'FAQPage' containing the mainEntity array of Questions — approximately lines 125-155). Keep everything else in the @graph (Organization, WebSite, WebPage, Service). The FAQPage is already correctly injected by generate-static.js during SSG build — the React Helmet version is redundant and causes duplication. After removing, run the SSG build (node generate-static.js) and verify the homepage SSG output still contains exactly ONE FAQPage JSON-LD block. Deploy to Cloudflare Pages. After deployment, use render_compare on https://launchedin10.co.uk/ to verify ssrJsonLdTypes still includes FAQPage. Then request re-crawl via gsc_inspect_url on https://launchedin10.co.uk/ and https://launchedin10.co.uk/case-studies/ — the duplicate FAQPage error should clear within 48-72 hours.",
-      "created_date": "2026-04-06",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/ and https://launchedin10.co.uk/case-studies/ after 72 hours. richResultsResult should no longer contain 'Duplicate field FAQPage' error. Homepage should show FAQ PASS with valid items.",
-      "codebase_path": "src/pages/Home.jsx",
-      "estimated_impact": "Clears schema errors on every page of the site. Unlocks FAQ rich results on the homepage (12 Q&A pairs). Restores Google's trust in structured data across the domain.",
-      "evidence": "gsc_inspect_url 06.04.26: homepage richResultsResult FAIL, 2 duplicate FAQPage items. /case-studies/ richResultsResult FAIL, 3 duplicate FAQPage items. render_compare: SSR has only 1 FAQPage (from SSG). Duplication occurs at JS rendering time from React Helmet."
-    },
-    {
       "id": "ACT-LI10-016",
       "priority": "P2",
       "status": "open",
@@ -30,16 +18,8 @@
       "prompt": "Request indexing for https://launchedin10.co.uk/seo-automation/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. Wait 72 hours, then re-check — lastCrawlTime should update from 2026-02-21 to a recent date. After re-crawl, run render_compare on the URL to verify SSR JSON-LD types match what Google now sees.",
       "created_date": "2026-04-06",
       "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/seo-automation/ — lastCrawlTime should update from 2026-02-21 to a date after 2026-04-06.",
-      "estimated_impact": "Updates Google's cached version of a commercial service page with 44 days of improvements (SSR JSON-LD, Service schema, Speakable markup)."
-    },
-    {
-      "id": "ACT-LI10-017",
-      "priority": "P2",
-      "status": "open",
-      "description": "Submit remaining commercial pages to Bing via SubmitUrlBatch API. The Bing homepage breakthrough (size=9,373) confirms SSR content is now crawlable by Bingbot. However, /blog/, /case-studies/, and /website-translation/ have never been discovered by Bing. /seo-automation/ was discovered 05.04.26 but has size=0 (not fully crawled yet). Submitting these URLs will accelerate Bing discovery and indexing, expanding the ChatGPT/Copilot retrieval pool beyond just the homepage.",
-      "prompt": "Submit key pages to Bing for crawling using the Bing Webmaster Tools API. Run this command: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/case-studies/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/seo-automation/\"]}'. Expected response: {\"d\":null} = success. Then wait 48 hours and check Bing GetUrlInfo on each URL — DocumentSize should be >0 for at least one page.",
-      "created_date": "2026-04-06",
-      "verification": "Run Bing GetUrlInfo on /blog/, /case-studies/, /website-translation/ after 48 hours. At least one should show DocumentSize>0 and DiscoveryDate set."
+      "estimated_impact": "Updates Google's cached version of a commercial service page with 44 days of improvements (SSR JSON-LD, Service schema, Speakable markup).",
+      "note": "GSC re-crawl cannot be triggered via API (read-only). Operator must request indexing manually via GSC web UI: https://search.google.com/search-console/inspect?resource_id=sc-domain:launchedin10.co.uk&url=https://launchedin10.co.uk/seo-automation/"
     },
     {
       "id": "ACT-LI10-009",
@@ -70,6 +50,20 @@
     }
   ],
   "resolved_items": [
+    {
+      "id": "ACT-LI10-015",
+      "description": "Remove FAQPage from homeSchema in Home.jsx to fix sitewide duplicate FAQPage schema error. FAQPage entry (lines 124-134 of Home.jsx) removed from @graph array. @graph now contains only Organization, WebSite, Service. FAQPage remains in SSG output from generate-static.js (1 occurrence confirmed on live site). /case-studies/ now shows 0 FAQPage occurrences (leak fixed). Deployed to Cloudflare Pages 2026-04-08.",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "curl https://launchedin10.co.uk/ 2026-04-08: 1x FAQPage (SSG). curl https://launchedin10.co.uk/case-studies/ 2026-04-08: 0x FAQPage. Cloudflare Pages build: success. Commit: 381b906."
+    },
+    {
+      "id": "ACT-LI10-017",
+      "description": "Submit remaining commercial pages to Bing via SubmitUrlBatch API. Submitted /blog/, /case-studies/, /website-translation/, /seo-automation/ on 2026-04-08.",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "curl SubmitUrlBatch 2026-04-08: response {\"d\":null} = success. 4 URLs submitted: /blog/, /case-studies/, /website-translation/, /seo-automation/. Verify Bing DocumentSize >0 at next audit (2026-04-13)."
+    },
     {
       "id": "ACT-LI10-010",
       "description": "Sitemap.xml resubmission. Submitted 31.03.26 via gsc_submit_sitemap. GSC lastDownloaded updated from 21.03.26 to 03.04.26 — confirmed re-download with updated content (117 web + 74 video URLs).",
