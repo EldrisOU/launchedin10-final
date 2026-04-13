@@ -1,0 +1,124 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-04-13",
+    "run_number": 9,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-06",
+    "bot_inflation_pct": 52.4,
+    "tier_a_sessions": 120,
+    "honest_assessment": "LaunchedIn10 needs two surgical interventions — fix /website-translation/ indexing regression by adding in-content homepage link, and request /seo-automation/ re-crawl via GSC UI — then patience. The FAQPage fix is confirmed working (homepage FAQ PASS). AI Overviews do not trigger for UK web design queries. 108 posts, 0 clicks, ~300 impressions, 80 unique queries — pre-authority patience phase. The positive signal: query count up 60%, 2 position 1 hits, 3 new near-top-10 entries. Time is the intervention."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-018",
+      "priority": "P2",
+      "status": "open",
+      "description": "Fix /website-translation/ indexing regression — page has regressed from 'Discovered - currently not indexed' (06.04.26) to 'URL is unknown to Google' (13.04.26). Google has completely lost track of this commercial service page. render_compare confirms SSR is correct (15,274 bytes, Service + WebPage + Speakable schema, canonical, H1, meta description). The page's only referring URL was a 301 redirect page — insufficient crawl signal. The navigation link alone does not provide enough equity for a low-authority domain. An in-content internal link from the homepage body will strengthen the crawl signal. Also resubmit to Bing WMT — page is undiscovered there too.",
+      "prompt": "Add an in-content internal link from the LaunchedIn10 homepage to /website-translation/. Open src/sections/CTA.jsx or src/sections/Process.jsx (whichever mentions international/EU/multilingual) and add a contextual link such as 'Need your website in multiple languages? See our website translation service.' linking to /website-translation/. If no section mentions international themes, add a brief mention in src/sections/Pricing.jsx under the Scale tier description. After code change: 1) Rebuild and deploy to Cloudflare Pages. 2) Resubmit sitemap.xml via gsc_submit_sitemap on sc-domain:launchedin10.co.uk. 3) Submit /website-translation/ to Bing: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\"]}'",
+      "created_date": "2026-04-13",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/website-translation/ via sc-domain:launchedin10.co.uk — status should change from 'URL is unknown to Google' to 'Discovered' or 'Crawled' within 7-14 days.",
+      "estimated_impact": "Unlocks a commercial service page for Google discovery and eventual indexing.",
+      "evidence": "GSC URL Inspection 13.04.26: 'URL is unknown to Google'. Prior audit 06.04.26: 'Discovered - currently not indexed'. render_compare 13.04.26: SSR verified correct."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "priority": "P2",
+      "status": "open",
+      "description": "Request re-crawl of /seo-automation/ — Google has not crawled this commercial service page since 21.02.26 (52 days ago). The SSR JSON-LD deployment on 28.03.26 added Service schema, WebPage+Speakable, and Organization schema, but Google is still evaluating the pre-SSR version. The page is indexed and has GSC impressions for related queries, but Google's cached version predates all structured data improvements. This cannot be triggered via API — requires manual action in GSC web UI.",
+      "prompt": "Request indexing for https://launchedin10.co.uk/seo-automation/ manually via the Google Search Console web UI: 1) Go to https://search.google.com/search-console/inspect?resource_id=sc-domain:launchedin10.co.uk 2) Enter URL: https://launchedin10.co.uk/seo-automation/ 3) Click 'Request Indexing'. Then also resubmit to Bing: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/seo-automation/\"]}'",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url — lastCrawlTime should update from 2026-02-21 to a date after 2026-04-13.",
+      "estimated_impact": "Updates Google's cached version of a commercial service page with 52 days of improvements (SSR JSON-LD, Service schema, Speakable markup).",
+      "evidence": "GSC URL Inspection 13.04.26: lastCrawlTime=2026-02-21T12:02:14Z. render_compare: SSR verified with Organization, WebSite, WebPage, Service schema."
+    },
+    {
+      "id": "ACT-LI10-019",
+      "priority": "P3",
+      "status": "open",
+      "description": "Resubmit sitemap.xml to GSC and resubmit undiscovered pages to Bing. The sitemap was last downloaded by Google on 03.04.26 — before the 08.04.26 code changes that updated lastmod dates on 8 pages. Resubmission may trigger a fresh download. Additionally, /case-studies/ and /website-translation/ were submitted to Bing on 08.04.26 but remain undiscovered — resubmit both.",
+      "prompt": "1) Resubmit sitemap to GSC: use gsc_submit_sitemap with siteUrl='sc-domain:launchedin10.co.uk' and feedpath='https://launchedin10.co.uk/sitemap.xml'. 2) Resubmit to Bing: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/case-studies/\",\"https://launchedin10.co.uk/website-translation/\"]}'",
+      "created_date": "2026-04-13",
+      "verification": "Check gsc_list_sitemaps — lastDownloaded should update from 2026-04-03 to a date after 2026-04-13. Check Bing GetUrlInfo for /case-studies/ — DiscoveryDate should appear.",
+      "evidence": "gsc_list_sitemaps 13.04.26: lastDownloaded=2026-04-03. Bing GetUrlInfo: /case-studies/ never discovered, /website-translation/ never discovered."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries — positive trajectory confirmed. Two position 1 hits (accessibility checker queries), three new near-top-10 entries (cost to build small business website 2026 at pos 5, website design cost uk small business 2026 at pos 6.5/8, cost of web development at pos 11). Query count up 60% from 50 to 80 unique queries. At current impression volumes (1-4 per query), these need time not intervention. The 'construction websites 2026' cluster at pos 19-31 with 19 impressions is approaching strike range.",
+      "prompt": "Monitoring item — no action required until next audit. At next audit (2026-04-20), re-query GSC search analytics and compare positions for: 'cost to build small business website 2026', 'website design cost uk small business 2026', 'website construction cost', 'construction websites 2026'. If any query moves to position 1-3 with >10 impressions, recommend FAQ expansion and internal link additions on the ranking page.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor GA4 conversion events deployed 28.03.26. Three events configured: generate_lead, begin_checkout, view_case_studies. Zero conversions in 16 days of data. Expected given low Tier A traffic (~120 sessions in 90 days). Need 30 days minimum to establish baseline.",
+      "prompt": "Monitoring item — no action required until 2026-04-28. At that point check GA4 for generate_lead and begin_checkout event counts. If still zero after 30 days, verify tracking: visit the site, submit the contact form, and check GA4 Realtime for the generate_lead event.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 events after 30 days (2026-04-28)."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-015",
+      "description": "Remove FAQPage from homeSchema in Home.jsx — deployed 08.04.26, confirmed 13.04.26. GSC URL Inspection on homepage shows FAQ rich results: PASS. render_compare on /case-studies/ confirms 0x FAQPage in SSR. The duplicate schema error that affected every page on the site is fully resolved at the source level. GSC still shows stale FAQPage errors on /case-studies/ from the prior crawl evaluation — these will age out as Google re-evaluates.",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "GSC inspect 13.04.26: homepage richResultsResult.verdict=PASS, detectedItems=[FAQ]. render_compare 13.04.26: /case-studies/ ssrJsonLdTypes=[Organization, WebSite, WebPage] — no FAQPage."
+    },
+    {
+      "id": "ACT-LI10-017",
+      "description": "Submit commercial pages to Bing via SubmitUrlBatch API — submitted /blog/, /case-studies/, /website-translation/, /seo-automation/ on 08.04.26. Partially confirmed: /blog/ newly discovered by Bing on 12.04.26 (size=0, not fully crawled yet). /case-studies/ and /website-translation/ remain undiscovered. Resubmission queued in ACT-LI10-019.",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "Bing GetUrlInfo 13.04.26: /blog/ discovered=12.04.26, size=0. /case-studies/ never. /website-translation/ never."
+    },
+    {
+      "id": "ACT-LI10-010",
+      "description": "Sitemap.xml resubmission. Confirmed resolved — lastDownloaded updated to 03.04.26.",
+      "status": "completed",
+      "completed_date": "2026-04-03",
+      "evidence": "gsc_list_sitemaps 13.04.26: lastDownloaded=2026-04-03."
+    },
+    {
+      "id": "ACT-LI10-012",
+      "description": "Bing homepage size=0 — resolved. Homepage now size=9,373 in Bing index.",
+      "status": "completed",
+      "completed_date": "2026-03-31",
+      "evidence": "Bing GetUrlInfo 13.04.26: size=9373."
+    },
+    {
+      "id": "ACT-LI10-001",
+      "description": "Static JSON-LD in index.html for SSR visibility. Deployed 28.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-005",
+      "description": "Article JSON-LD schema on all blog posts via SSG.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-006",
+      "description": "GA4 conversion events configured: generate_lead, begin_checkout, view_case_studies.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-007",
+      "description": "IndexNow key file deployed at /40b3efc5ab8e4c0e9ca6163daca5d29e.txt.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-008",
+      "description": "AI crawler explicit Allow rules added to robots.txt.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    }
+  ]
+}
