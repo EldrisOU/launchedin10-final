@@ -1,0 +1,151 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-04-13",
+    "run_number": 9,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-06",
+    "gsc_property": "sc-domain:launchedin10.co.uk",
+    "ga4_property": "properties/517814343"
+  },
+  "gsc_summary": {
+    "date_range": "2026-01-13 to 2026-04-13",
+    "total_impressions": 300,
+    "total_clicks": 0,
+    "unique_queries": 80,
+    "position_1_queries": [
+      "where can i get a website accessibility scan of my website? (GBR, 1 imp)",
+      "which website accessibility checkers can make my website wcag compliant? (USA, 1 imp)"
+    ],
+    "top_10_queries": [
+      {"query": "is managed dedicated server worth it", "position": 4.0, "impressions": 2, "country": "USA"},
+      {"query": "cost to build small business website 2026", "position": 5.0, "impressions": 1, "country": "GBR"},
+      {"query": "what should i look for choosing inbound marketing firms", "position": 5.0, "impressions": 1, "country": "GBR"},
+      {"query": "website design cost uk small business 2026", "position": 6.5, "impressions": 2, "country": "USA"},
+      {"query": "construction company website design trends 2026", "position": 7.0, "impressions": 2, "country": "HUN"},
+      {"query": "digital agency pricing models 2026", "position": 8.25, "impressions": 4, "country": "GBR"},
+      {"query": "website design cost uk small business 2026", "position": 8.0, "impressions": 1, "country": "GBR"},
+      {"query": "aws database services overview 2026", "position": 10.0, "impressions": 1, "country": "ESP"},
+      {"query": "how to choose a web design agency", "position": 10.0, "impressions": 1, "country": "CHL"}
+    ]
+  },
+  "ga4_summary": {
+    "date_range": "90 days",
+    "total_sessions_all_hostnames": 252,
+    "on_domain_sessions": 230,
+    "tier_a_sessions": 120,
+    "tier_b_sessions": 85,
+    "tier_c_sessions": 47,
+    "bot_inflation_pct": 52.4,
+    "google_organic_sessions": 29,
+    "bing_organic_sessions": 2,
+    "google_cpc_sessions": 6,
+    "facebook_referral_sessions": 3,
+    "ai_referral_sessions": 0,
+    "ai_breakdown": {
+      "chatgpt": 0,
+      "perplexity": 0,
+      "copilot": 0,
+      "gemini": 0,
+      "claude": 0
+    },
+    "conversions": 0
+  },
+  "technical_health": {
+    "homepage": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-08T03:03:40Z",
+      "rich_results": "FAQ PASS",
+      "bing_size": 9373,
+      "bing_discovered": "2026-03-27",
+      "bing_crawled": "2026-03-31"
+    },
+    "blog": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-03-22T19:42:21Z",
+      "bing_size": 0,
+      "bing_discovered": "2026-04-12",
+      "bing_crawled": "2026-04-12"
+    },
+    "seo_automation": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-02-21T12:02:14Z",
+      "days_since_crawl": 52,
+      "bing_size": 0,
+      "bing_discovered": "2026-04-05",
+      "flag": "P2 — 52-day stale crawl on commercial page"
+    },
+    "case_studies": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-12T08:21:31Z",
+      "rich_results": "FAQPage ERROR (stale cache — SSR confirmed clean)",
+      "bing_discovered": "never",
+      "flag": "Monitoring — GSC error is stale cached data"
+    },
+    "website_translation": {
+      "index_status": "URL is unknown to Google",
+      "last_crawled": "never",
+      "bing_discovered": "never",
+      "ssr_verified": true,
+      "ssr_content_length": 15274,
+      "ssr_json_ld_types": ["Organization", "WebSite", "WebPage", "Service"],
+      "flag": "P2 — REGRESSED from Discovered to Unknown"
+    }
+  },
+  "sitemaps": {
+    "sitemap_xml": {
+      "urls_web": 117,
+      "urls_video": 74,
+      "last_submitted": "2026-03-31",
+      "last_downloaded": "2026-04-03",
+      "indexed": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    "sitemap_redirectfix_xml": {
+      "urls_web": 16,
+      "last_submitted": "2026-03-21",
+      "last_downloaded": "2026-04-05",
+      "indexed": 0,
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "schema_coverage": {
+    "organization": "100%",
+    "website_search_action": "100%",
+    "webpage_speakable": "100%",
+    "article": "100% blog",
+    "breadcrumb_list": "100% blog",
+    "video_object": "74 posts",
+    "faq_page": "homepage only — FIXED (was duplicate)",
+    "service": "seo-automation + website-translation",
+    "data_ai_summary": "Hero.jsx"
+  },
+  "citation_matrix": {
+    "queries_tested": 5,
+    "ai_overview_triggers": 0,
+    "our_citations": 0,
+    "finding": "UK web design commercial queries consistently do NOT trigger AI Overviews. Zero citation opportunity at this time.",
+    "queries": [
+      {"query": "website design cost uk 2026", "ai_overview": false, "our_position": "not in top 10"},
+      {"query": "affordable website designers uk", "ai_overview": false, "our_position": "pos 85-97"},
+      {"query": "bespoke web design uk small business", "ai_overview": false, "our_position": "not in top 10"},
+      {"query": "website construction cost uk 2026", "ai_overview": false, "our_position": "pos 10.75"},
+      {"query": "website accessibility checker wcag", "ai_overview": false, "our_position": "pos 1 (long-tail variant)"}
+    ]
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "orbit_3_flow_stalled": 0
+  },
+  "gaps": [],
+  "remediation_verdicts": {
+    "verdict_a_new_content": 0,
+    "verdict_b_surgical_adjust": 2,
+    "verdict_c_sister_property": 0
+  }
+}
