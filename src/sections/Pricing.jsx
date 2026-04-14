@@ -136,6 +136,7 @@ const Pricing = () => {
                 <div className="mt-12 text-center text-sm text-text-muted space-y-2 opacity-80">
                     <p>All prices in GBP. 12-month minimum term. Cancel anytime after with 30 days' notice. You own everything — always.</p>
                     <p>Larger site? We charge £2 per additional post or product. Most SMB sites fit comfortably within Growth.</p>
+                    <p>Expanding internationally? Our <a href="/website-translation/" className="text-accent hover:text-primary underline underline-offset-2 transition-colors">website translation service</a> delivers your site in multiple languages — built for SEO, not machine-translated.</p>
                 </div>
             </div>
         </section>
