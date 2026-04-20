@@ -120,6 +120,14 @@ const Home = () => {
                 "provider": { "@id": "https://launchedin10.co.uk/#organization" },
                 "areaServed": "GB",
                 "description": "Professional custom websites built for conversion and speed, delivered in exactly 10 days."
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": faqs.map(f => ({
+                    "@type": "Question",
+                    "name": f.q,
+                    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+                }))
             }
         ]
     };
