@@ -1,0 +1,144 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-04-20",
+    "run_number": 10,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-13",
+    "bot_inflation_pct": 52.6,
+    "tier_a_sessions": 99,
+    "honest_assessment": "LaunchedIn10 is in pre-authority patience phase. First-ever Perplexity AI citation detected (1 session). Both prior P2 interventions confirmed resolved (/website-translation/ now indexed, /seo-automation/ re-crawled). One persistent SPA issue: FAQPage schema leaks to /case-studies/ via React client-side routing. 108 posts, 0 clicks, ~350 impressions, ~90 unique queries — leading indicators positive (query count +80% over 6 audits, 3 position-1 hits). Time is the primary intervention."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-020",
+      "priority": "P2",
+      "status": "open",
+      "description": "Fix FAQPage schema SPA leak on /case-studies/ and all non-homepage routes. GSC Rich Results for /case-studies/ still shows 'Duplicate field FAQPage' error (crawled 17.04.26 — this is NOT stale cache, it persisted through a fresh re-crawl). render_compare confirms SSR is clean (no FAQPage in static HTML). The issue is that the React SPA injects homepage FAQPage JSON-LD into the DOM during client-side navigation, and Google's JavaScript renderer picks it up on non-homepage routes. This degrades rich results quality on every page Google crawls via JS rendering. The fix must ensure FAQPage JSON-LD is only present in the DOM when the user/crawler is on the homepage route.",
+      "prompt": "Fix the FAQPage schema leak in the LaunchedIn10 React SPA. The issue: when Google's JS renderer navigates to /case-studies/ (or any non-homepage route), the homepage FAQPage JSON-LD persists in the DOM, causing 'Duplicate field FAQPage' errors in GSC. Steps: 1) Open src/pages/Home.jsx — find where homeSchema (containing FAQPage) is injected via react-helmet-async. 2) Verify the Helmet component is inside the Home component (route-scoped), not in a shared layout. 3) If the schema is in a shared layout or index.html, move the FAQPage portion to be route-specific to Home.jsx only. 4) Test: run the dev server, navigate to /case-studies/, inspect the DOM for FAQPage script tags — there should be zero. 5) Deploy to Cloudflare Pages. 6) After deploy, run rich_results_test on https://launchedin10.co.uk/case-studies/ — should show no FAQPage schema.",
+      "created_date": "2026-04-20",
+      "verification": "After deployment, run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ via sc-domain:launchedin10.co.uk. Rich results should no longer show 'Duplicate field FAQPage' error. Also run rich_results_test on the URL — FAQPage should not appear.",
+      "estimated_impact": "Removes FAQPage duplicate errors from all non-homepage routes. Improves rich results quality across the site.",
+      "evidence": "GSC URL Inspection 20.04.26 on /case-studies/: richResultsResult.verdict=FAIL, 4x FAQPage items with 'Duplicate field FAQPage' error. render_compare 20.04.26: SSR has ['Organization', 'WebSite', 'WebPage'] — no FAQPage. Page was crawled 17.04.26 (fresh), error is NOT stale cache."
+    },
+    {
+      "id": "ACT-LI10-021",
+      "priority": "P2",
+      "status": "open",
+      "description": "Resubmit /website-translation/ to Bing Webmaster Tools. Despite two prior submissions (08.04 and 14.04), Bing has never discovered this commercial service page. All other commercial pages are now discovered by Bing (/, /blog/, /seo-automation/, /case-studies/), but /website-translation/ remains invisible. Bing index is the retrieval pool for ChatGPT and Copilot — until this page is in Bing, it cannot be cited by Microsoft AI systems. Google has resolved its side (indexed, crawled 14.04.26), but Bing is blind to this page.",
+      "prompt": "Submit /website-translation/ to Bing Webmaster Tools and IndexNow. Run these commands: 1) Bing WMT SubmitUrlBatch: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\"]}'. 2) Also submit the other size=0 pages for full crawl: add /blog/, /seo-automation/, /case-studies/ to the urlList. 3) Verify response is {\"d\":null} (success). 4) After 7 days, check Bing status: curl -s 'https://ssl.bing.com/webmaster/api.svc/json/GetUrlInfo?siteUrl=https%3A%2F%2Flaunchedin10.co.uk%2F&url=https%3A%2F%2Flaunchedin10.co.uk%2Fwebsite-translation%2F&apikey=30fa478ccc434486be022a3e6a513dca'",
+      "created_date": "2026-04-20",
+      "verification": "Run Bing GetUrlInfo on /website-translation/ — DiscoveryDate should appear (not 'never'). DocumentSize should be >0 (fully crawled).",
+      "estimated_impact": "Adds a commercial service page to the Bing index, making it available for ChatGPT and Copilot retrieval.",
+      "evidence": "Bing GetUrlInfo 20.04.26: /website-translation/ discovered=never, crawled=never, size=0. Two prior submissions (08.04, 14.04) did not result in discovery."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries — positive trajectory continues. Three position-1 queries (was 2): accessibility checker variants + new German query 'managed server oder shared hosting' at pos 1 with 8 impressions. Query count up to ~90 (was ~80). Multiple queries in pos 5-11 range for UK web design cost terms. At current impression volumes (1-8 per query), these need time not intervention. The 'construction websites 2026' cluster (31 impressions, pos 19-31) is the closest to strike range.",
+      "prompt": "Monitoring item — no action required until next audit. At next audit (2026-04-27), re-query GSC search analytics and compare positions for: 'cost to build small business website 2026', 'website design cost uk small business 2026', 'website construction cost', 'construction websites 2026', 'digital agency pricing models 2026'. If any query moves to position 1-3 with >10 impressions, recommend FAQ expansion on the ranking page.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor GA4 conversion events deployed 28.03.26. Three events configured: generate_lead, begin_checkout, view_case_studies. Zero conversions in 23 days of data. Expected given low Tier A traffic (~99 sessions in 90 days). 30-day baseline reached on 28.04.26.",
+      "prompt": "Monitoring item — check GA4 for generate_lead and begin_checkout event counts after 28.04.26. If still zero after 30 days, verify tracking: visit the site, submit the contact form, and check GA4 Realtime for the generate_lead event. If event fires but no conversions recorded, the tracking is working and the traffic volume is simply insufficient.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 events after 30 days (2026-04-28)."
+    },
+    {
+      "id": "ACT-LI10-022",
+      "priority": "P3",
+      "status": "open",
+      "description": "First-ever AI citation awareness — Perplexity referral detected. One session from perplexity.ai/referral to homepage, engagement rate 1.0, 135.7s duration. This is LI10's first AI citation across all 10 audits. At 1 session it is noise-level and does not warrant intervention, but should be tracked at each subsequent audit to determine if it's a one-off or the beginning of a pattern. The AEO infrastructure (Speakable, data-ai-summary, robots.txt AI bot allows, llms.txt) is fully deployed and does not need changes.",
+      "prompt": "Monitoring item — no action required. At next audit, check GA4 traffic sources for perplexity.ai/referral, chatgpt.com/referral, and bing.com/referral sessions on hostname=launchedin10.co.uk. If Perplexity sessions increase to 3+, activate First-Citation Response Protocol: verify AEO blocks on cited pages, expand FAQ section if <5 Q&A pairs, queue adjacent silo content to orbit_3_flow.",
+      "created_date": "2026-04-20",
+      "verification": "Check AI referral sessions at next audit."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-018",
+      "description": "Fix /website-translation/ indexing regression — added in-content internal link from Pricing.jsx to /website-translation/. Deployed 14.04.26. Page went from 'URL is unknown to Google' to 'Submitted and indexed' within 24 hours. Google crawled 14.04.26 with successful fetch. Referring URLs now include sitemap.xml and an internal blog page link.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC URL Inspection 20.04.26: verdict=PASS, coverageState='Submitted and indexed', lastCrawlTime=2026-04-14T18:03:29Z, pageFetchState=SUCCESSFUL."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "description": "Request re-crawl of /seo-automation/ — page was 52 days stale (last crawled 21.02.26). Submitted via Google Indexing API, Bing WMT, and IndexNow on 14.04.26. Google re-crawled on 14.04.26, now has the current SSR version with Service schema, WebPage+Speakable, and Organization schema.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC URL Inspection 20.04.26: lastCrawlTime=2026-04-14T13:48:09Z (was 2026-02-21T12:02:14Z)."
+    },
+    {
+      "id": "ACT-LI10-019",
+      "description": "Resubmit sitemap.xml to GSC and undiscovered pages to Bing. Sitemap now regularly downloaded (17.04.26, was stuck at 03.04.26). Bing /case-studies/ newly discovered 19.04.26.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "gsc_list_sitemaps 20.04.26: lastDownloaded=2026-04-17. Bing GetUrlInfo: /case-studies/ discovered=19.04.26."
+    },
+    {
+      "id": "ACT-LI10-015",
+      "description": "Remove FAQPage from homeSchema in Home.jsx — deployed 08.04.26. Homepage FAQ rich results PASS. However, /case-studies/ still shows FAQPage duplicate error via SPA client-side routing (not stale cache — persisted through 17.04.26 re-crawl). Superseded by ACT-LI10-020.",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "GSC homepage: FAQ PASS. But /case-studies/ FAQPage error persists — SPA architectural issue, not source-level schema."
+    },
+    {
+      "id": "ACT-LI10-017",
+      "description": "Submit commercial pages to Bing via SubmitUrlBatch API. All 4 pages now discovered: / (27.03), /blog/ (12.04), /seo-automation/ (05.04), /case-studies/ (19.04). Only /website-translation/ remains undiscovered (escalated to ACT-LI10-021).",
+      "status": "completed",
+      "completed_date": "2026-04-08",
+      "evidence": "Bing GetUrlInfo 20.04.26: 4/5 commercial pages discovered."
+    },
+    {
+      "id": "ACT-LI10-010",
+      "description": "Sitemap.xml resubmission. Fully resolved — regular downloads confirmed.",
+      "status": "completed",
+      "completed_date": "2026-04-03",
+      "evidence": "gsc_list_sitemaps: lastDownloaded=2026-04-17."
+    },
+    {
+      "id": "ACT-LI10-012",
+      "description": "Bing homepage size=0 — resolved. Homepage size=9,373.",
+      "status": "completed",
+      "completed_date": "2026-03-31",
+      "evidence": "Bing GetUrlInfo: size=9373."
+    },
+    {
+      "id": "ACT-LI10-001",
+      "description": "Static JSON-LD in index.html for SSR visibility. Deployed 28.03.26.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-005",
+      "description": "Article JSON-LD schema on all blog posts via SSG.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-006",
+      "description": "GA4 conversion events configured.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-007",
+      "description": "IndexNow key file deployed.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    },
+    {
+      "id": "ACT-LI10-008",
+      "description": "AI crawler Allow rules in robots.txt.",
+      "status": "completed",
+      "completed_date": "2026-03-28"
+    }
+  ]
+}
