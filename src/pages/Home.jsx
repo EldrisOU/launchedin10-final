@@ -132,6 +132,22 @@ const Home = () => {
         ]
     };
 
+    // Inject JSON-LD via useEffect to guarantee cleanup on route change.
+    // react-helmet-async does not reliably remove <script type="application/ld+json">
+    // tags when navigating away, causing duplicate FAQPage errors in GSC.
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'home-schema-graph';
+        script.textContent = JSON.stringify(homeSchema);
+        document.head.appendChild(script);
+
+        return () => {
+            const el = document.getElementById('home-schema-graph');
+            if (el) el.remove();
+        };
+    }, []);
+
     return (
         <main>
             <Helmet>
@@ -150,11 +166,6 @@ const Home = () => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Web Design Reimagined | LaunchedIn10" />
                 <meta name="twitter:description" content="Professional custom websites delivered in 10 days. High speed, high performance." />
-
-                {/* Structured Data */}
-                <script type="application/ld+json">
-                    {JSON.stringify(homeSchema)}
-                </script>
             </Helmet>
 
             <Hero />
