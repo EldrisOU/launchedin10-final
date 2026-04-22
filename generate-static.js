@@ -244,7 +244,26 @@ function injectSchema(html, pageType, pageData) {
                 }
             ]
         });
-        // FAQPage removed from SSG — now route-scoped via React Helmet in Home.jsx only
+        // FAQPage — SSG-only injection. NEVER inject via React/useEffect/Helmet.
+        // Google's WRS does not reliably execute React cleanup on SPA route changes,
+        // causing FAQPage to leak to /case-studies/ and all non-homepage routes.
+        graph.push({
+            "@type": "FAQPage",
+            "mainEntity": [
+                { "@type": "Question", "name": "What if I don't like the design?", "acceptedAnswer": { "@type": "Answer", "text": "Two protections. First: we deliver in 10 business days or refund 100% of your activation fee\u2014and you keep the site. Second: if you're unhappy within 30 days of launch, we revise up to 5 pages free, or cancel and refund your first month. We're confident, so we put the risk on ourselves." } },
+                { "@type": "Question", "name": "Am I locked into a long contract?", "acceptedAnswer": { "@type": "Answer", "text": "12-month minimum, then month-to-month with 30 days' notice. But here's the key: you own everything. Domain, files, content\u2014all yours. If you leave after 12 months, you take it all. No hostage situation. Clean exit guaranteed." } },
+                { "@type": "Question", "name": "Do I own my website?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Completely. Your domain, your files, your content. If we registered your domain, we transfer it to you on request. If you leave, everything comes with you. We don't believe in holding clients hostage\u2014that's not how you earn loyalty." } },
+                { "@type": "Question", "name": "How is this different from Wix or Squarespace?", "acceptedAnswer": { "@type": "Answer", "text": "Wix and Squarespace are DIY tools\u2014you're the website designer, unpaid. We're done-for-you website design services. You send content, we build a professional site in 10 days. You never touch a template, drag a block, or debug a plugin. That's the difference." } },
+                { "@type": "Question", "name": "How is this different from AI website builders?", "acceptedAnswer": { "@type": "Answer", "text": "AI builders generate generic sites in seconds\u2014and they look like it. Our website designers build from scratch, for your specific business, with human creativity and strategic thinking. AI can't understand your market positioning. We can." } },
+                { "@type": "Question", "name": "What happens if I want to cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Within 12 months: pay remaining months \u00d7 50% of your monthly fee. After 12 months: 30 days' notice, no penalty. Your domain and files transfer to you either way. We make leaving easy because we'd rather earn your stay." } },
+                { "@type": "Question", "name": "I have an existing website. Is migration included?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every tier includes migration of your existing content \u2014 pages, posts, products, images, the lot. Starter covers up to 25 posts and 10 products. Growth covers up to 100 posts and 25 products. Scale covers up to 200 posts and 75 products. If you're over your tier limit, we charge \u00a32 per extra item." } },
+                { "@type": "Question", "name": "What exactly gets migrated from my old site?", "acceptedAnswer": { "@type": "Answer", "text": "Everything that matters. Your pages get redesigned from scratch. Blog posts, products, categories, tags, and your entire media library come across to the new site. Scale tier also includes custom fields (like product specifications) and full URL redirect mapping to protect your search rankings." } },
+                { "@type": "Question", "name": "How do I know which tier fits my existing site?", "acceptedAnswer": { "@type": "Answer", "text": "Count your blog posts and products. If you have under 25 posts and 10 products, Starter works. Under 100 posts and 25 products, Growth is your fit. Anything larger, go Scale. Not sure? Send us your URL and we'll tell you in 24 hours." } },
+                { "@type": "Question", "name": "Can I migrate from any platform?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. WordPress, Wix, Squarespace, Shopify, Webflow, GoDaddy, Jimdo \u2014 we've migrated from all of them. The platform doesn't affect pricing. Your content volume does." } },
+                { "@type": "Question", "name": "Who are your website design services for?", "acceptedAnswer": { "@type": "Answer", "text": "UK and EU businesses with 1-50 employees who need a professional website but don't have time for DIY, budget for \u00a35k+ agencies, or patience for 12-week timelines. If you want agency quality at startup speed, you're in the right place." } },
+                { "@type": "Question", "name": "Why should I trust a website designer I found online?", "acceptedAnswer": { "@type": "Answer", "text": "You shouldn't\u2014blindly. That's why we guarantee delivery in 10 days or full refund, plus 30-day satisfaction assurance. We put our money where our claims are. Ask your current agency if they'll do the same." } }
+            ]
+        });
     }
 
     const schemaScript = `\n    <script type="application/ld+json">\n    ${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 4)}\n    </script>\n`;
@@ -529,7 +548,7 @@ async function generateHomepage(distDir, shell) {
     <meta name="twitter:description" content="Professional custom websites delivered in 10 days. High speed, high performance.">
     </head>`);
 
-    // Inject Homepage-specific schema (Service + FAQPage) via SSG — this is the ONLY route that gets FAQPage
+    // Inject Homepage-specific schema (Service + FAQPage) via SSG — the ONLY route that gets FAQPage
     html = injectSchema(html, 'Homepage', { url: 'https://launchedin10.co.uk/' });
 
     // Inject Hero & Core Content

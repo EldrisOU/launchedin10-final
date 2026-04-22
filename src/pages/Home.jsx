@@ -32,7 +32,6 @@ const Home = () => {
         }
     }, [location.hash]);
 
-    // Elite Organization, Website & FAQ Schema Graph
     const faqs = [
         {
             q: "What if I don't like the design?",
@@ -84,79 +83,10 @@ const Home = () => {
         }
     ];
 
-    const homeSchema = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Organization",
-                "@id": "https://launchedin10.co.uk/#organization",
-                "name": "LaunchedIn10",
-                "url": "https://launchedin10.co.uk",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://launchedin10.co.uk/vite.svg"
-                },
-                "sameAs": [
-                    "https://x.com/launchedin10",
-                    "https://linkedin.com/company/launchedin10"
-                ],
-                "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days.",
-                "subOrganization": [
-                    {
-                        "@type": "Organization",
-                        "@id": "https://law.launchedin10.co.uk/#organization",
-                        "name": "LaunchedIn10 Law",
-                        "url": "https://law.launchedin10.co.uk",
-                        "description": "Google Ads audit and management for UK SRA-regulated law firms.",
-                        "parentOrganization": { "@id": "https://launchedin10.co.uk/#organization" }
-                    }
-                ]
-            },
-            {
-                "@type": "WebSite",
-                "@id": "https://launchedin10.co.uk/#website",
-                "url": "https://launchedin10.co.uk",
-                "name": "LaunchedIn10",
-                "publisher": { "@id": "https://launchedin10.co.uk/#organization" },
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://launchedin10.co.uk/blog?s={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
-            },
-            {
-                "@type": "Service",
-                "serviceType": "High-Performance Web Design",
-                "provider": { "@id": "https://launchedin10.co.uk/#organization" },
-                "areaServed": "GB",
-                "description": "Professional custom websites built for conversion and speed, delivered in exactly 10 days."
-            },
-            {
-                "@type": "FAQPage",
-                "mainEntity": faqs.map(f => ({
-                    "@type": "Question",
-                    "name": f.q,
-                    "acceptedAnswer": { "@type": "Answer", "text": f.a }
-                }))
-            }
-        ]
-    };
-
-    // Inject JSON-LD via useEffect to guarantee cleanup on route change.
-    // react-helmet-async does not reliably remove <script type="application/ld+json">
-    // tags when navigating away, causing duplicate FAQPage errors in GSC.
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.id = 'home-schema-graph';
-        script.textContent = JSON.stringify(homeSchema);
-        document.head.appendChild(script);
-
-        return () => {
-            const el = document.getElementById('home-schema-graph');
-            if (el) el.remove();
-        };
-    }, []);
+    // FAQPage + Service + Organization + WebSite schema is injected ONLY via SSG
+    // (generate-static.js) into the static homepage HTML. NOT via React/useEffect.
+    // Reason: Google's WRS does not reliably execute React useEffect cleanup on SPA
+    // route changes, causing FAQPage to leak to /case-studies/ and all other routes.
 
     return (
         <main>
