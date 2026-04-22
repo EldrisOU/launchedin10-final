@@ -72,7 +72,17 @@ const ORG_SCHEMA = {
         "email": "hello@launchedin10.co.uk",
         "availableLanguage": "English"
     },
-    "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days."
+    "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days.",
+    "subOrganization": [
+        {
+            "@type": "Organization",
+            "@id": "https://law.launchedin10.co.uk/#organization",
+            "name": "LaunchedIn10 Law",
+            "url": "https://law.launchedin10.co.uk",
+            "description": "Google Ads audit and management for UK SRA-regulated law firms.",
+            "parentOrganization": { "@id": "https://launchedin10.co.uk/#organization" }
+        }
+    ]
 };
 
 const WEBSITE_SCHEMA = {
@@ -603,6 +613,46 @@ async function generateHomepage(distDir, shell) {
                 </div>
             </section>
         </main>
+
+        <!-- SSG footer (client-side React Footer hydrates over this). Kept lean so AI crawlers see the entity graph. -->
+        <footer class="bg-primary text-white py-16 mt-0">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                    <div class="col-span-2">
+                        <div class="font-bold text-2xl tracking-tighter mb-4">Launched<span class="text-accent italic">In10</span></div>
+                        <p class="text-gray-400 text-sm leading-relaxed max-w-md mb-3">Precision engineering for the private sector. High-performance digital assets that turn visibility into market share.</p>
+                        <p class="text-gray-500 text-xs">61 Bridge Street, Kington, Herefordshire, HR5 3DJ</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[10px] uppercase tracking-[0.2em] text-accent mb-4">Navigation</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="/#process" class="hover:text-white transition-colors">Process</a></li>
+                            <li><a href="/case-studies/" class="hover:text-white transition-colors">Case Studies</a></li>
+                            <li><a href="/seo-automation/" class="hover:text-white transition-colors">SEO Disruptor</a></li>
+                            <li><a href="/website-translation/" class="hover:text-white transition-colors">Translate Me</a></li>
+                            <li><a href="/blog/" class="hover:text-white transition-colors">The Lab</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[10px] uppercase tracking-[0.2em] text-accent mb-4">Legal</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy</a></li>
+                            <li><a href="/terms/" class="hover:text-white transition-colors">Terms</a></li>
+                            <li><a href="/cookies/" class="hover:text-white transition-colors">Cookies</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[10px] uppercase tracking-[0.2em] text-accent mb-4">Divisions</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="https://law.launchedin10.co.uk" rel="noopener" class="hover:text-white transition-colors">LaunchedIn10 Law</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-white/5 pt-8 text-xs text-gray-500 text-center">
+                    &copy; ${new Date().getFullYear()} LaunchedIn10. All rights reserved.
+                </div>
+            </div>
+        </footer>
     `;
 
     // SEO Navigation Block for Googlebot crawlability

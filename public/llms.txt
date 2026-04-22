@@ -14,6 +14,10 @@ LaunchedIn10 is a UK-based web design and development agency specialising in bes
 - **Website Translation**: Multi-language website localisation for UK businesses expanding internationally
 - **SEO Automation**: Automated SEO monitoring and optimisation for ongoing organic growth
 
+## Divisions
+
+- [LaunchedIn10 Law](https://law.launchedin10.co.uk): Google Ads audit and management for UK SRA-regulated solicitors. Free 12-point audit, then £997/month flat for ongoing management. England and Wales only.
+
 ## Key Pages
 
 - Homepage: https://launchedin10.co.uk/

@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
 
             <div className="max-w-7xl mx-auto px-4 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-16 mb-24">
                     {/* BRANDING */}
                     <div className="col-span-1 md:col-span-2 text-center md:text-left">
                         <Link to="/" className="inline-block mb-8">
@@ -56,6 +56,23 @@ const Footer = () => {
                             <li><Link to="/privacy/" className="hover:text-white transition-colors">Privacy</Link></li>
                             <li><Link to="/terms/" className="hover:text-white transition-colors">Terms</Link></li>
                             <li><Link to="/cookies/" className="hover:text-white transition-colors">Cookies</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* DIVISIONS */}
+                    <div className="text-center md:text-left">
+                        <h4 className="font-bold text-[10px] uppercase tracking-[0.2em] text-accent mb-8">Divisions</h4>
+                        <ul className="space-y-4 text-gray-400 font-medium">
+                            <li>
+                                <a
+                                    href="https://law.launchedin10.co.uk"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="hover:text-white transition-colors"
+                                >
+                                    LaunchedIn10 Law
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

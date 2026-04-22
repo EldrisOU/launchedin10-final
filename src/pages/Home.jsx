@@ -100,7 +100,17 @@ const Home = () => {
                     "https://x.com/launchedin10",
                     "https://linkedin.com/company/launchedin10"
                 ],
-                "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days."
+                "description": "High-performance web design agency delivering revenue-generating digital assets in 10 days.",
+                "subOrganization": [
+                    {
+                        "@type": "Organization",
+                        "@id": "https://law.launchedin10.co.uk/#organization",
+                        "name": "LaunchedIn10 Law",
+                        "url": "https://law.launchedin10.co.uk",
+                        "description": "Google Ads audit and management for UK SRA-regulated law firms.",
+                        "parentOrganization": { "@id": "https://launchedin10.co.uk/#organization" }
+                    }
+                ]
             },
             {
                 "@type": "WebSite",
