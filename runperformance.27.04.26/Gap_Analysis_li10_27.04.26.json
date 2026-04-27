@@ -1,0 +1,239 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-04-27",
+    "run_number": 11,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-20",
+    "gsc_property": "sc-domain:launchedin10.co.uk",
+    "ga4_property": "properties/517814343"
+  },
+  "gsc_summary": {
+    "date_range": "2026-01-27 to 2026-04-27",
+    "total_impressions": 420,
+    "total_clicks": 0,
+    "unique_queries": 105,
+    "position_1_queries": [
+      "where can i get a website accessibility scan of my website? (GBR, 1 imp, pos 1)",
+      "which website accessibility checkers can make my website wcag compliant? (USA, 1 imp, pos 1)",
+      "managed server oder shared hosting - was ist besser für online-shops? (DEU, 12 imp, pos 1)"
+    ],
+    "top_10_queries": [
+      {"query": "construction websites 2026", "position": 28.5, "impressions": 44, "country": "GBR", "note": "Highest volume cluster, deep positions 19-37"},
+      {"query": "seo foundations", "position": 73, "impressions": 38, "country": "GBR", "note": "Category page ranking, very deep"},
+      {"query": "affordable website designers", "position": 86, "impressions": 15, "country": "GBR"},
+      {"query": "managed hosting dedicated server", "position": 47, "impressions": 14, "country": "GBR"},
+      {"query": "managed server oder shared hosting (DE)", "position": 1.0, "impressions": 12, "country": "DEU", "note": "Position 1, growing"},
+      {"query": "dedicated server managed hosting", "position": 44, "impressions": 12, "country": "GBR"},
+      {"query": "inexpensive web design companies", "position": 27, "impressions": 11, "country": "GBR"},
+      {"query": "dedicated server hosting vs shared", "position": 26, "impressions": 10, "country": "GBR"},
+      {"query": "construction company website design trends 2026", "position": 8, "impressions": 8, "country": "Multi"},
+      {"query": "20110: analytics and seo", "position": 14, "impressions": 7, "country": "GBR"}
+    ],
+    "new_queries_since_last_audit": [
+      {"query": "website builders accessibility compliance evaluation", "position": 6.3, "impressions": 3, "country": "USA"},
+      {"query": "managed server vs shared hosting für online-shops", "position": 6, "impressions": 2, "country": "USA"}
+    ]
+  },
+  "ga4_summary": {
+    "date_range": "90 days (2026-01-27 to 2026-04-27)",
+    "total_sessions_all_hostnames": 369,
+    "on_domain_sessions": 351,
+    "tier_a_sessions": 120,
+    "tier_b_sessions": 210,
+    "tier_c_sessions": 21,
+    "off_domain_sessions": 18,
+    "bot_inflation_pct": 65.8,
+    "google_organic_sessions": 20,
+    "bing_organic_sessions": 2,
+    "google_cpc_sessions": 6,
+    "facebook_referral_sessions": 3,
+    "portal_referral_sessions": 5,
+    "ai_referral_sessions": 1,
+    "ai_breakdown": {
+      "chatgpt": 0,
+      "perplexity": 1,
+      "copilot": 0,
+      "gemini": 0,
+      "claude": 0
+    },
+    "ai_citation_detail": {
+      "perplexity": {
+        "sessions": 1,
+        "landing_page": "/",
+        "engagement_rate": 1.0,
+        "avg_session_duration": 135.7,
+        "first_ever": false,
+        "note": "Same session as prior audit — within rolling 90d window"
+      }
+    },
+    "conversions": 0,
+    "top_pages_by_sessions": [
+      {"path": "/", "sessions": 181, "engagement_rate": 0.35},
+      {"path": "/case-studies/", "sessions": 19, "engagement_rate": 0.74},
+      {"path": "/blog/", "sessions": 12, "engagement_rate": 0.75},
+      {"path": "/seo-automation/", "sessions": 7, "engagement_rate": 0.57},
+      {"path": "/website-translation/", "sessions": 7, "engagement_rate": 0.86}
+    ]
+  },
+  "technical_health": {
+    "homepage": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-26T03:05:40Z",
+      "days_since_crawl": 1,
+      "rich_results": "FAQ PASS",
+      "bing_size": 9373,
+      "bing_discovered": "2026-03-27",
+      "bing_crawled": "2026-03-31",
+      "note": "Freshest crawl ever — Google crawled yesterday"
+    },
+    "blog": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-03-22T19:42:21Z",
+      "days_since_crawl": 36,
+      "bing_size": 0,
+      "bing_discovered": "2026-04-12",
+      "flag": "36 days stale — approaching concern at 45 days"
+    },
+    "seo_automation": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-14T13:48:09Z",
+      "days_since_crawl": 13,
+      "bing_size": 0,
+      "bing_discovered": "2026-04-05"
+    },
+    "case_studies": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-21T11:02:34Z",
+      "days_since_crawl": 6,
+      "rich_results": "FAQPage duplicate ERROR — SSR confirmed clean, WRS cache lag",
+      "bing_discovered": "2026-04-19",
+      "bing_size": 0,
+      "flag": "P2 — SSG fix deployed 20-21.04, awaiting Google WRS re-render"
+    },
+    "website_translation": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-19T07:24:11Z",
+      "days_since_crawl": 8,
+      "bing_discovered": "never",
+      "bing_size": 0,
+      "flag": "P2 — 3 Bing submissions, never discovered"
+    }
+  },
+  "sitemaps": {
+    "sitemap_xml": {
+      "urls_web": 117,
+      "urls_video": 74,
+      "last_submitted": "2026-04-14",
+      "last_downloaded": "2026-04-17",
+      "indexed": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    "sitemap_redirectfix_xml": {
+      "urls_web": 16,
+      "last_submitted": "2026-03-21",
+      "last_downloaded": "2026-04-25",
+      "indexed": 0,
+      "errors": 0,
+      "warnings": 0,
+      "note": "Refreshed — downloaded 25.04 (was 14.04)"
+    },
+    "law_sitemap_xml": {
+      "urls_web": 10,
+      "last_submitted": "2026-04-22",
+      "last_downloaded": "2026-04-24",
+      "indexed": 0,
+      "note": "NEW — law.launchedin10.co.uk subdomain sitemap"
+    }
+  },
+  "schema_coverage": {
+    "organization": "100% (SSR, now with subOrganization for Law)",
+    "website_search_action": "100%",
+    "webpage_speakable": "100%",
+    "article": "100% blog",
+    "breadcrumb_list": "100% blog",
+    "video_object": "74 posts",
+    "faq_page": "homepage only — PASS",
+    "service": "seo-automation + website-translation",
+    "data_ai_summary": "Hero.jsx (speakable-summary class)"
+  },
+  "citation_matrix": {
+    "queries_tested": 5,
+    "ai_overview_triggers": 0,
+    "our_citations": 0,
+    "finding": "UK web design commercial queries consistently do NOT trigger AI Overviews — confirmed across 11 consecutive audits. Zero Google AIO citation opportunity. Perplexity citation unchanged at 1 session.",
+    "queries": [
+      {"query": "website design cost uk 2026", "ai_overview": false, "serp_position": "not in top 9"},
+      {"query": "affordable website designers uk", "ai_overview": false, "serp_position": "pos 85-97"},
+      {"query": "bespoke web design uk small business", "ai_overview": false, "serp_position": "not in top 10"},
+      {"query": "website construction cost uk", "ai_overview": false, "serp_position": "pos 10.75"},
+      {"query": "web design 10 days uk", "ai_overview": false, "serp_position": "not tested in GSC"}
+    ],
+    "competitor_analysis": {
+      "note": "No competitor holds Tier 1 AI citation on any LI10 head term because AI Overviews do not trigger for these query categories. SERP for 'website design cost uk small business 2026' dominated by authenticstyle.co.uk (#1), cheapwebdesign.co.uk (#2), designbydraft.com (#3). SERP for 'construction company website design 2026' dominated by designrush.com (#1), design-hero.com (#2). LI10 not in top 10 for either."
+    }
+  },
+  "content_integrity": {
+    "body_fingerprint_pass": true,
+    "all_pages_unique_title": true,
+    "all_pages_unique_h1": true,
+    "all_canonicals_correct": true,
+    "all_brands_present": true,
+    "homepage_content_leak": false,
+    "language_contamination": false,
+    "note": "Single-language EN property. German GSC query is DE users finding EN content, not language contamination."
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£2", "£5", "£5,000"],
+      "jsonld_prices": [],
+      "captured_at": "2026-04-27T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true,
+      "note": "No Offer/Product schema. Prices unchanged from 20.04.26 baseline."
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£50", "£100", "£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [],
+      "captured_at": "2026-04-27T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [],
+      "captured_at": "2026-04-27T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    }
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "orbit_3_flow_stalled": 0
+  },
+  "gaps": [],
+  "remediation_verdicts": {
+    "verdict_a_new_content": 0,
+    "verdict_b_surgical_adjust": 0,
+    "verdict_c_sister_property": 0
+  },
+  "reconciliation": {
+    "gsc_clicks_90d": 0,
+    "ga4_organic_sessions_on_domain": 20,
+    "delta": 20,
+    "assessment": "Acceptable at zero-click volumes"
+  },
+  "bot_filtering": {
+    "tier_a": 120,
+    "tier_b": 210,
+    "tier_c": 21,
+    "off_domain": 18,
+    "total": 369,
+    "bot_inflation_pct": 65.8,
+    "note": "Increase from 53% driven by more direct/unengaged homepage visits. Tier A genuine growth +21%."
+  }
+}
