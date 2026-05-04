@@ -1,0 +1,220 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-05-04",
+    "run_number": 12,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-27",
+    "gsc_property": "sc-domain:launchedin10.co.uk",
+    "ga4_property": "properties/517814343"
+  },
+  "gsc_summary": {
+    "date_range": "2026-02-03 to 2026-05-04",
+    "total_impressions": 340,
+    "total_clicks": 0,
+    "unique_queries": 85,
+    "position_1_queries": [
+      "where can i get a website accessibility scan (GBR, 1 imp, pos 1)",
+      "which website accessibility checkers wcag compliant (USA, 1 imp, pos 1)",
+      "managed server oder shared hosting (DEU, 12 imp, pos 1)"
+    ],
+    "top_10_queries": [
+      {"query": "construction websites 2026", "position": 29, "impressions": 55, "country": "GBR", "note": "Highest volume, deep positions 19-35. Up 25% from 44."},
+      {"query": "seo foundations", "position": 73, "impressions": 38, "country": "GBR", "note": "Category page, very deep"},
+      {"query": "inexpensive web design companies", "position": 25, "impressions": 18, "country": "GBR", "note": "Up 64% from 11"},
+      {"query": "dedicated server managed hosting", "position": 50, "impressions": 16, "country": "GBR"},
+      {"query": "affordable website designers", "position": 86, "impressions": 15, "country": "GBR"},
+      {"query": "dedicated server hosting vs shared", "position": 25, "impressions": 15, "country": "GBR", "note": "Up 50% from 10"},
+      {"query": "managed hosting dedicated server", "position": 48, "impressions": 15, "country": "GBR"},
+      {"query": "managed server oder shared hosting (DE)", "position": 1.0, "impressions": 12, "country": "DEU", "note": "Position 1, maintained"},
+      {"query": "dedicated server hosting comparison", "position": 47, "impressions": 9, "country": "GBR"},
+      {"query": "20110: analytics and seo", "position": 15, "impressions": 8, "country": "GBR"}
+    ],
+    "new_queries_since_last_audit": [
+      {"query": "transparent web design pricing", "position": 20, "impressions": 8, "country": "USA/GBR"},
+      {"query": "best affordable web design companies", "position": 12, "impressions": 5, "country": "GBR/USA"}
+    ]
+  },
+  "ga4_summary": {
+    "date_range": "90 days (2026-02-03 to 2026-05-04)",
+    "total_sessions_all_hostnames": 372,
+    "on_domain_sessions": 355,
+    "tier_a_sessions": 120,
+    "tier_b_sessions": 215,
+    "tier_c_sessions": 20,
+    "off_domain_sessions": 17,
+    "bot_inflation_pct": 66.2,
+    "google_organic_sessions": 16,
+    "bing_organic_sessions": 2,
+    "google_cpc_sessions": 6,
+    "facebook_referral_sessions": 3,
+    "portal_referral_sessions": 7,
+    "ai_referral_sessions": 1,
+    "ai_breakdown": {
+      "chatgpt": 0,
+      "perplexity": 1,
+      "copilot": 0,
+      "gemini": 0,
+      "claude": 0
+    },
+    "ai_citation_detail": {
+      "perplexity": {
+        "sessions": 1,
+        "landing_page": "/",
+        "engagement_rate": 1.0,
+        "avg_session_duration": 135.7,
+        "first_ever": false,
+        "note": "Same session as prior 2 audits — within rolling 90d window"
+      }
+    },
+    "conversions": 0,
+    "top_pages_by_sessions": [
+      {"path": "/", "sessions": 179, "engagement_rate": 0.40},
+      {"path": "/case-studies/", "sessions": 19, "engagement_rate": 0.74},
+      {"path": "/blog/", "sessions": 11, "engagement_rate": 0.73},
+      {"path": "/website-translation/", "sessions": 10, "engagement_rate": 0.70},
+      {"path": "/seo-automation/", "sessions": 8, "engagement_rate": 0.50}
+    ]
+  },
+  "technical_health": {
+    "homepage": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-30T03:03:20Z",
+      "days_since_crawl": 4,
+      "rich_results": "FAQ PASS",
+      "bing_size": 21248,
+      "bing_discovered": "2026-03-27",
+      "bing_crawled": "2026-05-03",
+      "note": "Bing re-crawled yesterday. Size doubled from 9,373 to 21,248."
+    },
+    "blog": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-03-22T19:42:21Z",
+      "days_since_crawl": 43,
+      "bing_size": 0,
+      "bing_discovered": "2026-04-12",
+      "flag": "P1 — 43 days stale. Needs re-crawl request."
+    },
+    "seo_automation": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-30T06:48:20Z",
+      "days_since_crawl": 4,
+      "bing_size": 0,
+      "bing_discovered": "2026-04-05"
+    },
+    "case_studies": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-30T17:21:24Z",
+      "days_since_crawl": 4,
+      "rich_results": "FAQ 4x duplicate ERROR — SSR confirmed clean, WRS still injecting FAQPage",
+      "bing_discovered": "2026-04-19",
+      "bing_size": 0,
+      "flag": "P1 — ESCALATING. Was 3x ERROR, now 4x. useEffect fix not working with WRS."
+    },
+    "website_translation": {
+      "index_status": "Submitted and indexed",
+      "last_crawled": "2026-04-29T08:26:16Z",
+      "days_since_crawl": 5,
+      "bing_discovered": "never",
+      "bing_size": 0,
+      "flag": "P2 — 4th audit, never discovered by Bing"
+    }
+  },
+  "sitemaps": {
+    "sitemap_xml": {
+      "urls_web": 117,
+      "urls_video": 74,
+      "last_submitted": "2026-04-14",
+      "last_downloaded": "2026-04-17",
+      "indexed": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    "sitemap_redirectfix_xml": {
+      "urls_web": 16,
+      "last_submitted": "2026-03-21",
+      "last_downloaded": "2026-04-25",
+      "indexed": 0
+    },
+    "law_sitemap_xml": {
+      "urls_web": 10,
+      "last_submitted": "2026-04-22",
+      "last_downloaded": "2026-04-28",
+      "indexed": 0
+    }
+  },
+  "schema_coverage": {
+    "organization": "100% (SSR, with subOrganization for Law)",
+    "website_search_action": "100%",
+    "webpage_speakable": "100%",
+    "article": "100% blog",
+    "breadcrumb_list": "100% blog",
+    "video_object": "74 posts",
+    "faq_page": "homepage PASS — /case-studies/ 4x duplicate ERROR",
+    "service": "seo-automation + website-translation",
+    "data_ai_summary": "Hero.jsx speakable-summary class"
+  },
+  "citation_matrix": {
+    "queries_tested": 0,
+    "note": "Not retested — 0/5 AI Overview triggers across 11 consecutive prior audits. UK web design queries consistently do not trigger AI Overviews."
+  },
+  "content_integrity": {
+    "body_fingerprint_pass": true,
+    "all_pages_unique_title": true,
+    "all_pages_unique_h1": true,
+    "all_canonicals_correct": true,
+    "all_brands_present": true,
+    "homepage_content_leak": false,
+    "language_contamination": false
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£2", "£5", "£5,000"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-04T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£50", "£99.95", "£100", "£149.95", "£195.00"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-04T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-04T00:00:00Z",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    }
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "orbit_3_flow_stalled": 0
+  },
+  "gaps": [],
+  "remediation_verdicts": {
+    "verdict_a_new_content": 0,
+    "verdict_b_surgical_adjust": 0,
+    "verdict_c_sister_property": 0
+  },
+  "reconciliation": {
+    "gsc_clicks_90d": 0,
+    "ga4_organic_sessions_on_domain": 16,
+    "delta": 16,
+    "assessment": "Acceptable at zero-click volumes"
+  },
+  "bot_filtering": {
+    "tier_a": 120,
+    "tier_b": 215,
+    "tier_c": 20,
+    "off_domain": 17,
+    "total": 372,
+    "bot_inflation_pct": 66.2
+  }
+}
