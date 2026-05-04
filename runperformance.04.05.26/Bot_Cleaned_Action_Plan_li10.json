@@ -1,0 +1,115 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-05-04",
+    "run_number": 12,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-04-27",
+    "bot_inflation_pct": 66.2,
+    "tier_a_sessions": 120,
+    "honest_assessment": "LaunchedIn10 remains in pre-authority patience phase. All leading indicators positive: Google crawl frequency strong (4/5 pages crawled within 5 days), Bing homepage doubled in size and re-crawled yesterday, impression clusters growing, 3 position-1 queries maintained. Two issues need targeted fixes: /case-studies/ FAQPage WRS injection is escalating (4x errors, SSR clean), and /blog/ is 43 days stale. The site needs these two fixes, then continued patience."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-023",
+      "priority": "P1",
+      "status": "open",
+      "description": "FAQPage duplicate error on /case-studies/ is ESCALATING despite fix. Google re-crawled /case-studies/ on 30.04.26 after ACT-LI10-020 re-index request (28.04.26). The error is now WORSE: 4 duplicate FAQPage items (was 3 at audit #11). SSR is confirmed clean via render_compare and direct curl — JSON-LD @graph contains only Organization, WebSite, WebPage. No FAQPage in static HTML. Google's WRS (Web Rendering Service) is executing JavaScript that injects FAQPage during SPA hydration on /case-studies/. The useEffect cleanup approach deployed 21.04.26 is NOT preventing WRS from detecting the schema. Root cause: the React SPA likely adds FAQPage briefly during hydration before the route-scoped cleanup fires. WRS captures it during this transient window. This has persisted across 3 crawl cycles and is worsening.",
+      "prompt": "Fix the FAQPage duplicate error on https://launchedin10.co.uk/case-studies/ in the EldrisOU/launchedin10-final repo. The SSR HTML is clean (no FAQPage), but Google's WRS detects FAQPage during JavaScript execution. Investigation steps: 1) Read src/pages/Home.jsx — find where FAQPage JSON-LD is injected (useEffect or Helmet). 2) Read generate-static.js — find where FAQPage is injected into the SSG homepage. 3) The fix: FAQPage must NEVER exist in any React component that executes during SPA hydration. Remove FAQPage from Home.jsx entirely. Keep FAQPage ONLY in generate-static.js's homepage SSG template — this gets injected into dist/index.html's @graph during build and is stripped/replaced when React hydrates. 4) Verify: after deploying, curl https://launchedin10.co.uk/case-studies/ and grep for FAQPage — must return 0 matches. 5) After deploy, request re-indexing of /case-studies/ via gsc_inspect_url. Wait 7 days for WRS to re-render.",
+      "created_date": "2026-05-04",
+      "verification": "After deploy + re-crawl: gsc_inspect_url on https://launchedin10.co.uk/case-studies/ — richResultsResult should show PASS with no FAQPage items. Currently shows FAIL with 4x 'Duplicate field FAQPage' ERROR.",
+      "estimated_impact": "Clears rich results errors on /case-studies/ and all non-homepage SPA routes. Prevents schema quality degradation across the site.",
+      "evidence": "GSC URL Inspection 04.05.26: /case-studies/ crawled 30.04.26, richResultsResult.verdict=FAIL, 4x FAQPage duplicate ERROR (up from 3x at audit #11). render_compare 04.05.26: SSR @graph = [Organization, WebSite, WebPage] — clean. curl FAQPage mentions: 1 (in JS bundle only, not in JSON-LD)."
+    },
+    {
+      "id": "ACT-LI10-024",
+      "priority": "P1",
+      "status": "open",
+      "description": "The /blog/ page has not been crawled by Google for 43 days (last crawl: 22.03.26). This is past the concern threshold of 45 days flagged in audit #11. All other commercial pages were crawled within the last 5 days, making /blog/ the only stale page. The blog index page is the gateway to 108 published posts and 4 category silos. Stale crawl data means Google may not reflect recent internal linking changes or new post additions in the blog index.",
+      "prompt": "Request re-crawl of https://launchedin10.co.uk/blog/ via Google Search Console URL Inspection API. Property: sc-domain:launchedin10.co.uk. Use gsc_inspect_url to request indexing. After requesting, verify at next audit (2026-05-11) that lastCrawlTime has updated from 2026-03-22T19:42:21Z to a date after today.",
+      "created_date": "2026-05-04",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/ — lastCrawlTime should be after 2026-05-04.",
+      "estimated_impact": "Refreshes Google's view of the blog index page. Ensures new internal links and posts are reflected.",
+      "evidence": "GSC URL Inspection 04.05.26: /blog/ lastCrawlTime = 2026-03-22T19:42:21Z (43 days ago). All other commercial pages crawled within 5 days."
+    },
+    {
+      "id": "ACT-LI10-021",
+      "priority": "P2",
+      "status": "open",
+      "description": "Bing has NEVER discovered /website-translation/ despite submissions across 4 consecutive audits (08.04, 14.04, 22.04, and earlier). All other commercial pages are now discovered by Bing (homepage at 21,248 bytes, /blog/, /seo-automation/, /case-studies/ all discovered). Bing's index is the retrieval pool for ChatGPT and Copilot — until this page is in Bing, it cannot be cited by Microsoft AI systems. Google has had this page indexed and crawled it on 29.04.26. The persistent non-discovery suggests Bing cannot find the page via its normal crawl path — the homepage (which IS fully indexed by Bing) may not have a crawlable link to /website-translation/ in its SSR output.",
+      "prompt": "Fix Bing non-discovery of /website-translation/ on launchedin10.co.uk. 1) Check if the SSR output of the homepage contains an <a> tag pointing to /website-translation/: curl -sL https://launchedin10.co.uk/ | grep -i 'website-translation'. If missing from SSR, add a visible link in generate-static.js's homepage SSG template. 2) Resubmit: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\"]}'. 3) Verify after 7 days: curl -s 'https://ssl.bing.com/webmaster/api.svc/json/GetUrlInfo?siteUrl=https%3A%2F%2Flaunchedin10.co.uk%2F&url=https%3A%2F%2Flaunchedin10.co.uk%2Fwebsite-translation%2F&apikey=30fa478ccc434486be022a3e6a513dca'",
+      "created_date": "2026-04-20",
+      "verification": "Bing GetUrlInfo — DiscoveryDate should appear (currently 'never'). DocumentSize should be >0.",
+      "estimated_impact": "Adds /website-translation/ to Bing index and ChatGPT/Copilot retrieval pool.",
+      "evidence": "Bing GetUrlInfo 04.05.26: /website-translation/ discovered=never, crawled=never, size=0. 4th consecutive audit undiscovered."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries — trajectory continues positive. Three position-1 queries maintained. Construction cluster grew 25% (44 to 55 impressions). Dedicated server hosting cluster expanding significantly. New cluster: 'transparent web design pricing' (8 impressions, pos 12-25). 'Inexpensive web design companies' up 64% (11 to 18). At current volumes, these need time not intervention.",
+      "prompt": "Monitoring item — no action required until next audit. At next audit (2026-05-11), re-query GSC and compare: 'construction websites 2026' (55 imp, pos 19-35), 'inexpensive web design companies' (18 imp, pos 25), 'dedicated server hosting vs shared' (15 imp, pos 25), 'transparent web design pricing' (8 imp, pos 12-25). If any query moves to position 1-5 with >10 impressions, recommend FAQ expansion.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "GA4 conversion events (generate_lead, begin_checkout, view_case_studies) deployed 28.03.26. Zero conversions after 37 days. At next audit (day 44), verify tracking fires correctly by testing the contact form in GA4 Realtime. If tracking works and conversions remain zero, the conclusion is traffic volume insufficient (120 Tier A sessions in 90 days is too low for measurable conversion rate).",
+      "prompt": "Monitoring item. At next audit (2026-05-11), check GA4 for generate_lead and begin_checkout events. If still zero, verify: visit https://launchedin10.co.uk, submit the contact form, check GA4 Realtime for generate_lead event. Report whether tracking fires.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 events at next audit."
+    },
+    {
+      "id": "ACT-LI10-022",
+      "priority": "P3",
+      "status": "open",
+      "description": "AI citation monitoring — Perplexity citation (1 session, homepage) still in rolling 90-day window. No new AI citations from any engine. AEO infrastructure fully deployed and maintained. Bing homepage now at 21,248 bytes (strongest Bing position ever) — this improves ChatGPT/Copilot retrieval potential. No intervention needed — continue monitoring.",
+      "prompt": "Monitoring item. At next audit, check GA4 traffic sources for chatgpt.com/referral, perplexity.ai/referral, bing.com/referral, gemini.google.com/referral, claude.ai/referral on hostname=launchedin10.co.uk. If any AI engine reaches 3+ sessions, activate First-Citation Response Protocol.",
+      "created_date": "2026-04-20",
+      "verification": "Check AI referral sessions at next audit."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-020",
+      "description": "Re-indexing request for /case-studies/ to force Google WRS refresh. Request executed 28.04.26 (via ACT Executor agent). Google re-crawled the page on 30.04.26 — confirming the re-index request worked. However, the underlying FAQPage duplicate error WORSENED (3x to 4x items). The re-index was successful as an action (crawl happened), but the root problem is now escalated to ACT-LI10-023.",
+      "status": "completed",
+      "completed_date": "2026-04-28",
+      "evidence": "GSC URL Inspection 04.05.26: /case-studies/ lastCrawlTime=2026-04-30T17:21:24Z (post re-index request). richResultsResult: 4x FAQPage duplicate ERROR. Problem escalated to ACT-LI10-023."
+    },
+    {
+      "id": "ACT-LI10-018",
+      "description": "Fix /website-translation/ indexing regression. Resolved — page indexed and crawled regularly (latest: 29.04.26).",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC: lastCrawlTime=2026-04-29T08:26:16Z."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "description": "Request re-crawl of /seo-automation/. Resolved — page crawled 30.04.26.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC: lastCrawlTime=2026-04-30T06:48:20Z."
+    },
+    {
+      "id": "ACT-LI10-019",
+      "description": "Sitemap + Bing resubmissions. Resolved — sitemaps regularly downloaded.",
+      "status": "completed",
+      "completed_date": "2026-04-14"
+    },
+    {
+      "id": "ACT-LI10-015",
+      "description": "Remove FAQPage from homeSchema in Home.jsx. Superseded by SSG-only approach. SSR confirmed clean on non-homepage routes. Now escalated due to WRS persistence.",
+      "status": "completed",
+      "completed_date": "2026-04-21"
+    },
+    {
+      "id": "ACT-LI10-017",
+      "description": "Submit commercial pages to Bing. 4/5 discovered. /website-translation/ escalated to ACT-LI10-021.",
+      "status": "completed",
+      "completed_date": "2026-04-08"
+    }
+  ]
+}
