@@ -15,6 +15,9 @@ const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1N
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Consistent build timestamp for all pages in this build run
+const BUILD_TIMESTAMP = new Date().toISOString();
+
 /**
  * ------------------------------------------------------------------
  *  ELITE BLOG DESIGN - TEMPLATE LOADER
@@ -112,6 +115,8 @@ function injectSchema(html, pageType, pageData) {
         "@id": `${pageUrl}#webpage`,
         "url": pageUrl,
         "isPartOf": { "@id": "https://launchedin10.co.uk/#website" },
+        "datePublished": pageData.datePublished || BUILD_TIMESTAMP,
+        "dateModified": pageData.dateModified || pageData.datePublished || BUILD_TIMESTAMP,
         "speakable": {
             "@type": "SpeakableSpecification",
             "cssSelector": [".speakable-summary"]
@@ -811,6 +816,7 @@ async function generateIndividualPosts(posts, distDir, shell) {
                             <h1 class="text-4xl md:text-7xl font-display font-bold text-[var(--navy)] mb-10 leading-[1.05] tracking-tight">${title}</h1>
                             <div class="flex flex-wrap justify-center items-center gap-8 text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest">
                                 <span>Published ${new Date(post.published_at || post.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                                ${post.updated_at && post.updated_at !== (post.published_at || post.created_at) ? `<span>Last updated ${new Date(post.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>` : ''}
                                 <span>${post.read_time || 5} Min Read</span>
                             </div>
                         </header>

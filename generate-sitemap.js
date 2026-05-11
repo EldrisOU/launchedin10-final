@@ -26,7 +26,7 @@ async function generateSitemap() {
     // DEF-G1 fix: Select post_content, post_title, excerpt for video extraction
     const { data: posts, error } = await supabase
       .from('li10_posts')
-      .select('slug, updated_at, primary_category, post_content, post_title, excerpt')
+      .select('slug, updated_at, published_at, created_at, primary_category, post_content, post_title, excerpt')
       .eq('status', 'publish');
 
     if (error) throw error;
@@ -77,7 +77,7 @@ async function generateSitemap() {
       xml += `
   <url>
     <loc>${baseUrl}/blog/${categorySlug}/${post.slug}/</loc>
-    <lastmod>${new Date(post.updated_at).toISOString().split('T')[0]}</lastmod>
+    <lastmod>${new Date(post.updated_at || post.published_at || post.created_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>`;
 
