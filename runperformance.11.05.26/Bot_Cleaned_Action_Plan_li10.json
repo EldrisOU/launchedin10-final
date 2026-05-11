@@ -1,0 +1,137 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-05-11",
+    "run_number": 13,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-05-04",
+    "bot_inflation_pct": 63.4,
+    "tier_a_sessions": 70,
+    "honest_assessment": "LaunchedIn10 remains in the pre-authority patience phase. GSC impressions grew 62% week-on-week (340 to 550), Bing finally discovered /website-translation/ after 4 audits, and homepage Bing cache grew 17% to 24,769 bytes. However, two P1 issues flagged at Run 12 remain completely unactioned — no code changes deployed in 7 days. The FAQPage WRS error persists and /blog/ is now 50 days stale. These need immediate execution. Beyond these two fixes, the site needs patience and authority growth, not more content or structural changes."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-023",
+      "priority": "P1",
+      "status": "open",
+      "description": "FAQPage duplicate error on /case-studies/ PERSISTS unchanged after 3 audits (Runs 11, 12, 13) with no code fix deployed. Google re-crawled /case-studies/ on 09.05.26 — the 4x duplicate FAQPage ERROR remains. SSR is confirmed clean via render_compare (JSON-LD @graph: Organization, WebSite, WebPage only). Google's WRS executes JavaScript that injects FAQPage during SPA hydration. The useEffect cleanup deployed 21.04.26 is ineffective. Root cause: FAQPage exists in a React component (likely Home.jsx) that executes during SPA hydration on ALL routes, including /case-studies/. WRS captures the transient FAQPage schema before route-specific cleanup fires. This has been flagged for 3 consecutive audits with zero action taken.",
+      "prompt": "Fix the FAQPage duplicate error on https://launchedin10.co.uk/case-studies/ in the EldrisOU/launchedin10-final repo. 1) Read src/pages/Home.jsx — find where FAQPage JSON-LD is injected (useEffect or Helmet). 2) Read generate-static.js — find where FAQPage is injected into the SSG homepage. 3) REMOVE FAQPage from Home.jsx entirely. It must NEVER exist in any React component that could execute during SPA hydration. 4) Keep FAQPage ONLY in generate-static.js's homepage SSG template — this injects into dist/index.html's @graph during build. When React hydrates on non-homepage routes, the SSG @graph is stripped and replaced with route-specific schema, so FAQPage won't leak. 5) After deploying: curl https://launchedin10.co.uk/case-studies/ | grep FAQPage — must return 0 matches. 6) Request re-indexing of /case-studies/ via gsc_inspect_url on sc-domain:launchedin10.co.uk. Wait 7 days for WRS to re-render.",
+      "created_date": "2026-05-04",
+      "verification": "After deploy + re-crawl: gsc_inspect_url on https://launchedin10.co.uk/case-studies/ — richResultsResult should show PASS with no FAQPage items. Currently shows FAIL with 4x 'Duplicate field FAQPage' ERROR.",
+      "estimated_impact": "Clears rich results errors on /case-studies/ and all non-homepage SPA routes. Prevents schema quality degradation.",
+      "evidence": "GSC URL Inspection 11.05.26: /case-studies/ crawled 09.05.26, richResultsResult.verdict=FAIL, 4x FAQPage duplicate ERROR. render_compare 11.05.26: SSR @graph = [Organization, WebSite, WebPage] — clean. No code changes since 04.05.26."
+    },
+    {
+      "id": "ACT-LI10-024",
+      "priority": "P1",
+      "status": "open",
+      "description": "/blog/ page has not been crawled by Google for 50 days (last crawl: 22.03.26). This was flagged at Run 12 (43 days stale) with a re-crawl request recommended, but the request was never executed. Now 50 days stale — the only commercial page not crawled in the last 11 days. The blog index is the gateway to 108 published posts and 4 category silos. Stale crawl data means Google may not reflect recent internal linking changes or content additions.",
+      "prompt": "Request re-crawl of https://launchedin10.co.uk/blog/ via Google Search Console URL Inspection API. Property: sc-domain:launchedin10.co.uk. Use gsc_inspect_url to request indexing. After requesting, verify at next audit (2026-05-18) that lastCrawlTime has updated from 2026-03-22T19:42:21Z to a date after 2026-05-11.",
+      "created_date": "2026-05-04",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/ — lastCrawlTime should be after 2026-05-11.",
+      "estimated_impact": "Refreshes Google's view of the blog index after 50 days. Ensures post additions and internal link changes are reflected.",
+      "evidence": "GSC URL Inspection 11.05.26: /blog/ lastCrawlTime = 2026-03-22T19:42:21Z (50 days ago). All other pages crawled within 11 days."
+    },
+    {
+      "id": "ACT-LI10-025",
+      "priority": "P2",
+      "status": "open",
+      "description": "All 4 Bing subpages (/blog/, /seo-automation/, /case-studies/, /website-translation/) have stale-empty-crawl status: IsPage=true but DocumentSize=0. Bing has discovered and indexed these URLs but their cached body is empty — they cannot rank in Bing SERPs or be retrieved by ChatGPT/Copilot until the cache is populated. The homepage is the only page with a populated cache (24,769 bytes, 67 anchors). SubmitUrlBatch recrawl should populate the cache. This is NOT an indexation problem — all 4 are indexed (IsPage=true). It is a cache-empty state recoverable via recrawl. Block D (GetCrawlIssues) returns empty — no Bing-side blocks.",
+      "prompt": "Submit all 4 stale-empty-crawl pages to Bing for recrawl. Run: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/blog/\",\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/case-studies/\",\"https://launchedin10.co.uk/website-translation/\"]}'. Expected response: {\"d\":null} = success. Verify after 7 days via GetUrlInfo — DocumentSize should be >0.",
+      "created_date": "2026-05-11",
+      "verification": "After 7 days: curl Bing GetUrlInfo for each URL. DocumentSize should be >0 (currently all 0).",
+      "estimated_impact": "Populates Bing cache for 4 commercial pages. Enables ranking in Bing SERPs and ChatGPT/Copilot retrieval.",
+      "evidence": "Bing GetUrlInfo 11.05.26: /blog/ Size=0, /seo-automation/ Size=0, /case-studies/ Size=0, /website-translation/ Size=0. All IsPage=true. Block D: empty."
+    },
+    {
+      "id": "ACT-LI10-026",
+      "priority": "P2",
+      "status": "open",
+      "description": "No dateModified or datePublished in JSON-LD WebPage schema on any commercial page. Google uses dateModified for freshness evaluation in SERPs and AI citation scoring. All 5 commercial pages lack this signal entirely — the only freshness indicator is sitemap lastmod (uniform 2026-05-04, suggesting bulk rebuild). No visible 'Last updated' dates in DOM either. AI systems increasingly weight recency — pages without freshness signals lose citation priority.",
+      "prompt": "Add dateModified and datePublished to the WebPage JSON-LD node in generate-static.js in EldrisOU/launchedin10-final. 1) Read generate-static.js — find injectSchema() where WebPage is constructed. 2) For commercial pages, set dateModified to build timestamp (new Date().toISOString()). 3) For blog posts, source dateModified from post updated_at field. 4) Add datePublished from post created_at. 5) Add visible 'Last updated' element to page template. 6) Update generate-sitemap.js to use per-page dates.",
+      "created_date": "2026-05-11",
+      "verification": "After deploy: curl https://launchedin10.co.uk/ | grep dateModified — should return ISO date. Same for all commercial pages.",
+      "estimated_impact": "Adds freshness signals to all pages. Strengthens time-sensitive ranking and AI citation eligibility.",
+      "evidence": "Content freshness audit 11.05.26: 0/5 commercial pages have dateModified in JSON-LD. 0/5 have visible dates. Sitemap lastmod uniform."
+    },
+    {
+      "id": "ACT-LI10-021",
+      "priority": "P3",
+      "status": "open",
+      "description": "Bing has NOW DISCOVERED /website-translation/ (08.05.26) after 4 audits of 'never'. Breakthrough. DocumentSize=0 (stale-empty-crawl). Downgraded from P2 to P3 — primary blocker (non-discovery) resolved. Cache population handled by ACT-LI10-025 batch SubmitUrl. Monitor at next audit.",
+      "prompt": "Monitoring item. ACT-LI10-025 includes /website-translation/ in batch. Verify Bing DocumentSize > 0 at next audit.",
+      "created_date": "2026-04-20",
+      "verification": "Bing GetUrlInfo: /website-translation/ DocumentSize > 0.",
+      "evidence": "Bing GetUrlInfo 11.05.26: discovered=08.05.26 (was 'never'), IsPage=true, Size=0."
+    },
+    {
+      "id": "ACT-LI10-013",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitor near-ranking queries — trajectory positive. GSC impressions grew 62% (340 to 550). Position-1 queries maintained. 'wordpress site maintenance services' NEW at position 13 (23 imp) — closest to page 1. Dedicated server cluster +40%. 'transparent web design pricing' +25%. Needs time not intervention.",
+      "prompt": "Monitoring item. At next audit compare: 'wordpress site maintenance services' (23 imp, pos 13), 'construction websites 2026' (55 imp, pos 19-35), 'dedicated server hosting vs shared' (21 imp, pos 25-29), 'transparent web design pricing' (10 imp, pos 13). If any enters pos 1-5, recommend FAQ expansion.",
+      "created_date": "2026-03-30",
+      "verification": "Compare positions at next audit."
+    },
+    {
+      "id": "ACT-LI10-014",
+      "priority": "P3",
+      "status": "open",
+      "description": "GA4 conversion events deployed 28.03.26. Zero conversions after 44 days. At 70 Tier A sessions in 90 days, traffic volume insufficient for measurable conversion rate. Verify tracking fires correctly.",
+      "prompt": "At next audit, check GA4 for generate_lead and begin_checkout events. If still zero, test contact form submission and check GA4 Realtime.",
+      "created_date": "2026-03-30",
+      "verification": "Check GA4 events at next audit."
+    },
+    {
+      "id": "ACT-LI10-022",
+      "priority": "P3",
+      "status": "open",
+      "description": "AI citation monitoring. Perplexity 1 session (rolling 90d). 0/10 queries trigger AI Overviews in UK. No AEO opportunity at present for LI10 query types. Bing homepage at 24,769 bytes — strongest position ever for ChatGPT/Copilot retrieval. Monitor.",
+      "prompt": "At next audit, check GA4 for AI referral sources. Re-test top 5 queries via ai_overview_check for AIO trigger changes. If any AI engine reaches 3+ sessions, activate First-Citation Response Protocol.",
+      "created_date": "2026-04-20",
+      "verification": "Check AI referral sessions at next audit."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-020",
+      "description": "Re-indexing request for /case-studies/. Executed 28.04.26. Google re-crawled 30.04.26. Root problem escalated to ACT-LI10-023.",
+      "status": "completed",
+      "completed_date": "2026-04-28",
+      "evidence": "GSC: /case-studies/ lastCrawlTime=2026-04-30."
+    },
+    {
+      "id": "ACT-LI10-018",
+      "description": "/website-translation/ Google indexing regression resolved. Latest crawl: 09.05.26.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC: lastCrawlTime=2026-05-09."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "description": "/seo-automation/ re-crawl resolved. Crawled 30.04.26.",
+      "status": "completed",
+      "completed_date": "2026-04-14",
+      "evidence": "GSC: lastCrawlTime=2026-04-30."
+    },
+    {
+      "id": "ACT-LI10-019",
+      "description": "Sitemap + Bing resubmissions resolved.",
+      "status": "completed",
+      "completed_date": "2026-04-14"
+    },
+    {
+      "id": "ACT-LI10-015",
+      "description": "Remove FAQPage from homeSchema in Home.jsx. Superseded by SSG-only approach. Escalated due to WRS persistence.",
+      "status": "completed",
+      "completed_date": "2026-04-21"
+    },
+    {
+      "id": "ACT-LI10-017",
+      "description": "Submit commercial pages to Bing. 5/5 now discovered (including /website-translation/ as of 08.05.26).",
+      "status": "completed",
+      "completed_date": "2026-05-11",
+      "evidence": "Bing GetUrlInfo 11.05.26: all 5 IsPage=true."
+    }
+  ]
+}
