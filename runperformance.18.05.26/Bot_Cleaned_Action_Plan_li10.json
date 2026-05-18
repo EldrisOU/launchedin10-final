@@ -1,0 +1,85 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-05-18",
+    "run_number": 14,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-05-11",
+    "bot_inflation_pct": 66,
+    "tier_a_sessions": 83,
+    "honest_assessment": "LaunchedIn10 is in a holding pattern. 108 posts, 700+ GSC impressions, zero clicks, zero conversions, and the content pipeline has been stalled for 59 days. The site needs TIME and content velocity more than technical intervention. The FAQPage WRS bug (ACT-LI10-023) is the only genuine code fix warranting deployment — it has been open for 5 consecutive audits. The first Perplexity citation on /website-translation/ is a positive signal but too early to act on aggressively. The SPA architecture is the root cause of Bing's inability to cache subpages."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-023",
+      "priority": "P1",
+      "status": "open",
+      "description": "FAQPage duplicate schema error on /case-studies/ — now open across 5 consecutive audits with zero code fix deployed. GSC Rich Results Test on /case-studies/ returns ERROR: 'Duplicate field FAQPage' (3 instances). The cause is confirmed: Home.jsx injects FAQPage schema during SPA hydration, which conflicts with the SSG-injected FAQPage. When /case-studies/ renders client-side, it picks up both the SSG schema AND the React-injected schema, producing duplicates. This blocks FAQ rich results on the highest-engagement commercial page (0.636 engagement rate, 11 sessions). The fix is architectural: remove FAQPage injection from Home.jsx entirely and keep it SSG-only via generate-static.js.",
+      "prompt": "Fix the FAQPage duplicate schema error on launchedin10.co.uk /case-studies/ page. The root cause: Home.jsx injects FAQPage schema during SPA hydration, conflicting with SSG-injected FAQPage from generate-static.js. Steps: 1) Open the repo EldrisOU/launchedin10-final. 2) In src/pages/Home.jsx (or wherever the homepage component defines homeSchema), find the FAQPage schema block and REMOVE it entirely. The SSG build (generate-static.js) already injects FAQPage correctly — the React component must NOT also inject it. 3) Verify by building locally: run npm run build, then check dist/case-studies/index.html — grep for 'FAQPage' and confirm only ONE instance exists. 4) Deploy to Cloudflare Pages. 5) After deploy, run GSC rich_results_test on https://launchedin10.co.uk/case-studies/ and confirm FAQ rich results pass without duplicate errors.",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ — Rich Results should show FAQ: PASS with zero 'Duplicate field' errors.",
+      "evidence": "GSC URL Inspection 18.05.26: /case-studies/ Rich Results = FAIL, 3x 'Duplicate field FAQPage' ERROR. Open since Run 10 (06.04.26).",
+      "estimated_impact": "Unblocks FAQ rich results on the highest-engagement commercial page."
+    },
+    {
+      "id": "ACT-LI10-024",
+      "priority": "P1",
+      "status": "open",
+      "description": "/blog/ index page last crawled by Google on 22.03.26 — now 57 days stale. A re-crawl request was sent at Run 13 (11.05.26) but Google has NOT re-crawled. This is the gateway page to 108 blog posts. Stale crawl means Google is using a 57-day-old snapshot of the blog index, which may not reflect current post listings, internal links, or schema. The blog index also serves as the primary discovery path for blog posts — if Google's cached version is outdated, new posts linked from this page may not be discovered. This needs a second re-crawl request via Indexing API, plus investigation into whether the page's content has actually changed since March (if not, Google may be correctly deprioritising it).",
+      "prompt": "Force Google to re-crawl https://launchedin10.co.uk/blog/ — it has been 57 days since last crawl (22.03.26) despite a prior re-crawl request. Steps: 1) Use indexing_batch_notify with URL_UPDATED for https://launchedin10.co.uk/blog/. 2) Also request indexing via gsc_inspect_url on https://launchedin10.co.uk/blog/. 3) Verify the blog index page actually has fresh content by checking: does the live page list posts published after 22.03.26? If the content hasn't changed since March, Google may be correctly deprioritising it — in that case, the fix is to update the page content (add a 'Latest posts' section or update the lastmod). 4) Check back in 7 days — if lastCrawlTime still shows 22.03.26, escalate to manual sitemap resubmission.",
+      "created_date": "2026-05-11",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/ — lastCrawlTime should be after 18.05.26.",
+      "evidence": "GSC URL Inspection 18.05.26: lastCrawlTime = 2026-03-22T19:42:21Z (57 days stale). Re-crawl request sent 11.05.26 was not effective."
+    },
+    {
+      "id": "ACT-LI10-027",
+      "priority": "P2",
+      "status": "open",
+      "description": "Five Bing subpages remain in stale-empty-crawl state (IsPage=true, DocumentSize=0) after the Run 13 SubmitUrlBatch partially worked (/blog/ recovered to 55KB). The affected URLs are: /seo-automation/ (last crawled 05.04.26), /website-translation/ (crawled 08.05.26 but body empty), /case-studies/ (crawled 19.04.26), /blog/.../accessibility-checker-website-essential/ (crawled 01.05.26), and /blog/.../web-content-accessibility-guidelines-11-key/ (never crawled). These pages are in Bing's index but with empty cache bodies — meaning they cannot appear in Bing SERPs and are NOT available to ChatGPT or Copilot for citation retrieval. A second targeted SubmitUrlBatch is needed. Note: the SPA architecture (React + client-side rendering) is the likely root cause — Bingbot may not execute the JS needed to render page content. This is a structural limitation that may require SSR/prerendering to fully resolve.",
+      "prompt": "Submit the 5 stale-empty-crawl URLs to Bing for re-crawling. Run this exact command:\n\ncurl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/case-studies/\",\"https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/\",\"https://launchedin10.co.uk/blog/website-design/web-content-accessibility-guidelines-11-key/\"]}'\n\nExpected response: {\"d\":null} = success.\n\nThen verify after 7 days by running GetUrlInfo on each URL — check if DocumentSize > 0. If still 0, the SPA rendering is the blocker and a prerendering solution (e.g., Cloudflare Workers SSR, or adding static HTML fallback to generate-static.js for these pages) should be investigated.",
+      "created_date": "2026-05-18",
+      "verification": "Run Bing GetUrlInfo on each URL after 7 days. DocumentSize should be > 0 for at least some of the 5 URLs.",
+      "evidence": "Bing Block A GetUrlInfo 18.05.26: /seo-automation/ Size=0, /website-translation/ Size=0, /case-studies/ Size=0, accessibility-checker Size=0, wcag-guidelines discovered=never crawled=never."
+    },
+    {
+      "id": "ACT-LI10-028",
+      "priority": "P3",
+      "status": "open",
+      "description": "IndexNow key is NOT DEPLOYED for launchedin10.co.uk. The submit-bing-indexnow.js script exists in the repo (key: 40b3efc5ab8e4c0e9ca6163daca5d29e) but the corresponding key verification file does not exist at https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt. Without this file, IndexNow pings return HTTP 422 (key verification failed). Deploying the key file would enable automatic Bing recrawl notification on every content deploy — reducing the Bing stale-crawl problem structurally. Low effort, high future value, but no immediate impact since the content pipeline has been stalled for 59 days.",
+      "prompt": "Deploy the IndexNow key verification file for launchedin10.co.uk. Steps: 1) Open the repo EldrisOU/launchedin10-final. 2) Create public/40b3efc5ab8e4c0e9ca6163daca5d29e.txt with content: 40b3efc5ab8e4c0e9ca6163daca5d29e 3) Commit and deploy to Cloudflare Pages. 4) Verify: curl -s https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt should return the key string. 5) Test IndexNow ping: curl -s -X POST 'https://api.indexnow.org/indexnow' -H 'Content-Type: application/json' -d '{\"host\":\"launchedin10.co.uk\",\"key\":\"40b3efc5ab8e4c0e9ca6163daca5d29e\",\"keyLocation\":\"https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt\",\"urlList\":[\"https://launchedin10.co.uk/\"]}' — should return HTTP 200.",
+      "created_date": "2026-05-18",
+      "verification": "curl -s https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt returns the key. IndexNow test ping returns HTTP 200.",
+      "evidence": "CONTEXT.md: IndexNow key for launchedin10.co.uk = NOT DEPLOYED. Repo contains submit-bing-indexnow.js with key 40b3efc5ab8e4c0e9ca6163daca5d29e but key file not in public/."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-016",
+      "description": "/seo-automation/ Google re-crawl — resolved. GSC URL Inspection shows lastCrawlTime 15.05.26, crawled as MOBILE, PASS.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection 18.05.26: /seo-automation/ lastCrawlTime = 2026-05-15T01:16:18Z."
+    },
+    {
+      "id": "ACT-LI10-018",
+      "description": "/website-translation/ Google indexing regression — resolved. GSC URL Inspection shows lastCrawlTime 15.05.26, PASS, submitted and indexed.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection 18.05.26: /website-translation/ lastCrawlTime = 2026-05-15T21:45:57Z."
+    },
+    {
+      "id": "ACT-LI10-025",
+      "description": "Bing /blog/ stale-empty-crawl — PARTIALLY resolved. /blog/ now shows DocumentSize=55,968 bytes, last crawled 17.05.26. The SubmitUrlBatch on 11.05.26 worked for /blog/. Remaining 5 subpages with Size=0 moved to ACT-LI10-027.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "Bing GetUrlInfo 18.05.26: /blog/ DocumentSize=55968, LastCrawled=17.05.26. Prior: Size=0."
+    },
+    {
+      "id": "ACT-LI10-026",
+      "description": "dateModified JSON-LD fix — executed at Run 13. Commercial pages now show dateModified in schema.",
+      "status": "completed",
+      "completed_date": "2026-05-11",
+      "evidence": "Executed during Run 13 deployment."
+    }
+  ]
+}
