@@ -1,0 +1,261 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-05-18",
+  "run_number": 14,
+  "previous_audit": "2026-05-11",
+  "gsc_property": "sc-domain:launchedin10.co.uk",
+  "ga4_property": "properties/517814343",
+  "language": "EN-only",
+  "key_metrics": {
+    "gsc_impressions_90d": 700,
+    "gsc_clicks_90d": 0,
+    "ga4_total_sessions": 244,
+    "ga4_on_domain_sessions": 230,
+    "tier_a_sessions": 83,
+    "tier_b_sessions": 30,
+    "tier_c_sessions": 131,
+    "bot_inflation_pct": 66,
+    "google_organic_sessions": 13,
+    "bing_organic_sessions": 3,
+    "ai_referral_sessions": 2,
+    "ai_referral_breakdown": {
+      "perplexity": 2,
+      "chatgpt": 0,
+      "copilot": 0,
+      "claude": 0,
+      "gemini": 0
+    },
+    "conversions": 0,
+    "published_posts": 108,
+    "latest_post_date": "2026-03-20",
+    "days_since_last_post": 59,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_queued": 0,
+    "sitemap_urls": 113,
+    "position_1_queries": 2,
+    "position_1_10_queries": 15
+  },
+  "comparison_to_prior": {
+    "gsc_impressions_delta": "+27%",
+    "gsc_impressions_prior": 550,
+    "tier_a_sessions_delta": "+18%",
+    "tier_a_sessions_prior": 70,
+    "bot_inflation_delta": "+3%",
+    "ai_referrals_delta": "+1",
+    "ai_referrals_prior": 1,
+    "published_posts_delta": 0,
+    "note": "Impressions growing steadily. First multi-page AI citation (Perplexity on /website-translation/). Commercial pages freshly crawled by Google (15-17.05.26). /blog/ remains stale at 57 days."
+  },
+  "google_url_inspections": {
+    "https://launchedin10.co.uk/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-17T21:34:46Z",
+      "crawledAs": "MOBILE",
+      "richResults": "FAQ: PASS"
+    },
+    "https://launchedin10.co.uk/blog/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-03-22T19:42:21Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A",
+      "flag": "57 days stale — P1"
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-15T01:16:18Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A"
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-15T21:45:57Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A"
+    },
+    "https://launchedin10.co.uk/case-studies/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-16T10:20:28Z",
+      "crawledAs": "MOBILE",
+      "richResults": "FAQ: FAIL — Duplicate field FAQPage (3x ERROR)"
+    },
+    "https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-09T08:45:29Z",
+      "crawledAs": "MOBILE",
+      "richResults": "FAQ: PASS, Breadcrumbs: PASS, Videos: PASS"
+    }
+  },
+  "bing_crawl_status": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "three_metric_model": {
+      "index_status": "All 7 URLs IsPage=true. Bing considers them indexed.",
+      "search_performance": "Zero impressions, zero clicks site-wide. Authority/ranking problem, not indexation.",
+      "sitemap_processing": "Both feeds Status=Success. 133 URLs discovered. Sitemap layer functional."
+    },
+    "urls": {
+      "https://launchedin10.co.uk/": {
+        "discovered": "27.03.26",
+        "lastCrawled": "07.05.26",
+        "documentSize": 24769,
+        "isPage": true,
+        "httpStatus": 0,
+        "anchorCount": 243,
+        "status": "HEALTHY"
+      },
+      "https://launchedin10.co.uk/blog/": {
+        "discovered": "12.04.26",
+        "lastCrawled": "17.05.26",
+        "documentSize": 55968,
+        "isPage": true,
+        "httpStatus": 0,
+        "anchorCount": 0,
+        "status": "RECOVERED — was Size=0 at Run 13"
+      },
+      "https://launchedin10.co.uk/seo-automation/": {
+        "discovered": "05.04.26",
+        "lastCrawled": "05.04.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL"
+      },
+      "https://launchedin10.co.uk/website-translation/": {
+        "discovered": "08.05.26",
+        "lastCrawled": "08.05.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL"
+      },
+      "https://launchedin10.co.uk/case-studies/": {
+        "discovered": "19.04.26",
+        "lastCrawled": "19.04.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL"
+      },
+      "https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/": {
+        "discovered": "01.05.26",
+        "lastCrawled": "01.05.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL"
+      },
+      "https://launchedin10.co.uk/blog/website-design/web-content-accessibility-guidelines-11-key/": {
+        "discovered": "never",
+        "lastCrawled": "never",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL — never crawled"
+      }
+    },
+    "feeds": [
+      {"url": "sitemap.xml", "status": "Success", "urlCount": 117},
+      {"url": "sitemap-redirectfix.xml", "status": "Success", "urlCount": 16}
+    ],
+    "crawlIssues": "None reported"
+  },
+  "content_integrity": {
+    "body_fingerprint": "ALL PASS — every commercial page and blog post serves unique title/H1/canonical. No 200-with-homepage-content detected.",
+    "brand_markers": "Present on all pages.",
+    "language_check": "EN-only site. All pages return lang=en. No non-English content detected.",
+    "speakable_dom": "speakable-summary class present in live DOM on all pages (SSG-injected)."
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£2", "£5", "£5,000"],
+      "jsonld_prices": [
+        {"price": "497", "currency": "GBP"},
+        {"price": "99", "currency": "GBP"},
+        {"price": "997", "currency": "GBP"},
+        {"price": "149", "currency": "GBP"},
+        {"price": "1997", "currency": "GBP"},
+        {"price": "249", "currency": "GBP"}
+      ],
+      "captured_at": "2026-05-18T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "HTML prices are contextual marketing copy. JSON-LD prices are Offer schema package prices. Different price contexts — not a mismatch."
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£50", "£100", "£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-18T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "No JSON-LD Offer schema on this commercial page."
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-18T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "No JSON-LD Offer schema on this commercial page."
+    }
+  },
+  "structured_data_coverage": {
+    "organization": "100%",
+    "website_searchaction": "100%",
+    "webpage_speakable": "100%",
+    "article_breadcrumb": "blog posts only",
+    "video_object": "blog posts with YouTube",
+    "service_offer": "homepage only",
+    "faqpage": "homepage (SSG, working), /case-studies/ (BROKEN — duplicate)",
+    "data_ai_summary": "0%",
+    "howto": "0%"
+  },
+  "citation_matrix": {
+    "ai_overview_trigger_rate": "0/10",
+    "queries_tested": 10,
+    "our_tier_1_citations": 0,
+    "our_tier_2_citations": 0,
+    "our_tier_3_citations": 0,
+    "competitor_tier_1_on_head_terms": 0,
+    "note": "No AI Overviews triggered on any tested query. The AEO battleground for LI10 target queries has not opened yet. GA4 shows 2 Perplexity referral sessions (homepage + /website-translation/) — first multi-page citation."
+  },
+  "ghost_index_report": {
+    "high_equity_ghosts": [
+      {"query": "managed server oder shared hosting", "position": 1, "impressions": 12, "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "note": "German query, pos 1, 0 clicks — language mismatch"},
+      {"query": "google ads for solicitors", "position": 2.4, "impressions": 5, "page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/", "note": "law subdomain"},
+      {"query": "solicitors google ads", "position": 2, "impressions": 7, "page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/", "note": "law subdomain"},
+      {"query": "best affordable website design company", "position": 4, "impressions": 1, "page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/"},
+      {"query": "cost to build small business website 2026", "position": 5, "impressions": 1, "page": "/blog/website-design/web-design-cost-2026-breakdown-small/"},
+      {"query": "website builders accessibility compliance evaluation", "position": 5, "impressions": 3, "page": "/blog/website-design/accessibility-checker-website-essential/"},
+      {"query": "website design cost uk small business 2026", "position": 7.7, "impressions": 5, "page": "/blog/website-design/web-design-cost-2026-breakdown-small/"}
+    ],
+    "note": "Multiple queries at position 1-10 with zero clicks. The law subdomain queries (pos 2-3) have genuine Featured Snippet potential. The German query at pos 1 is a language mismatch — English page ranking for German query."
+  },
+  "cross_portfolio_equity": {
+    "deep_links_drafted": [
+      {
+        "from": "launchedin10.co.uk/website-translation/",
+        "to": "cosmetics.eldris.ai",
+        "context": "Cosmetics compliance as a use case for multilingual website translation"
+      },
+      {
+        "from": "launchedin10.co.uk/seo-automation/",
+        "to": "responsible.eldris.ai",
+        "context": "EU compliance content as an example of SEO automation in regulated sectors"
+      }
+    ],
+    "existing_cross_links": "type19specialists.com sending 3 referral sessions to LI10 homepage"
+  },
+  "remediation_verdicts": {
+    "verdict_a_new_content": [],
+    "verdict_b_surgical": [
+      {
+        "query_cluster": "dedicated server managed hosting",
+        "existing_pages": [
+          "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/",
+          "/blog/industry-spotlights/dedicated-server-managed-hosting-worth/"
+        ],
+        "action": "Consolidate into single authoritative page. Two pages cannibalising on same cluster.",
+        "priority": "P3",
+        "note": "Identified in Run 13 — not yet actioned. Low priority at current traffic levels."
+      }
+    ],
+    "verdict_c_sister_property": []
+  }
+}
