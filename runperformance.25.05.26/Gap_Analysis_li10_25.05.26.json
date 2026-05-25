@@ -1,0 +1,284 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-05-25",
+  "run_number": 15,
+  "previous_audit": "2026-05-18",
+  "gsc_property": "sc-domain:launchedin10.co.uk",
+  "ga4_property": "properties/517814343",
+  "language": "EN-only",
+  "key_metrics": {
+    "gsc_impressions_90d": 852,
+    "gsc_clicks_90d": 0,
+    "gsc_unique_queries": 155,
+    "gsc_position_1_10_queries": 41,
+    "ga4_total_sessions": 237,
+    "ga4_on_domain_sessions": 233,
+    "tier_a_sessions": 80,
+    "tier_b_sessions": 30,
+    "tier_c_sessions": 127,
+    "bot_inflation_pct": 66,
+    "google_organic_sessions": 12,
+    "bing_organic_sessions": 4,
+    "ai_referral_sessions": 1,
+    "ai_referral_breakdown": {
+      "perplexity": 1,
+      "chatgpt": 0,
+      "copilot": 0,
+      "claude": 0,
+      "gemini": 0
+    },
+    "conversions": 0,
+    "published_posts": 108,
+    "latest_post_date": "2026-03-20",
+    "days_since_last_post": 66,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_queued": 0,
+    "sitemap_urls": 113
+  },
+  "comparison_to_prior": {
+    "gsc_impressions_delta": "+22%",
+    "gsc_impressions_prior": 700,
+    "gsc_queries_position_1_10_delta": "+173%",
+    "gsc_queries_position_1_10_prior": 15,
+    "gsc_unique_queries_delta": "+29%",
+    "gsc_unique_queries_prior": 120,
+    "tier_a_sessions_delta": "-4% (noise)",
+    "tier_a_sessions_prior": 83,
+    "ai_referrals_delta": "-1 (window shift)",
+    "ai_referrals_prior": 2,
+    "published_posts_delta": 0,
+    "note": "Strong impression and query growth without content velocity. /blog/ re-crawled (was 57 days stale). Bing /case-studies/ recovered. Law subdomain accumulating 147 impressions at positions 4-7."
+  },
+  "google_url_inspections": {
+    "https://launchedin10.co.uk/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-21T12:54:16Z",
+      "crawledAs": "MOBILE",
+      "richResults": "FAQ: PASS"
+    },
+    "https://launchedin10.co.uk/blog/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-22T18:01:26Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A",
+      "flag": "RESOLVED — was 57 days stale at Run 14"
+    },
+    "https://launchedin10.co.uk/case-studies/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-23T00:11:00Z",
+      "crawledAs": "MOBILE",
+      "richResults": "FAQ: FAIL — Duplicate field FAQPage (3x ERROR), Breadcrumbs: PASS, Videos: PASS, Image Metadata: WARN (missing copyrightNotice)"
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-15T01:16:18Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A"
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "verdict": "PASS",
+      "coverage": "Submitted and indexed",
+      "lastCrawlTime": "2026-05-18T21:56:25Z",
+      "crawledAs": "MOBILE",
+      "richResults": "N/A"
+    }
+  },
+  "bing_crawl_status": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "three_metric_model": {
+      "index_status": "All 7 URLs IsPage=true. Bing considers them indexed.",
+      "search_performance": "Zero impressions, zero clicks site-wide. Authority/ranking problem, not indexation.",
+      "sitemap_processing": "Both feeds Status=Success. 133 URLs discovered. Sitemap layer functional."
+    },
+    "urls": {
+      "https://launchedin10.co.uk/": {
+        "discovered": "27.03.26",
+        "lastCrawled": "25.05.26",
+        "documentSize": 24882,
+        "isPage": true,
+        "httpStatus": 0,
+        "anchorCount": 605,
+        "status": "HEALTHY"
+      },
+      "https://launchedin10.co.uk/blog/": {
+        "discovered": "12.04.26",
+        "lastCrawled": "17.05.26",
+        "documentSize": 55968,
+        "isPage": true,
+        "httpStatus": 0,
+        "anchorCount": 0,
+        "status": "HEALTHY"
+      },
+      "https://launchedin10.co.uk/seo-automation/": {
+        "discovered": "05.04.26",
+        "lastCrawled": "05.04.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL — 50 days"
+      },
+      "https://launchedin10.co.uk/website-translation/": {
+        "discovered": "08.05.26",
+        "lastCrawled": "08.05.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL — 17 days"
+      },
+      "https://launchedin10.co.uk/case-studies/": {
+        "discovered": "19.04.26",
+        "lastCrawled": "24.05.26",
+        "documentSize": 15539,
+        "isPage": true,
+        "httpStatus": 0,
+        "anchorCount": 0,
+        "status": "RECOVERED — was DocSize=0 at Run 14"
+      },
+      "https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/": {
+        "discovered": "01.05.26",
+        "lastCrawled": "01.05.26",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "STALE-EMPTY-CRAWL — 24 days"
+      },
+      "https://launchedin10.co.uk/blog/website-design/web-content-accessibility-guidelines-11-key/": {
+        "discovered": "never",
+        "lastCrawled": "never",
+        "documentSize": 0,
+        "isPage": true,
+        "status": "NEVER DISCOVERED — not in Bing crawl queue"
+      }
+    },
+    "feeds": [
+      {"url": "sitemap.xml", "status": "Success", "urlCount": 117},
+      {"url": "sitemap-redirectfix.xml", "status": "Success", "urlCount": 16}
+    ],
+    "crawlIssues": "None reported",
+    "trafficInfo": {
+      "homepage": {"clicks": 0, "impressions": 0}
+    }
+  },
+  "content_integrity": {
+    "body_fingerprint": "ALL PASS — every commercial page and blog post serves unique title/H1/canonical. No 200-with-homepage-content detected.",
+    "canonical_check": "ALL PASS. Minor: homepage canonical lacks trailing slash (cosmetic inconsistency).",
+    "brand_markers": "Present on all pages.",
+    "language_check": "EN-only site. All pages return lang=en. No non-English content detected. DE markers=0, FR markers=0 on all pages tested.",
+    "speakable_dom": "speakable-summary class present on all 4 commercial pages."
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£2", "£5", "£5,000"],
+      "jsonld_prices": [
+        {"price": "497", "currency": "GBP"},
+        {"price": "99", "currency": "GBP"},
+        {"price": "997", "currency": "GBP"},
+        {"price": "149", "currency": "GBP"},
+        {"price": "1997", "currency": "GBP"},
+        {"price": "249", "currency": "GBP"}
+      ],
+      "captured_at": "2026-05-25T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "HTML prices are contextual marketing copy. JSON-LD prices are Offer schema package prices. Different contexts — acceptable.",
+      "matches_prior_audit": true
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£50", "£100", "£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-25T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "No JSON-LD Offer schema on this commercial page. Unchanged from Run 14.",
+      "matches_prior_audit": true
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [],
+      "captured_at": "2026-05-25T00:00:00Z",
+      "html_jsonld_match": false,
+      "note": "No JSON-LD Offer schema on this commercial page. Unchanged from Run 14.",
+      "matches_prior_audit": true
+    }
+  },
+  "structured_data_coverage": {
+    "organization": "100%",
+    "website_searchaction": "100%",
+    "webpage_speakable": "100%",
+    "article_breadcrumb": "blog posts only",
+    "video_object": "blog posts with YouTube",
+    "service_offer": "homepage only — missing on /seo-automation/, /website-translation/",
+    "faqpage": "homepage (SSG, PASS), /case-studies/ (BROKEN — 3x duplicate ERROR)",
+    "data_ai_summary": "0%",
+    "howto": "0%"
+  },
+  "citation_matrix": {
+    "ai_overview_trigger_rate": "0/10",
+    "queries_tested": 10,
+    "our_tier_1_citations": 0,
+    "our_tier_2_citations": 0,
+    "our_tier_3_citations": 0,
+    "competitor_tier_1_on_head_terms": 0,
+    "serp_rankings": {
+      "bespoke web design 10 days": {"position": 7, "page": "/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/"}
+    },
+    "note": "No AI Overviews triggered on any of the 10 tested commercial queries. No competitor AI citations. One SERP ranking at position 7. AEO battleground not yet open for LI10 queries."
+  },
+  "ghost_index_report": {
+    "high_equity_ghosts": [
+      {"query": "managed server oder shared hosting", "position": 1.0, "impressions": 12, "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "note": "German query, pos 1, 0 clicks — language mismatch"},
+      {"query": "solicitors google ads", "position": 4.9, "impressions": 21, "page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/", "note": "law subdomain — first click imminent"},
+      {"query": "google ads management tow law", "position": 4.2, "impressions": 17, "page": "law.launchedin10.co.uk/resources/", "note": "law subdomain"},
+      {"query": "google ads for solicitors", "position": 6.0, "impressions": 17, "page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/"},
+      {"query": "google adwords for solicitors", "position": 7.2, "impressions": 17, "page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/"},
+      {"query": "affordable website design options for startups 2026", "position": 10.0, "impressions": 10, "page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/"},
+      {"query": "website builders accessibility compliance", "position": 5.0, "impressions": 4, "page": "/blog/website-design/accessibility-checker-website-essential/"},
+      {"query": "website design cost uk small business 2026", "position": 7.7, "impressions": 5, "page": "/blog/website-design/web-design-cost-2026-breakdown-small/"}
+    ],
+    "note": "Law subdomain (147 total impressions at positions 4-7) is the closest to first click. Main domain has 5 queries at positions 1-5 but with low impression volume."
+  },
+  "cross_portfolio_equity": {
+    "deep_links_drafted": [
+      {"from": "launchedin10.co.uk/website-translation/", "to": "cosmetics.eldris.ai", "context": "Cosmetics compliance as a use case for multilingual website translation"},
+      {"from": "launchedin10.co.uk/seo-automation/", "to": "responsible.eldris.ai", "context": "EU compliance content as an example of SEO automation in regulated sectors"}
+    ],
+    "existing_cross_links": "type19specialists.com sending 3 referral sessions"
+  },
+  "remediation_verdicts": {
+    "verdict_a_new_content": [],
+    "verdict_b_surgical": [
+      {
+        "query_cluster": "dedicated server managed hosting",
+        "existing_pages": [
+          "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/",
+          "/blog/industry-spotlights/dedicated-server-managed-hosting-worth/"
+        ],
+        "action": "Consolidate into single authoritative page. Two pages cannibalising on same cluster.",
+        "priority": "P3",
+        "note": "Low priority at current traffic levels. No clicks on either page."
+      }
+    ],
+    "verdict_c_sister_property": []
+  },
+  "gsc_sitemap_status": {
+    "sitemap.xml": {
+      "submitted": "2026-04-14",
+      "lastDownloaded": "2026-04-17",
+      "urlsSubmitted": 117,
+      "urlsIndexed": 0,
+      "note": "0 indexed is likely a GSC reporting artifact for domain properties — individual URL inspections confirm pages ARE indexed"
+    },
+    "sitemap-redirectfix.xml": {
+      "submitted": "2026-03-21",
+      "lastDownloaded": "2026-05-16",
+      "urlsSubmitted": 16,
+      "urlsIndexed": 0
+    }
+  },
+  "top_pages_by_impressions": [
+    {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 156, "clicks": 0},
+    {"page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/", "impressions": 147, "clicks": 0},
+    {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "impressions": 91, "clicks": 0},
+    {"page": "/blog/seo-fundamentals/", "impressions": 88, "clicks": 0},
+    {"page": "/blog/industry-spotlights/why-website-design-for-construction/", "impressions": 52, "clicks": 0}
+  ]
+}
