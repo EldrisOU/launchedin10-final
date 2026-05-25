@@ -1,0 +1,86 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-05-25",
+    "run_number": 15,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-05-18",
+    "bot_inflation_pct": 66,
+    "tier_a_sessions": 80,
+    "honest_assessment": "LaunchedIn10 continues its slow, steady growth trajectory. GSC impressions up 22% (700 to 852), queries at position 1-10 nearly tripled (15 to 41). The /blog/ stale-crawl crisis is resolved. Bing /case-studies/ recovered. The FAQPage duplicate bug (ACT-LI10-023) is now open across 7 consecutive audits (49 days) with zero code fix deployed — this remains the ONLY genuine technical issue. Content pipeline stalled 66 days. The site needs content velocity and time, not intervention."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-023",
+      "priority": "P1",
+      "status": "open",
+      "description": "FAQPage duplicate schema error on /case-studies/ — now open across 7 consecutive audits (49 days) with zero code fix deployed. GSC Rich Results on /case-studies/ returns ERROR: 'Duplicate field FAQPage' (3 instances, confirmed 25.05.26). The cause is confirmed: Home.jsx injects FAQPage schema during SPA hydration, which conflicts with the SSG-injected FAQPage from generate-static.js. When /case-studies/ renders client-side, it picks up both schemas, producing duplicates. This blocks FAQ rich results on the highest-engagement commercial page (0.636 engagement rate, 11 sessions in 90d). The fix is architectural: remove FAQPage injection from Home.jsx entirely and rely on the SSG-only path via generate-static.js. This is the single most impactful code change available for this site.",
+      "prompt": "Fix the FAQPage duplicate schema error on launchedin10.co.uk /case-studies/ page. Open the repo EldrisOU/launchedin10-final. In src/pages/Home.jsx (or wherever the homepage component defines homeSchema), find the FAQPage schema block and REMOVE it entirely. The SSG build (generate-static.js) already injects FAQPage correctly — the React component must NOT also inject it. After removal: 1) Run npm run build. 2) Check dist/case-studies/index.html — grep for 'FAQPage' and confirm only ONE instance exists. 3) Deploy to Cloudflare Pages. 4) After deploy, run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ and confirm FAQ rich results pass without duplicate errors.",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ — Rich Results should show FAQ: PASS with zero 'Duplicate field' errors. Also run rich_results_test on the same URL.",
+      "evidence": "GSC URL Inspection 25.05.26: /case-studies/ Rich Results = FAIL, 3x 'Duplicate field FAQPage' ERROR. Open since Run 10 (06.04.26). 7 consecutive audits, 49 days, zero code change.",
+      "estimated_impact": "Unblocks FAQ rich results on the highest-engagement commercial page. Potential click-through uplift from FAQ snippets in SERPs."
+    },
+    {
+      "id": "ACT-LI10-027",
+      "priority": "P2",
+      "status": "open",
+      "description": "Three Bing subpages remain in stale-empty-crawl state (IsPage=true, DocumentSize=0) after /case-studies/ recovered (DocSize=15,539, crawled 24.05.26). Remaining affected URLs: /seo-automation/ (last crawled 05.04.26, 50 days stale), /website-translation/ (crawled 08.05.26, 17 days stale), /blog/website-design/accessibility-checker-website-essential/ (crawled 01.05.26, 24 days stale). Additionally, /blog/website-design/web-content-accessibility-guidelines-11-key/ has never been discovered or crawled by Bing. These pages are in Bing's index but with empty cache bodies — meaning they cannot appear in Bing SERPs and are NOT available to ChatGPT or Copilot for citation retrieval. Practical impact is currently limited (Bing has zero impressions site-wide) but maintaining Bing cache health is necessary for when authority grows. The SPA architecture (React + client-side rendering) is the likely root cause — Bingbot may not execute the JS needed to render page content.",
+      "prompt": "Submit the 4 stale-empty-crawl URLs to Bing for re-crawling. Run this exact command:\n\ncurl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/seo-automation/\",\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/\",\"https://launchedin10.co.uk/blog/website-design/web-content-accessibility-guidelines-11-key/\"]}'\n\nExpected response: {\"d\":null} = success.\n\nThen verify after 7 days by running GetUrlInfo on each URL — check if DocumentSize > 0. If still 0, investigate whether generate-static.js is producing full HTML for these pages (the SSG should provide static HTML that Bingbot can read without JS execution).",
+      "created_date": "2026-05-18",
+      "verification": "Run Bing GetUrlInfo on each URL after 7 days. DocumentSize should be > 0 for at least some of the 4 URLs. Command: curl -s 'https://ssl.bing.com/webmaster/api.svc/json/GetUrlInfo?siteUrl=https%3A%2F%2Flaunchedin10.co.uk%2F&url={encoded_url}&apikey=30fa478ccc434486be022a3e6a513dca'",
+      "evidence": "Bing Block A GetUrlInfo 25.05.26: /seo-automation/ Size=0 (crawled 05.04.26), /website-translation/ Size=0 (crawled 08.05.26), accessibility-checker Size=0 (crawled 01.05.26), wcag-guidelines discovered=never. /case-studies/ RECOVERED to Size=15539 (crawled 24.05.26)."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-024",
+      "description": "/blog/ Google re-crawl — RESOLVED. Google re-crawled /blog/ on 22.05.26 after being 57 days stale (last crawl was 22.03.26). The re-crawl requests from prior audits eventually took effect. GSC URL Inspection confirms: Submitted and indexed, lastCrawlTime = 2026-05-22T18:01:26Z.",
+      "status": "completed",
+      "completed_date": "2026-05-25",
+      "evidence": "GSC URL Inspection 25.05.26: /blog/ lastCrawlTime = 2026-05-22T18:01:26Z. Was 2026-03-22 at prior audit."
+    },
+    {
+      "id": "ACT-LI10-028",
+      "description": "IndexNow key deployment — RESOLVED. The key verification file at https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt returns HTTP 200 with correct content type (text/plain). The file exists in the repo at public/40b3efc5ab8e4c0e9ca6163daca5d29e.txt. Prior audit (Run 14) incorrectly stated it was not deployed — the file was present in the codebase and live on the domain.",
+      "status": "completed",
+      "completed_date": "2026-05-25",
+      "evidence": "curl -sI https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt returns HTTP 200 with Content-Type: text/plain."
+    },
+    {
+      "id": "ACT-LI10-027-partial",
+      "description": "/case-studies/ Bing stale-empty-crawl — RECOVERED. Bing re-crawled /case-studies/ on 24.05.26 with DocumentSize=15,539 bytes (was 0 at Run 14). The SubmitUrlBatch request from Run 14 was effective for this URL. Remaining 3 stale-empty pages tracked under ACT-LI10-027.",
+      "status": "completed",
+      "completed_date": "2026-05-25",
+      "evidence": "Bing GetUrlInfo 25.05.26: /case-studies/ DocumentSize=15539, LastCrawled=24.05.26. Prior: Size=0."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "description": "/seo-automation/ Google re-crawl — resolved at Run 14.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection: lastCrawlTime = 2026-05-15."
+    },
+    {
+      "id": "ACT-LI10-018",
+      "description": "/website-translation/ Google indexing regression — resolved at Run 14.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection: lastCrawlTime = 2026-05-18."
+    },
+    {
+      "id": "ACT-LI10-025",
+      "description": "Bing /blog/ stale-empty-crawl — resolved at Run 14. DocSize=55,968.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "Bing GetUrlInfo: /blog/ DocumentSize=55968."
+    },
+    {
+      "id": "ACT-LI10-026",
+      "description": "dateModified JSON-LD fix — resolved at Run 13.",
+      "status": "completed",
+      "completed_date": "2026-05-11",
+      "evidence": "Executed during Run 13."
+    }
+  ]
+}
