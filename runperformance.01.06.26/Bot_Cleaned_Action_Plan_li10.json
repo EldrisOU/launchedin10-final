@@ -1,0 +1,143 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-01",
+    "run_number": 15,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-05-18",
+    "bot_inflation_pct": 57.2,
+    "tier_a_sessions": 89,
+    "honest_assessment": "Site is growing slowly but steadily — GSC impressions up 53.6% (700 to 1,075), Tier A sessions up 7.2% (83 to 89), bot inflation improved (66% to 57%). Zero clicks remains the story. The FAQPage duplicate on /case-studies/ has been open for 6 consecutive audits with no code fix — this is the single most impactful intervention available. Beyond that, the site needs TIME and authority building, not content. Content pipeline has been stalled 73 days and orbit_3_flow is fully drained. AI citations near-zero (1 Perplexity session). AEO infrastructure gaps exist (no data-ai-summary on commercial pages) but ROI is low until traffic materialises. The most actionable wins are: fix the FAQPage duplicate, submit the 2 stale-empty Bing URLs, and deploy Service schema on the 2 commercial pages that have visible pricing but no JSON-LD."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-023",
+      "priority": "P1",
+      "status": "open",
+      "description": "FAQPage duplicate field error on /case-studies/ — 6th consecutive audit with this bug unresolved. GSC Rich Results verdict: FAIL with 'Duplicate field FAQPage' ERROR on 3 items. The SSG (generate-static.js) correctly injects FAQPage schema on the homepage, but Home.jsx also injects FAQPage via React client-side rendering. When /case-studies/ loads the SPA shell, it inherits the React-injected FAQPage from Home.jsx alongside the SSG-injected schema, creating a duplicate. This blocks FAQ rich results on the highest-engagement commercial page (58.3% engagement rate, 12 sessions). Additionally, the Rich Results test shows cross-property schema leakage — Torxup product images and Memaero drone videos appear in the /case-studies/ schema, indicating the SPA is pulling in unrelated component state.",
+      "prompt": "Fix the FAQPage duplicate on launchedin10.co.uk /case-studies/. The root cause is in the React SPA: Home.jsx (or a shared layout component) injects FAQPage JSON-LD client-side, which conflicts with the SSG-injected FAQPage from generate-static.js. Steps: 1) Open the GitHub repo EldrisOU/launchedin10-final. 2) Find where FAQPage schema is injected in the React components (likely src/pages/Home.jsx or src/components/FAQ.jsx or similar). 3) Remove the client-side FAQPage injection — the SSG in generate-static.js already handles this correctly. 4) Also investigate why Torxup and Memaero product/video schema appears on /case-studies/ — this suggests cross-site component leakage in the SPA. 5) After fix, trigger a Cloudflare Pages rebuild and verify via GSC Rich Results test that /case-studies/ no longer shows 'Duplicate field FAQPage'.",
+      "created_date": "2026-04-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/case-studies/ — Rich Results verdict should change from FAIL to PASS, and 'Duplicate field FAQPage' error should be absent.",
+      "evidence": "GSC URL Inspection 01.06.26: Rich Results FAIL — 'Duplicate field FAQPage' on 3 items. Also detected: cross-property schema (Torxup charger image, Memaero drone image, Memaero dust mask video).",
+      "estimated_impact": "Unlocks FAQ rich results on /case-studies/ and removes cross-property schema contamination."
+    },
+    {
+      "id": "ACT-LI10-029",
+      "priority": "P1",
+      "status": "open",
+      "description": "Bing stale-empty-crawl on /website-translation/ (DocumentSize=0 since 08.05.26, 24 days) and /blog/website-design/accessibility-checker-website-essential/ (DocumentSize=0 since 01.05.26, 31 days). Both URLs are IsPage=true in Bing (indexed) but have zero cached content — they are invisible to ChatGPT and Copilot retrieval. /website-translation/ is a core commercial page and the only page ever cited by Perplexity (first citation at Run 14). The accessibility-checker post is the highest-traffic blog post by organic sessions. These 2 pages represent the strongest candidates for AI citation capture and are blocked from the Bing-to-ChatGPT pipeline.",
+      "prompt": "Submit the 2 stale-empty-crawl URLs to Bing for re-crawl. Run: curl -s -X POST 'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca' -H 'Content-Type: application/json' -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\",\"https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/\"]}'. Expected response: {\"d\":null} = success. Verify after 7 days by running GetUrlInfo on both URLs — DocumentSize should be >0.",
+      "created_date": "2026-06-01",
+      "verification": "Run Bing GetUrlInfo on both URLs after 7 days. DocumentSize must be >0 for each. /website-translation/ should be >10KB, accessibility-checker should be >15KB based on page content volume.",
+      "evidence": "Bing Block A 01.06.26: /website-translation/ discovered=08.05.26, crawled=08.05.26, DocumentSize=0, IsPage=true. /blog/.../accessibility-checker.../ discovered=01.05.26, crawled=01.05.26, DocumentSize=0, IsPage=true.",
+      "estimated_impact": "Unlocks 2 pages for ChatGPT/Copilot retrieval. /website-translation/ was the first-ever Perplexity-cited page."
+    },
+    {
+      "id": "ACT-LI10-030",
+      "priority": "P2",
+      "status": "open",
+      "description": "Homepage JSON-LD Offer schema declares prices (£497/£997/£1,997 one-off + £99/£149/£249 monthly) that are NOT visible anywhere on the rendered page. The only price-like text on the homepage is an editorial mention ('You paid £5,000+'). Google's structured data policies require that schema content reflects visible page content — marking up prices not shown to users risks a manual action or automated demotion. The /seo-automation/ and /website-translation/ pages have the inverse problem: visible pricing tiers (£50-£195 and £29.95-£129.95 respectively) but zero JSON-LD Offer/Service schema.",
+      "prompt": "Fix the pricing schema alignment on launchedin10.co.uk. Two options: Option A (preferred): Add a visible pricing section to the homepage that matches the JSON-LD Offer prices (£497/£997/£1,997). Option B: Remove the Offer pricing from homepage JSON-LD if the homepage is not intended to display pricing. SEPARATELY: Add Service + Offer JSON-LD schema to /seo-automation/ (prices: £50/£100/£99.95/£149.95/£195.00) and /website-translation/ (prices: £29.95/£49.95/£79.95/£129.95) to match their visible pricing. In generate-static.js, extend the injectSchema function for these pages. Ensure priceCurrency is GBP for all.",
+      "created_date": "2026-06-01",
+      "verification": "curl each page, extract JSON-LD Offer prices and visible HTML prices. All JSON-LD prices must have a visible HTML counterpart on the same page. Run rich_results_test on all 3 pages — no structured data warnings.",
+      "evidence": "Step 5.05B: Homepage JSON-LD has £497/£997/£1997 + monthly prices. Rendered page shows only '£5,000+' editorial text. /seo-automation/ shows £50-£195 visible, 0 JSON-LD. /website-translation/ shows £29.95-£129.95 visible, 0 JSON-LD.",
+      "estimated_impact": "Eliminates structured data policy risk on homepage. Enables price rich results on 2 commercial pages."
+    },
+    {
+      "id": "ACT-LI10-031",
+      "priority": "P2",
+      "status": "open",
+      "description": "data-ai-summary attribute is absent from all 5 commercial pages (homepage, /seo-automation/, /website-translation/, /case-studies/, /blog/ index). Blog posts have 8-9 data-ai-summary blocks each — the SSG blog template includes them. The commercial page templates do not. data-ai-summary is the primary signal for LLM scrapers (GPTBot, ClaudeBot, PerplexityBot) to identify extractable content blocks. Without it, AI systems must parse the full DOM to find relevant content — reducing citation probability. Given only 1 Perplexity session in 90 days, the AEO ROI is low today, but this is infrastructure that compounds over time.",
+      "prompt": "Add data-ai-summary attributes to the 5 commercial pages on launchedin10.co.uk. In the generate-static.js SSG file in EldrisOU/launchedin10-final, modify the page generation functions for homepage, /seo-automation/, /website-translation/, /case-studies/, and /blog/ index. For each page, wrap the key content sections (hero paragraph, service description, pricing summary, FAQ answers) in <div data-ai-summary> blocks. Target: 3-5 data-ai-summary blocks per commercial page. Rebuild and deploy via Cloudflare Pages.",
+      "created_date": "2026-06-01",
+      "verification": "curl each commercial page, count data-ai-summary occurrences. Each must have >= 3.",
+      "evidence": "Step 5.05C: 0 data-ai-summary blocks on all 5 commercial pages. Blog posts have 8-9 each.",
+      "estimated_impact": "Enables structured LLM extraction on conversion-facing pages. Infrastructure investment."
+    },
+    {
+      "id": "ACT-LI10-028",
+      "priority": "P2",
+      "status": "open",
+      "description": "IndexNow key verification file is not deployed for launchedin10.co.uk. The submit-bing-indexnow.js script in the repo references key '40b3efc5ab8e4c0e9ca6163daca5d29e' but the corresponding key file (https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt) has not been verified as accessible. Without a working IndexNow key file, Bing IndexNow pings return HTTP 422 and URLs are not fast-tracked for crawl. This blocks the Bing-to-ChatGPT pipeline acceleration. Carried forward from Run 14.",
+      "prompt": "Deploy the IndexNow key verification file for launchedin10.co.uk. In EldrisOU/launchedin10-final: 1) Check if public/40b3efc5ab8e4c0e9ca6163daca5d29e.txt exists. If not, create it with content '40b3efc5ab8e4c0e9ca6163daca5d29e'. 2) Deploy to Cloudflare Pages. 3) Verify: curl -s https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt should return the key string. 4) Test IndexNow ping: curl -s -w '\\nHTTP %{http_code}' -X POST 'https://api.indexnow.org/indexnow' -H 'Content-Type: application/json' -d '{\"host\":\"launchedin10.co.uk\",\"key\":\"40b3efc5ab8e4c0e9ca6163daca5d29e\",\"keyLocation\":\"https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt\",\"urlList\":[\"https://launchedin10.co.uk/\"]}'. Expected: HTTP 200.",
+      "created_date": "2026-05-18",
+      "verification": "curl https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt returns 200 with key content. IndexNow test ping returns HTTP 200.",
+      "evidence": "CONTEXT.md: launchedin10.co.uk IndexNow key = NOT DEPLOYED. submit-bing-indexnow.js references key 40b3efc5ab8e4c0e9ca6163daca5d29e.",
+      "estimated_impact": "Enables Bing fast-crawl pipeline. New content reaches Bing index in minutes instead of days."
+    },
+    {
+      "id": "ACT-LI10-032",
+      "priority": "P2",
+      "status": "open",
+      "description": "Blog post /blog/website-design/web-design-cost-2026-breakdown-small/ has a dateModified of 2026-01-20 — 132 days stale, exceeding the 90-day freshness threshold. This is a commercially important keyword page targeting 'web design cost 2026'. Stale content loses freshness signals in both Google organic and AI citation systems. Additionally, /blog/business-growth/mobile-app-development-company-uk/ is at 85 days — 5 days from tripping the threshold.",
+      "prompt": "Refresh the stale blog post on launchedin10.co.uk. In Supabase table li10_posts (project acheexsffdcuzidpiwbh), find the row with slug matching 'web-design-cost-2026-breakdown-small'. Update the content with current 2026 pricing data and market context. Update the modified_at/updated_at timestamp. Trigger SSG rebuild. Also check 'mobile-app-development-company-uk' — if no substantive update is needed, at minimum update the dateModified to reflect a review date. Rebuild and deploy.",
+      "created_date": "2026-06-01",
+      "verification": "curl the blog post, extract dateModified from JSON-LD. Must be within 7 days of today. Sitemap lastmod must match.",
+      "evidence": "Step 5.1: dateModified=2026-01-20 (132 days). Sitemap lastmod=2026-01-20. 90-day threshold breached.",
+      "estimated_impact": "Restores freshness signal on commercial keyword page."
+    },
+    {
+      "id": "ACT-LI10-033",
+      "priority": "P3",
+      "status": "open",
+      "description": "BreadcrumbList schema is absent on all 5 commercial pages but present on all blog posts. This is a template-level gap in generate-static.js — the blog post generation includes BreadcrumbList but the commercial page generation does not. BreadcrumbList enables breadcrumb rich results in Google SERPs and improves crawl hierarchy signalling.",
+      "prompt": "Add BreadcrumbList JSON-LD to commercial pages in EldrisOU/launchedin10-final generate-static.js. For each commercial page (homepage, /seo-automation/, /website-translation/, /case-studies/, /blog/), add a BreadcrumbList matching: Home > Page Name. Use the same pattern as the blog post BreadcrumbList generation. Rebuild and deploy.",
+      "created_date": "2026-06-01",
+      "verification": "Run rich_results_test on each commercial page. BreadcrumbList must be detected without errors.",
+      "evidence": "Step 5.2: BreadcrumbList present on 3/8 tested pages (blog only). 0/5 commercial pages have it.",
+      "estimated_impact": "Enables breadcrumb rich results on commercial pages."
+    },
+    {
+      "id": "ACT-LI10-034",
+      "priority": "P3",
+      "status": "open",
+      "description": "PageSpeed Insights API returned HTTP 429 (quota exhausted) — unable to measure Core Web Vitals for this audit. This is a portfolio-wide issue affecting all properties. Deferred to next audit or when API quota is restored.",
+      "prompt": "Run pagespeed_analyze on https://launchedin10.co.uk/ (mobile) and https://launchedin10.co.uk/seo-automation/ (mobile). Record LCP, CLS, INP, TBT, FCP scores. If API still returns 429, escalate to operator: add a dedicated PageSpeed API key to the GCP project.",
+      "created_date": "2026-06-01",
+      "verification": "pagespeed_analyze returns valid scores (not 429).",
+      "evidence": "PageSpeed API returned HTTP 429 on 01.06.26.",
+      "estimated_impact": "Establishes CWV baseline for performance tracking."
+    },
+    {
+      "id": "ACT-LI10-035",
+      "priority": "P3",
+      "status": "open",
+      "description": "Monitoring checkpoint for Run 16. Verify: ACT-LI10-023 FAQPage fix deployed. ACT-LI10-029 Bing DocumentSize>0 on /website-translation/ and accessibility-checker. ACT-LI10-028 IndexNow key live. First GSC click. AI citation growth beyond 1 Perplexity session. GSC sitemap last-downloaded date updated (currently 45 days stale at 17.04.26).",
+      "prompt": "Run /runperformance launchedin10.co.uk — this is the Run 16 monitoring checkpoint. Key verification items: 1) /case-studies/ Rich Results PASS (ACT-LI10-023). 2) Bing GetUrlInfo DocumentSize>0 for /website-translation/ and accessibility-checker (ACT-LI10-029). 3) IndexNow key file accessible (ACT-LI10-028). 4) GSC impressions trend. 5) Any AI citations beyond Perplexity.",
+      "created_date": "2026-06-01",
+      "verification": "N/A — monitoring action.",
+      "evidence": "Run 15 complete. Next checkpoint warranted in 14 days.",
+      "estimated_impact": "Ensures prior actions are implemented and tracks trajectory."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-024",
+      "description": "/blog/ was 57 days stale at Run 14. Google re-crawled on 22.05.26 — now 10 days since crawl. No longer stale.",
+      "status": "completed",
+      "completed_date": "2026-06-01",
+      "evidence": "GSC URL Inspection 01.06.26: /blog/ lastCrawlTime=2026-05-22T18:01:26Z. Was last crawled 22.03.26 at Run 14."
+    },
+    {
+      "id": "ACT-LI10-016",
+      "description": "/seo-automation/ previously had delayed indexing. Now indexed and crawled 15.05.26. Bing also has content (14,586 bytes).",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection: Submitted and indexed, crawled 15.05.26. Bing Block A: DocumentSize=14,586."
+    },
+    {
+      "id": "ACT-LI10-018",
+      "description": "/website-translation/ previously had delayed indexing in Google. Now indexed and crawled 18.05.26.",
+      "status": "completed",
+      "completed_date": "2026-05-18",
+      "evidence": "GSC URL Inspection: Submitted and indexed, crawled 18.05.26."
+    },
+    {
+      "id": "ACT-LI10-025",
+      "description": "Bing /blog/ had DocumentSize=0. Now recovered to 55,968 bytes, crawled 17.05.26.",
+      "status": "completed",
+      "completed_date": "2026-06-01",
+      "evidence": "Bing Block A: /blog/ DocumentSize=55,968, crawled 17.05.26."
+    }
+  ]
+}
