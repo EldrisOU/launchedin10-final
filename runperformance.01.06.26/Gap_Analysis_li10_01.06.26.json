@@ -1,0 +1,191 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-06-01",
+  "run_number": 15,
+  "previous_audit": "2026-05-18",
+  "gsc_property": "sc-domain:launchedin10.co.uk",
+  "ga4_property": "properties/517814343",
+  "language": "EN",
+  "multilingual": false,
+
+  "key_metrics": {
+    "gsc_clicks_90d": 0,
+    "gsc_impressions_90d": 1075,
+    "gsc_impressions_prior": 700,
+    "gsc_impressions_delta_pct": 53.6,
+    "ga4_total_sessions": 208,
+    "ga4_tier_a_sessions": 89,
+    "ga4_tier_a_prior": 83,
+    "ga4_tier_a_delta_pct": 7.2,
+    "bot_inflation_pct": 57.2,
+    "bot_inflation_prior": 66.0,
+    "ai_citations_90d": 1,
+    "ai_citations_prior": 2,
+    "ai_citation_sources": {
+      "perplexity": 1,
+      "chatgpt": 0,
+      "copilot": 0,
+      "claude": 0,
+      "gemini": 0
+    },
+    "conversions": 0,
+    "conversion_events_configured": false,
+    "google_organic_sessions": 14,
+    "bing_organic_sessions": 4,
+    "direct_sessions": 145,
+    "referral_sessions": 12,
+    "sitemap_urls": 117,
+    "sitemap_last_downloaded_google": "2026-04-17",
+    "posts_published": 108,
+    "orbit_3_flow_queued": 0,
+    "content_pipeline_stalled_days": 73
+  },
+
+  "gsc_note": "GSC property sc-domain:launchedin10.co.uk includes law.launchedin10.co.uk subdomain. Approximately 15% of impressions (~160) are solicitor/barrister/google-ads queries attributable to law.launchedin10.co.uk. LI10-specific impressions estimated ~915.",
+
+  "top_queries": [
+    {"query": "google ads audit", "impressions": 60, "clicks": 0, "position": 26.4, "property": "li10"},
+    {"query": "seo foundations", "impressions": 59, "clicks": 0, "position": 68.3, "property": "li10"},
+    {"query": "inexpensive web design companies", "impressions": 29, "clicks": 0, "position": 21.7, "property": "li10"},
+    {"query": "solicitors google ads", "impressions": 25, "clicks": 0, "position": 6.1, "property": "law"},
+    {"query": "solicitor google ads", "impressions": 25, "clicks": 0, "position": 10.8, "property": "law"},
+    {"query": "wordpress site maintenance services", "impressions": 25, "clicks": 0, "position": 21.9, "property": "li10"},
+    {"query": "dedicated server hosting vs shared", "impressions": 24, "clicks": 0, "position": 34.0, "property": "li10"},
+    {"query": "solicitor google ads", "impressions": 23, "clicks": 0, "position": 9.0, "property": "law"},
+    {"query": "google ads for solicitors", "impressions": 22, "clicks": 0, "position": 7.7, "property": "law"},
+    {"query": "adwords for solicitors", "impressions": 17, "clicks": 0, "position": 8.6, "property": "law"}
+  ],
+
+  "url_inspections": {
+    "https://launchedin10.co.uk/": {"verdict": "PASS", "indexed": true, "last_crawl": "2026-05-26", "rich_results": "FAQ PASS"},
+    "https://launchedin10.co.uk/blog/": {"verdict": "PASS", "indexed": true, "last_crawl": "2026-05-22", "rich_results": "none"},
+    "https://launchedin10.co.uk/seo-automation/": {"verdict": "PASS", "indexed": true, "last_crawl": "2026-05-15", "rich_results": "none"},
+    "https://launchedin10.co.uk/website-translation/": {"verdict": "PASS", "indexed": true, "last_crawl": "2026-05-18", "rich_results": "none"},
+    "https://launchedin10.co.uk/case-studies/": {"verdict": "PASS", "indexed": true, "last_crawl": "2026-05-26", "rich_results": "FAQ FAIL — Duplicate field FAQPage"}
+  },
+
+  "bing_data": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "block_a": {
+      "https://launchedin10.co.uk/": {"discovered": "27.03.26", "crawled": "29.05.26", "document_size": 24882, "is_page": true, "anchor_count": 809},
+      "https://launchedin10.co.uk/seo-automation/": {"discovered": "05.04.26", "crawled": "27.05.26", "document_size": 14586, "is_page": true, "anchor_count": 0},
+      "https://launchedin10.co.uk/website-translation/": {"discovered": "08.05.26", "crawled": "08.05.26", "document_size": 0, "is_page": true, "anchor_count": 0, "status": "STALE-EMPTY-CRAWL"},
+      "https://launchedin10.co.uk/case-studies/": {"discovered": "19.04.26", "crawled": "24.05.26", "document_size": 15539, "is_page": true, "anchor_count": 0},
+      "https://launchedin10.co.uk/blog/": {"discovered": "12.04.26", "crawled": "17.05.26", "document_size": 55968, "is_page": true, "anchor_count": 0},
+      "https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/": {"discovered": "01.05.26", "crawled": "01.05.26", "document_size": 0, "is_page": true, "anchor_count": 0, "status": "STALE-EMPTY-CRAWL"}
+    },
+    "block_b": {
+      "homepage": {"clicks": 0, "impressions": 0, "note": "Authority problem — indexed but zero search visibility"}
+    },
+    "block_c": {
+      "feeds": [
+        {"url": "https://launchedin10.co.uk/sitemap.xml", "status": "Success", "url_count": 117, "last_crawled": "12.05.26"},
+        {"url": "https://launchedin10.co.uk/sitemap-redirectfix.xml", "status": "Success", "url_count": 16, "last_crawled": "01.04.26"}
+      ]
+    },
+    "block_d": {"crawl_issues": "none"}
+  },
+
+  "bing_vs_google_crawl": [
+    {"page": "/", "google_crawled": "26.05.26", "bing_crawled": "29.05.26", "bing_size": 24882, "winner": "Google (3d)"},
+    {"page": "/seo-automation/", "google_crawled": "15.05.26", "bing_crawled": "27.05.26", "bing_size": 14586, "winner": "Google (12d)"},
+    {"page": "/website-translation/", "google_crawled": "18.05.26", "bing_crawled": "08.05.26", "bing_size": 0, "winner": "Bing discovered first but STALE-EMPTY"},
+    {"page": "/case-studies/", "google_crawled": "26.05.26", "bing_crawled": "24.05.26", "bing_size": 15539, "winner": "Bing (2d)"},
+    {"page": "/blog/", "google_crawled": "22.05.26", "bing_crawled": "17.05.26", "bing_size": 55968, "winner": "Bing (5d)"},
+    {"page": "/blog/.../accessibility-checker.../", "google_crawled": "N/A", "bing_crawled": "01.05.26", "bing_size": 0, "winner": "Neither (Bing stale-empty)"}
+  ],
+
+  "citation_matrix": {
+    "queries_tested": 5,
+    "ai_overviews_triggered": 0,
+    "our_domain_cited": 0,
+    "matrix": [
+      {"query": "web design cost uk 2026", "ai_overview": false, "our_tier": "Not Cited", "competitor": "N/A"},
+      {"query": "website accessibility checker uk", "ai_overview": false, "our_tier": "Not Cited", "competitor": "N/A"},
+      {"query": "seo automation for small business", "ai_overview": false, "our_tier": "Not Cited", "competitor": "N/A"},
+      {"query": "website translation service uk", "ai_overview": false, "our_tier": "Not Cited", "competitor": "N/A"},
+      {"query": "solicitors google ads", "ai_overview": false, "our_tier": "Not Cited", "competitor": "N/A"}
+    ],
+    "assessment": "AEO desert — 0/5 queries trigger AI Overview in UK. No competitor holds Tier 1 on any tested query. The vertical (web design for SMEs) has not been activated by Google's AI Overview system. Third-party AI citation (Perplexity, ChatGPT) is the only AEO channel."
+  },
+
+  "content_integrity": {
+    "body_fingerprint": "PASS — all pages serve unique content, no homepage fallback detected",
+    "price_drift": {
+      "homepage": {"html_prices": ["£5,000"], "jsonld_prices": ["£497", "£997", "£1,997", "£99/mo", "£149/mo", "£249/mo"], "match": false, "issue": "JSON-LD prices not visible on page"},
+      "seo_automation": {"html_prices": ["£50", "£100", "£99.95", "£149.95", "£195.00"], "jsonld_prices": [], "match": false, "issue": "Visible prices with no JSON-LD"},
+      "website_translation": {"html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"], "jsonld_prices": [], "match": false, "issue": "Visible prices with no JSON-LD"}
+    },
+    "brand_markers": "PASS — all pages contain LaunchedIn10 brand string"
+  },
+
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£5,000"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}],
+      "captured_at": "2026-06-01T00:00:00Z",
+      "matches_prior_audit": null,
+      "html_jsonld_match": false
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£50", "£100", "£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [],
+      "captured_at": "2026-06-01T00:00:00Z",
+      "matches_prior_audit": null,
+      "html_jsonld_match": false
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [],
+      "captured_at": "2026-06-01T00:00:00Z",
+      "matches_prior_audit": null,
+      "html_jsonld_match": false
+    }
+  },
+
+  "schema_coverage": {
+    "faq_page": "100%",
+    "organization": "100%",
+    "speakable": "100%",
+    "article": "37.5% (blog only — expected)",
+    "breadcrumb_list": "37.5% (blog only — gap on commercial)",
+    "video_object": "37.5% (blog only)",
+    "data_ai_summary": "37.5% (blog only — gap on commercial)",
+    "service": "37.5% (homepage + 2 service pages)",
+    "how_to": "0%"
+  },
+
+  "freshness": {
+    "commercial_pages_aligned": "2-way only (sitemap + schema). No visible dates on any page.",
+    "stale_pages": [
+      {"url": "/blog/website-design/web-design-cost-2026-breakdown-small/", "date_modified": "2026-01-20", "days_stale": 132, "threshold_breached": true},
+      {"url": "/blog/business-growth/mobile-app-development-company-uk/", "date_modified": "2026-03-08", "days_stale": 85, "threshold_breached": false, "note": "5 days from P1 threshold"}
+    ]
+  },
+
+  "ghost_queries": [
+    {"query": "google ads audit", "impressions": 60, "position": 26.4, "note": "Position >20, limited equity"},
+    {"query": "seo foundations", "impressions": 59, "position": 68.3, "note": "Position >50, no equity"},
+    {"query": "inexpensive web design companies", "impressions": 29, "position": 21.7, "note": "Near page 2 — equity at risk"},
+    {"query": "wordpress site maintenance services", "impressions": 25, "position": 21.9, "note": "Near page 2 — equity at risk"}
+  ],
+
+  "cross_portfolio": {
+    "gsc_includes_law_subdomain": true,
+    "law_impressions_estimate": 160,
+    "law_queries": ["solicitors google ads", "solicitor google ads", "google ads for solicitors", "adwords for solicitors", "google ads for barristers"],
+    "deep_link_drafts": [
+      "LI10 GDPR blog post → law.launchedin10.co.uk (solicitor marketing context)",
+      "LI10 /seo-automation/ → law.launchedin10.co.uk (legal vertical SEO)"
+    ],
+    "intent_boundary_check": "PASS — LI10 content is web design/SEO, law content is legal marketing. No overlap."
+  },
+
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_queued": 0,
+    "pipeline_stalled_days": 73,
+    "last_publish_date": "2026-03-20"
+  }
+}
