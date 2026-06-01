@@ -33,28 +33,6 @@
       "estimated_impact": "Unlocks 2 pages for ChatGPT/Copilot retrieval. /website-translation/ was the first-ever Perplexity-cited page."
     },
     {
-      "id": "ACT-LI10-030",
-      "priority": "P2",
-      "status": "open",
-      "description": "Homepage JSON-LD Offer schema declares prices (£497/£997/£1,997 one-off + £99/£149/£249 monthly) that are NOT visible anywhere on the rendered page. The only price-like text on the homepage is an editorial mention ('You paid £5,000+'). Google's structured data policies require that schema content reflects visible page content — marking up prices not shown to users risks a manual action or automated demotion. The /seo-automation/ and /website-translation/ pages have the inverse problem: visible pricing tiers (£50-£195 and £29.95-£129.95 respectively) but zero JSON-LD Offer/Service schema.",
-      "prompt": "Fix the pricing schema alignment on launchedin10.co.uk. Two options: Option A (preferred): Add a visible pricing section to the homepage that matches the JSON-LD Offer prices (£497/£997/£1,997). Option B: Remove the Offer pricing from homepage JSON-LD if the homepage is not intended to display pricing. SEPARATELY: Add Service + Offer JSON-LD schema to /seo-automation/ (prices: £50/£100/£99.95/£149.95/£195.00) and /website-translation/ (prices: £29.95/£49.95/£79.95/£129.95) to match their visible pricing. In generate-static.js, extend the injectSchema function for these pages. Ensure priceCurrency is GBP for all.",
-      "created_date": "2026-06-01",
-      "verification": "curl each page, extract JSON-LD Offer prices and visible HTML prices. All JSON-LD prices must have a visible HTML counterpart on the same page. Run rich_results_test on all 3 pages — no structured data warnings.",
-      "evidence": "Step 5.05B: Homepage JSON-LD has £497/£997/£1997 + monthly prices. Rendered page shows only '£5,000+' editorial text. /seo-automation/ shows £50-£195 visible, 0 JSON-LD. /website-translation/ shows £29.95-£129.95 visible, 0 JSON-LD.",
-      "estimated_impact": "Eliminates structured data policy risk on homepage. Enables price rich results on 2 commercial pages."
-    },
-    {
-      "id": "ACT-LI10-031",
-      "priority": "P2",
-      "status": "open",
-      "description": "data-ai-summary attribute is absent from all 5 commercial pages (homepage, /seo-automation/, /website-translation/, /case-studies/, /blog/ index). Blog posts have 8-9 data-ai-summary blocks each — the SSG blog template includes them. The commercial page templates do not. data-ai-summary is the primary signal for LLM scrapers (GPTBot, ClaudeBot, PerplexityBot) to identify extractable content blocks. Without it, AI systems must parse the full DOM to find relevant content — reducing citation probability. Given only 1 Perplexity session in 90 days, the AEO ROI is low today, but this is infrastructure that compounds over time.",
-      "prompt": "Add data-ai-summary attributes to the 5 commercial pages on launchedin10.co.uk. In the generate-static.js SSG file in EldrisOU/launchedin10-final, modify the page generation functions for homepage, /seo-automation/, /website-translation/, /case-studies/, and /blog/ index. For each page, wrap the key content sections (hero paragraph, service description, pricing summary, FAQ answers) in <div data-ai-summary> blocks. Target: 3-5 data-ai-summary blocks per commercial page. Rebuild and deploy via Cloudflare Pages.",
-      "created_date": "2026-06-01",
-      "verification": "curl each commercial page, count data-ai-summary occurrences. Each must have >= 3.",
-      "evidence": "Step 5.05C: 0 data-ai-summary blocks on all 5 commercial pages. Blog posts have 8-9 each.",
-      "estimated_impact": "Enables structured LLM extraction on conversion-facing pages. Infrastructure investment."
-    },
-    {
       "id": "ACT-LI10-028",
       "priority": "P2",
       "status": "open",
@@ -138,6 +116,22 @@
       "status": "completed",
       "completed_date": "2026-06-01",
       "evidence": "Bing Block A: /blog/ DocumentSize=55,968, crawled 17.05.26."
+    },
+    {
+      "id": "ACT-LI10-030",
+      "description": "Homepage JSON-LD Offer schema declares prices (£497/£997/£1,997 one-off + £99/£149/£249 monthly) that are NOT visible anywhere on the rendered page. The only price-like text on the homepage is an editorial mention ('You paid £5,000+'). Google's structured data policies require that schema content reflects visible page content — marking up prices not shown to users risks a manual action or automated demotion. The /seo-automation/ and /website-translation/ pages have the inverse problem: visible pricing tiers (£50-£195 and £29.95-£129.95 respectively) but zero JSON-LD Offer/Service schema.",
+      "status": "completed",
+      "completed_date": "2026-06-01",
+      "resolution": "Executed by ACT Executor agent — batch deployed 01942ce64b347fd471c899b32a042d464076d19a",
+      "evidence": "Step 5.05B: Homepage JSON-LD has £497/£997/£1997 + monthly prices. Rendered page shows only '£5,000+' editorial text. /seo-automation/ shows £50-£195 visible, 0 JSON-LD. /website-translation/ shows £29.95-£129.95 visible, 0 JSON-LD."
+    },
+    {
+      "id": "ACT-LI10-031",
+      "description": "data-ai-summary attribute is absent from all 5 commercial pages (homepage, /seo-automation/, /website-translation/, /case-studies/, /blog/ index). Blog posts have 8-9 data-ai-summary blocks each — the SSG blog template includes them. The commercial page templates do not. data-ai-summary is the primary signal for LLM scrapers (GPTBot, ClaudeBot, PerplexityBot) to identify extractable content blocks. Without it, AI systems must parse the full DOM to find relevant content — reducing citation probability. Given only 1 Perplexity session in 90 days, the AEO ROI is low today, but this is infrastructure that compounds over time.",
+      "status": "completed",
+      "completed_date": "2026-06-01",
+      "resolution": "Executed by ACT Executor agent — batch deployed 01942ce64b347fd471c899b32a042d464076d19a",
+      "evidence": "Step 5.05C: 0 data-ai-summary blocks on all 5 commercial pages. Blog posts have 8-9 each."
     }
   ]
 }
