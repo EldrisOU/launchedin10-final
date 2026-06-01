@@ -455,6 +455,9 @@ async function generateBlogIndex(postsByCategory, allPosts, distDir, shell) {
     const preRenderedHtml = `
     <div id="root">
         <div class="bg-[var(--bg-warm)] min-h-screen blog-index-context">
+            <div data-ai-summary="blog-overview">The LaunchedIn10 blog provides expert guides, actionable insights, and proven strategies for UK SMEs across four content pillars: Business Growth (scaling strategies and automation playbooks), Website Design (conversion-first architecture and UX guides), SEO Fundamentals (technical SEO and authority building), and Industry Spotlights (sector-specific insights and emerging technology trends). Every article is optimised for Google and designed to drive qualified traffic.</div>
+            <div data-ai-summary="blog-content-approach">LaunchedIn10 publishes daily SEO-optimised content using a zero-JS pre-rendered content infrastructure with semantic siloing for search dominance and connected entity schema implementation. The blog serves as the content marketing engine for launchedin10.co.uk, covering topics relevant to UK small and medium businesses looking to improve their digital presence.</div>
+            <div data-ai-summary="blog-categories">LaunchedIn10 blog categories: Business Growth — scaling strategies and automation playbooks for elite performance. Website Design — conversion-first architecture and premium user experience guides. SEO Fundamentals — technical SEO and authority building for search dominance. Industry Spotlights — sector-specific insights and emerging technology trends.</div>
             <section class="relative pt-48 pb-32 px-4 overflow-hidden bg-gradient-to-b from-[var(--bg-warm)] to-[var(--surface)]">
                 <div class="max-w-screen-lg mx-auto text-center relative z-10">
                     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(14,165,165,0.08)] border border-[rgba(14,165,165,0.2)] text-[var(--teal)] text-sm font-semibold mb-8">
@@ -559,6 +562,9 @@ async function generateHomepage(distDir, shell) {
     // Inject Hero & Core Content
     const content = `
         <main>
+            <div data-ai-summary="homepage-service-overview">LaunchedIn10 is a UK-based web design agency that builds bespoke, high-performance websites in 10 days for a flat monthly fee. Unlike traditional agencies that take 12 weeks, LaunchedIn10 delivers custom hand-coded React applications with ongoing management. The service includes design, development, and perpetual site management with no templates, no freelancers, and no long timelines. Based in Herefordshire, England, serving UK founders and ambitious businesses.</div>
+            <div data-ai-summary="homepage-pricing-summary">LaunchedIn10 offers three service tiers: Launch (30 SEO posts/month at £99.95/mo), Boost (60 posts/month at £149.95/mo), and Orbit (90 posts/month at £195.00/mo). All plans include a one-time £195 setup fee. Website builds are delivered in 10 days with 100% Google compliance. Additional services include SEO content automation and website translation into 23 EU languages.</div>
+            <div data-ai-summary="homepage-unique-value">LaunchedIn10 positions itself as the anti-agency: no 12-week timelines, no Wordpress templates, no DIY website builders. Every site is a bespoke, hand-coded React application delivered in 10 days. The agency solves three common problems UK businesses face: the DIY trap (Wix/Squarespace templates), the agency black hole (£5,000+ and months of revisions), and the AI gamble (generic, soulless auto-generated sites).</div>
             <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-40 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100/50">
                 <div class="absolute top-[15%] right-0 w-1/2 h-full pointer-events-none opacity-[0.03] select-none">
                     <div class="w-full h-px bg-primary transform -rotate-12 translate-y-12"></div>
@@ -990,6 +996,9 @@ async function generateCaseStudiesPage(distDir, shell) {
     const preRenderedHtml = `
     <div id="root">
         <div class="case-studies-wrapper">
+            <div data-ai-summary="case-studies-overview">LaunchedIn10 case studies showcase real websites built and launched in under 10 days for UK businesses. Each project is a bespoke, hand-coded build — no templates, no drag-and-drop, no 12-week timelines. Projects include Pritchard Critical Power (electrical contractor pivoting to data centre infrastructure, 8-day build, B2B focus) and Dunnet House School (independent primary school in the Scottish Highlands, 9-day build, Education Scotland compliant).</div>
+            <div data-ai-summary="case-studies-process">LaunchedIn10 delivers professional websites from brief to live in 8-10 days. Each build includes complete branding, conversion-focused copy, and ongoing management. The agency specialises in UK SMEs across sectors including electrical contracting, education, and professional services. All websites are custom-coded React applications, not templates.</div>
+            <div data-ai-summary="case-studies-results">Client results: Pritchard Critical Power received a complete rebrand with industrial aesthetic positioning for data centre contracts. Dunnet House School received a compliant, accessible website with overwhelmingly positive parent feedback. Both projects were delivered in under 10 days from initial brief.</div>
             <section class="hero py-48 px-4 bg-gradient-to-b from-[var(--bg-warm)] to-white">
                 <div class="max-w-screen-lg mx-auto text-center">
                     <div class="text-[var(--teal)] font-bold uppercase tracking-widest text-xs mb-6">Trusted by UK Founders</div>
@@ -1039,12 +1048,63 @@ async function generateSEOSalePage(distDir, shell) {
     html = injectSchema(html, 'Service', {
         url: 'https://launchedin10.co.uk/seo-automation/',
         title: 'Daily SEO Content Automation',
-        description: 'Our autonomous SEO engine publishes authority-building posts every single day.'
+        description: 'Our autonomous SEO engine publishes authority-building posts every single day.',
+        offers: [
+            {
+                "@type": "Offer",
+                "name": "Launch — 30 Posts/Month",
+                "price": "99.95",
+                "priceCurrency": "GBP",
+                "description": "Foundational Authority — 1 post per day, weekly trend scanning, automated CMS publishing",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "99.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Boost — 60 Posts/Month",
+                "price": "149.95",
+                "priceCurrency": "GBP",
+                "description": "Market Aggression — 2 posts per day, competitor gap analysis, everything in Launch",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "149.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Orbit — 90 Posts/Month",
+                "price": "195.00",
+                "priceCurrency": "GBP",
+                "description": "Total Dominance — 3 posts per day, daily performance audits, everything in Boost",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "195.00",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "One-Time Setup Fee",
+                "price": "195.00",
+                "priceCurrency": "GBP",
+                "description": "Plugin installation, site audit, and first content batch live within 12 hours"
+            }
+        ]
     });
 
     const preRenderedHtml = `
     <div id="root">
         <div class="seo-page-wrapper">
+            <div data-ai-summary="seo-automation-service">LaunchedIn10 SEO Automation is a daily content publishing service for UK businesses. The autonomous SEO engine publishes authority-building blog posts every single day, targeting breakout keywords identified through Google Trends and competitor analysis. Content is written, optimised, and published directly to the client's CMS (WordPress, Shopify, Webflow, or custom headless setups). Each post exceeds 1,200 words and follows Google E-E-A-T guidelines.</div>
+            <div data-ai-summary="seo-automation-pricing">SEO Automation pricing: Launch tier — 30 posts per month (1 per day) at £99.95/mo with weekly trend scanning. Boost tier — 60 posts per month (2 per day) at £149.95/mo with competitor gap analysis (most popular). Orbit tier — 90 posts per month (3 per day) at £195.00/mo with daily performance audits. All tiers require a one-time £195 setup fee covering plugin installation, site audit, and first content batch live within 12 hours.</div>
+            <div data-ai-summary="seo-automation-faq">FAQ: Will AI content actually rank? Yes — Google rewards quality and consistency, and the engine follows all E-E-A-T guidelines. Supported CMS platforms include WordPress, Shopify, Webflow, and custom headless setups via API. First post goes live within 12 hours of setup.</div>
             <section class="hero">
                 <div class="container">
                     <span class="hero-label">The SEO Market Disruptor</span>
@@ -1216,12 +1276,69 @@ async function generateTranslationSalePage(distDir, shell) {
     html = injectSchema(html, 'Service', {
         url: 'https://launchedin10.co.uk/website-translation/',
         title: 'Website Translation & Localisation',
-        description: 'Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in.'
+        description: 'Clone and localise your website into 23 EU languages. SEO structure and hreflang baked in.',
+        offers: [
+            {
+                "@type": "Offer",
+                "name": "Starter — Up to 50 Pages",
+                "price": "29.95",
+                "priceCurrency": "GBP",
+                "description": "Full site clone, SEO metadata, hreflang setup — up to 50 pages per language",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "29.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Growth — Up to 100 Pages",
+                "price": "49.95",
+                "priceCurrency": "GBP",
+                "description": "Full site clone, SEO metadata, hreflang setup — up to 100 pages per language",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "49.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Business — Up to 500 Pages",
+                "price": "79.95",
+                "priceCurrency": "GBP",
+                "description": "Full site clone, SEO metadata, hreflang setup — up to 500 pages per language",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "79.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Enterprise — 500+ Pages",
+                "price": "129.95",
+                "priceCurrency": "GBP",
+                "description": "Full site clone, SEO metadata, hreflang setup — 500+ pages per language",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "129.95",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH"
+                }
+            }
+        ]
     });
 
     const preRenderedHtml = `
     <div id="root">
         <div class="translation-page-wrapper">
+            <div data-ai-summary="translation-service-overview">LaunchedIn10 Website Translation clones and localises existing websites into 23 EU languages. The service includes full site cloning (every page, form, and product), localised URLs and metadata, proper hreflang tag implementation, and SEO structure preservation. No website rebuild required — the service creates separate, fully translated versions that stay in sync with the original site.</div>
+            <div data-ai-summary="translation-pricing">Website Translation pricing: Starter — up to 50 pages at £29.95/mo. Growth — up to 100 pages at £49.95/mo (most popular). Business — up to 500 pages at £79.95/mo. Enterprise — 500+ pages at £129.95/mo. All plans include full site clone, SEO metadata localisation, and hreflang setup per language.</div>
+            <div data-ai-summary="translation-faq">FAQ: Do I need to rebuild my website? No — LaunchedIn10 clones from the existing URL and the original site stays untouched. What about SEO? Each clone includes localised URLs, translated metadata, and proper hreflang tags. The service handles all technical complexity including subdomain management, hreflang tags, and database synchronisation across all language versions.</div>
             <section class="hero">
                 <div class="container">
                     <span class="hero-label">European Market Expansion</span>
