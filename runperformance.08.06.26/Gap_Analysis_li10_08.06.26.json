@@ -1,0 +1,217 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-08",
+    "run_number": 16,
+    "protocol": "DeepRank v3.0",
+    "language": "EN",
+    "previous_audit": "2026-06-01"
+  },
+  "gsc_summary": {
+    "period": "90d (2026-03-11 to 2026-06-08)",
+    "total_impressions": 699,
+    "total_clicks": 0,
+    "ctr": 0.0,
+    "query_page_pairs": 187,
+    "note": "LI10 core only, law.launchedin10.co.uk excluded"
+  },
+  "ga4_summary": {
+    "period": "90d",
+    "total_sessions": 176,
+    "tier_a_sessions": 72,
+    "tier_b_sessions": 37,
+    "tier_c_sessions": 67,
+    "bot_inflation_pct": 59.1,
+    "organic_sessions": 16,
+    "ai_referral_sessions": 1,
+    "ai_breakdown": {
+      "perplexity": 1,
+      "chatgpt": 0,
+      "copilot": 0,
+      "claude": 0,
+      "gemini": 0
+    },
+    "conversions": 0
+  },
+  "sitemap": {
+    "total_urls": 113,
+    "core_pages": 8,
+    "category_indexes": 4,
+    "blog_posts": 101,
+    "last_downloaded_by_google": "2026-04-17",
+    "bing_feeds_status": "Success",
+    "bing_feeds_errors": 0
+  },
+  "index_status": {
+    "sampled": 7,
+    "indexed": 7,
+    "rate": 1.0,
+    "gsc_sitemap_indexed_count": 0,
+    "gsc_sitemap_indexed_note": "Reporting lag — URL Inspection confirms pages are indexed"
+  },
+  "bing_status": {
+    "protocol": "li-10-bing-aeo-protocol v1.1.0",
+    "block_a": {
+      "urls_checked": 7,
+      "is_page_true": 7,
+      "document_size_zero": 1,
+      "stale_empty_crawl_urls": ["https://launchedin10.co.uk/website-translation/"]
+    },
+    "block_b": {
+      "total_impressions": 0,
+      "total_clicks": 0,
+      "diagnosis": "Authority/ranking weakness, NOT indexation"
+    },
+    "block_c": {
+      "feeds_count": 2,
+      "all_success": true,
+      "errors": 0
+    },
+    "block_d": {
+      "crawl_issues": 0
+    }
+  },
+  "pagespeed": {
+    "homepage_mobile": {"score": 55, "lcp": 10.8, "tbt": 130, "cls": 0},
+    "homepage_desktop": {"score": 91, "lcp": 0.9, "tbt": 210, "cls": 0},
+    "seo_automation_mobile": {"score": 43, "lcp": 9.7, "tbt": 550, "cls": 0},
+    "blog_seo_fundamentals_mobile": {"score": 59, "lcp": 24.1, "tbt": 370, "cls": 0}
+  },
+  "content_integrity": {
+    "body_fingerprint": {
+      "pages_tested": 7,
+      "all_unique": true,
+      "spa_false_positives": 0
+    },
+    "price_drift": {
+      "homepage": {
+        "html_prices": ["£99.95", "£149.95", "£195.00"],
+        "jsonld_prices": [
+          {"tier": "Starter", "activation": "497", "monthly": "99", "currency": "GBP"},
+          {"tier": "Growth", "activation": "997", "monthly": "149", "currency": "GBP"},
+          {"tier": "Scale", "activation": "1997", "monthly": "249", "currency": "GBP"}
+        ],
+        "html_jsonld_match": false,
+        "diagnosis": "HTML shows SEO automation prices, JSON-LD shows web design prices"
+      },
+      "seo_automation": {
+        "html_prices": ["£99.95", "£149.95", "£195.00"],
+        "jsonld_prices": [
+          {"price": "99.95", "currency": "GBP"},
+          {"price": "149.95", "currency": "GBP"},
+          {"price": "195.00", "currency": "GBP"}
+        ],
+        "html_jsonld_match": true
+      },
+      "website_translation": {
+        "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+        "jsonld_prices": [
+          {"price": "29.95", "currency": "GBP"},
+          {"price": "49.95", "currency": "GBP"},
+          {"price": "79.95", "currency": "GBP"},
+          {"price": "129.95", "currency": "GBP"}
+        ],
+        "html_jsonld_match": true
+      }
+    },
+    "price_snapshot": {
+      "https://launchedin10.co.uk/": {
+        "html_prices": ["£99.95", "£149.95", "£195.00", "£5,000"],
+        "jsonld_prices": [
+          {"price": "99", "currency": "GBP", "tier": "Starter"},
+          {"price": "149", "currency": "GBP", "tier": "Growth"},
+          {"price": "249", "currency": "GBP", "tier": "Scale"}
+        ],
+        "captured_at": "2026-06-08T00:00:00Z",
+        "html_jsonld_match": false
+      },
+      "https://launchedin10.co.uk/seo-automation/": {
+        "html_prices": ["£99.95", "£149.95", "£195.00", "£195", "£50", "£100"],
+        "jsonld_prices": [
+          {"price": "99.95", "currency": "GBP"},
+          {"price": "149.95", "currency": "GBP"},
+          {"price": "195.00", "currency": "GBP"}
+        ],
+        "captured_at": "2026-06-08T00:00:00Z",
+        "html_jsonld_match": true
+      },
+      "https://launchedin10.co.uk/website-translation/": {
+        "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+        "jsonld_prices": [
+          {"price": "29.95", "currency": "GBP"},
+          {"price": "49.95", "currency": "GBP"},
+          {"price": "79.95", "currency": "GBP"},
+          {"price": "129.95", "currency": "GBP"}
+        ],
+        "captured_at": "2026-06-08T00:00:00Z",
+        "html_jsonld_match": true
+      }
+    }
+  },
+  "structured_data_coverage": {
+    "organization": 1.0,
+    "website_search_action": 1.0,
+    "webpage_speakable": 1.0,
+    "article": 0.89,
+    "breadcrumblist": 0.89,
+    "faqpage": 0.01,
+    "service": 0.02,
+    "data_ai_summary": 0.03,
+    "howto": 0.0,
+    "video_object": 0.05
+  },
+  "top_queries": [
+    {"query": "seo foundations", "impressions": 65, "clicks": 0, "position": 68.2, "page": "/blog/seo-fundamentals/"},
+    {"query": "inexpensive web design companies", "impressions": 30, "clicks": 0, "position": 21.4, "page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/"},
+    {"query": "wordpress site maintenance services", "impressions": 25, "clicks": 0, "position": 21.9, "page": "/blog/website-design/wordpress-site-maintenance-services-complete/"},
+    {"query": "dedicated server hosting vs shared", "impressions": 24, "clicks": 0, "position": 34.0, "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/"},
+    {"query": "construction websites 2026", "impressions": 19, "clicks": 0, "position": 31.0, "page": "/blog/industry-spotlights/why-website-design-for-construction/"},
+    {"query": "transparent web design pricing", "impressions": 17, "clicks": 0, "position": 15.4, "page": "/blog/business-growth/business-web-design-pricing-transparent-cost/"},
+    {"query": "shared server", "impressions": 16, "clicks": 0, "position": 69.4, "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/"},
+    {"query": "20110: analytics and seo", "impressions": 15, "clicks": 0, "position": 14.9, "page": "/blog/seo-fundamentals/"},
+    {"query": "managed hosting vs dedicated hosting", "impressions": 13, "clicks": 0, "position": 22.2, "page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/"},
+    {"query": "web content accessibility guidelines 2021", "impressions": 13, "clicks": 0, "position": 48.9, "page": "/blog/website-design/web-content-accessibility-guidelines-11-key/"}
+  ],
+  "page_2_opportunities": [
+    {"query": "transparent web design pricing", "position": 15.4, "impressions": 17, "page": "/blog/business-growth/business-web-design-pricing-transparent-cost/", "verdict": "B"},
+    {"query": "affordable website design options for startups 2026", "position": 11.4, "impressions": 10, "page": "/blog/website-design/low-cost-website-design-2026-guide/", "verdict": "B"},
+    {"query": "best affordable web design companies", "position": 12.5, "impressions": 6, "page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "verdict": "B"},
+    {"query": "web design costs 2026", "position": 12.0, "impressions": 2, "page": "/blog/website-design/web-design-cost-2026-breakdown-small/", "verdict": "B"},
+    {"query": "uk wordpress maintenance", "position": 11.0, "impressions": 1, "page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "verdict": "B"}
+  ],
+  "page_1_near_misses": [
+    {"query": "website design cost uk small business 2026", "position": 8.2, "impressions": 5, "page": "/blog/website-design/web-design-cost-2026-breakdown-small/", "verdict": "B"},
+    {"query": "construction company website design trends 2026", "position": 6.8, "impressions": 8, "page": "/blog/industry-spotlights/why-website-design-for-construction/", "verdict": "B"}
+  ],
+  "intent_gaps_verdict_a": [
+    {"intent": "10 day website build", "status": "No dedicated page exists for core brand USP", "note": "Maintenance-only property — noted for future activation"},
+    {"intent": "bespoke website design UK", "status": "No content targeting high commercial intent query", "note": "Maintenance-only property — noted for future activation"}
+  ],
+  "topical_drift": {
+    "cluster": "dedicated server hosting",
+    "impressions": 176,
+    "pages": 2,
+    "recommendation": "Maintenance only — do not invest further. Add internal links to commercial pages to channel equity."
+  },
+  "citation_matrix": {
+    "queries_tested": 10,
+    "ai_overview_triggers": 0,
+    "li10_citations": 0,
+    "competitor_tier_1_findings": 0,
+    "ga4_ai_referrals": {"perplexity": 1, "chatgpt": 0, "copilot": 0, "claude": 0, "gemini": 0}
+  },
+  "pipeline": {
+    "published_posts": 108,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_pending": 0,
+    "stalled_items": 0,
+    "last_publish_date": "2026-03-20",
+    "days_since_publish": 80,
+    "status": "dormant"
+  },
+  "ghost_pages": {
+    "total_pairs": 30,
+    "equity_at_risk": false,
+    "note": "All in early incubation with low impression counts. No imminent expiry."
+  }
+}
