@@ -801,6 +801,9 @@ async function generateIndividualPosts(posts, distDir, shell) {
             return `<div class="youtube-container" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:4rem 0;border-radius:2rem;box-shadow:0 30px 60px rgba(0,0,0,0.2);background:#000;border:4px solid var(--navy);"><iframe src="https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
         });
 
+        // Fix double-wrapped anchor tags from malformed Supabase content: <a href="<a href="URL" ...>text</a>">text</a>
+        postContent = postContent.replace(/<a\s+href="<a\s+href="([^"]*)"[^>]*>[^<]*<\/a>"([^>]*)>([^<]*)<\/a>/g, '<a href="$1"$2>$3</a>');
+
         const preRenderedHtml = `
         <div id="root">
             <div class="bg-[var(--bg-warm)] min-h-screen blog-post-context">
