@@ -1,0 +1,99 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-15",
+    "run_number": 17,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-08",
+    "bot_inflation_pct": 57.8,
+    "tier_a_sessions": 66,
+    "honest_assessment": "LaunchedIn10 is a low-authority incubation site with fully-deployed AEO infrastructure and zero organic clicks over 90 days. The binding constraint is domain authority, not content volume or technical SEO. Two genuine issues require action: /pricing/ soft-404 (P0) and homepage price mismatch (P1, operator decision). The site needs backlinks, time, and patience — not more content or schema additions."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-039",
+      "priority": "P0",
+      "status": "open",
+      "description": "/pricing/ is a soft 404 — it returns HTTP 200 but serves byte-for-byte identical content to the homepage. The SSG build (generate-static.js) does not generate /pricing/index.html, so Cloudflare Pages falls back to /index.html. The page title, canonical, and all body content match the homepage exactly. Any backlinks or internal links pointing to /pricing/ deliver zero unique value. Bing has crawled and cached this page (DocumentSize 24,769 bytes) but it contains homepage content, not pricing content. This is the only P0 on the site.",
+      "prompt": "Fix the /pricing/ soft 404 on launchedin10.co.uk. The issue is in the SSG build: generate-static.js does not generate /pricing/index.html, so Cloudflare Pages serves the homepage fallback. Steps: 1) Open generate-static.js in the EldrisOU/launchedin10-final repo. 2) Add /pricing/ to the list of routes that get SSG-rendered (it should already have a React component — check src/pages/ or the route config). 3) Ensure the SSG generates /pricing/index.html with its own unique <title>, <h1>, canonical (https://launchedin10.co.uk/pricing/), and pricing-specific content. 4) Add /pricing/ to public/sitemap.xml. 5) Rebuild and deploy. 6) Verify: curl -sL https://launchedin10.co.uk/pricing/ | grep '<title>' should NOT match the homepage title. 7) After deploy, submit /pricing/ to Bing via SubmitUrlBatch and trigger IndexNow.",
+      "created_date": "2026-06-15",
+      "verification": "curl -sL https://launchedin10.co.uk/pricing/ | grep '<title>' — must NOT match 'High-Performance Web Design in 10 Days'. Canonical must be https://launchedin10.co.uk/pricing/. Page must appear in sitemap.xml.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Fixes a broken commercial page. Currently Bing has cached homepage content at /pricing/ — recrawl after fix will deliver correct pricing content to Bing/ChatGPT/Copilot retrieval.",
+      "evidence": "curl diff between / and /pricing/ shows identical body (27,260 bytes each). Title both 'High-Performance Web Design in 10 Days | LaunchedIn10'. Canonical both 'https://launchedin10.co.uk'."
+    },
+    {
+      "id": "ACT-LI10-035",
+      "priority": "P1",
+      "status": "open",
+      "description": "Homepage HTML displays SEO automation pricing (Launch £99.95/mo, Boost £149.95/mo, Orbit £195.00/mo) but JSON-LD structured data declares web design pricing (Starter £497 activation + £99/mo, Growth £997 activation + £149/mo, Scale £1997 activation + £249/mo). These are two different product lines with different price points. Google may show web design prices in rich results while users see SEO automation prices on the page. This is a potential Google Ads policy violation if ads ever link to the homepage. Carried forward from Run 16 — requires operator decision on which service the homepage should promote.",
+      "prompt": "OPERATOR DECISION REQUIRED: The homepage at https://launchedin10.co.uk/ shows two different pricing structures — SEO automation in the visible HTML and web design in the JSON-LD schema. Mark needs to decide: (A) Homepage promotes web design → update the visible HTML pricing section to show web design tiers (£497+£99, £997+£149, £1997+£249), or (B) Homepage promotes SEO automation → update the JSON-LD in generate-static.js to match the visible SEO pricing (£99.95, £149.95, £195.00 with no activation fees). After operator decision, update the mismatched source in generate-static.js. Verify by curling the homepage and comparing HTML prices vs JSON-LD prices — they must match exactly.",
+      "created_date": "2026-06-08",
+      "verification": "curl -sL https://launchedin10.co.uk/ — extract all £ values from visible HTML and from JSON-LD script blocks. Every HTML price must have a matching JSON-LD price. No activation fee should appear in JSON-LD unless also visible in HTML.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Eliminates Google policy risk and ensures rich results display correct pricing.",
+      "evidence": "HTML body: £99.95/£149.95/£195.00 (SEO automation). JSON-LD: £99/£149/£249 + £497/£997/£1997 activation (web design). Confirmed present in both Run 16 and Run 17."
+    },
+    {
+      "id": "ACT-LI10-040",
+      "priority": "P2",
+      "status": "open",
+      "description": "After fixing ACT-LI10-039, /pricing/ must be added to sitemap.xml. Currently the page is absent from the sitemap despite returning HTTP 200 (albeit with homepage content). Once the SSG generates the correct /pricing/index.html, the sitemap must include it so both Google and Bing discover the properly-rendered version. This is a dependency — do not add /pricing/ to the sitemap until the soft-404 is fixed, or you will be directing crawlers to a homepage duplicate.",
+      "prompt": "DEPENDENCY: Only execute after ACT-LI10-039 is complete and /pricing/ serves unique content. In the EldrisOU/launchedin10-final repo, open the sitemap generation logic in generate-static.js. Add https://launchedin10.co.uk/pricing/ to the URL list with today's lastmod date. Rebuild and deploy. Then resubmit the sitemap to Google via gsc_submit_sitemap (siteUrl: sc-domain:launchedin10.co.uk, feedpath: https://launchedin10.co.uk/sitemap.xml). Verify: curl https://launchedin10.co.uk/sitemap.xml | grep pricing — must return the /pricing/ URL.",
+      "created_date": "2026-06-15",
+      "verification": "curl https://launchedin10.co.uk/sitemap.xml | grep '/pricing/' — must return the URL. gsc_list_sitemaps should show updated URL count (118).",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Ensures /pricing/ is discoverable by both Google and Bing crawlers via sitemap.",
+      "evidence": "Current sitemap.xml contains 117 URLs. /pricing/ is absent despite the page existing at the route level."
+    },
+    {
+      "id": "ACT-LI10-041",
+      "priority": "P3",
+      "status": "open",
+      "description": "Two blog posts are 'Crawled - currently not indexed' by Google: /blog/website-design/web-design-cost-2026-breakdown-small/ (last crawled 01.04.26) and /blog/industry-spotlights/why-website-design-for-construction/ (last crawled 03.04.26). Both have only the sitemap as a referring URL — Google discovered no internal links to either page. Adding contextual internal links from higher-authority pages may prompt Google to re-evaluate. However, at current traffic levels (0 clicks site-wide), this is low priority — Google may have rejected these on quality signals regardless of internal linking. Bing has indexed both with healthy DocumentSize.",
+      "prompt": "In the EldrisOU/launchedin10-final repo, add contextual internal links to the two 'not indexed' blog posts. 1) Find the /blog/seo-fundamentals/ content (or the page that renders the SEO fundamentals category) and add a contextual link to /blog/website-design/web-design-cost-2026-breakdown-small/ with anchor text like 'our web design cost breakdown'. 2) Find the /blog/industry-spotlights/ content and add a link to /blog/industry-spotlights/why-website-design-for-construction/ with anchor text like 'website design for construction companies'. These links should appear naturally within existing content, not as a forced link block. After deploy, request re-indexing via gsc_inspect_url for both URLs.",
+      "created_date": "2026-06-15",
+      "verification": "gsc_inspect_url on both URLs — status should eventually change from 'Crawled - currently not indexed' to 'Submitted and indexed'. Allow 2-4 weeks for Google to re-evaluate.",
+      "codebase_path": "li10_posts content or generate-static.js internal link logic",
+      "estimated_impact": "May help Google re-evaluate 2 blog posts for indexing. Low confidence — Google may have rejected on quality signals.",
+      "evidence": "GSC URL Inspection: both URLs show 'Crawled - currently not indexed', last crawl April 2026. Referring URLs: sitemap only."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-023",
+      "description": "FAQPage duplicate on /case-studies/ — SSG and React hydration both injected FAQPage JSON-LD, causing Google Rich Results FAIL. The SSG guard has been implemented and confirmed working: curl of /case-studies/ shows 0 FAQPage blocks in the HTML. Google's cached index still shows the FAIL from prior crawl but will clear on next re-crawl. Open for 7 consecutive audits (Run 10 through Run 16). Code fix confirmed via render_compare in Run 17.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "render_compare on /case-studies/ shows 0 FAQPage blocks in SSR HTML. GSC URL Inspection still shows FAQ FAIL (stale cache). Code fix confirmed in generate-static.js."
+    },
+    {
+      "id": "ACT-LI10-032",
+      "description": "Blog post /blog/website-design/web-design-cost-2026-breakdown-small/ was 140+ days stale. Content updated and dateModified refreshed to 2026-06-01. Visible 'Last updated: 1 June 2026' now present.",
+      "status": "completed",
+      "completed_date": "2026-06-08",
+      "evidence": "curl confirms dateModified: 2026-06-01T00:00:00Z in JSON-LD. Visible text shows 'Last updated 1 June 2026'."
+    },
+    {
+      "id": "ACT-LI10-036",
+      "description": "/website-translation/ Bing stale-empty-crawl (DocumentSize=0) resolved. Current Bing Block A shows DocumentSize=14,922 bytes with LastCrawledDate 11.06.26.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "Bing GetUrlInfo: IsPage=true, DocumentSize=14922, LastCrawledDate=11.06.26."
+    },
+    {
+      "id": "ACT-LI10-037",
+      "description": "Sitemap.xml resubmitted to Google. GSC shows last downloaded 2026-06-15.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "gsc_list_sitemaps: lastDownloaded = 2026-06-15."
+    },
+    {
+      "id": "ACT-LI10-038",
+      "description": "Malformed internal link (<div class= in href attribute) fixed in batch commit e99f616.",
+      "status": "completed",
+      "completed_date": "2026-06-08",
+      "evidence": "Git commit e99f616. GA4 still shows historical sessions with the malformed path — will age out of 90-day window."
+    }
+  ]
+}
