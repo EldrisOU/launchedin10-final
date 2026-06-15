@@ -1,0 +1,211 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-15",
+    "run_number": 17,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-08",
+    "bot_inflation_pct": 57.8,
+    "tier_a_sessions": 66,
+    "honest_assessment": "LaunchedIn10 is a low-authority incubation site with fully-deployed AEO infrastructure and zero organic clicks. The binding constraint is domain authority, not content or technical SEO. The site needs backlinks, time, and patience. Two genuine issues: /pricing/ soft-404 (P0) and homepage price mismatch (P1, operator decision). Everything else is monitoring."
+  },
+  "gsc_data": {
+    "period": "2026-03-17 to 2026-06-15",
+    "property": "sc-domain:launchedin10.co.uk",
+    "launchedin10_only": {
+      "impressions": 763,
+      "clicks": 0,
+      "ctr": 0.0,
+      "rows": 193,
+      "top_queries": [
+        {"query": "seo foundations", "impressions": 76, "position": 64.3},
+        {"query": "construction websites 2026", "impressions": 40, "position": 32.1},
+        {"query": "wordpress site maintenance services", "impressions": 31, "position": 22.3},
+        {"query": "inexpensive web design companies", "impressions": 30, "position": 21.4},
+        {"query": "transparent web design pricing", "impressions": 17, "position": 15.4},
+        {"query": "affordable website design options for startups 2026", "impressions": 10, "position": 11.4},
+        {"query": "web design cost 2026 breakdown small", "impressions": 11, "position": 10.9},
+        {"query": "launched in", "impressions": 7, "position": 3.3}
+      ],
+      "top_pages": [
+        {"page": "/blog/seo-fundamentals/", "impressions": 188, "position": 53.9},
+        {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 176, "position": 43.4},
+        {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "impressions": 107, "position": 39.0},
+        {"page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "impressions": 52, "position": 23.4},
+        {"page": "/blog/industry-spotlights/why-website-design-for-construction/", "impressions": 47, "position": 28.4}
+      ]
+    },
+    "law_launchedin10": {
+      "impressions": 766,
+      "clicks": 0,
+      "ctr": 0.0,
+      "rows": 132
+    }
+  },
+  "ga4_data": {
+    "period": "90 days ending 2026-06-15",
+    "property": "properties/517814343",
+    "hostname_filtered": "launchedin10.co.uk",
+    "total_sessions": 192,
+    "tier_a_sessions": 66,
+    "tier_b_sessions": 15,
+    "tier_c_sessions": 111,
+    "bot_inflation_pct": 57.8,
+    "conversions": 0,
+    "channels": {
+      "direct": 160,
+      "google_organic": 13,
+      "bing_organic": 4,
+      "perplexity_referral": 1,
+      "portal_referral": 6,
+      "type19_referral": 4,
+      "not_set": 4
+    },
+    "aeo_citations": {
+      "perplexity": {"sessions": 1, "landing_page": "/", "engagement_rate": 1.0, "avg_duration_s": 135.7},
+      "chatgpt": {"sessions": 0},
+      "claude": {"sessions": 0},
+      "gemini": {"sessions": 0},
+      "copilot": {"sessions": 0}
+    }
+  },
+  "bing_data": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "blocks_executed": ["A_GetUrlInfo", "B_GetUrlTrafficInfo", "C_GetFeeds", "D_GetCrawlIssues"],
+    "m1_index_status": "All 8 tested pages IsPage=true, DocumentSize>0. No stale-empty-crawl bugs.",
+    "m2_search_performance": "Zero impressions site-wide. Authority weakness, NOT indexation issue.",
+    "m3_sitemap_processing": "Both sitemaps Status=Success. 117 URLs discovered.",
+    "m4_crawl_issues": "Empty array. No Bing-side faults.",
+    "pages": [
+      {"url": "/", "isPage": true, "docSize": 26341, "lastCrawled": "2026-06-10", "impressions": 0},
+      {"url": "/blog/", "isPage": true, "docSize": 55968, "lastCrawled": "2026-05-17", "impressions": 0},
+      {"url": "/case-studies/", "isPage": true, "docSize": 15539, "lastCrawled": "2026-05-24", "impressions": 0},
+      {"url": "/seo-automation/", "isPage": true, "docSize": 14586, "lastCrawled": "2026-05-27", "impressions": 0},
+      {"url": "/website-translation/", "isPage": true, "docSize": 14922, "lastCrawled": "2026-06-11", "impressions": 0},
+      {"url": "/pricing/", "isPage": true, "docSize": 24769, "lastCrawled": "2026-06-15", "impressions": 0},
+      {"url": "/blog/website-design/web-design-cost-2026-breakdown-small/", "isPage": true, "docSize": 31918, "lastCrawled": "2026-06-11", "impressions": 0},
+      {"url": "/blog/industry-spotlights/why-website-design-for-construction/", "isPage": true, "docSize": 30432, "lastCrawled": "2026-05-28", "impressions": 0}
+    ]
+  },
+  "gsc_url_inspections": {
+    "indexed": ["/", "/blog/", "/case-studies/", "/seo-automation/", "/website-translation/"],
+    "not_indexed": [
+      {"url": "/blog/website-design/web-design-cost-2026-breakdown-small/", "status": "Crawled - currently not indexed", "last_crawl": "2026-04-01"},
+      {"url": "/blog/industry-spotlights/why-website-design-for-construction/", "status": "Crawled - currently not indexed", "last_crawl": "2026-04-03"}
+    ],
+    "case_studies_faq_status": "FAIL in GSC cache (duplicate FAQPage). Code fix confirmed — FAQPage removed from SSG output. Awaiting Google re-crawl."
+  },
+  "sitemap_data": {
+    "url": "https://launchedin10.co.uk/sitemap.xml",
+    "total_urls": 117,
+    "structure": "flat (no sitemap-index)",
+    "gsc_indexed_count": 0,
+    "gsc_note": "Stale counter — URL inspections confirm pages ARE indexed",
+    "bing_status": "Success",
+    "missing": ["/pricing/"]
+  },
+  "technical_health": {
+    "pagespeed_mobile": {"homepage": 54, "blog": 52, "seo_automation": 52, "case_studies": 50, "website_translation": 53},
+    "pagespeed_desktop": {"homepage": 82, "blog": 78, "seo_automation": 75, "case_studies": 87, "website_translation": 90},
+    "render_compare": "All pages render complete JSON-LD server-side. No hydration dependency for schema.",
+    "rich_results": "Homepage FAQ PASS. /case-studies/ FAIL (stale cache — code fixed). Others: no rich results detected."
+  },
+  "content_integrity": {
+    "soft_404_pages": ["/pricing/"],
+    "price_mismatch_pages": ["/"],
+    "language_contamination": "N/A (single-language)",
+    "brand_markers": "Present on all pages"
+  },
+  "price_snapshot": {
+    "captured": "2026-06-15",
+    "pages": {
+      "homepage": {
+        "url": "https://launchedin10.co.uk/",
+        "html_prices_gbp": ["99.95", "149.95", "195.00", "195"],
+        "html_product_context": "SEO content automation tiers (Launch/Boost/Orbit)",
+        "jsonld_service_type": "High-Performance Web Design",
+        "jsonld_offers": [
+          {"name": "Starter", "activation": "497", "monthly": "99"},
+          {"name": "Growth", "activation": "997", "monthly": "149"},
+          {"name": "Scale", "activation": "1997", "monthly": "249"}
+        ],
+        "price_drift": true,
+        "drift_severity": "P1",
+        "drift_detail": "HTML shows SEO automation prices; JSON-LD shows web design prices. Two different products."
+      },
+      "seo_automation": {
+        "url": "https://launchedin10.co.uk/seo-automation/",
+        "html_prices_gbp": ["99.95", "149.95", "195.00", "195"],
+        "jsonld_offers": [
+          {"name": "Launch", "price": "99.95", "unit": "MONTH"},
+          {"name": "Boost", "price": "149.95", "unit": "MONTH"},
+          {"name": "Orbit", "price": "195.00", "unit": "MONTH"},
+          {"name": "Setup", "price": "195.00", "unit": "ONE_TIME"}
+        ],
+        "price_drift": false
+      },
+      "website_translation": {
+        "url": "https://launchedin10.co.uk/website-translation/",
+        "html_prices_gbp": ["29.95", "49.95", "79.95", "129.95"],
+        "jsonld_offers": [
+          {"name": "Starter", "price": "29.95", "unit": "MONTH"},
+          {"name": "Growth", "price": "49.95", "unit": "MONTH"},
+          {"name": "Business", "price": "79.95", "unit": "MONTH"},
+          {"name": "Enterprise", "price": "129.95", "unit": "MONTH"}
+        ],
+        "price_drift": false
+      },
+      "pricing": {
+        "url": "https://launchedin10.co.uk/pricing/",
+        "status": "SOFT_404_HOMEPAGE_CLONE",
+        "price_drift": "UNTESTABLE"
+      }
+    }
+  },
+  "aeo_infrastructure": {
+    "data_ai_summary": "Deployed on all pages (homepage 3 blocks, blog posts 8-9 blocks each)",
+    "speakable": "Deployed on all pages via WebPage schema",
+    "faq_schema": "Homepage (12 Qs) + all blog posts",
+    "llms_txt": "Deployed, lists all service pages",
+    "indexnow_key": "40b3efc5ab8e4c0e9ca6163daca5d29e (deployed)",
+    "howto_schema": "Not implemented (0%)",
+    "video_object": "59% of blog posts"
+  },
+  "citation_matrix": {
+    "queries_tested": 10,
+    "ai_overviews_triggered": 0,
+    "our_citations": {"perplexity": 1, "chatgpt": 0, "claude": 0, "gemini": 0, "copilot": 0},
+    "new_first_citations": 0,
+    "note": "Web design commercial queries in UK do not generate Google AI Overviews. AEO opportunity is via direct LLM engines (Perplexity, ChatGPT), not Google AIO."
+  },
+  "pipeline": {
+    "li10_posts_count": 108,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_remaining": 0,
+    "stalled_items": 0,
+    "days_since_last_publish": 87,
+    "status": "DORMANT"
+  },
+  "ghost_indexing": {
+    "ghost_queries": 30,
+    "ghost_impression_pct": 23.2,
+    "high_equity_at_risk": 0,
+    "note": "Entire site is effectively ghost data with 0 clicks. No high-equity positions at risk."
+  },
+  "freshness": {
+    "all_commercial_pages_within_90_days": true,
+    "dateModified_source": "SSG build timestamp (2026-06-15T03:20:24Z)",
+    "note": "dateModified reflects build time, not content change date. Acceptable at current volume."
+  },
+  "schema_coverage": {
+    "webpage_speakable": "100%",
+    "organization": "100%",
+    "website_searchaction": "100%",
+    "article_breadcrumb": "100% of blog",
+    "faq_page": "94%",
+    "data_ai_summary": "100%+",
+    "service_offer": "100% of eligible",
+    "video_object": "59% of blog",
+    "howto": "0%"
+  }
+}
