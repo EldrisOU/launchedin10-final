@@ -7,63 +7,41 @@
     "previous_audit": "2026-06-01",
     "bot_inflation_pct": 59.1,
     "tier_a_sessions": 72,
-    "honest_assessment": "LaunchedIn10 remains in incubation \u2014 699 impressions with zero clicks across 90 days. The site has strong AEO infrastructure (data-ai-summary, Speakable, llms.txt, IndexNow) but lacks domain authority. Content pipeline dormant for 80 days. Three genuine P1 issues: a 7-audit-old FAQPage duplicate, a homepage price schema mismatch, and a Bing stale-empty-crawl. The site needs authority building and time, not more content."
+    "honest_assessment": "LaunchedIn10 remains in incubation — 699 impressions with zero clicks across 90 days. The site has strong AEO infrastructure (data-ai-summary, Speakable, llms.txt, IndexNow) but lacks domain authority. Content pipeline dormant for 80 days. Three genuine P1 issues: a 7-audit-old FAQPage duplicate, a homepage price schema mismatch, and a Bing stale-empty-crawl. The site needs authority building and time, not more content."
   },
   "action_items": [
     {
       "id": "ACT-LI10-023",
       "priority": "P1",
       "status": "open",
-      "description": "FAQPage duplicate field error on /case-studies/ \u2014 now open for 7 consecutive audits since 06.04.26 (63 days). GSC Rich Results Test detects 3 FAQ items, each with error: 'Duplicate field FAQPage'. The SSG (generate-static.js) injects FAQPage schema server-side, but the React SPA shell also injects it client-side during hydration, causing Google to see two FAQPage blocks. Additionally, cross-property schema leakage has been detected (Torxup and Memaero Organization schema appearing on LI10 pages via the shared SPA shell). FAQ rich results are completely blocked on this page. This is the longest-running open issue in the LI10 audit history.",
-      "prompt": "Fix the duplicate FAQPage schema on https://launchedin10.co.uk/case-studies/. The root cause is in the repo EldrisOU/launchedin10-final. The SSG layer (generate-static.js) injects FAQPage JSON-LD into the HTML at build time. However, a React component (likely in src/components/ or src/pages/CaseStudies.jsx) also renders FAQPage JSON-LD client-side via a Helmet or script tag. Find and remove the client-side FAQPage injection \u2014 the SSG version is authoritative. Also investigate cross-property schema leakage: search the codebase for 'Torxup', 'Memaero', 'torxup.co.uk', 'memaero.co.uk' \u2014 if Organization schema for other properties is hardcoded in the SPA shell (index.html or a shared component), remove it. After fixing, run: curl -sL https://launchedin10.co.uk/case-studies/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); blocks=[json.loads(m.group(1)) for m in re.finditer(r'<script[^>]*application/ld.json[^>]*>(.*?)</script>', html, re.DOTALL)]; faq=[b for b in blocks if 'FAQPage' in json.dumps(b)]; print(f'FAQPage blocks: {len(faq)} (must be exactly 1)')\"",
+      "description": "FAQPage duplicate field error on /case-studies/ — now open for 7 consecutive audits since 06.04.26 (63 days). GSC Rich Results Test detects 3 FAQ items, each with error: 'Duplicate field FAQPage'. The SSG (generate-static.js) injects FAQPage schema server-side, but the React SPA shell also injects it client-side during hydration, causing Google to see two FAQPage blocks. Additionally, cross-property schema leakage has been detected (Torxup and Memaero Organization schema appearing on LI10 pages via the shared SPA shell). FAQ rich results are completely blocked on this page. This is the longest-running open issue in the LI10 audit history.",
+      "prompt": "Fix the duplicate FAQPage schema on https://launchedin10.co.uk/case-studies/. The root cause is in the repo EldrisOU/launchedin10-final. The SSG layer (generate-static.js) injects FAQPage JSON-LD into the HTML at build time. However, a React component (likely in src/components/ or src/pages/CaseStudies.jsx) also renders FAQPage JSON-LD client-side via a Helmet or script tag. Find and remove the client-side FAQPage injection — the SSG version is authoritative. Also investigate cross-property schema leakage: search the codebase for 'Torxup', 'Memaero', 'torxup.co.uk', 'memaero.co.uk' — if Organization schema for other properties is hardcoded in the SPA shell (index.html or a shared component), remove it. After fixing, run: curl -sL https://launchedin10.co.uk/case-studies/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); blocks=[json.loads(m.group(1)) for m in re.finditer(r'<script[^>]*application/ld.json[^>]*>(.*?)</script>', html, re.DOTALL)]; faq=[b for b in blocks if 'FAQPage' in json.dumps(b)]; print(f'FAQPage blocks: {len(faq)} (must be exactly 1)')\"",
       "created_date": "2026-04-06",
-      "verification": "Run GSC URL Inspection on https://launchedin10.co.uk/case-studies/ \u2014 Rich Results should show PASS for FAQ (not FAIL with duplicate error). Also: curl the page and count FAQPage JSON-LD blocks \u2014 must be exactly 1.",
+      "verification": "Run GSC URL Inspection on https://launchedin10.co.uk/case-studies/ — Rich Results should show PASS for FAQ (not FAIL with duplicate error). Also: curl the page and count FAQPage JSON-LD blocks — must be exactly 1.",
       "codebase_path": "generate-static.js, src/pages/CaseStudies.jsx (or equivalent)",
-      "estimated_impact": "Unblocks FAQ rich results on /case-studies/ \u2014 potential CTR uplift when the page eventually reaches clickable positions.",
+      "estimated_impact": "Unblocks FAQ rich results on /case-studies/ — potential CTR uplift when the page eventually reaches clickable positions.",
       "evidence": "GSC URL Inspection 08.06.26: /case-studies/ Rich Results = FAIL, 3 FAQ items with 'Duplicate field FAQPage' error. Open since Run 10 (06.04.26)."
     },
     {
       "id": "ACT-LI10-035",
       "priority": "P1",
       "status": "open",
-      "description": "Homepage HTML displays SEO automation pricing (\u00a399.95/\u00a3149.95/\u00a3195.00 per month) in the visible body, but the JSON-LD Offer schema declares web design management pricing (\u00a399/\u00a3149/\u00a3249 per month plus \u00a3497/\u00a3997/\u00a31,997 one-off activation). Google Rich Results would show the schema prices, which don't match what users see on the page. This is a Google Ads/Rich Results policy risk for misleading pricing and a trust signal failure. The previous audit (ACT-LI10-030) incorrectly diagnosed this as a cross-page mismatch between homepage and /seo-automation/; the real issue is the homepage's own internal inconsistency between visible HTML and JSON-LD.",
-      "prompt": "Fix the homepage pricing schema mismatch on https://launchedin10.co.uk/. In the repo EldrisOU/launchedin10-final, open generate-static.js and find the homepage schema injection (the Service + Offer JSON-LD block). The current JSON-LD declares 3 Offer tiers with prices \u00a399/\u00a3149/\u00a3249 monthly + \u00a3497/\u00a3997/\u00a31,997 one-off (web design management). However, the visible HTML body shows \u00a399.95/\u00a3149.95/\u00a3195.00 (SEO automation prices). Either: (a) update the JSON-LD Offer prices to match the visible HTML prices (if the homepage now promotes SEO automation), or (b) update the visible HTML to show the web design tiers that match the schema (if web design is still the primary homepage offering). The operator must decide which service the homepage should promote \u2014 do NOT guess. Flag to Mark for decision. After fixing, verify: curl -sL https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); prices_html=re.findall(r'(?:\u00a3)\\s?[\\d,]+(?:\\.\\d{1,2})?', html); ld=[json.loads(m.group(1)) for m in re.finditer(r'<script[^>]*application/ld.json[^>]*>(.*?)</script>', html, re.DOTALL)]; print(f'HTML prices: {prices_html}'); print(f'JSON-LD: check Offer nodes manually')\"",
+      "description": "Homepage HTML displays SEO automation pricing (£99.95/£149.95/£195.00 per month) in the visible body, but the JSON-LD Offer schema declares web design management pricing (£99/£149/£249 per month plus £497/£997/£1,997 one-off activation). Google Rich Results would show the schema prices, which don't match what users see on the page. This is a Google Ads/Rich Results policy risk for misleading pricing and a trust signal failure. The previous audit (ACT-LI10-030) incorrectly diagnosed this as a cross-page mismatch between homepage and /seo-automation/; the real issue is the homepage's own internal inconsistency between visible HTML and JSON-LD.",
+      "prompt": "Fix the homepage pricing schema mismatch on https://launchedin10.co.uk/. In the repo EldrisOU/launchedin10-final, open generate-static.js and find the homepage schema injection (the Service + Offer JSON-LD block). The current JSON-LD declares 3 Offer tiers with prices £99/£149/£249 monthly + £497/£997/£1,997 one-off (web design management). However, the visible HTML body shows £99.95/£149.95/£195.00 (SEO automation prices). Either: (a) update the JSON-LD Offer prices to match the visible HTML prices (if the homepage now promotes SEO automation), or (b) update the visible HTML to show the web design tiers that match the schema (if web design is still the primary homepage offering). The operator must decide which service the homepage should promote — do NOT guess. Flag to Mark for decision. After fixing, verify: curl -sL https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); prices_html=re.findall(r'(?:£)\\s?[\\d,]+(?:\\.\\d{1,2})?', html); ld=[json.loads(m.group(1)) for m in re.finditer(r'<script[^>]*application/ld.json[^>]*>(.*?)</script>', html, re.DOTALL)]; print(f'HTML prices: {prices_html}'); print(f'JSON-LD: check Offer nodes manually')\"",
       "created_date": "2026-06-08",
-      "verification": "curl homepage, extract HTML prices and JSON-LD Offer prices \u2014 they must match. No \u00a399 in schema if \u00a399.95 is visible (or vice versa).",
+      "verification": "curl homepage, extract HTML prices and JSON-LD Offer prices — they must match. No £99 in schema if £99.95 is visible (or vice versa).",
       "codebase_path": "generate-static.js (homepage schema injection block)",
       "estimated_impact": "Eliminates Google policy risk for misleading pricing schema. Ensures Rich Results pricing matches user-visible content.",
-      "evidence": "curl 08.06.26: HTML body shows \u00a399.95/\u00a3149.95/\u00a3195.00. JSON-LD Offer schema shows \u00a399/\u00a3149/\u00a3249 monthly + \u00a3497/\u00a3997/\u00a31,997 one-off."
-    },
-    {
-      "id": "ACT-LI10-036",
-      "priority": "P1",
-      "status": "open",
-      "description": "/website-translation/ has a Bing stale-empty-crawl \u2014 Bing WMT Block A shows IsPage=true but DocumentSize=0 (empty cache). The page was discovered and crawled on 08.05.26 and never re-crawled (31 days stale). The live page returns 200 with 19,805 bytes of content. Bingbot got an empty response on its only crawl attempt. This page is invisible to Bing search results and the Bing-to-ChatGPT retrieval pipeline. The previous audit (ACT-LI10-029) submitted this URL but the re-crawl didn't populate the cache. 5-minute fix via Bing WMT SubmitUrl API.",
-      "prompt": "Submit /website-translation/ to Bing for re-crawl using the Bing WMT SubmitUrlBatch API. Run this exact command:\n\ncurl -s -X POST \"https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca\" -H \"Content-Type: application/json\" -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\"]}'\n\nExpected response: {\"d\":null} = success.\n\nThen verify in 48 hours by running Block A GetUrlInfo:\ncurl -s \"https://ssl.bing.com/webmaster/api.svc/json/GetUrlInfo?siteUrl=https%3A%2F%2Flaunchedin10.co.uk%2F&url=https%3A%2F%2Flaunchedin10.co.uk%2Fwebsite-translation%2F&apikey=30fa478ccc434486be022a3e6a513dca\" | python3 -c \"import json,sys; raw=sys.stdin.buffer.read().decode('utf-8-sig'); d=json.loads(raw).get('d',{}); print(f'Size={d.get(\\\"DocumentSize\\\",0)}')\"",
-      "created_date": "2026-06-08",
-      "verification": "Re-run Bing WMT GetUrlInfo on /website-translation/ in 48-72 hours. DocumentSize must be >0 (expect ~19,000 bytes). If still 0 after 72h, escalate to manual Bing WMT submission.",
-      "estimated_impact": "Makes /website-translation/ available to Bing search and the Bing-to-ChatGPT/Copilot retrieval pipeline.",
-      "evidence": "Bing WMT Block A 08.06.26: IsPage=true, DocumentSize=0, LastCrawledDate=08.05.26. Live curl returns 19,805 bytes."
-    },
-    {
-      "id": "ACT-LI10-037",
-      "priority": "P2",
-      "status": "open",
-      "description": "Main sitemap.xml has not been re-downloaded by Google in 52 days (last download: 17 Apr 2026). The redirect-fix sitemap was downloaded 05 Jun, suggesting Google deprioritised the main sitemap. This means any new blog posts or lastmod changes added to sitemap.xml since April have not been picked up by Google's sitemap processor. Resubmitting will force a fresh download and signal that the sitemap has been updated.",
-      "prompt": "Resubmit the main sitemap to Google Search Console. Use the GSC MCP tool: gsc_submit_sitemap with siteUrl 'sc-domain:launchedin10.co.uk' and feedpath 'https://launchedin10.co.uk/sitemap.xml'. After submission, verify via gsc_list_sitemaps that the lastDownloaded date updates within 48 hours.",
-      "created_date": "2026-06-08",
-      "verification": "Run gsc_list_sitemaps for sc-domain:launchedin10.co.uk \u2014 sitemap.xml lastDownloaded should show a date after 08.06.26.",
-      "estimated_impact": "Refreshes Google's view of the sitemap. May trigger re-crawl of pages with updated lastmod dates.",
-      "evidence": "GSC sitemaps API 08.06.26: sitemap.xml lastDownloaded=17 Apr 2026 (52 days ago)."
+      "evidence": "curl 08.06.26: HTML body shows £99.95/£149.95/£195.00. JSON-LD Offer schema shows £99/£149/£249 monthly + £497/£997/£1,997 one-off."
     },
     {
       "id": "ACT-LI10-032",
       "priority": "P2",
       "status": "open",
-      "description": "Blog post /blog/website-design/web-design-cost-2026-breakdown-small/ has a dateModified of 2026-01-20, making it approximately 140 days stale \u2014 well past the 90-day commercial freshness threshold. This is one of the site's strongest performers (position 8.2 for 'website design cost uk small business 2026', position 12.0 for 'web design costs 2026'). Updating the content with current 2026 pricing data and refreshing the dateModified signal could improve ranking for these page-1 near-miss queries. Second consecutive audit flagging this.",
+      "description": "Blog post /blog/website-design/web-design-cost-2026-breakdown-small/ has a dateModified of 2026-01-20, making it approximately 140 days stale — well past the 90-day commercial freshness threshold. This is one of the site's strongest performers (position 8.2 for 'website design cost uk small business 2026', position 12.0 for 'web design costs 2026'). Updating the content with current 2026 pricing data and refreshing the dateModified signal could improve ranking for these page-1 near-miss queries. Second consecutive audit flagging this.",
       "prompt": "Update the blog post at /blog/website-design/web-design-cost-2026-breakdown-small/ in EldrisOU/launchedin10-final. Find the post in Supabase (project acheexsffdcuzidpiwbh, table li10_posts, filter by slug containing 'web-design-cost-2026'). Refresh: update any 2025 pricing references to current 2026 figures, add a 'Last updated: June 2026' visible date, ensure the Supabase updated_at field is refreshed (the SSG uses this for dateModified schema and sitemap lastmod). After updating, trigger a rebuild to regenerate the static HTML with the new dateModified. Then fire IndexNow: curl -s -X POST 'https://api.indexnow.org/indexnow' -H 'Content-Type: application/json' -d '{\"host\":\"launchedin10.co.uk\",\"key\":\"40b3efc5ab8e4c0e9ca6163daca5d29e\",\"keyLocation\":\"https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt\",\"urlList\":[\"https://launchedin10.co.uk/blog/website-design/web-design-cost-2026-breakdown-small/\"]}'",
       "created_date": "2026-06-01",
-      "verification": "curl the page after rebuild \u2014 dateModified in JSON-LD should show June 2026. Sitemap lastmod should match. Visible 'Last updated' text should show June 2026.",
+      "verification": "curl the page after rebuild — dateModified in JSON-LD should show June 2026. Sitemap lastmod should match. Visible 'Last updated' text should show June 2026.",
       "estimated_impact": "Strengthens freshness signals on a page-1 near-miss query (pos 8.2). Could tip into clickable position with updated content.",
       "evidence": "GSC 08.06.26: 'website design cost uk small business 2026' pos 8.2, 5 imp, 0 clicks. dateModified: 2026-01-20 (~140 days stale)."
     },
@@ -71,7 +49,7 @@
       "id": "ACT-LI10-034",
       "priority": "P3",
       "status": "open",
-      "description": "PageSpeed scores now captured (Run 15 had API quota 429). Mobile performance is poor \u2014 homepage LCP 10.8s (score 55), /seo-automation/ LCP 9.7s (score 43), /blog/seo-fundamentals/ LCP 24.1s (score 59). Desktop is healthy (91, LCP 0.9s). At current traffic levels (0.8 Tier A sessions/day, 0 organic clicks), mobile performance is not blocking growth \u2014 the authority deficit is. Monitor and address when traffic justifies investment. CLS is 0 everywhere (positive).",
+      "description": "PageSpeed scores now captured (Run 15 had API quota 429). Mobile performance is poor — homepage LCP 10.8s (score 55), /seo-automation/ LCP 9.7s (score 43), /blog/seo-fundamentals/ LCP 24.1s (score 59). Desktop is healthy (91, LCP 0.9s). At current traffic levels (0.8 Tier A sessions/day, 0 organic clicks), mobile performance is not blocking growth — the authority deficit is. Monitor and address when traffic justifies investment. CLS is 0 everywhere (positive).",
       "prompt": "No action required at current traffic levels. Monitor mobile LCP at next audit. If Tier A sessions exceed 5/day or organic clicks appear, escalate to P2 and investigate: (1) image optimisation (likely largest LCP contributor), (2) render-blocking JS bundle size, (3) font loading strategy. Check with: npx lighthouse https://launchedin10.co.uk/ --only-categories=performance --output=json --chrome-flags='--headless' | jq '.audits[\"largest-contentful-paint\"]'",
       "created_date": "2026-06-01",
       "verification": "Recheck PageSpeed at next audit. Mobile LCP < 4s = acceptable. < 2.5s = target.",
@@ -96,14 +74,14 @@
     },
     {
       "id": "ACT-LI10-030",
-      "description": "JSON-LD price drift \u2014 reclassified. The original diagnosis (homepage vs /seo-automation/ price mismatch) was a false positive: these are legitimately different services with different pricing. The real issue is the homepage's own internal HTML-vs-JSON-LD inconsistency, now tracked as ACT-LI10-035.",
+      "description": "JSON-LD price drift — reclassified. The original diagnosis (homepage vs /seo-automation/ price mismatch) was a false positive: these are legitimately different services with different pricing. The real issue is the homepage's own internal HTML-vs-JSON-LD inconsistency, now tracked as ACT-LI10-035.",
       "status": "completed",
       "completed_date": "2026-06-08",
-      "evidence": "Confirmed: /seo-automation/ HTML and JSON-LD prices match (\u00a399.95/\u00a3149.95/\u00a3195.00). /website-translation/ HTML and JSON-LD match (\u00a329.95/\u00a349.95/\u00a379.95/\u00a3129.95). Homepage mismatch is internal (HTML shows SEO prices, JSON-LD shows web design prices)."
+      "evidence": "Confirmed: /seo-automation/ HTML and JSON-LD prices match (£99.95/£149.95/£195.00). /website-translation/ HTML and JSON-LD match (£29.95/£49.95/£79.95/£129.95). Homepage mismatch is internal (HTML shows SEO prices, JSON-LD shows web design prices)."
     },
     {
       "id": "ACT-LI10-031",
-      "description": "data-ai-summary blocks deployed on commercial pages. Verified present on homepage (3 blocks), /blog/ (3 blocks), /case-studies/ (3 blocks). Still absent from /seo-automation/, /website-translation/, and individual blog posts \u2014 but the ACT scope was commercial page SSG templates, which is complete.",
+      "description": "data-ai-summary blocks deployed on commercial pages. Verified present on homepage (3 blocks), /blog/ (3 blocks), /case-studies/ (3 blocks). Still absent from /seo-automation/, /website-translation/, and individual blog posts — but the ACT scope was commercial page SSG templates, which is complete.",
       "status": "completed",
       "completed_date": "2026-06-01",
       "evidence": "curl 08.06.26: data-ai-summary attributes found on /, /blog/, /case-studies/."
@@ -140,15 +118,41 @@
       "id": "ACT-LI10-038",
       "priority": "P2",
       "status": "completed",
-      "description": "Malformed internal links containing HTML <div class= fragments are appearing in GA4 pagePath data and GSC referring URL data for /blog/website-design/. GA4 captured 4 sessions to URLs like /blog/.../accessibility-checker-website-essential/<div class=... \u2014 this indicates a broken internal link somewhere in the codebase that includes literal HTML in the href attribute. GSC URL Inspection shows a referring URL for /blog/website-design/ containing %3Cdiv%20class= (URL-encoded HTML). This wastes crawl budget on malformed URLs and creates noise in analytics.",
-      "prompt": "Find and fix the malformed internal link in EldrisOU/launchedin10-final. Search the codebase for any link that might inject HTML into an href attribute. Likely locations: generate-static.js (blog post template rendering), src/components/ (blog post card or link components). The bug produces URLs like /blog/website-design/accessibility-checker-website-essential/<div class=... \u2014 look for string concatenation or template literals where an HTML element is accidentally appended to a URL. Search with: grep -rn '<div class' generate-static.js src/ | grep -i 'href\\|link\\|url\\|pathname'. After fixing, rebuild and verify: curl -sL https://launchedin10.co.uk/blog/website-design/ | grep -o 'href=\"[^\"]*<div' (should return nothing).",
+      "description": "Malformed internal links containing HTML <div class= fragments are appearing in GA4 pagePath data and GSC referring URL data for /blog/website-design/. GA4 captured 4 sessions to URLs like /blog/.../accessibility-checker-website-essential/<div class=... — this indicates a broken internal link somewhere in the codebase that includes literal HTML in the href attribute. GSC URL Inspection shows a referring URL for /blog/website-design/ containing %3Cdiv%20class= (URL-encoded HTML). This wastes crawl budget on malformed URLs and creates noise in analytics.",
+      "prompt": "Find and fix the malformed internal link in EldrisOU/launchedin10-final. Search the codebase for any link that might inject HTML into an href attribute. Likely locations: generate-static.js (blog post template rendering), src/components/ (blog post card or link components). The bug produces URLs like /blog/website-design/accessibility-checker-website-essential/<div class=... — look for string concatenation or template literals where an HTML element is accidentally appended to a URL. Search with: grep -rn '<div class' generate-static.js src/ | grep -i 'href\\|link\\|url\\|pathname'. After fixing, rebuild and verify: curl -sL https://launchedin10.co.uk/blog/website-design/ | grep -o 'href=\"[^\"]*<div' (should return nothing).",
       "created_date": "2026-06-08",
-      "verification": "curl https://launchedin10.co.uk/blog/website-design/ and grep for any href containing '<div' \u2014 must return empty. Also check GA4 in 7 days for absence of <div class= in pagePath data.",
+      "verification": "curl https://launchedin10.co.uk/blog/website-design/ and grep for any href containing '<div' — must return empty. Also check GA4 in 7 days for absence of <div class= in pagePath data.",
       "codebase_path": "generate-static.js or src/components/",
       "estimated_impact": "Eliminates crawl budget waste on malformed URLs and cleans up analytics data.",
       "evidence": "GA4 08.06.26: 4 sessions to URLs containing '<div class='. GSC URL Inspection: referring URL for /blog/website-design/ contains %3Cdiv%20class=.",
       "completed_date": "2026-06-08",
-      "resolution": "Executed by ACT Executor agent \u2014 batch deployed e99f6165969db8a4d1c23f5e3cdcf2848d3f35e7"
+      "resolution": "Executed by ACT Executor agent — batch deployed e99f6165969db8a4d1c23f5e3cdcf2848d3f35e7"
+    },
+    {
+      "id": "ACT-LI10-036",
+      "priority": "P1",
+      "status": "completed",
+      "description": "/website-translation/ has a Bing stale-empty-crawl — Bing WMT Block A shows IsPage=true but DocumentSize=0 (empty cache). The page was discovered and crawled on 08.05.26 and never re-crawled (31 days stale). The live page returns 200 with 19,805 bytes of content. Bingbot got an empty response on its only crawl attempt. This page is invisible to Bing search results and the Bing-to-ChatGPT retrieval pipeline. The previous audit (ACT-LI10-029) submitted this URL but the re-crawl didn't populate the cache. 5-minute fix via Bing WMT SubmitUrl API.",
+      "prompt": "Submit /website-translation/ to Bing for re-crawl using the Bing WMT SubmitUrlBatch API. Run this exact command:\n\ncurl -s -X POST \"https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=30fa478ccc434486be022a3e6a513dca\" -H \"Content-Type: application/json\" -d '{\"siteUrl\":\"https://launchedin10.co.uk/\",\"urlList\":[\"https://launchedin10.co.uk/website-translation/\"]}'\n\nExpected response: {\"d\":null} = success.\n\nThen verify in 48 hours by running Block A GetUrlInfo:\ncurl -s \"https://ssl.bing.com/webmaster/api.svc/json/GetUrlInfo?siteUrl=https%3A%2F%2Flaunchedin10.co.uk%2F&url=https%3A%2F%2Flaunchedin10.co.uk%2Fwebsite-translation%2F&apikey=30fa478ccc434486be022a3e6a513dca\" | python3 -c \"import json,sys; raw=sys.stdin.buffer.read().decode('utf-8-sig'); d=json.loads(raw).get('d',{}); print(f'Size={d.get(\\\"DocumentSize\\\",0)}')\"",
+      "created_date": "2026-06-08",
+      "verification": "Re-run Bing WMT GetUrlInfo on /website-translation/ in 48-72 hours. DocumentSize must be >0 (expect ~19,000 bytes). If still 0 after 72h, escalate to manual Bing WMT submission.",
+      "estimated_impact": "Makes /website-translation/ available to Bing search and the Bing-to-ChatGPT/Copilot retrieval pipeline.",
+      "evidence": "Bing WMT Block A 08.06.26: IsPage=true, DocumentSize=0, LastCrawledDate=08.05.26. Live curl returns 19,805 bytes.",
+      "completed_date": "2026-06-15",
+      "resolution": "Executed by ACT Executor agent — batch deployed via gh-api"
+    },
+    {
+      "id": "ACT-LI10-037",
+      "priority": "P2",
+      "status": "completed",
+      "description": "Main sitemap.xml has not been re-downloaded by Google in 52 days (last download: 17 Apr 2026). The redirect-fix sitemap was downloaded 05 Jun, suggesting Google deprioritised the main sitemap. This means any new blog posts or lastmod changes added to sitemap.xml since April have not been picked up by Google's sitemap processor. Resubmitting will force a fresh download and signal that the sitemap has been updated.",
+      "prompt": "Resubmit the main sitemap to Google Search Console. Use the GSC MCP tool: gsc_submit_sitemap with siteUrl 'sc-domain:launchedin10.co.uk' and feedpath 'https://launchedin10.co.uk/sitemap.xml'. After submission, verify via gsc_list_sitemaps that the lastDownloaded date updates within 48 hours.",
+      "created_date": "2026-06-08",
+      "verification": "Run gsc_list_sitemaps for sc-domain:launchedin10.co.uk — sitemap.xml lastDownloaded should show a date after 08.06.26.",
+      "estimated_impact": "Refreshes Google's view of the sitemap. May trigger re-crawl of pages with updated lastmod dates.",
+      "evidence": "GSC sitemaps API 08.06.26: sitemap.xml lastDownloaded=17 Apr 2026 (52 days ago).",
+      "completed_date": "2026-06-15",
+      "resolution": "Executed by ACT Executor agent — batch deployed via gh-api"
     }
   ]
 }
