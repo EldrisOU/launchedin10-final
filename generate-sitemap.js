@@ -40,7 +40,8 @@ async function generateSitemap() {
       '/blog',
       '/case-studies',
       '/seo-automation',
-      '/website-translation'
+      '/website-translation',
+      '/pricing'
     ];
 
     // DEF-G2 fix: Add xmlns:video namespace

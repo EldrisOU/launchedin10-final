@@ -420,6 +420,7 @@ async function generateAll() {
     await generateCaseStudiesPage(distDir, masterShell);
     await generateSEOSalePage(distDir, masterShell);
     await generateTranslationSalePage(distDir, masterShell);
+    await generatePricingPage(distDir, masterShell);
     await generateHomepage(distDir, masterShell);
     await generateLegalPages(distDir, masterShell);
 
@@ -583,7 +584,7 @@ async function generateHomepage(distDir, shell) {
                                 <span class="font-serif italic font-light text-accent">Live in 10 Days.</span><br />
                                 Managed Forever.
                             </h1>
-                            <p class="text-xl md:text-2xl text-text-muted mb-12 max-w-2xl leading-relaxed font-light">
+                            <p class="speakable-summary text-xl md:text-2xl text-text-muted mb-12 max-w-2xl leading-relaxed font-light">
                                 The anti-agency service. We design, build, and manage your bespoke website for a flat monthly fee. No templates. No freelancers. No headaches.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-5">
@@ -775,11 +776,12 @@ async function generateIndividualPosts(posts, distDir, shell) {
         const categoryName = post.primary_category || post.category || 'Insights';
         const catSlug = categoryName.toLowerCase().replace(/ /g, '-');
         const postSlug = post.slug;
-        const title = post.post_title || post.title;
+        const title = (post.post_title || post.title || '').replace(/-interactive$/i, '');
+        const metaDesc = (post.meta_description || post.excerpt || '').replace(/"/g, '&quot;').replace(/<[^>]*>/g, '').slice(0, 160);
 
         let html = shell;
         html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', `<title>${title} | LaunchedIn10</title>`);
-        html = html.replace('</head>', `<link rel="canonical" href="https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/" /></head>`);
+        html = html.replace('</head>', `${metaDesc ? `<meta name="description" content="${metaDesc}" />` : ''}<link rel="canonical" href="https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/" /></head>`);
 
         html = injectSchema(html, 'Article', {
             url: `https://launchedin10.co.uk/blog/${catSlug}/${postSlug}/`,
@@ -803,6 +805,9 @@ async function generateIndividualPosts(posts, distDir, shell) {
 
         // Fix double-wrapped anchor tags from malformed Supabase content: <a href="<a href="URL" ...>text</a>">text</a>
         postContent = postContent.replace(/<a\s+href="<a\s+href="([^"]*)"[^>]*>[^<]*<\/a>"([^>]*)>([^<]*)<\/a>/g, '<a href="$1"$2>$3</a>');
+
+        // Strip H1 tags from post content — the SSG template already renders the title as H1
+        postContent = postContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
 
         const preRenderedHtml = `
         <div id="root">
@@ -1009,7 +1014,7 @@ async function generateCaseStudiesPage(distDir, shell) {
                         Real Websites.<br />
                         <span class="text-[var(--teal)]">Live in 10 Days.</span>
                     </h1>
-                    <p class="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+                    <p class="speakable-summary text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
                         No templates. No drag-and-drop. No 12-week timelines.<br /> Professional websites built for your business — managed forever.
                     </p>
                 </div>
@@ -1112,7 +1117,7 @@ async function generateSEOSalePage(distDir, shell) {
                 <div class="container">
                     <span class="hero-label">The SEO Market Disruptor</span>
                     <h1 class="hero-title">Outrank Your Competitors <span>Before They Wake Up</span></h1>
-                    <p class="hero-subtitle">Google rewards consistent, quality content. Most businesses can't keep up. Yours will. Our autonomous content engine publishes authority-building posts every single day—while your competitors scramble to catch up.</p>
+                    <p class="speakable-summary hero-subtitle">Google rewards consistent, quality content. Most businesses can't keep up. Yours will. Our autonomous content engine publishes authority-building posts every single day—while your competitors scramble to catch up.</p>
                     <div class="hero-stats">
                         <div class="hero-stat">
                             <div class="hero-stat-value">Daily</div>
@@ -1346,7 +1351,7 @@ async function generateTranslationSalePage(distDir, shell) {
                 <div class="container">
                     <span class="hero-label">European Market Expansion</span>
                     <h1 class="hero-title">Clone Your Business into <span>23 EU Languages</span></h1>
-                    <p class="hero-subtitle">We clone your existing website into any EU language—complete with SEO structure, hreflang tags, and proper URL architecture.</p>
+                    <p class="speakable-summary hero-subtitle">We clone your existing website into any EU language—complete with SEO structure, hreflang tags, and proper URL architecture.</p>
                     <div class="hero-stats">
                         <div class="hero-stat">
                             <div class="hero-stat-value">23</div>
@@ -1503,6 +1508,175 @@ async function generateTranslationSalePage(distDir, shell) {
     fs.mkdirSync(outputDir, { recursive: true });
     fs.writeFileSync(path.join(outputDir, 'index.html'), html);
     console.log('✅ [ELITE] Translation Sale Page Generated.');
+}
+
+async function generatePricingPage(distDir, shell) {
+    console.log('🔨 [ELITE] Generating Pricing Page...');
+
+    let html = shell;
+    html = html.replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>Web Design &amp; SEO Pricing | LaunchedIn10</title>');
+    html = html.replace('</head>', '<meta name="description" content="Transparent pricing for LaunchedIn10 web design and SEO services. Starter from £497, Growth from £997, Scale from £1,997. No hidden fees." /><link rel="canonical" href="https://launchedin10.co.uk/pricing/" /></head>');
+
+    html = injectSchema(html, 'Service', {
+        url: 'https://launchedin10.co.uk/pricing/',
+        title: 'Web Design & SEO Pricing',
+        description: 'Transparent pricing for LaunchedIn10 web design and SEO services. Starter, Growth and Scale tiers with activation fees and monthly management.',
+        offers: [
+            {
+                "@type": "Offer",
+                "name": "Starter",
+                "price": "497",
+                "priceCurrency": "GBP",
+                "description": "Starter activation — up to 5 pages, template-based design, 10-day delivery, migration included",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "99",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH",
+                    "description": "Monthly management — hosting, SSL, GDPR, 48h email support"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Growth",
+                "price": "997",
+                "priceCurrency": "GBP",
+                "description": "Growth activation — up to 12 pages, semi-custom design, lead capture forms, local SEO setup, migration included",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "149",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH",
+                    "description": "Monthly management — priority hosting, Google Business Profile, 24h email & chat support"
+                }
+            },
+            {
+                "@type": "Offer",
+                "name": "Scale",
+                "price": "1997",
+                "priceCurrency": "GBP",
+                "description": "Scale activation — up to 25 pages, fully custom design, e-commerce ready, 6-month SEO strategy, migration included",
+                "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "249",
+                    "priceCurrency": "GBP",
+                    "unitText": "MONTH",
+                    "description": "Monthly management — enterprise hosting, compliance audit, quarterly strategy call"
+                }
+            }
+        ]
+    });
+
+    const preRenderedHtml = `
+    <div id="root">
+        <div class="pricing-page-wrapper">
+            <div data-ai-summary="launchedin10-pricing">LaunchedIn10 web design pricing: Starter tier £497 one-off activation plus £99 per month for up to 5 pages with template-based design and 10-day delivery. Growth tier £997 activation plus £149 per month for up to 12 pages with semi-custom design, lead capture forms and local SEO setup. Scale tier £1,997 activation plus £249 per month for up to 25 pages with fully custom design, e-commerce ready and 6-month SEO strategy. All tiers include migration, hosting, SSL and GDPR compliance. 10-day delivery guarantee or full refund.</div>
+
+            <section class="hero">
+                <div class="container">
+                    <span class="hero-label">No Hidden Fees</span>
+                    <h1 class="hero-title">Transparent Pricing</h1>
+                    <p class="hero-subtitle">One activation fee. One monthly management fee. Everything included. Choose the tier that fits your business and we'll have you live in 10 days.</p>
+                </div>
+            </section>
+
+            <section class="pricing-section">
+                <div class="container">
+                    <h2 class="section-title text-center">Website Design Tiers</h2>
+                    <p class="section-subtitle text-center">Every tier includes 10-day delivery, migration from your existing site, hosting, SSL, and GDPR compliance.</p>
+                    <div class="tiers-grid">
+                        <div class="tier-card">
+                            <h3 class="tier-name">Starter</h3>
+                            <div class="tier-tagline">Get Online Fast</div>
+                            <div class="tier-price"><span class="tier-amount">£497</span><span class="tier-period"> one-off</span></div>
+                            <div class="tier-output">
+                                <div class="tier-output-main">+ £99/mo</div>
+                                <div class="tier-output-label">Monthly Management</div>
+                            </div>
+                            <ul class="tier-features">
+                                <li class="tier-feature">✓ Up to 5 Pages</li>
+                                <li class="tier-feature">✓ Template-Based Design</li>
+                                <li class="tier-feature">✓ 10-Day Delivery</li>
+                                <li class="tier-feature">✓ Migration Included</li>
+                                <li class="tier-feature">✓ Hosting, SSL, GDPR</li>
+                                <li class="tier-feature">✓ 48h Email Support</li>
+                            </ul>
+                        </div>
+                        <div class="tier-card popular">
+                            <span class="tier-badge">Most Popular</span>
+                            <h3 class="tier-name">Growth</h3>
+                            <div class="tier-tagline">Scale Your Leads</div>
+                            <div class="tier-price"><span class="tier-amount">£997</span><span class="tier-period"> one-off</span></div>
+                            <div class="tier-output">
+                                <div class="tier-output-main">+ £149/mo</div>
+                                <div class="tier-output-label">Monthly Management</div>
+                            </div>
+                            <ul class="tier-features">
+                                <li class="tier-feature">✓ Up to 12 Pages</li>
+                                <li class="tier-feature">✓ Semi-Custom Design</li>
+                                <li class="tier-feature">✓ Lead Capture Forms</li>
+                                <li class="tier-feature">✓ Local SEO Setup</li>
+                                <li class="tier-feature">✓ Google Business Profile</li>
+                                <li class="tier-feature">✓ 24h Email & Chat Support</li>
+                            </ul>
+                        </div>
+                        <div class="tier-card">
+                            <h3 class="tier-name">Scale</h3>
+                            <div class="tier-tagline">Dominate Your Market</div>
+                            <div class="tier-price"><span class="tier-amount">£1,997</span><span class="tier-period"> one-off</span></div>
+                            <div class="tier-output">
+                                <div class="tier-output-main">+ £249/mo</div>
+                                <div class="tier-output-label">Monthly Management</div>
+                            </div>
+                            <ul class="tier-features">
+                                <li class="tier-feature">✓ Up to 25 Pages</li>
+                                <li class="tier-feature">✓ Fully Custom Design</li>
+                                <li class="tier-feature">✓ E-Commerce Ready</li>
+                                <li class="tier-feature">✓ 6-Month SEO Strategy</li>
+                                <li class="tier-feature">✓ Compliance Audit</li>
+                                <li class="tier-feature">✓ Quarterly Strategy Call</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="guarantee-section" style="padding: 4rem 0;">
+                <div class="container" style="text-align: center; max-width: 700px; margin: 0 auto;">
+                    <h2 class="section-title">The 10-Day Guarantee</h2>
+                    <p class="section-subtitle">Your website is delivered in 10 business days or we refund 100% of your activation fee — and you keep the site. Plus, if you're unhappy within 30 days of launch, we revise up to 5 pages free or cancel and refund your first month.</p>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <div class="container">
+                    <h2 class="section-title text-center">Pricing FAQs</h2>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h3 class="faq-question">What's included in the monthly fee?</h3>
+                            <p class="faq-answer">Hosting, SSL certificate, GDPR compliance, security updates, uptime monitoring, and support at the level of your chosen tier.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Am I locked into a long contract?</h3>
+                            <p class="faq-answer">12-month minimum, then month-to-month with 30 days' notice. You own everything — domain, files, content. Clean exit guaranteed.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Is migration included?</h3>
+                            <p class="faq-answer">Yes. Every tier includes migration of your existing content. Starter covers up to 25 posts and 10 products. Growth covers up to 100 posts and 25 products. Scale covers up to 200 posts and 75 products.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>`;
+
+    html = html.replace(/<body[^>]*>([\s\S]*?)<\/body>/, `<body>${preRenderedHtml}</body>`);
+    html = html.replace(/\.\/assets\//g, '/assets/');
+
+    const outputDir = path.join(distDir, 'pricing');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'index.html'), html);
+    console.log('✅ [ELITE] Pricing Page Generated.');
 }
 
 async function generateLegalPages(distDir, shell) {
