@@ -1,0 +1,163 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-23",
+    "run_number": 18,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-15",
+    "ga4_property": "properties/517814343",
+    "gsc_property": "sc-domain:launchedin10.co.uk",
+    "bing_site": "https://launchedin10.co.uk/"
+  },
+  "traffic_summary": {
+    "gsc_impressions_90d": 1763,
+    "gsc_clicks_90d": 0,
+    "gsc_ctr": 0.0,
+    "ga4_tier_a_sessions": 85,
+    "ga4_tier_b_sessions": 115,
+    "ga4_tier_c_sessions": 80,
+    "bot_inflation_pct": 29.3,
+    "google_organic_sessions": 15,
+    "bing_organic_sessions": 4,
+    "direct_sessions": 175,
+    "referral_sessions": 21
+  },
+  "aeo_citations": {
+    "total_ai_sessions": 2,
+    "breakdown": {
+      "perplexity": {
+        "sessions": 2,
+        "pages_cited": [
+          {"page": "/", "sessions": 1, "avg_duration_s": 119.7, "engaged": true},
+          {"page": "/website-translation/", "sessions": 1, "avg_duration_s": 16.0, "engaged": true}
+        ]
+      },
+      "chatgpt": {"sessions": 0},
+      "copilot": {"sessions": 0},
+      "gemini": {"sessions": 0},
+      "claude": {"sessions": 0}
+    },
+    "prior_run_total": 1,
+    "delta": "+1 (new: /website-translation/ via Perplexity)"
+  },
+  "citation_matrix": {
+    "queries_tested": 15,
+    "aio_triggers": 0,
+    "li10_cited": 0,
+    "li10_organic_presence": 0,
+    "note": "Zero AIO triggers across all 15 target queries in UK market. No organic visibility for launchedin10.co.uk on any tested query."
+  },
+  "ghost_data": {
+    "total_ghost_impressions": 1763,
+    "total_ghost_queries": 330,
+    "top_ghost_pages": [
+      {"page": "/blog/seo-fundamentals/", "impressions": 263, "avg_position": 54},
+      {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 182, "avg_position": 43},
+      {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "impressions": 78, "avg_position": 39},
+      {"page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "impressions": 56, "avg_position": 23},
+      {"page": "/blog/industry-spotlights/why-website-design-for-construction/", "impressions": 47, "avg_position": 28}
+    ]
+  },
+  "technical_health": {
+    "pagespeed": {
+      "homepage": {"mobile": 55, "desktop": 96, "mobile_lcp_s": 12.2, "desktop_lcp_s": 1.1},
+      "seo_automation": {"mobile": 44, "desktop": 81, "mobile_lcp_s": 9.7, "desktop_lcp_s": 1.4, "desktop_cls": 0.199},
+      "blog_seo_fundamentals": {"mobile": 61, "desktop": 55, "mobile_lcp_s": 24.7, "desktop_lcp_s": 6.3},
+      "blog_hosting": {"mobile": 60, "desktop": 73, "mobile_lcp_s": 16.1, "desktop_lcp_s": 3.6},
+      "website_translation": {"mobile": 68, "desktop": 93, "mobile_lcp_s": 8.0, "desktop_lcp_s": 1.1}
+    },
+    "sitemap": {
+      "total_urls": 117,
+      "gsc_indexed_counter": 0,
+      "gsc_counter_note": "GSC counter lag — URL inspections confirm pages ARE indexed",
+      "bing_sitemap_status": "Success",
+      "bing_sitemap_urls": 117
+    },
+    "index_status": {
+      "pricing_page": "UNKNOWN to Google — never crawled. Indexed by Bing (24,769 bytes of homepage content).",
+      "all_other_inspected": "PASS — Submitted and indexed"
+    }
+  },
+  "bing_crawl_comparison": [
+    {"url": "/", "google_status": "Indexed", "google_crawled": "2026-06-17", "bing_ispage": true, "bing_crawled": "2026-06-18", "bing_size": 26341, "bing_anchors": 1664},
+    {"url": "/seo-automation/", "google_status": "Indexed", "google_crawled": "2026-06-12", "bing_ispage": true, "bing_crawled": "2026-05-27", "bing_size": 14586, "bing_anchors": 0},
+    {"url": "/website-translation/", "google_status": "Indexed", "google_crawled": "2026-06-12", "bing_ispage": true, "bing_crawled": "2026-06-11", "bing_size": 14922, "bing_anchors": 0},
+    {"url": "/case-studies/", "google_status": "Indexed", "google_crawled": null, "bing_ispage": true, "bing_crawled": "2026-05-24", "bing_size": 15539, "bing_anchors": 0},
+    {"url": "/pricing/", "google_status": "UNKNOWN", "google_crawled": null, "bing_ispage": true, "bing_crawled": "2026-06-15", "bing_size": 24769, "bing_anchors": 0},
+    {"url": "/blog/", "google_status": "Indexed", "google_crawled": null, "bing_ispage": true, "bing_crawled": "2026-06-21", "bing_size": 56636, "bing_anchors": 0},
+    {"url": "/blog/seo-fundamentals/", "google_status": "Indexed", "google_crawled": "2026-06-15", "bing_ispage": true, "bing_crawled": "2026-05-25", "bing_size": 28999, "bing_anchors": 0},
+    {"url": "/blog/.../hosting.../", "google_status": "Indexed", "google_crawled": "2026-06-20", "bing_ispage": true, "bing_crawled": "2026-06-21", "bing_size": 35055, "bing_anchors": 0}
+  ],
+  "content_integrity": {
+    "body_fingerprint": {
+      "pricing_page_serves_homepage": true,
+      "pricing_title_matches_homepage": true,
+      "pricing_h1_matches_homepage": true,
+      "pricing_canonical_matches_homepage": true
+    },
+    "price_snapshot": {
+      "https://launchedin10.co.uk/": {
+        "html_prices": ["99.95", "149.95", "195.00"],
+        "html_currency": "GBP",
+        "html_product": "SEO automation monthly subscriptions",
+        "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}],
+        "jsonld_product": "Web design one-off build fees",
+        "html_jsonld_match": false,
+        "captured_at": "2026-06-23T00:00:00Z",
+        "matches_prior_audit": true,
+        "note": "Same mismatch as Run 17 ACT-LI10-035. HTML shows SEO automation. JSON-LD shows web design. Two different products."
+      },
+      "https://launchedin10.co.uk/seo-automation/": {
+        "html_prices": ["99.95", "149.95", "195.00"],
+        "jsonld_prices": [{"price": "99.95", "currency": "GBP"}, {"price": "149.95", "currency": "GBP"}, {"price": "195.00", "currency": "GBP"}],
+        "html_jsonld_match": true,
+        "duplicate_offer_nodes": true,
+        "captured_at": "2026-06-23T00:00:00Z"
+      },
+      "https://launchedin10.co.uk/website-translation/": {
+        "html_prices": ["29.95", "49.95", "79.95", "129.95"],
+        "jsonld_prices": [{"price": "29.95", "currency": "GBP"}, {"price": "49.95", "currency": "GBP"}, {"price": "79.95", "currency": "GBP"}, {"price": "129.95", "currency": "GBP"}],
+        "html_jsonld_match": true,
+        "duplicate_offer_nodes": true,
+        "captured_at": "2026-06-23T00:00:00Z"
+      }
+    }
+  },
+  "freshness": {
+    "commercial_pages_within_90d": true,
+    "stale_blog_posts": [
+      {"url": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "date_modified": "2026-02-10", "days_old": 133},
+      {"url": "/blog/website-design/wordpress-site-maintenance-services-complete/", "date_modified": "2026-01-22", "days_old": 152}
+    ]
+  },
+  "schema_coverage": {
+    "commercial_pages": {
+      "data_ai_summary": "100%",
+      "speakable_declared": "100%",
+      "speakable_functional": "0%",
+      "faq_page": "25%",
+      "service": "75%",
+      "breadcrumb_list": "0%",
+      "how_to": "0%"
+    }
+  },
+  "pipeline": {
+    "li10_posts_published": 105,
+    "orbit_3_flow_queued": 0,
+    "orbit_3_flow_completed": 95,
+    "days_since_last_publish": 95,
+    "pipeline_status": "DRY — zero items in queue"
+  },
+  "gap_analysis": {
+    "verdict_a_items": 0,
+    "verdict_b_items": 5,
+    "verdict_c_items": 0,
+    "verdicts": [
+      {"page": "/blog/seo-fundamentals/", "verdict": "B", "reason": "Category hub needs pillar copy and target keyword"},
+      {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "verdict": "B", "reason": "Title/meta/schema rewrite needed"},
+      {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "verdict": "B", "reason": "Format mismatch — blog vs landing page for commercial query"},
+      {"page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "verdict": "B", "reason": "Closest to clickable position (~23); needs freshness refresh"},
+      {"page": "/", "verdict": "B", "reason": "Brand keyword alignment and H1 clarity"}
+    ]
+  }
+}
