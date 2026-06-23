@@ -1,0 +1,99 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-23",
+    "run_number": 18,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-15",
+    "bot_inflation_pct": 29.3,
+    "tier_a_sessions": 85,
+    "honest_assessment": "LaunchedIn10 is a pre-commercial site with positive trajectory: GSC impressions tripled (763 to 1,763), Perplexity citations doubled (1 to 2), bot contamination halved. However, the site has zero clicks and zero conversions. The binding constraint is domain authority. Two P0 bugs from Run 17 remain unfixed — these should be resolved. Everything else is premature optimisation at current traffic levels."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-039",
+      "priority": "P0",
+      "status": "open",
+      "description": "The /pricing/ page is a soft 404 — the SSG build (generate-static.js) does not generate /pricing/index.html, so Cloudflare Pages falls back to the SPA shell (index.html), serving identical homepage content at the /pricing/ URL. Body fingerprint confirms: title, H1, and canonical all match the homepage exactly. Google URL Inspection returns 'URL is unknown to Google' — Google has never indexed this page. Bing has indexed it but cached 24,769 bytes of homepage content. This is the highest commercial-value page on the site (pricing intent = conversion intent) and it is invisible to Google. Carried forward from Run 17 — still unresolved after 3 consecutive audits.",
+      "prompt": "Fix the /pricing/ soft 404 on launchedin10.co.uk. Open the GitHub repo EldrisOU/launchedin10-final and edit generate-static.js to add a generatePricingPage() function that produces /pricing/index.html with page-specific content, title ('Web Design & SEO Pricing | LaunchedIn10'), H1 ('Transparent Pricing'), canonical (https://launchedin10.co.uk/pricing/), and the correct pricing tiers. The SSG must also inject schema (Service with Offers matching the visible HTML prices). After deploying, verify: curl -sL https://launchedin10.co.uk/pricing/ should return a title different from the homepage. Then run gsc_inspect_url to request Google indexing. Also add /pricing/ to the sitemap generation in generate-sitemap.js.",
+      "created_date": "2026-06-08",
+      "verification": "curl -sL https://launchedin10.co.uk/pricing/ | grep '<title>' must NOT return 'High-Performance Web Design in 10 Days'. gsc_inspect_url must return 'Submitted and indexed' within 72 hours.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Unlocks the primary conversion page for Google indexing. Currently invisible to all Google organic traffic.",
+      "evidence": "GSC URL Inspection 23.06.26: 'URL is unknown to Google'. Bing Block A: IsPage=true, DocSize=24769 (homepage content cached). Body fingerprint: title='High-Performance Web Design in 10 Days | LaunchedIn10' matches homepage exactly."
+    },
+    {
+      "id": "ACT-LI10-035",
+      "priority": "P0",
+      "status": "open",
+      "description": "The homepage JSON-LD Service schema declares web design build prices (GBP 497, GBP 997, GBP 1,997) while the visible HTML displays SEO automation subscription prices (GBP 99.95/mo, GBP 149.95/mo, GBP 195.00/mo). These are two entirely different product lines. Search engines and LLM scrapers reading the structured data will extract prices that do not match what users see on the page — this is a misleading signal that breaks rich result eligibility and AEO trust. Additionally, the Service schema node is missing 'name', '@id', and 'url' properties, and priceSpecification entries lack 'billingPeriod'. Carried forward from Run 16 — operator decision required on which product the homepage should promote. Price snapshot unchanged from Run 17.",
+      "prompt": "Fix the homepage Service schema on launchedin10.co.uk. Open EldrisOU/launchedin10-final, file generate-static.js, function generateHomepage() or injectSchema(). The JSON-LD Service node at @graph[3] currently has Offers with prices 497/997/1997 (web design builds). The visible HTML shows SEO automation prices: Launch GBP 99.95/mo, Boost GBP 149.95/mo, Orbit GBP 195.00/mo. DECISION NEEDED from operator: (A) Change JSON-LD to match visible SEO automation prices, or (B) Change visible HTML to match web design prices. Whichever is chosen: add 'name' to the Service node (e.g. 'SEO Content Automation' or 'Web Design'), add '@id' (e.g. 'https://launchedin10.co.uk/#seo-service'), add 'url' ('https://launchedin10.co.uk/seo-automation/'), and add 'billingPeriod': 'P1M' to each monthly priceSpecification.",
+      "created_date": "2026-06-01",
+      "verification": "curl -sL https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); ld=[json.loads(m) for m in re.findall(r'<script type=.application/ld.json.>(.*?)</script>', html, re.S)]; svc=[n for g in ld for n in g.get('@graph',[]) if n.get('@type')=='Service']; print('name' in svc[0], 'offers match HTML' if any('99.95' in str(o) or '497' in str(o) for o in svc[0].get('offers',[])) else 'CHECK')\"",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Resolves misleading structured data. Enables rich result eligibility for pricing queries. Builds AEO trust for LLM scrapers extracting pricing information.",
+      "evidence": "Run 18 price_snapshot: HTML=[99.95, 149.95, 195.00], JSON-LD=[497, 997, 1997]. Service node missing name, @id, url. Unchanged from Run 16/17."
+    },
+    {
+      "id": "ACT-LI10-042",
+      "priority": "P2",
+      "status": "open",
+      "description": "Speakable schema is declared on all pages via a WebPage node with cssSelector '.speakable-summary', but this CSS class does not exist in the rendered DOM on any commercial page (homepage, /seo-automation/, /website-translation/, /case-studies/) or blog category page. The selector matches zero elements, making the Speakable declaration inert — Google and voice assistants cannot extract the declared speakable content. Blog posts DO have the class (functional there). This was identified in Run 18 codebase reconnaissance. At current traffic levels (0 clicks), the practical impact is minimal, but it should be fixed to ensure infrastructure is ready when authority builds.",
+      "prompt": "Fix broken Speakable schema on launchedin10.co.uk commercial pages. In EldrisOU/launchedin10-final, file generate-static.js: find the functions generateHomepage(), generateSEOSalePage(), generateTranslationSalePage(), generateCaseStudiesPage(). In each function's HTML output, add class='speakable-summary' to the main introductory paragraph or hero description element (the first meaningful text block users see). This class is already referenced in the JSON-LD Speakable cssSelector — the DOM just needs the matching class. Verify by: curl -sL https://launchedin10.co.uk/ | grep 'speakable-summary' must return at least one DOM element (not just the JSON-LD block).",
+      "created_date": "2026-06-23",
+      "verification": "For each commercial page: curl -sL {url} | grep -c 'speakable-summary' must return >= 2 (one in JSON-LD, one+ in DOM).",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Activates Speakable schema on all commercial pages. Enables voice assistant extraction and improves AEO signal quality.",
+      "evidence": "render_compare and manual curl confirm .speakable-summary class absent from DOM on all commercial pages. Present only in JSON-LD script block and in blog post rendered HTML."
+    },
+    {
+      "id": "ACT-LI10-043",
+      "priority": "P2",
+      "status": "open",
+      "description": "The blog post /blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/ (182 GSC impressions, 2nd highest on site) has three render issues: (1) the title tag contains '-interactive' suffix artifact from the SSG pipeline, rendering in SERPs as 'Dedicated Server Managed Hosting Vs Shared: Which Is Best in 2026?-interactive | LaunchedIn10'; (2) no meta description in SSR HTML, forcing Google to auto-generate; (3) duplicate H1 tags (2 found). This is the richest-schema page on the site (Article + BreadcrumbList + VideoObject) and one of the most visible — these issues directly damage SERP CTR at the one page closest to generating real clicks.",
+      "prompt": "Fix three render issues on the blog post /blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/ in EldrisOU/launchedin10-final. In generate-static.js, function that generates blog post pages: (1) Strip '-interactive' suffix from the title tag — likely a content_format or type field bleeding into the title template string. Search for where pageData.title or postData.title is concatenated and ensure no metadata fields are appended. (2) Add meta description injection using the post's meta_description field from li10_posts. (3) Find the source of the duplicate H1 — likely the SSG injects one and the React component renders another. Ensure only one H1 exists in the final static HTML. Verify by: curl -sL https://launchedin10.co.uk/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/ | grep -c '<h1' should return 1, and grep '<title>' should not contain '-interactive'.",
+      "created_date": "2026-06-23",
+      "verification": "curl title check: must not contain '-interactive'. H1 count: must be exactly 1. Meta description: must be present in <head>.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Fixes SERP presentation on the 2nd highest impression page. Removes title artifact that damages click-through. Adds meta description for keyword control.",
+      "evidence": "render_compare 23.06.26: title contains '-interactive' suffix, 2 H1 tags found, no meta description in SSR HTML."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-023",
+      "description": "FAQPage schema duplicate on /case-studies/ removed. Confirmed via render_compare: 0 FAQPage blocks in SSR HTML. Code fix applied in generate-static.js. Resolved Run 17.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "render_compare confirmed 0 FAQPage blocks on /case-studies/ SSR HTML."
+    },
+    {
+      "id": "ACT-LI10-036",
+      "description": "/website-translation/ Bing stale-empty crawl resolved. Bing Block A: DocumentSize=14,922 bytes, LastCrawledDate 11.06.26. Healthy crawl confirmed.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "Bing GetUrlInfo 23.06.26: DocumentSize=14922, LastCrawled=11.06.26."
+    },
+    {
+      "id": "ACT-LI10-037",
+      "description": "Sitemap.xml resubmitted to Google. gsc_list_sitemaps confirms lastDownloaded 2026-06-23. Active and being processed.",
+      "status": "completed",
+      "completed_date": "2026-06-15",
+      "evidence": "gsc_list_sitemaps 23.06.26: lastDownloaded=2026-06-23, 117 URLs submitted."
+    },
+    {
+      "id": "ACT-LI10-038",
+      "description": "Malformed internal links fixed. Git commit e99f616 on 2026-06-08.",
+      "status": "completed",
+      "completed_date": "2026-06-08",
+      "evidence": "Git commit 2026-06-08: 'perf: 1 ACT from DeepRank audit — ACT-LI10-038: Malformed internal links'."
+    },
+    {
+      "id": "ACT-LI10-031",
+      "description": "data-ai-summary attribute added to all 5 commercial pages. 100% commercial coverage confirmed via Step 5.2 schema audit.",
+      "status": "completed",
+      "completed_date": "2026-06-01",
+      "evidence": "render_compare + curl 23.06.26: data-ai-summary present on homepage (x3), /seo-automation/ (x3), /website-translation/ (x3), /case-studies/ (x3), /blog/ (x3)."
+    }
+  ]
+}
