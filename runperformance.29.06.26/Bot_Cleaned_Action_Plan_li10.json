@@ -1,0 +1,140 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-29",
+    "run_number": 19,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-23",
+    "bot_inflation_pct": 54.1,
+    "tier_a_sessions": 84,
+    "honest_assessment": "LaunchedIn10 is in maintenance mode with zero organic clicks across 19 consecutive audit runs. The first-ever ChatGPT citation on /case-studies/ is the only growth signal. Pipeline dead 101 days. The P0 price schema mismatch needs operator decision — this has been carried since Run 16 (4 consecutive audits). The site needs domain authority, not more technical fixes. Most actions below are low-effort structural fixes that maintain AEO readiness for when authority grows."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-035",
+      "priority": "P0",
+      "status": "open",
+      "description": "CARRIED SINCE RUN 16 (4th consecutive audit). Homepage JSON-LD Service schema declares web design build prices (£497/£997/£1,997 one-off + £99/£149/£249 monthly) but the visible HTML shows SEO automation monthly prices (£99.95/£149.95/£195.00). These are two entirely different product lines — web design builds vs SEO content automation subscriptions. The Scale tier monthly discrepancy is £195 (HTML) vs £249 (JSON-LD). Google Rich Results uses JSON-LD prices, so search engines see different prices than users. This is a potential Rich Results policy violation and breaks AEO trust signals. REQUIRES OPERATOR DECISION: which product does the homepage promote? If SEO automation → update JSON-LD Service schema to match /seo-automation/ prices. If web design → update visible HTML pricing section.",
+      "prompt": "The homepage at https://launchedin10.co.uk/ has a JSON-LD Service schema price mismatch. OPERATOR DECISION REQUIRED FIRST: Does the homepage promote (A) SEO automation (£99.95/149.95/195.00/mo as shown in HTML) or (B) web design builds (£497/997/1,997 + £99/149/249/mo as in JSON-LD)? Once decided: Open generate-static.js in the EldrisOU/launchedin10-final repo. Find the injectSchema() function's homepage Service node. If option A: replace the Service offers with the 3 Pulse/Velocity/Orbit plans matching /seo-automation/ prices (£99.95, £149.95, £195.00 per month, billingDuration P1M). Remove the one-off build prices. Add Service name 'Daily SEO Content Automation'. If option B: update the visible HTML pricing section on the homepage to show web design build prices instead of SEO automation prices. Rebuild with node generate-static.js and deploy.",
+      "created_date": "2026-06-01",
+      "verification": "curl -sL https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); prices_html=re.findall(r'£[\\d,.]+', html); ld=re.findall(r'<script[^>]+ld.json[^>]*>(.*?)</script>', html, re.S); [print(json.loads(b)) for b in ld]\" — HTML prices and JSON-LD prices must show the same product at the same price points.",
+      "evidence": "Run 19 price snapshot: HTML £99.95/149.95/195.00, JSON-LD £497/997/1997 + £99/149/249. Mismatch confirmed across Runs 16-19."
+    },
+    {
+      "id": "ACT-LI10-044",
+      "priority": "P1",
+      "status": "open",
+      "description": "FIRST-EVER ChatGPT citation detected on /case-studies/ (medium: ai-assistant, 27.9s engagement, 100% engagement rate). This is the single most important growth signal for LI10 this period. Per the First-Citation Response Protocol, the 48-hour compounding window is critical — AI systems that cite once are primed to cite again if content is expanded. The /case-studies/ page already has 3 data-ai-summary blocks and FAQPage schema. However, IndexNow is NOT deployed for LI10, meaning Bing/Copilot cannot be pinged for immediate recrawl after any expansion. Deploy IndexNow key and expand the case studies content.",
+      "prompt": "First-Citation Response for /case-studies/ on launchedin10.co.uk: 1. Deploy IndexNow key: create a file public/40b3efc5ab8e4c0e9ca6163daca5d29e.txt containing the text '40b3efc5ab8e4c0e9ca6163daca5d29e' in the EldrisOU/launchedin10-final repo (this key file already exists per the repo's submit-bing-indexnow.js script). Verify it serves 200 at https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt after deploy. 2. Verify /case-studies/ AEO signals are intact: curl the page and confirm data-ai-summary blocks present, FAQPage schema has >=5 Q&As with proper Question/acceptedAnswer structure. 3. If FAQ count is <5, add 2-3 more case-study-specific Q&As to the FAQPage schema in generate-static.js. 4. After deploy, run: node submit-bing-indexnow.js to ping Bing with the updated /case-studies/ URL.",
+      "created_date": "2026-06-29",
+      "verification": "curl -sL https://launchedin10.co.uk/40b3efc5ab8e4c0e9ca6163daca5d29e.txt returns 200 with the key text. GA4 check in 7 days: monitor chatgpt.com/ai-assistant referrals to /case-studies/ for repeat citation.",
+      "estimated_impact": "Sustain and grow ChatGPT citation. Bing recrawl enables Copilot citation pipeline."
+    },
+    {
+      "id": "ACT-LI10-048",
+      "priority": "P1",
+      "status": "open",
+      "description": "/pricing/ has been in the sitemap since 23.06.26 and Bing has it indexed (DocSize 24,769, crawled 15.06.26), but Google still reports 'URL is unknown to Google'. This page has never been crawled by Google despite being live and in the sitemap for 6+ weeks. Force-submit via GSC URL Inspection API to trigger Google's first crawl. The page is rendering correctly (unique title 'Web Design & SEO Pricing', unique H1 'Transparent Pricing', correct canonical, prices aligned between HTML and JSON-LD).",
+      "prompt": "Force-submit https://launchedin10.co.uk/pricing/ to Google for indexing. Use the gsc_inspect_url MCP tool with siteUrl: 'sc-domain:launchedin10.co.uk' and inspectionUrl: 'https://launchedin10.co.uk/pricing/' to request indexing. Then verify that /pricing/ is listed in sitemap.xml by running sitemap_parse on https://launchedin10.co.uk/sitemap.xml and confirming the URL appears. If not in sitemap, add it to generate-sitemap.js known routes.",
+      "created_date": "2026-06-29",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ in 48-72 hours. Status should change from 'URL is unknown to Google' to 'Crawled' or 'Discovered'.",
+      "evidence": "GSC URL Inspection 29.06.26: 'URL is unknown to Google'. Bing Block A: IsPage=true, DocSize=24769, LastCrawled=15.06.26."
+    },
+    {
+      "id": "ACT-LI10-042",
+      "priority": "P2",
+      "status": "open",
+      "description": "REOPENED — was marked resolved on 23.06.26 (batch ae6960e) but fix did NOT land. Speakable schema on commercial pages (homepage, /seo-automation/, /website-translation/, /case-studies/) declares a SpeakableSpecification pointing to CSS selector '.speakable-summary', but no element with that class exists in the SSG-rendered DOM on any commercial page. The class ONLY exists on blog posts (where it wraps the excerpt paragraph). This means Google validates the schema as present but finds zero matching content — a ghost declaration that provides no AEO benefit. The fix must add a .speakable-summary element wrapping the page's primary value proposition text on each commercial page in generate-static.js.",
+      "prompt": "Fix Speakable schema ghost selector on commercial pages in the EldrisOU/launchedin10-final repo. Open generate-static.js. For each commercial page (homepage, /seo-automation/, /website-translation/, /case-studies/), find the SSG injection point where the hero/value-prop section is rendered. Add class='speakable-summary' to the primary value proposition paragraph (the first substantial text paragraph after H1). For homepage: wrap the text under 'Your Website. Live in 10 Days.' For /seo-automation/: wrap the text under 'Outrank Your Competitors Before They Wake Up'. For /website-translation/: wrap 'Clone Your Business into 23 EU Languages' intro text. For /case-studies/: wrap the intro paragraph. Rebuild with node generate-static.js and verify with curl that .speakable-summary appears in the rendered HTML.",
+      "created_date": "2026-06-15",
+      "verification": "curl -sL https://launchedin10.co.uk/ | grep -c 'speakable-summary' — must return >=1. Repeat for /seo-automation/, /website-translation/, /case-studies/."
+    },
+    {
+      "id": "ACT-LI10-045",
+      "priority": "P2",
+      "status": "open",
+      "description": "BreadcrumbList schema is absent on every commercial page and legacy blog post (0% coverage across 8 tested pages). BreadcrumbList is a direct input to Google's breadcrumb rich result and an AEO citation hierarchy signal. Competitor harrisdigitalwebdesign.co.uk has BreadcrumbList. New blog posts already have it via the updated blog post template, but commercial pages (homepage, /seo-automation/, /website-translation/, /case-studies/, /pricing/) and legacy blog posts do not. This is a global template gap in generate-static.js.",
+      "prompt": "Add BreadcrumbList JSON-LD to all commercial pages in generate-static.js in the EldrisOU/launchedin10-final repo. In the injectSchema() function, add a BreadcrumbList node to the @graph array for each page. Structure: Home > [Page Name]. For /seo-automation/: [{name:'Home',item:'https://launchedin10.co.uk/'},{name:'SEO Automation',item:'https://launchedin10.co.uk/seo-automation/'}]. For /website-translation/: Home > Website Translation. For /case-studies/: Home > Case Studies. For /pricing/: Home > Pricing. For /blog/: Home > Blog. For the homepage itself, BreadcrumbList should have a single item (Home). Rebuild and verify with rich_results_test MCP tool.",
+      "created_date": "2026-06-29",
+      "verification": "curl -sL https://launchedin10.co.uk/seo-automation/ | grep -i 'BreadcrumbList' — must return a match. Run rich_results_test on each commercial page URL."
+    },
+    {
+      "id": "ACT-LI10-046",
+      "priority": "P2",
+      "status": "open",
+      "description": "Homepage canonical URL is missing the trailing slash: declared as 'https://launchedin10.co.uk' but should be 'https://launchedin10.co.uk/'. Both variants return HTTP 200 with no redirect between them, creating two canonical addresses. Every other page on the site uses trailing-slash canonicals (e.g. /seo-automation/, /blog/). This inconsistency can split link equity between the slash and non-slash variants of the homepage. Low risk given current traffic levels but should be aligned with site-wide convention.",
+      "prompt": "Fix the homepage canonical URL in the EldrisOU/launchedin10-final repo. Open generate-static.js and find where the canonical link tag is injected for the homepage (/). Change the canonical from 'https://launchedin10.co.uk' to 'https://launchedin10.co.uk/' (add trailing slash). Ensure the sitemap.xml also uses the trailing-slash version for the homepage <loc>. Rebuild and deploy.",
+      "created_date": "2026-06-29",
+      "verification": "curl -sL https://launchedin10.co.uk/ | grep canonical — must show href='https://launchedin10.co.uk/' with trailing slash."
+    },
+    {
+      "id": "ACT-LI10-047",
+      "priority": "P3",
+      "status": "open",
+      "description": "All pages share identical dateModified timestamp (2026-06-23T19:00:12.212Z) — this is the SSG build timestamp, not the actual content modification date. datePublished equals dateModified on every page, which tells Google no page has ever been updated since creation. The blog index especially should reflect the most recent post date. For commercial pages, dateModified should update only when actual content changes, not on every build. This is a low-priority structural issue — at current traffic levels, freshness signals have negligible impact.",
+      "prompt": "Improve dateModified handling in generate-static.js in EldrisOU/launchedin10-final. For blog posts: use the post's updated_at or created_at field from Supabase li10_posts as the dateModified value in JSON-LD WebPage schema. For the blog index page: use the most recent post's date. For commercial/service pages: hardcode the last meaningful content edit date (check git log for the last commit that modified actual content on each page, not just schema/template changes). Do NOT use the build timestamp as dateModified.",
+      "created_date": "2026-06-29",
+      "verification": "curl -sL https://launchedin10.co.uk/ and https://launchedin10.co.uk/blog/ — extract dateModified from JSON-LD. Homepage and blog index should show different dates. Blog index dateModified should match the most recent blog post date."
+    },
+    {
+      "id": "ACT-LI10-049",
+      "priority": "P3",
+      "status": "open",
+      "description": "Legacy blog posts (pre-March 2026) have 29% schema coverage vs 86% on newer posts. Missing: Article schema, BreadcrumbList, data-ai-summary, and VideoObject where applicable. The highest-impression page /blog/seo-fundamentals/ (292 impressions) only has FAQPage + Speakable — no Article, no BreadcrumbList, no data-ai-summary. Backfilling Article + BreadcrumbList on legacy posts is a bulk SSG template fix that would immediately expand the AEO citation surface with zero content work. However, with zero clicks and maintenance-only status, this is a P3 for when/if the pipeline reactivates.",
+      "prompt": "Backfill Article + BreadcrumbList schema on legacy blog posts in generate-static.js in EldrisOU/launchedin10-final. The blog post rendering function in generate-static.js already applies these schemas to newer posts (added post-March 2026). Identify the conditional that gates schema injection and remove the date/condition check so ALL blog posts receive the full schema treatment (Article with headline, datePublished, author, image; BreadcrumbList with Home > Blog > Category > Post). Rebuild and spot-check 3 legacy posts with curl to verify schema presence.",
+      "created_date": "2026-06-29",
+      "verification": "curl -sL https://launchedin10.co.uk/blog/seo-fundamentals/ | grep -i 'Article' — must return a match. Check BreadcrumbList presence. Coverage should rise from 29% to 86%+ on legacy posts."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-039",
+      "description": "/pricing/ SSG generation fix. The SSG now generates /pricing/index.html with unique content (title: 'Web Design & SEO Pricing', H1: 'Transparent Pricing'). Bing has indexed it with DocSize 24,769. However, Google still reports 'URL is unknown to Google' — SSG fix is confirmed but Google discovery is pending. New ACT-LI10-048 created for Google force-submit.",
+      "status": "completed",
+      "completed_date": "2026-06-23",
+      "evidence": "Bing Block A: IsPage=true, DocSize=24769, LastCrawled=15.06.26. Body fingerprint: unique title and H1, not homepage content."
+    },
+    {
+      "id": "ACT-LI10-023",
+      "description": "FAQPage schema duplicate on /case-studies/ removed. Rich results test now passes on /case-studies/ with clean VideoObject detection.",
+      "status": "completed",
+      "completed_date": "2026-06-23",
+      "evidence": "rich_results_test on /case-studies/ returns valid with 0 issues."
+    },
+    {
+      "id": "ACT-LI10-031",
+      "description": "data-ai-summary blocks added to all 5 commercial pages. 100% coverage confirmed: homepage×3, seo-automation×3, website-translation×3, case-studies×3, blog×3.",
+      "status": "completed",
+      "completed_date": "2026-06-08",
+      "evidence": "curl confirms data-ai-summary attribute present on all commercial pages."
+    },
+    {
+      "id": "ACT-LI10-036",
+      "description": "/website-translation/ Bing stale-empty-crawl resolved. Bing now shows DocSize=14,922, LastCrawled=11.06.26.",
+      "status": "completed",
+      "completed_date": "2026-06-23",
+      "evidence": "Bing Block A: IsPage=true, DocSize=14922."
+    },
+    {
+      "id": "ACT-LI10-037",
+      "description": "Sitemap resubmitted to Google. Last downloaded 28.06.26. Both Google and Bing show sitemap in Success state.",
+      "status": "completed",
+      "completed_date": "2026-06-23",
+      "evidence": "GSC: sitemap.xml last downloaded 28.06.26. Bing Block C: Status=Success."
+    },
+    {
+      "id": "ACT-LI10-038",
+      "description": "Malformed internal links fixed (commit e99f616).",
+      "status": "completed",
+      "completed_date": "2026-06-08",
+      "evidence": "Git commit e99f616."
+    },
+    {
+      "id": "ACT-LI10-043",
+      "description": "Blog post /blog/.../dedicated-server-managed-hosting-vs-shared/ title '-interactive' suffix removed, duplicate H1 fixed, meta description added.",
+      "status": "completed",
+      "completed_date": "2026-06-23",
+      "evidence": "Batch ae6960e writeback."
+    }
+  ]
+}
