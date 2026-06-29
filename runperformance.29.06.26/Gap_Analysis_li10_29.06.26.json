@@ -1,0 +1,170 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-06-29",
+    "run_number": 19,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-06-23",
+    "bot_inflation_pct": 54.1,
+    "tier_a_sessions": 84,
+    "honest_assessment": "LaunchedIn10 is in maintenance mode with zero organic clicks across 19 consecutive audit runs. The first-ever ChatGPT citation on /case-studies/ is the only growth signal. Pipeline dead 101 days. The P0 price schema mismatch needs operator decision. The site needs domain authority, not more technical fixes."
+  },
+  "gsc_data": {
+    "period": "2026-04-01 to 2026-06-29",
+    "total_impressions": 1914,
+    "total_clicks": 0,
+    "ctr": "0.00%",
+    "unique_pages_with_impressions": 23,
+    "top_queries": [
+      {"query": "google ads audit", "clicks": 0, "impressions": 163, "position": 26.3, "on_topic": false},
+      {"query": "solicitor google ads", "clicks": 0, "impressions": 113, "position": 6.4, "on_topic": false},
+      {"query": "solicitors google ads", "clicks": 0, "impressions": 91, "position": 48.2, "on_topic": false},
+      {"query": "google ads for solicitors", "clicks": 0, "impressions": 88, "position": 27.8, "on_topic": false},
+      {"query": "seo foundations", "clicks": 0, "impressions": 88, "position": 58.0, "on_topic": true},
+      {"query": "construction websites 2026", "clicks": 0, "impressions": 40, "position": 33.0, "on_topic": true},
+      {"query": "wordpress site maintenance services", "clicks": 0, "impressions": 31, "position": 20.2, "on_topic": true},
+      {"query": "inexpensive web design companies", "clicks": 0, "impressions": 30, "position": 21.4, "on_topic": true},
+      {"query": "uk companies best website accessibility checker tool", "clicks": 0, "impressions": 4, "position": 3.0, "on_topic": true}
+    ],
+    "top_pages": [
+      {"page": "/blog/seo-fundamentals/", "clicks": 0, "impressions": 292, "note": "ghost data"},
+      {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "clicks": 0, "impressions": 185},
+      {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "clicks": 0, "impressions": 78},
+      {"page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "clicks": 0, "impressions": 57},
+      {"page": "/blog/industry-spotlights/why-website-design-for-construction/", "clicks": 0, "impressions": 47}
+    ]
+  },
+  "ga4_data": {
+    "total_sessions": 183,
+    "tier_a_sessions": 84,
+    "tier_b_sessions": 71,
+    "tier_c_sessions": 28,
+    "organic_google_sessions": 8,
+    "organic_bing_sessions": 2,
+    "conversions": 0,
+    "aeo_citations": {
+      "chatgpt": {"sessions": 1, "landing_page": "/case-studies/", "medium": "ai-assistant", "engagement_rate": 1.0, "duration_s": 27.9, "status": "NEW_FIRST_EVER"},
+      "perplexity": {"sessions": 1, "landing_page": "/", "medium": "referral", "engagement_rate": 1.0, "duration_s": 135.7, "status": "HOLDING"},
+      "perplexity_lost": {"page": "/website-translation/", "status": "LOST_VS_RUN18"},
+      "copilot": {"sessions": 0},
+      "claude": {"sessions": 0},
+      "gemini": {"sessions": 0}
+    }
+  },
+  "bing_data": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "block_a_index_status": [
+      {"url": "/", "is_page": true, "doc_size": 26341, "last_crawled": "2026-06-26", "anchor_count": 1905},
+      {"url": "/seo-automation/", "is_page": true, "doc_size": 14586, "last_crawled": "2026-05-27", "anchor_count": 0},
+      {"url": "/website-translation/", "is_page": true, "doc_size": 14922, "last_crawled": "2026-06-11", "anchor_count": 0},
+      {"url": "/case-studies/", "is_page": true, "doc_size": 16207, "last_crawled": "2026-06-28", "anchor_count": 0},
+      {"url": "/blog/", "is_page": true, "doc_size": 56636, "last_crawled": "2026-06-21", "anchor_count": 0},
+      {"url": "/pricing/", "is_page": true, "doc_size": 24769, "last_crawled": "2026-06-15", "anchor_count": 0},
+      {"url": "/blog/seo-fundamentals/", "is_page": true, "doc_size": 28999, "last_crawled": "2026-05-25", "anchor_count": 0},
+      {"url": "/blog/website-design/wordpress-site-maintenance-services-complete/", "is_page": true, "doc_size": 35057, "last_crawled": "2026-06-06", "anchor_count": 0}
+    ],
+    "block_b_impressions": "zero_across_all_urls",
+    "block_c_feeds": [
+      {"url": "sitemap.xml", "status": "Success", "url_count": 117, "errors": 0},
+      {"url": "sitemap-redirectfix.xml", "status": "Success", "url_count": 16, "errors": 0}
+    ],
+    "block_d_crawl_issues": "zero",
+    "diagnosis": "All URLs indexed with substantive content. Zero impressions = authority/ranking deficit, not indexation problem."
+  },
+  "sitemap": {
+    "total_urls": 118,
+    "last_submitted": "2026-06-23",
+    "last_downloaded_by_google": "2026-06-28",
+    "gsc_indexed_count": 0,
+    "note": "GSC reports 0 indexed — known reporting lag. URL inspections confirm pages ARE indexed."
+  },
+  "url_inspections": {
+    "/": {"status": "indexed", "last_crawled": "2026-06-26", "canonical_match": true},
+    "/seo-automation/": {"status": "indexed", "last_crawled": "2026-06-28", "canonical_match": true},
+    "/website-translation/": {"status": "indexed", "last_crawled": "2026-06-28", "canonical_match": true},
+    "/case-studies/": {"status": "indexed", "last_crawled": "2026-06-28", "canonical_match": true, "rich_results": "VideoObject PASS"},
+    "/blog/": {"status": "indexed", "last_crawled": "2026-06-12", "canonical_match": true},
+    "/pricing/": {"status": "UNKNOWN_TO_GOOGLE", "last_crawled": null, "canonical_match": null}
+  },
+  "pagespeed_mobile": {
+    "/": {"score": 50, "fcp": 8.4, "lcp": 8.7, "tbt": 0.31, "cls": 0},
+    "/seo-automation/": {"score": 53, "fcp": 8.4, "lcp": 9.6, "tbt": 0.21, "cls": 0},
+    "/website-translation/": {"score": 70, "fcp": 3.2, "lcp": 3.7, "tbt": 0.51, "cls": 0.058},
+    "/case-studies/": {"score": 54, "fcp": 11.7, "lcp": 24.5, "tbt": 0.15, "cls": 0},
+    "/blog/": {"score": 68, "fcp": 3.2, "lcp": 17.1, "tbt": 0.12, "cls": 0.003}
+  },
+  "schema_coverage": {
+    "commercial_pages_avg": "64%",
+    "new_blog_posts": "86%",
+    "legacy_blog_posts": "29%",
+    "missing_sitewide": ["BreadcrumbList", "HowTo"],
+    "broken": ["Speakable (ghost selector on commercial pages)"]
+  },
+  "content_integrity": {
+    "body_fingerprint": "PASS — no 200-with-homepage-content on any page",
+    "homepage_canonical": "FAIL — missing trailing slash (https://launchedin10.co.uk vs https://launchedin10.co.uk/)",
+    "price_mismatch": "FAIL — homepage HTML prices (£99.95/149.95/195.00) vs JSON-LD (£99/149/249). ACT-LI10-035."
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}, {"price": "99", "currency": "GBP"}, {"price": "149", "currency": "GBP"}, {"price": "249", "currency": "GBP"}],
+      "captured_at": "2026-06-29T00:00:00Z",
+      "html_jsonld_match": false
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [{"price": "99.95", "currency": "GBP"}, {"price": "149.95", "currency": "GBP"}, {"price": "195.00", "currency": "GBP"}],
+      "captured_at": "2026-06-29T00:00:00Z",
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [{"price": "29.95", "currency": "GBP"}, {"price": "49.95", "currency": "GBP"}, {"price": "79.95", "currency": "GBP"}, {"price": "129.95", "currency": "GBP"}],
+      "captured_at": "2026-06-29T00:00:00Z",
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/pricing/": {
+      "html_prices": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}, {"price": "99", "currency": "GBP"}, {"price": "149", "currency": "GBP"}, {"price": "249", "currency": "GBP"}],
+      "captured_at": "2026-06-29T00:00:00Z",
+      "html_jsonld_match": true
+    }
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_queued": 0,
+    "last_publish": "2026-03-20",
+    "days_since_publish": 101,
+    "velocity": "ZERO — pipeline dead"
+  },
+  "citation_matrix": {
+    "aio_trigger_rate": "0/10",
+    "queries_tested": [
+      {"query": "web design uk small business", "aio": false, "our_tier": "not_cited", "top_competitor": "harrisdigitalwebdesign.co.uk"},
+      {"query": "seo automation service", "aio": false, "our_tier": "not_cited", "top_competitor": "siteimprove.com"},
+      {"query": "website translation service uk", "aio": false, "our_tier": "not_cited", "top_competitor": "translations.co.uk"},
+      {"query": "affordable web design uk", "aio": false, "our_tier": "not_cited", "top_competitor": "harrisdigitalwebdesign.co.uk"},
+      {"query": "seo content automation", "aio": false, "our_tier": "not_cited", "top_competitor": "airops.com"},
+      {"query": "website design 10 days", "aio": false, "our_tier": "not_cited"},
+      {"query": "web design pricing uk", "aio": false, "our_tier": "not_cited"},
+      {"query": "daily seo content", "aio": false, "our_tier": "not_cited"},
+      {"query": "website localisation service", "aio": false, "our_tier": "not_cited"},
+      {"query": "cheap web design uk", "aio": false, "our_tier": "not_cited"}
+    ]
+  },
+  "gap_analysis": {
+    "intent_clusters": [
+      {"cluster": "Legal/solicitor Google Ads", "impressions": 519, "verdict": "C", "reason": "Belongs to law.launchedin10.co.uk"},
+      {"cluster": "Hosting/server comparison", "impressions": 91, "verdict": "B", "reason": "Off-topic but indexed, deprioritise"},
+      {"cluster": "Web design/pricing", "impressions": 98, "verdict": "B", "reason": "On-topic, strengthen existing pages"},
+      {"cluster": "SEO/foundations", "impressions": 134, "verdict": "B", "reason": "Generic, consolidate"},
+      {"cluster": "Accessibility/WCAG", "impressions": 73, "verdict": "B", "reason": "Best positions (3.0), niche opportunity"}
+    ],
+    "cross_language_cannibalisation": "N/A — single language",
+    "verdict_a_count": 0,
+    "verdict_b_count": 5,
+    "verdict_c_count": 1
+  }
+}
