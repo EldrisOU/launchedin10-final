@@ -196,7 +196,22 @@ function injectSchema(html, pageType, pageData) {
                 "itemListElement": pageData.offers || []
             }
         });
+        // BreadcrumbList for service pages: Home > [Page Name]
+        graph.push({
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchedin10.co.uk/" },
+                { "@type": "ListItem", "position": 2, "name": pageData.title, "item": pageData.url }
+            ]
+        });
     } else if (pageType === 'Homepage') {
+        // BreadcrumbList for homepage: single item
+        graph.push({
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchedin10.co.uk/" }
+            ]
+        });
         // Homepage-specific: Service + FAQPage (only on homepage, never on sub-routes)
         graph.push({
             "@type": "Service",
@@ -268,6 +283,27 @@ function injectSchema(html, pageType, pageData) {
                 { "@type": "Question", "name": "Who are your website design services for?", "acceptedAnswer": { "@type": "Answer", "text": "UK and EU businesses with 1-50 employees who need a professional website but don't have time for DIY, budget for \u00a35k+ agencies, or patience for 12-week timelines. If you want agency quality at startup speed, you're in the right place." } },
                 { "@type": "Question", "name": "Why should I trust a website designer I found online?", "acceptedAnswer": { "@type": "Answer", "text": "You shouldn't\u2014blindly. That's why we guarantee delivery in 10 days or full refund, plus 30-day satisfaction assurance. We put our money where our claims are. Ask your current agency if they'll do the same." } }
             ]
+        });
+    }
+
+    // BreadcrumbList for CollectionPage pages (blog, case-studies, blog categories)
+    if (pageType === 'CollectionPage' && pageData.url) {
+        const breadcrumbItems = [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchedin10.co.uk/" }
+        ];
+        if (pageData.url === 'https://launchedin10.co.uk/blog/') {
+            breadcrumbItems.push({ "@type": "ListItem", "position": 2, "name": "Blog", "item": pageData.url });
+        } else if (pageData.url === 'https://launchedin10.co.uk/case-studies/') {
+            breadcrumbItems.push({ "@type": "ListItem", "position": 2, "name": "Case Studies", "item": pageData.url });
+        } else if (pageData.url.startsWith('https://launchedin10.co.uk/blog/')) {
+            // Blog category pages: Home > Blog > [Category]
+            breadcrumbItems.push({ "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://launchedin10.co.uk/blog/" });
+            const categoryName = pageData.title.replace(/ Insights \| LaunchedIn10 Blog$/, '');
+            breadcrumbItems.push({ "@type": "ListItem", "position": 3, "name": categoryName, "item": pageData.url });
+        }
+        graph.push({
+            "@type": "BreadcrumbList",
+            "itemListElement": breadcrumbItems
         });
     }
 
@@ -546,7 +582,7 @@ async function generateHomepage(distDir, shell) {
         .replace('<title>LaunchedIn10 | Professional Websites in 10 Days</title>', '<title>High-Performance Web Design in 10 Days | LaunchedIn10</title>')
         .replace('</head>', `
     <meta name="description" content="We build elite, revenue-generating web assets for ambitious businesses. Custom high-performance websites delivered in 10 days. Disrupt your market today.">
-    <link rel="canonical" href="https://launchedin10.co.uk">
+    <link rel="canonical" href="https://launchedin10.co.uk/">
     <meta property="og:title" content="Elite Web Design & Performance | LaunchedIn10">
     <meta property="og:description" content="Stop building standard sites. Start building digital assets. Custom websites delivered in 10 days.">
     <meta property="og:type" content="website">
@@ -1000,6 +1036,20 @@ async function generateCaseStudiesPage(distDir, shell) {
         title: 'Real Websites. Live in 10 Days. | LaunchedIn10 Case Studies',
         description: 'See real examples of high-performance websites built and launched in just 10 days.'
     });
+
+    // FAQPage schema — case-study-specific Q&As (ACT-LI10-044)
+    const csFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "How long does it take LaunchedIn10 to build a website?", "acceptedAnswer": { "@type": "Answer", "text": "Every project in our case studies was delivered in 10 days or fewer from the initial brief. Pritchard Critical Power launched in 8 days, Memaero in 7 days, and ag8n in just 5 days. The 10-day guarantee applies to all tiers — Starter, Growth, and Scale." } },
+            { "@type": "Question", "name": "Are LaunchedIn10 websites built from templates?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every website shown in our case studies is a bespoke, hand-coded build. We do not use drag-and-drop builders, WordPress themes, or pre-made templates. Each project is designed from scratch to match the client's brand, sector, and conversion goals." } },
+            { "@type": "Question", "name": "What types of businesses does LaunchedIn10 work with?", "acceptedAnswer": { "@type": "Answer", "text": "Our case studies span multiple sectors: electrical contracting (Pritchard Critical Power), education (Dunnet House School), data intelligence (TheSellerIndex), consumer ecommerce (Memaero and Torxup), developer tools (ag8n), and enterprise compliance (Responsible AI Portal). We specialise in UK SMEs with 1–50 employees." } },
+            { "@type": "Question", "name": "Do LaunchedIn10 websites include ecommerce functionality?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Several of our case study builds include full ecommerce. Memaero features WooCommerce integration with a product chooser quiz. Torxup includes product comparison tables and a filter tool. TheSellerIndex has a four-tier pricing model with an interactive dataset builder. Ecommerce capability is available on Growth and Scale tiers." } },
+            { "@type": "Question", "name": "What happens after my LaunchedIn10 website goes live?", "acceptedAnswer": { "@type": "Answer", "text": "Every LaunchedIn10 build includes ongoing management — hosting, SSL, security updates, and support. You are never left to maintain the site yourself. Our case study clients receive continuous management as part of their monthly plan, so the website stays fast, secure, and up to date." } }
+        ]
+    };
+    html = html.replace('</head>', `\n    <script type="application/ld+json">\n    ${JSON.stringify(csFaqSchema, null, 4)}\n    </script>\n</head>`);
 
     const preRenderedHtml = `
     <div id="root">
