@@ -586,7 +586,7 @@ async function generateHomepage(distDir, shell) {
     <meta property="og:title" content="Elite Web Design & Performance | LaunchedIn10">
     <meta property="og:description" content="Stop building standard sites. Start building digital assets. Custom websites delivered in 10 days.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://launchedin10.co.uk">
+    <meta property="og:url" content="https://launchedin10.co.uk/">
     <meta property="og:image" content="https://launchedin10.co.uk/og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Web Design Reimagined | LaunchedIn10">

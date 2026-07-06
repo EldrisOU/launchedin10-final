@@ -93,13 +93,13 @@ const Home = () => {
             <Helmet>
                 <title>High-Performance Web Design in 10 Days | LaunchedIn10</title>
                 <meta name="description" content="We build elite, revenue-generating web assets for ambitious businesses. Custom high-performance websites delivered in 10 days. Disrupt your market today." />
-                <link rel="canonical" href="https://launchedin10.co.uk" />
+                <link rel="canonical" href="https://launchedin10.co.uk/" />
 
                 {/* OpenGraph / Social */}
                 <meta property="og:title" content="Elite Web Design & Performance | LaunchedIn10" />
                 <meta property="og:description" content="Stop building standard sites. Start building digital assets. Custom websites delivered in 10 days." />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://launchedin10.co.uk" />
+                <meta property="og:url" content="https://launchedin10.co.uk/" />
                 <meta property="og:image" content="https://launchedin10.co.uk/og-image.jpg" />
 
                 {/* Twitter */}
