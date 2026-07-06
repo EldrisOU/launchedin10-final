@@ -21,7 +21,7 @@ const Navbar = () => {
         { name: 'Process', href: '/#process' },
         { name: 'SEO Disruptor', href: '/seo-automation' },
         { name: 'Translate Me', href: '/website-translation/' },
-        { name: 'Pricing', href: '/#pricing' },
+        { name: 'Pricing', href: '/pricing/' },
         { name: 'The Lab', href: '/blog' },
     ];
 

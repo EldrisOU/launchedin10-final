@@ -733,6 +733,7 @@ async function generateHomepage(distDir, shell) {
         <a href="/blog/business-growth/">Business Growth</a>
         <a href="/blog/industry-spotlights/">Industry Spotlights</a>
         <a href="/case-studies/">Case Studies</a>
+        <a href="/pricing/">Pricing</a>
         <a href="/seo-automation/">SEO Automation</a>
         <a href="/website-translation/">Website Translation</a>
         <a href="/privacy/">Privacy Policy</a>
