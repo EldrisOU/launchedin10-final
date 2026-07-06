@@ -1,0 +1,213 @@
+{
+  "property": "launchedin10.co.uk",
+  "audit_date": "2026-07-06",
+  "run_number": 20,
+  "previous_audit": "2026-06-29",
+  "gsc_property": "sc-domain:launchedin10.co.uk",
+  "ga4_property": "properties/517814343",
+  "language": "EN",
+  "multilingual": false,
+
+  "gsc_summary": {
+    "total_impressions": 2081,
+    "total_clicks": 0,
+    "li10_main_impressions": 965,
+    "li10_main_clicks": 0,
+    "law_subdomain_impressions": 1116,
+    "law_subdomain_clicks": 0,
+    "note": "Domain property (sc-domain:) includes law.launchedin10.co.uk. Law subdomain accounts for 53.6% of total impressions. All 345 query-page combos have 0 clicks — 20th consecutive zero-click audit.",
+    "top_pages_by_impressions": [
+      {"page": "https://launchedin10.co.uk/blog/seo-fundamentals/", "impressions": 309, "clicks": 0, "best_position": 15.2},
+      {"page": "https://launchedin10.co.uk/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 188, "clicks": 0, "best_position": 1.0},
+      {"page": "https://launchedin10.co.uk/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "impressions": 70, "clicks": 0, "best_position": 4.0},
+      {"page": "https://launchedin10.co.uk/blog/website-design/wordpress-site-maintenance-services-complete/", "impressions": 70, "clicks": 0, "best_position": 11.0},
+      {"page": "https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/", "impressions": 62, "clicks": 0, "best_position": 3.0}
+    ],
+    "top_queries": [
+      {"query": "seo foundations", "impressions": 81, "position": 55.8},
+      {"query": "built in seo", "impressions": 46, "position": 37.2},
+      {"query": "inexpensive web design companies", "impressions": 26, "position": 19.0},
+      {"query": "wordpress site maintenance services", "impressions": 25, "position": 21.9},
+      {"query": "dedicated server hosting vs shared", "impressions": 24, "position": 34.0},
+      {"query": "website compliance tools", "impressions": 23, "position": 32.3},
+      {"query": "construction websites 2026", "impressions": 19, "position": 30.9},
+      {"query": "automated seo service", "impressions": 14, "position": 75.8},
+      {"query": "web content accessibility guidelines", "impressions": 13, "position": 48.9},
+      {"query": "wordpress website management service", "impressions": 13, "position": 20.3}
+    ]
+  },
+
+  "ga4_summary": {
+    "total_sessions_all_hosts": 173,
+    "tier_a_sessions": 129,
+    "tier_b_sessions": 24,
+    "tier_c_sessions": 20,
+    "bot_inflation_pct": 25.4,
+    "google_organic_tier_a": 9,
+    "bing_organic_tier_a": 2,
+    "ai_citations": {
+      "total": 2,
+      "chatgpt": {"sessions": 1, "medium": "ai-assistant", "landing_page": "/case-studies/", "engagement_rate": 1.0, "duration_s": 27.87},
+      "perplexity": {"sessions": 1, "medium": "referral", "landing_page": "/", "engagement_rate": 1.0, "duration_s": 135.70},
+      "copilot": {"sessions": 0},
+      "gemini": {"sessions": 0},
+      "claude": {"sessions": 0}
+    },
+    "direct_sessions": 141,
+    "referral_sessions": 12,
+    "top_referrers": [
+      {"source": "launchedin10-portal.pages.dev", "sessions": 6},
+      {"source": "type19specialists.com", "sessions": 4},
+      {"source": "docs.google.com", "sessions": 1},
+      {"source": "facebook.com", "sessions": 1}
+    ]
+  },
+
+  "reconciliation": {
+    "gsc_organic_clicks": 0,
+    "ga4_google_organic_sessions": 9,
+    "delta": 9,
+    "delta_pct": "N/A (division by zero — GSC shows 0 clicks)",
+    "explanation": "GA4 records 9 Google organic sessions that GSC does not register as clicks. At micro-volumes, this is normal measurement noise from click-counting lag, bot filtering differences, and (not set) attribution."
+  },
+
+  "technical_health": {
+    "sitemap": {
+      "url": "https://launchedin10.co.uk/sitemap.xml",
+      "total_urls": 118,
+      "static_pages": 9,
+      "blog_posts": 109,
+      "last_submitted": "2026-06-23",
+      "last_downloaded_by_google": "2026-07-04",
+      "errors": 0,
+      "warnings": 0,
+      "video_entries": 74,
+      "legacy_sitemap": "sitemap-redirectfix.xml (16 URLs, still submitted)"
+    },
+    "pagespeed_mobile": {
+      "performance_score": 55,
+      "fcp": "9.5s",
+      "lcp": "10.7s",
+      "tbt": "150ms",
+      "cls": "0",
+      "speed_index": "9.5s",
+      "ttfb": "0ms",
+      "interactive": "13.1s",
+      "note": "React SPA with SSG pre-rendering. JS bundle hydration is the bottleneck. Architectural issue — not fixable without framework migration."
+    },
+    "render_compare": {
+      "homepage_ssr_length": 27554,
+      "title": "High-Performance Web Design in 10 Days | LaunchedIn10",
+      "json_ld_types": ["Organization", "WebSite", "WebPage", "BreadcrumbList", "Service", "FAQPage"],
+      "canonical_correct": true,
+      "h1_count": 1,
+      "issues": []
+    },
+    "url_inspections": [
+      {"url": "https://launchedin10.co.uk/", "status": "Submitted and indexed", "last_crawl": "2026-07-04", "canonical_match": true, "rich_results": "Breadcrumbs"},
+      {"url": "https://launchedin10.co.uk/pricing/", "status": "Discovered - currently not indexed", "last_crawl": null, "canonical_match": null, "rich_results": null},
+      {"url": "https://launchedin10.co.uk/case-studies/", "status": "Submitted and indexed", "last_crawl": "2026-07-02", "canonical_match": true, "rich_results": "Breadcrumbs, Image Metadata, Videos"},
+      {"url": "https://launchedin10.co.uk/seo-automation/", "status": "Submitted and indexed", "last_crawl": "2026-06-28", "canonical_match": true, "rich_results": null}
+    ],
+    "bing_status": {
+      "protocol": "li-10-bing-aeo-protocol",
+      "block_a_results": [
+        {"url": "https://launchedin10.co.uk/", "isPage": true, "documentSize": 26673, "discovered": "27.03.26", "lastCrawled": "06.07.26", "httpStatus": 0},
+        {"url": "https://launchedin10.co.uk/pricing/", "isPage": true, "documentSize": 26341, "discovered": "11.05.26", "lastCrawled": "29.06.26", "httpStatus": 0},
+        {"url": "https://launchedin10.co.uk/case-studies/", "isPage": true, "documentSize": 17528, "discovered": "19.04.26", "lastCrawled": "29.06.26", "httpStatus": 0},
+        {"url": "https://launchedin10.co.uk/seo-automation/", "isPage": true, "documentSize": 15254, "discovered": "05.04.26", "lastCrawled": "01.07.26", "httpStatus": 0},
+        {"url": "https://launchedin10.co.uk/website-translation/", "isPage": true, "documentSize": 14922, "discovered": "08.05.26", "lastCrawled": "11.06.26", "httpStatus": 0}
+      ],
+      "block_c_feeds": [
+        {"url": "https://launchedin10.co.uk/sitemap.xml", "status": "Success", "urlCount": 117},
+        {"url": "https://launchedin10.co.uk/sitemap-redirectfix.xml", "status": "Success", "urlCount": 16}
+      ],
+      "block_d_crawl_issues": "None reported",
+      "summary": "All key pages indexed in Bing (IsPage=true, DocumentSize>0). Sitemaps accepted. No crawl issues. /pricing/ fully indexed in Bing while Google refuses to index it."
+    }
+  },
+
+  "content_freshness": {
+    "commercial_pages_lastmod": "2026-07-06 (build date — misleading, all share same date)",
+    "blog_posts_total": 98,
+    "blog_posts_stale_90d": 96,
+    "blog_posts_stale_pct": 98,
+    "most_recent_blog_update": "2026-06-01",
+    "oldest_blog_post": "2026-01-01",
+    "dateModified_issue": "ACT-LI10-047 — all pages use build timestamp, not actual content dates"
+  },
+
+  "schema_coverage": {
+    "WebPage": {"coverage_pct": 100, "pages": 118},
+    "SpeakableSpecification": {"coverage_pct": 100, "pages": 118, "note": "Declared but selector may not match after React hydration"},
+    "BreadcrumbList": {"coverage_pct": 77, "pages": 91, "note": "29% legacy posts missing"},
+    "Article": {"coverage_pct": 93, "pages": 109},
+    "FAQPage": {"coverage_pct": 1.7, "pages": 2, "note": "Homepage + case-studies only"},
+    "Service": {"coverage_pct": 0.8, "pages": 1},
+    "data_ai_summary": {"coverage_pct": 5.1, "pages": 6, "note": "Commercial pages only, 0% on blog posts"},
+    "HowTo": {"coverage_pct": 0, "pages": 0},
+    "VideoObject": {"coverage_pct": 63, "pages": 74, "note": "Blog posts with YouTube embeds via sitemap"}
+  },
+
+  "ghost_indexing": {
+    "total_ghost_pages": 24,
+    "total_pages_with_impressions": 24,
+    "ghost_rate_pct": 100,
+    "note": "ALL 24 pages with GSC impressions have zero clicks. The entire visible index is ghost data.",
+    "recoverable_under_pos_20": 18,
+    "top_ghosts": [
+      {"page": "/blog/seo-fundamentals/", "impressions": 309, "best_position": 15.2},
+      {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 188, "best_position": 1.0},
+      {"page": "/blog/industry-spotlights/affordable-website-designers-trusted-uk/", "impressions": 70, "best_position": 4.0},
+      {"page": "/blog/website-design/wordpress-site-maintenance-services-complete/", "impressions": 70, "best_position": 11.0},
+      {"page": "/blog/website-design/accessibility-checker-website-essential/", "impressions": 62, "best_position": 3.0}
+    ]
+  },
+
+  "cross_portfolio": {
+    "intent_boundary": "LaunchedIn10 = web design, SEO automation, website translation. Non-Eldris brand — DO NOT cross-link with Eldris-branded properties.",
+    "valid_sister": "law.launchedin10.co.uk (same brand family)",
+    "deep_links_drafted": [
+      {"from": "launchedin10.co.uk /blog/website-design/web-accessibility-uk-businesses-wcag-european-accessibility-act/", "to": "law.launchedin10.co.uk", "rationale": "Legal compliance bridge — EAA/WCAG legal requirements"},
+      {"from": "law.launchedin10.co.uk", "to": "launchedin10.co.uk /seo-automation/", "rationale": "Technical implementation after legal understanding"}
+    ]
+  },
+
+  "pipeline": {
+    "note": "Supabase query pending — using ledger data from Run 19",
+    "published_posts": 108,
+    "orbit_3_flow_queued": 0,
+    "days_since_last_publish": 108,
+    "pipeline_status": "DORMANT"
+  },
+
+  "price_snapshot": {
+    "note": "Content integrity agent pending — prices from prior audits carried forward",
+    "https://launchedin10.co.uk/": {
+      "html_prices_visible": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}],
+      "html_jsonld_match": false,
+      "captured_at": "2026-07-06T00:00:00Z",
+      "note": "P0 mismatch — 5th consecutive audit. HTML shows SEO automation monthly prices, JSON-LD shows web design activation fees."
+    },
+    "https://launchedin10.co.uk/pricing/": {
+      "html_prices_visible": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "jsonld_prices": [],
+      "html_jsonld_match": true,
+      "captured_at": "2026-07-06T00:00:00Z",
+      "note": "No JSON-LD pricing schema on /pricing/ page. Visible prices are web design tiers."
+    }
+  },
+
+  "comparison_to_prior": {
+    "run_19_date": "2026-06-29",
+    "impressions_delta": "+51 (965 vs 914 LI10-specific, estimated)",
+    "clicks_delta": "0 (unchanged — still zero)",
+    "tier_a_delta": "+45 (129 vs 84, +53.6%)",
+    "bot_inflation_delta": "-28.7pp (25.4% vs 54.1%)",
+    "ai_citations_delta": "0 (2 vs 2, stable)",
+    "pagespeed_delta": "+5 (55 vs 50)",
+    "published_posts_delta": "0 (108 vs 108, no new content)",
+    "resolved_actions": ["ACT-LI10-046", "ACT-LI10-044", "ACT-LI10-048", "ACT-LI10-045"]
+  }
+}
