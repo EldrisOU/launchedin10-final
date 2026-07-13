@@ -1,0 +1,105 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-07-13",
+    "run_number": 21,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-07-06",
+    "ga4_property": "properties/517814343",
+    "gsc_property": "sc-domain:launchedin10.co.uk"
+  },
+  "traffic_summary": {
+    "gsc_impressions_li10": 1006,
+    "gsc_impressions_law": 1184,
+    "gsc_impressions_total": 2190,
+    "gsc_clicks": 0,
+    "ga4_on_domain_sessions": 191,
+    "ga4_tier_a_sessions": 72,
+    "bot_inflation_pct": 62.3,
+    "google_organic_sessions": 10,
+    "bing_organic_sessions": 2,
+    "ai_citation_sessions": 1
+  },
+  "ai_citations": {
+    "chatgpt": {"sessions": 1, "landing_page": "/case-studies/", "engagement_rate": 1.0, "duration_s": 28, "tier": "T3"},
+    "perplexity": {"sessions": 0, "note": "Aged out of 90-day window"},
+    "copilot": {"sessions": 0},
+    "claude": {"sessions": 0},
+    "gemini": {"sessions": 0}
+  },
+  "indexation": {
+    "sitemap_urls": 118,
+    "google_indexed_commercial": 4,
+    "google_not_indexed": ["/pricing/"],
+    "bing_indexed_all": true,
+    "bing_document_sizes": {
+      "/": 26673,
+      "/pricing/": 26341,
+      "/case-studies/": 17528,
+      "/seo-automation/": 15254,
+      "/website-translation/": 14922
+    }
+  },
+  "top_queries_li10": [
+    {"query": "seo foundations", "impressions": 82, "clicks": 0, "position": 50.6},
+    {"query": "built in seo", "impressions": 61, "clicks": 0, "position": 77.0},
+    {"query": "seo foundation", "impressions": 56, "clicks": 0, "position": 35.0},
+    {"query": "website compliance tools", "impressions": 48, "clicks": 0, "position": 24.3},
+    {"query": "construction websites 2026", "impressions": 32, "clicks": 0, "position": 31.9},
+    {"query": "wordpress site maintenance services", "impressions": 31, "clicks": 0, "position": 21.9},
+    {"query": "dedicated server managed hosting", "impressions": 25, "clicks": 0, "position": 53.9},
+    {"query": "inexpensive web design companies", "impressions": 25, "clicks": 0, "position": 18.6}
+  ],
+  "price_snapshot": {
+    "/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": ["GBP497", "GBP99", "GBP997", "GBP149", "GBP1997", "GBP249"],
+      "html_jsonld_match": false,
+      "captured_at": "2026-07-13T00:00:00Z",
+      "matches_prior_audit": true
+    },
+    "/pricing/": {
+      "html_prices": ["£497", "£997", "£1,997", "£149"],
+      "jsonld_prices": ["GBP497", "GBP997", "GBP1997"],
+      "html_jsonld_match": true,
+      "captured_at": "2026-07-13T00:00:00Z",
+      "matches_prior_audit": true
+    },
+    "/seo-automation/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": ["GBP99.95", "GBP149.95", "GBP195.00"],
+      "html_jsonld_match": true,
+      "captured_at": "2026-07-13T00:00:00Z",
+      "matches_prior_audit": true
+    },
+    "/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": ["GBP29.95", "GBP49.95", "GBP79.95", "GBP129.95"],
+      "html_jsonld_match": true,
+      "captured_at": "2026-07-13T00:00:00Z",
+      "matches_prior_audit": true
+    }
+  },
+  "schema_coverage": {
+    "FAQPage": "1.8%",
+    "SpeakableSpecification": "100%",
+    "data_ai_summary": "3.5%",
+    "Article": "95.6%",
+    "BreadcrumbList": "72.6%",
+    "Service": "0.9%",
+    "WebPage": "100%"
+  },
+  "pipeline": {
+    "li10_posts": 108,
+    "orbit_3_flow_total": 95,
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_unprocessed": 0,
+    "dormancy_days": 115
+  },
+  "bing_protocol": {
+    "block_a": "All 5 pages: IsPage=true, DocumentSize>0, crawled within 14 days",
+    "block_b": "Homepage: 0 impressions — authority issue, not indexation",
+    "block_c": "All feeds Status=Success",
+    "block_d": "No crawl issues"
+  }
+}
