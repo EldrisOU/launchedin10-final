@@ -1,0 +1,100 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-07-20",
+    "run_number": 22,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-07-13",
+    "bot_inflation_pct": 76.5,
+    "tier_a_sessions": 68,
+    "honest_assessment": "LaunchedIn10 remains in authority-deficit stasis. Zero organic clicks across 22 consecutive audits despite impressions surging to 2,361 (+135%). The /pricing/ page has regressed from 'Discovered - not indexed' to 'URL is unknown to Google' — Google is actively contracting crawl allocation. The P0 price schema mismatch enters its 7th consecutive audit without resolution. The site needs content velocity and external authority signals — no technical fix addresses the core problem."
+  },
+  "action_items": [
+    {
+      "id": "ACT-LI10-035",
+      "priority": "P0",
+      "status": "open",
+      "description": "ESCALATION — 7th consecutive audit: Homepage JSON-LD Service schema prices do not match visible HTML prices. The homepage HTML displays SEO automation tier prices (£99.95/£149.95/£195.00/mo) in the visible pricing section, but the Service JSON-LD schema declares web design build prices (£497/£997/£1,997 activation + £99/£149/£249/mo). This violates Google's structured data guidelines which require schema to match visible content. The /pricing/ page separately shows web design prices with matching schema, and /seo-automation/ shows SEO prices with matching schema — only the homepage has the mismatch because it displays SEO prices while its schema describes web design. This is a business decision: which product does the homepage primarily promote? Requires operator input — cannot be auto-resolved.",
+      "prompt": "This is a P0 requiring operator decision — do NOT auto-fix. Present the operator with the pricing conflict on launchedin10.co.uk homepage:\n\n1. Homepage VISIBLE pricing (hero section): SEO automation tiers — £99.95/mo (Launch, 30 posts), £149.95/mo (Boost, 60 posts), £195.00/mo (Orbit, 90 posts) + £195 setup\n2. Homepage JSON-LD Service schema: Web design tiers — £497/£997/£1,997 activation + £99/£149/£249/mo\n3. /pricing/ page: Web design tiers (matches its own schema)\n4. /seo-automation/ page: SEO tiers (matches its own schema)\n\nAsk the operator: 'Which product is the homepage primarily selling? If SEO automation, update the Service schema in generate-static.js generateHomepage() to use £99.95/£149.95/£195.00 prices. If web design builds, update the visible pricing section to show £497/£997/£1,997 activation fees.'\n\nThe schema price fields are in generate-static.js in the Service JSON-LD block within the homepage generation function. Currency must be GBP, values must be numeric strings without £ symbols.",
+      "created_date": "2026-06-01",
+      "verification": "curl -s https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); prices_html=set(re.findall(r'£[\\d,.]+', html[:5000])); blocks=re.findall(r'application/ld.json[^>]*>(.*?)</script>',html,re.S); schema_prices=[]; [schema_prices.extend(re.findall(r'\\\"price\\\":\\s*\\\"([^\\\"]+)', b)) for b in blocks]; print(f'HTML prices: {prices_html}'); print(f'Schema prices: {set(schema_prices)}'); print('MATCH' if any(p.replace('£','') in schema_prices for p in prices_html) else 'MISMATCH')\"",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Eliminates structured data policy violation. Prevents future rich result suppression.",
+      "evidence": "Runs 16-22 (7 consecutive). HTML: £99.95/149.95/195.00. Schema: GBP497/997/1997+99/149/249.",
+      "completed_date": null,
+      "next_action": "Operator decision required — cannot auto-resolve"
+    },
+    {
+      "id": "ACT-LI10-050",
+      "priority": "P1",
+      "status": "open",
+      "description": "ESCALATION — /pricing/ has REGRESSED from 'Discovered - currently not indexed' to 'URL is unknown to Google'. Google has actively purged this URL from its awareness — a downgrade in the URL lifecycle. The page is technically correct: in the sitemap (downloaded 17.07.26), in the main navigation, in llms.txt, and fully indexed by Bing (26,341 bytes, crawled 29.06.26). This confirms Google is contracting crawl allocation for this low-authority domain, dropping pages it deems non-essential. Re-escalated from P2 to P1 due to the regression — 'unknown to Google' is worse than 'discovered but not indexed'. No technical fix exists; this is purely an authority-based editorial decision by Google.",
+      "prompt": "The /pricing/ page on launchedin10.co.uk has regressed from 'Discovered - currently not indexed' to 'URL is unknown to Google'. This is NOT a technical issue — the page is in sitemap, navigation, llms.txt, and fully indexed by Bing.\n\nRecommended actions (all authority-building, not technical):\n1. Create a direct in-content link from the homepage body to /pricing/ (not just nav). In generate-static.js, add an explicit <a href='/pricing/'>View full pricing</a> in the CTA section of the homepage template.\n2. Force-resubmit via GSC URL Inspection API: gsc_inspect_url on https://launchedin10.co.uk/pricing/ to re-request indexing.\n3. Submit an IndexNow ping for /pricing/ via Bing to ensure Bing's index stays fresh.\n4. Long-term: content velocity (resume pipeline) and backlink acquisition are the only sustainable fixes.",
+      "created_date": "2026-07-06",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ — when status changes from 'URL is unknown to Google' back to at least 'Discovered', the regression is arrested. Full resolution = 'Submitted and indexed'.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Restores /pricing/ to Google's crawl queue. Currently invisible to Google search entirely.",
+      "evidence": "GSC URL Inspection 20.07.26: 'URL is unknown to Google'. Prior (13.07.26): 'Discovered - currently not indexed'. Bing: fully indexed, 26,341 bytes.",
+      "completed_date": null,
+      "next_action": "Force-resubmit via GSC URL Inspection + add in-content homepage link"
+    },
+    {
+      "id": "ACT-LI10-042",
+      "priority": "P3",
+      "status": "open",
+      "description": "Speakable ghost selector on commercial pages — SSG injects .speakable-summary class on hero subtitles, but React hydration may remove it after page load. The SpeakableSpecification schema declares cssSelector '.speakable-summary' on all pages. At current traffic levels (68 Tier A sessions / 90 days), the practical impact is negligible. Speakable rich results require Google's explicit opt-in and are not currently triggered for this domain regardless of selector presence. Monitor — only action if traffic reaches 500+ Tier A sessions and Speakable becomes relevant.",
+      "prompt": "Verify Speakable selector on launchedin10.co.uk: curl -sL https://launchedin10.co.uk/ | grep -c 'speakable-summary'. If 0, React hydration is removing the SSG-injected class. Fix: in src/pages/Home.jsx, add className='speakable-summary' to the hero subtitle <p> element. Repeat for src/pages/SEOSalePage.jsx, src/pages/TranslationSalePage.jsx, src/pages/CaseStudiesPage.jsx. Low priority — only fix when touching these files for other reasons.",
+      "created_date": "2026-06-23",
+      "verification": "curl -sL https://launchedin10.co.uk/ | grep 'speakable-summary' — must return at least 1 match after hydration completes.",
+      "codebase_path": "src/pages/Home.jsx",
+      "estimated_impact": "Enables future Speakable rich results when domain qualifies.",
+      "evidence": "SSG injects .speakable-summary but React hydration may strip it. No functional impact at current traffic.",
+      "completed_date": null,
+      "next_action": "Monitor — low priority"
+    },
+    {
+      "id": "ACT-LI10-047",
+      "priority": "P3",
+      "status": "open",
+      "description": "All pages share identical dateModified values matching the SSG build timestamp rather than actual content modification dates. This means sitemap lastmod, schema dateModified, and visible dates all show the build date regardless of when content was actually changed. At current traffic levels this is not causing measurable harm — the site has zero clicks regardless of freshness signals. When the pipeline resumes and content velocity returns, this should be fixed to give genuine freshness signals. Monitor until pipeline reactivation.",
+      "prompt": "Fix dateModified in generate-static.js to use per-post updated_at from li10_posts Supabase table instead of build timestamp. In generateBlogPost(), set the Article JSON-LD dateModified to post.updated_at (already in the DB query result). In generate-sitemap.js, set lastmod to post.updated_at for blog URLs. Commercial pages can retain build timestamp. Only implement when pipeline resumes — no point fixing freshness signals while content is dormant.",
+      "created_date": "2026-06-29",
+      "verification": "After fix: curl -s https://launchedin10.co.uk/blog/website-design/accessibility-checker-website-essential/ | grep dateModified — should show actual lastmod, not today's build date.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Restores meaningful freshness signals. No impact while pipeline dormant.",
+      "evidence": "All 118 sitemap URLs show build-date lastmod. Blog posts actually range from Jan-Mar 2026.",
+      "completed_date": null,
+      "next_action": "Monitor — fix when pipeline resumes"
+    },
+    {
+      "id": "ACT-LI10-049",
+      "priority": "P3",
+      "status": "open",
+      "description": "Approximately 29% of blog posts (31 of 108) are missing BreadcrumbList schema. Newer posts have Article + BreadcrumbList; older posts have Article only. The schema should be: Home > Blog > Category > Post Title. At zero organic clicks, the incremental SEO value of BreadcrumbList on legacy posts is unmeasurable. Batch fix when the SSG is next updated for any other reason.",
+      "prompt": "In generate-static.js, ensure generateBlogPost() always includes BreadcrumbList JSON-LD for every post regardless of creation date. Check if there's a date conditional (posts before a certain date skip BreadcrumbList) and remove it. The BreadcrumbList should follow: [{Home, /}, {Blog, /blog/}, {Category, /blog/{category}/}, {Post Title, current URL}]. After rebuilding, verify: curl -s https://launchedin10.co.uk/blog/website-design/bespoke-web-design-2026-avoid-diy-platform/ | grep BreadcrumbList",
+      "created_date": "2026-06-29",
+      "verification": "Sample 3 legacy posts (pre-Feb 2026) and grep for BreadcrumbList — all must match.",
+      "codebase_path": "generate-static.js",
+      "estimated_impact": "Completes schema coverage. Negligible impact at current traffic.",
+      "evidence": "Runs 19-22: 29% of posts missing BreadcrumbList vs 100% on newer posts.",
+      "completed_date": null,
+      "next_action": "Batch fix in next SSG update"
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "ACT-LI10-051",
+      "description": "/pricing/ added to llms.txt. The file at https://launchedin10.co.uk/llms.txt now includes the pricing page URL and description, ensuring AI crawlers discover it.",
+      "status": "completed",
+      "completed_date": "2026-07-06",
+      "evidence": "curl -s https://launchedin10.co.uk/llms.txt | grep pricing — returns 'Pricing: https://launchedin10.co.uk/pricing/'"
+    },
+    {
+      "id": "ACT-LI10-046",
+      "description": "Homepage canonical trailing slash fixed. Canonical now correctly shows https://launchedin10.co.uk/ matching Google's selected canonical.",
+      "status": "completed",
+      "completed_date": "2026-07-06",
+      "evidence": "GSC URL Inspection 13.07.26: userCanonical = googleCanonical = https://launchedin10.co.uk/"
+    }
+  ]
+}
