@@ -1,0 +1,223 @@
+{
+  "audit_meta": {
+    "site": "launchedin10.co.uk",
+    "audit_date": "2026-10-29",
+    "run_number": 23,
+    "protocol": "DeepRank v3.0",
+    "previous_audit": "2026-07-20",
+    "bot_inflation_pct": 63.3,
+    "tier_a_sessions": 95,
+    "total_sessions": 259,
+    "gsc_impressions_90d": 8743,
+    "gsc_clicks_90d": 2,
+    "ai_citations_90d": 0,
+    "conversions_90d": 0,
+    "published_posts": 105,
+    "pipeline_queued": 0,
+    "pipeline_dormancy_days": 223,
+    "mobile_pagespeed": 55,
+    "honest_assessment": "LaunchedIn10 remains in deep authority-deficit stasis. 23rd consecutive audit, first-ever GSC clicks (2) but positions remain too deep (23-78) for meaningful traffic. Zero conversions, zero AI citations this period. Pipeline dormant 223 days. Three genuine P0 issues (top page redirect collapse, soft 404s, price schema mismatch) should be fixed but the fundamental problem — zero content velocity and zero external authority — requires sustained investment, not technical ACTs."
+  },
+  "gsc_data": {
+    "date_range": "2026-07-31 to 2026-10-29",
+    "total_impressions": 8743,
+    "total_clicks": 2,
+    "ctr": 0.0002,
+    "top_queries": [
+      {"query": "google ads for solicitors", "impressions": 371, "clicks": 1, "position": 14.1, "note": "law.launchedin10.co.uk content"},
+      {"query": "website designers for small business", "impressions": 352, "clicks": 0, "position": 34.3},
+      {"query": "web design services for small business", "impressions": 329, "clicks": 0, "position": 28.6},
+      {"query": "solicitor google ads", "impressions": 304, "clicks": 0, "position": 10.3, "note": "law.launchedin10.co.uk content"},
+      {"query": "small business web design company", "impressions": 176, "clicks": 0, "position": 23.9},
+      {"query": "solicitors google ads", "impressions": 168, "clicks": 0, "position": 13.0, "note": "law.launchedin10.co.uk content"},
+      {"query": "website accessibility checker pricing", "impressions": 144, "clicks": 0, "position": 13.6},
+      {"query": "local business web design", "impressions": 141, "clicks": 0, "position": 78.1},
+      {"query": "small business web design uk", "impressions": 136, "clicks": 0, "position": 46.9},
+      {"query": "small business web design", "impressions": 129, "clicks": 0, "position": 55.6}
+    ],
+    "top_pages": [
+      {"page": "/blog/website-design/7-companies-that-design-websites-for-small/", "impressions": 4295, "clicks": 1, "note": "49% of all impressions, treated as redirect by Google"},
+      {"page": "law.launchedin10.co.uk/resources/google-ads-for-solicitors/", "impressions": 986, "clicks": 1},
+      {"page": "/blog/industry-spotlights/dedicated-server-managed-hosting-vs-shared/", "impressions": 649, "clicks": 0},
+      {"page": "/blog/seo-fundamentals/", "impressions": 437, "clicks": 0}
+    ]
+  },
+  "ga4_data": {
+    "date_range": "90 days to 2026-10-29",
+    "total_sessions_hostname_filtered": 259,
+    "traffic_sources": {
+      "direct": 234,
+      "type19specialists_referral": 11,
+      "google_organic": 9,
+      "not_set": 3,
+      "bing_organic": 1,
+      "epr_eldris_referral": 1
+    },
+    "ai_citations": {
+      "chatgpt": 0,
+      "perplexity": 0,
+      "claude": 0,
+      "gemini": 0,
+      "copilot": 0,
+      "total": 0
+    },
+    "top_pages_by_sessions": [
+      {"page": "/", "sessions": 106, "engagement_rate": 0.311, "avg_duration": 18.3},
+      {"page": "/blog/website-design/7-companies-that-design-websites-for-small/", "sessions": 6, "engagement_rate": 0.333, "avg_duration": 10.4},
+      {"page": "/case-studies/", "sessions": 5, "engagement_rate": 0.600, "avg_duration": 82.3},
+      {"page": "/seo-automation/", "sessions": 5, "engagement_rate": 0.000, "avg_duration": 3.7}
+    ]
+  },
+  "bot_filtering": {
+    "tier_a_sessions": 95,
+    "tier_b_sessions": 30,
+    "tier_c_sessions": 134,
+    "bot_inflation_pct": 63.3,
+    "prior_audit_tier_a": 68,
+    "prior_audit_bot_inflation": 76.5
+  },
+  "technical_health": {
+    "pagespeed": {
+      "homepage_mobile": 55,
+      "homepage_desktop": 79,
+      "top_blog_mobile": 56,
+      "case_studies_mobile": 50
+    },
+    "core_web_vitals_mobile": {
+      "homepage_lcp": "12.1s",
+      "homepage_fcp": "10.2s",
+      "top_blog_lcp": "15.9s",
+      "case_studies_lcp": "24.8s"
+    },
+    "render_compare": "CLEAN — no SSR/CSR discrepancies on 3 tested pages",
+    "rich_results": "PASS — no schema errors on 3 tested pages",
+    "sitemap_urls": 118,
+    "sitemap_lastmod_range": "2026-01-01 to 2026-07-20"
+  },
+  "url_inspections": {
+    "homepage": {"status": "Submitted and indexed", "last_crawled": "2026-10-20", "canonical": "self"},
+    "pricing": {"status": "Page with redirect", "last_crawled": "2026-10-12", "canonical": "redirects to /"},
+    "case_studies": {"status": "Submitted and indexed", "last_crawled": "2026-10-25", "canonical": "self"},
+    "seo_automation_sale": {"status": "URL is unknown to Google", "last_crawled": "never"},
+    "website_translation_sale": {"status": "URL is unknown to Google", "last_crawled": "never"},
+    "blog": {"status": "Submitted and indexed", "last_crawled": "2026-10-25", "canonical": "self"},
+    "7_companies_blog": {"status": "Page with redirect", "last_crawled": "2026-09-03", "canonical": "/blog/", "note": "TOP IMPRESSION PAGE — canonical collapsed to /blog/"},
+    "dedicated_server_blog": {"status": "Submitted and indexed", "last_crawled": "2026-10-14", "canonical": "self"},
+    "seo_fundamentals": {"status": "Submitted and indexed", "last_crawled": "2026-10-25", "canonical": "self"}
+  },
+  "bing_data": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "blocks_completed": ["A", "B", "C", "D"],
+    "block_a_index_status": [
+      {"url": "/", "discovered": "27.03.26", "last_crawled": "28.10.26", "doc_size": 26714, "is_page": true},
+      {"url": "/pricing/", "discovered": "11.05.26", "last_crawled": "04.10.26", "doc_size": 26341, "is_page": true},
+      {"url": "/case-studies/", "discovered": "19.04.26", "last_crawled": "17.10.26", "doc_size": 20862, "is_page": true},
+      {"url": "/seo-automation-sale/", "discovered": "never", "last_crawled": "never", "doc_size": 0, "is_page": false},
+      {"url": "/blog/", "discovered": "12.04.26", "last_crawled": "09.10.26", "doc_size": 58529, "is_page": true}
+    ],
+    "block_b_homepage_traffic": {"clicks": 0, "impressions": 0, "is_page": true, "note": "Indexed but zero visibility — authority/ranking weakness, NOT indexation"},
+    "block_c_feeds": [
+      {"sitemap": "sitemap.xml", "status": "Success", "urls": 117, "last_crawled": "01.04.26"},
+      {"sitemap": "sitemap-redirectfix.xml", "status": "Success", "urls": 16, "last_crawled": "22.10.26"}
+    ],
+    "block_d_crawl_issues": "Empty — no issues"
+  },
+  "content_integrity": {
+    "soft_404s": [
+      {"url": "/seo-automation-sale/", "serves": "homepage content", "severity": "P0"},
+      {"url": "/website-translation-sale/", "serves": "homepage content", "severity": "P0"}
+    ],
+    "price_mismatch": {
+      "homepage": {"html_shows": "SEO automation prices (£99.95/£149.95/£195.00)", "jsonld_declares": "web design prices (£497/£997/£1,997)", "match": false, "severity": "P0"},
+      "pricing_page": {"match": true},
+      "seo_automation": {"match": true},
+      "website_translation": {"match": true}
+    }
+  },
+  "price_snapshot": {
+    "https://launchedin10.co.uk/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}, {"price": "99", "currency": "GBP"}, {"price": "149", "currency": "GBP"}, {"price": "249", "currency": "GBP"}],
+      "captured_at": "2026-10-29",
+      "matches_prior_audit": true,
+      "html_jsonld_match": false
+    },
+    "https://launchedin10.co.uk/pricing/": {
+      "html_prices": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "jsonld_prices": [{"price": "497", "currency": "GBP"}, {"price": "997", "currency": "GBP"}, {"price": "1997", "currency": "GBP"}, {"price": "99", "currency": "GBP"}, {"price": "149", "currency": "GBP"}, {"price": "249", "currency": "GBP"}],
+      "captured_at": "2026-10-29",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/seo-automation/": {
+      "html_prices": ["£99.95", "£149.95", "£195.00", "£195"],
+      "jsonld_prices": [{"price": "99.95", "currency": "GBP"}, {"price": "149.95", "currency": "GBP"}, {"price": "195.00", "currency": "GBP"}, {"price": "195.00", "currency": "GBP"}],
+      "captured_at": "2026-10-29",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    },
+    "https://launchedin10.co.uk/website-translation/": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "jsonld_prices": [{"price": "29.95", "currency": "GBP"}, {"price": "49.95", "currency": "GBP"}, {"price": "79.95", "currency": "GBP"}, {"price": "129.95", "currency": "GBP"}],
+      "captured_at": "2026-10-29",
+      "matches_prior_audit": true,
+      "html_jsonld_match": true
+    }
+  },
+  "content_freshness": {
+    "stale_pages": [
+      {"url": "/", "lastmod": "2026-07-20", "days_stale": 101},
+      {"url": "/pricing/", "lastmod": "2026-07-20", "days_stale": 101},
+      {"url": "/case-studies/", "lastmod": "2026-07-20", "days_stale": 101},
+      {"url": "/seo-automation/", "lastmod": "2026-07-20", "days_stale": 101},
+      {"url": "/website-translation/", "lastmod": "2026-07-20", "days_stale": 101}
+    ]
+  },
+  "structured_data_coverage": {
+    "commercial_pages": {
+      "BreadcrumbList": "100%",
+      "WebPage": "100%",
+      "FAQPage": "40%",
+      "Service": "60%",
+      "Speakable": "100%",
+      "data_ai_summary": "100%"
+    },
+    "blog_posts": {
+      "Article": "100%",
+      "BreadcrumbList": "71%",
+      "Speakable": "100%",
+      "data_ai_summary": "0%",
+      "FAQPage": "0%"
+    }
+  },
+  "pipeline": {
+    "li10_posts_count": 105,
+    "li10_posts_all_status": "publish",
+    "last_publish_date": "2026-03-20",
+    "orbit_3_flow_processed": 95,
+    "orbit_3_flow_queued": 0,
+    "pipeline_dormancy_days": 223
+  },
+  "gap_analysis": {
+    "ghost_data": {
+      "total_ghost_impressions": 8741,
+      "ghost_rate": "99.98%",
+      "highest_equity_ghost": "/blog/website-design/7-companies-that-design-websites-for-small/ (4,295 impressions, redirect treatment)"
+    },
+    "intent_clusters": [
+      {"cluster": "web design small business", "queries": 8, "impressions": 1652, "best_position": 23.9, "verdict": "B"},
+      {"cluster": "solicitor/google ads", "queries": 3, "impressions": 843, "best_position": 10.3, "verdict": "C (law subdomain)"},
+      {"cluster": "website accessibility", "queries": 1, "impressions": 144, "best_position": 13.6, "verdict": "B"},
+      {"cluster": "misc SEO/web terms", "queries": 10, "impressions": 2000, "best_position": 30, "verdict": "Ghost"}
+    ]
+  },
+  "citation_matrix": "BLOCKED — Serper.dev credits exhausted",
+  "rs5_finding": {
+    "file": "src/index.css",
+    "selector": "[data-ai-summary]",
+    "scoped": false,
+    "uses_important": true,
+    "severity": "P2",
+    "note": "Same pattern as torxup.co.uk incident (ACT-TORX-038). Currently benign but latent hazard."
+  }
+}
