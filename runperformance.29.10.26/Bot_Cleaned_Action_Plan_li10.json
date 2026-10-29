@@ -11,29 +11,6 @@
   },
   "action_items": [
     {
-      "id": "ACT-LI10-055",
-      "priority": "P0",
-      "status": "open",
-      "description": "CRITICAL: The top impression page (/blog/website-design/7-companies-that-design-websites-for-small/) is being treated by Google as 'Page with redirect' with canonical collapsed to /blog/. This page generates 49% of all GSC impressions (4,295 of 8,743) and recorded the site's only organic click. Google last crawled it on 03.09.26 — nearly 2 months stale. The SPA catch-all rewrite rule in _redirects ('/* /index.html 200') is the likely cause: Cloudflare serves the SPA shell, and Google may interpret this as a redirect rather than a direct response. The SSG pre-renders static HTML for this URL via generate-static.js, but the _redirects rule may override it. This is the single highest-value content asset on the domain and it is effectively deindexed.",
-      "prompt": "Investigate and fix the redirect treatment of https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\n1. Read the _redirects file in the repo root or public/ directory. The SPA catch-all '/* /index.html 200' may be overriding the SSG pre-rendered HTML.\n2. Check if dist/ contains a pre-rendered HTML file at the correct path after running 'npm run build'. If the SSG output exists but _redirects catches it first, Cloudflare serves the SPA shell instead.\n3. Fix: Add an explicit rule ABOVE the catch-all for all blog post paths that have SSG output, e.g.:\n   /blog/* /blog/:splat 200\n   OR remove the catch-all and let Cloudflare Pages serve static files directly (which is the default CF Pages behaviour).\n4. After fixing, verify by running: curl -sI https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ — should return 200 with the correct page title in the body, not a SPA shell.\n5. Then use gsc_inspect_url to request re-indexing of this URL. Google should re-crawl and see the direct HTML response instead of a redirect.\n6. Do NOT push to GitHub without operator authorisation.",
-      "created_date": "2026-10-29",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ — coverage state should change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical within 7-14 days of fix deployment.",
-      "codebase_path": "_redirects or public/_redirects",
-      "estimated_impact": "Restores indexing for the page generating 49% of all GSC impressions (4,295). Potential to capture clicks from positions 25-35 on 'web design small business' query cluster.",
-      "evidence": "GSC URL Inspection 29.10.26: coverage_state='Page with redirect', google_canonical='/blog/', last_crawled=03.09.26. curl returns HTTP 200 with full page content — Google is interpreting the _redirects rewrite as a redirect."
-    },
-    {
-      "id": "ACT-LI10-056",
-      "priority": "P0",
-      "status": "open",
-      "description": "Two sale landing page URLs (/seo-automation-sale/ and /website-translation-sale/) return HTTP 200 but serve identical homepage content — same title, same H1, same canonical pointing to /. These are soft 404s. They are unknown to both Google and Bing (never crawled, never discovered). If these URLs appear in any internal links, old Google Ads campaigns, or external references, they cannibalise the homepage and waste crawl budget. The SPA catch-all rewrite rule serves the homepage React shell for any URL that doesn't have a pre-rendered SSG counterpart, which means these URLs were either never built as SSG pages or their SSG files were removed.",
-      "prompt": "Fix soft 404s on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\n1. Check if /seo-automation-sale/ and /website-translation-sale/ have dedicated content in generate-static.js or any React route. If they do not have dedicated pages:\n   a. Add 301 redirects in _redirects ABOVE the catch-all:\n      /seo-automation-sale/ /seo-automation/ 301\n      /website-translation-sale/ /website-translation/ 301\n   b. This redirects visitors to the actual service pages with unique content.\n2. Verify these URLs are NOT in sitemap.xml — check generate-sitemap.js output.\n3. Search the entire codebase for any internal links pointing to these URLs and update them to the correct /seo-automation/ and /website-translation/ paths.\n4. Do NOT push to GitHub without operator authorisation.",
-      "created_date": "2026-10-29",
-      "verification": "curl -sI https://launchedin10.co.uk/seo-automation-sale/ — should return HTTP 301 to /seo-automation/. curl -sI https://launchedin10.co.uk/website-translation-sale/ — should return HTTP 301 to /website-translation/.",
-      "estimated_impact": "Eliminates 2 soft 404s, prevents homepage cannibalisation, cleans crawl budget.",
-      "evidence": "curl 29.10.26: both URLs return HTTP 200 with homepage title ('High-Performance Web Design in 10 Days'), homepage H1, canonical pointing to /. GSC: both 'URL is unknown to Google'. Bing Block A: /seo-automation-sale/ discovered=never, doc_size=0, IsPage=false."
-    },
-    {
       "id": "ACT-LI10-035",
       "priority": "P0",
       "status": "open",
@@ -43,17 +20,6 @@
       "verification": "curl -sL https://launchedin10.co.uk/ | extract JSON-LD Service schema prices AND visible HTML currency values. All prices in JSON-LD must have matching visible prices on the page.",
       "estimated_impact": "Eliminates structured data policy violation risk. Prices in SERP rich results will match what users see on the page.",
       "evidence": "8th consecutive audit. HTML: £99.95, £149.95, £195.00 (SEO automation). JSON-LD: £497, £997, £1,997, £99, £149, £249 (web design). /pricing/ page correctly aligned."
-    },
-    {
-      "id": "ACT-LI10-057",
-      "priority": "P0",
-      "status": "open",
-      "description": "Google URL Inspection shows /pricing/ as 'Page with redirect' (canonical redirects to /) despite the page serving unique content with its own title ('Web Design & SEO Pricing | LaunchedIn10'), H1 ('Transparent Pricing'), and self-referencing canonical. This is the same SPA catch-all issue affecting ACT-LI10-055 — Cloudflare's _redirects rule may be causing Google to treat the response as a redirect. The /pricing/ page is fully indexed in Bing (26,341 bytes, last crawled 04.10.26) confirming the content exists and is crawlable. Google's redirect treatment means this page is not independently indexed, which explains 4 consecutive audits of '/pricing/ not indexed'. This supersedes ACT-LI10-050.",
-      "prompt": "Fix /pricing/ redirect treatment on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\nThis is related to ACT-LI10-055 — same root cause (_redirects SPA catch-all).\n\n1. When fixing _redirects for ACT-LI10-055, also ensure /pricing/ is served directly as SSG HTML, not through the SPA rewrite.\n2. Add an explicit rule: /pricing/ /pricing/index.html 200 (or ensure CF Pages serves the pre-rendered file directly).\n3. After deployment, use gsc_inspect_url to request re-indexing of https://launchedin10.co.uk/pricing/.\n4. Do NOT push to GitHub without operator authorisation.",
-      "created_date": "2026-10-29",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ — coverage state should change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical.",
-      "estimated_impact": "Restores Google indexing for the pricing page. Bing already has it indexed (26KB). Resolves 4-audit-old ACT-LI10-050.",
-      "evidence": "GSC URL Inspection 29.10.26: 'Page with redirect', canonical=/, last crawled 12.10.26. curl returns HTTP 200 with unique content (title: 'Web Design & SEO Pricing'). Bing Block A: IsPage=true, doc_size=26,341, last_crawled=04.10.26."
     },
     {
       "id": "ACT-LI10-054",
@@ -95,6 +61,46 @@
     }
   ],
   "resolved_items": [
+    {
+      "id": "ACT-LI10-055",
+      "priority": "P0",
+      "status": "completed",
+      "description": "CRITICAL: The top impression page (/blog/website-design/7-companies-that-design-websites-for-small/) is being treated by Google as 'Page with redirect' with canonical collapsed to /blog/. This page generates 49% of all GSC impressions (4,295 of 8,743) and recorded the site's only organic click. Google last crawled it on 03.09.26 — nearly 2 months stale. The SPA catch-all rewrite rule in _redirects ('/* /index.html 200') is the likely cause: Cloudflare serves the SPA shell, and Google may interpret this as a redirect rather than a direct response. The SSG pre-renders static HTML for this URL via generate-static.js, but the _redirects rule may override it. This is the single highest-value content asset on the domain and it is effectively deindexed.",
+      "prompt": "Investigate and fix the redirect treatment of https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\n1. Read the _redirects file in the repo root or public/ directory. The SPA catch-all '/* /index.html 200' may be overriding the SSG pre-rendered HTML.\n2. Check if dist/ contains a pre-rendered HTML file at the correct path after running 'npm run build'. If the SSG output exists but _redirects catches it first, Cloudflare serves the SPA shell instead.\n3. Fix: Add an explicit rule ABOVE the catch-all for all blog post paths that have SSG output, e.g.:\n   /blog/* /blog/:splat 200\n   OR remove the catch-all and let Cloudflare Pages serve static files directly (which is the default CF Pages behaviour).\n4. After fixing, verify by running: curl -sI https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ — should return 200 with the correct page title in the body, not a SPA shell.\n5. Then use gsc_inspect_url to request re-indexing of this URL. Google should re-crawl and see the direct HTML response instead of a redirect.\n6. Do NOT push to GitHub without operator authorisation.",
+      "created_date": "2026-10-29",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ — coverage state should change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical within 7-14 days of fix deployment.",
+      "codebase_path": "_redirects or public/_redirects",
+      "estimated_impact": "Restores indexing for the page generating 49% of all GSC impressions (4,295). Potential to capture clicks from positions 25-35 on 'web design small business' query cluster.",
+      "evidence": "GSC URL Inspection 29.10.26: coverage_state='Page with redirect', google_canonical='/blog/', last_crawled=03.09.26. curl returns HTTP 200 with full page content — Google is interpreting the _redirects rewrite as a redirect.",
+      "completed_date": "2026-10-29",
+      "resolution": "Executed by ACT Executor agent — batch deployed 4310f1dca5c969cfcccd09b27e8bf9d291fb6773"
+    },
+    {
+      "id": "ACT-LI10-056",
+      "priority": "P0",
+      "status": "completed",
+      "description": "Two sale landing page URLs (/seo-automation-sale/ and /website-translation-sale/) return HTTP 200 but serve identical homepage content — same title, same H1, same canonical pointing to /. These are soft 404s. They are unknown to both Google and Bing (never crawled, never discovered). If these URLs appear in any internal links, old Google Ads campaigns, or external references, they cannibalise the homepage and waste crawl budget. The SPA catch-all rewrite rule serves the homepage React shell for any URL that doesn't have a pre-rendered SSG counterpart, which means these URLs were either never built as SSG pages or their SSG files were removed.",
+      "prompt": "Fix soft 404s on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\n1. Check if /seo-automation-sale/ and /website-translation-sale/ have dedicated content in generate-static.js or any React route. If they do not have dedicated pages:\n   a. Add 301 redirects in _redirects ABOVE the catch-all:\n      /seo-automation-sale/ /seo-automation/ 301\n      /website-translation-sale/ /website-translation/ 301\n   b. This redirects visitors to the actual service pages with unique content.\n2. Verify these URLs are NOT in sitemap.xml — check generate-sitemap.js output.\n3. Search the entire codebase for any internal links pointing to these URLs and update them to the correct /seo-automation/ and /website-translation/ paths.\n4. Do NOT push to GitHub without operator authorisation.",
+      "created_date": "2026-10-29",
+      "verification": "curl -sI https://launchedin10.co.uk/seo-automation-sale/ — should return HTTP 301 to /seo-automation/. curl -sI https://launchedin10.co.uk/website-translation-sale/ — should return HTTP 301 to /website-translation/.",
+      "estimated_impact": "Eliminates 2 soft 404s, prevents homepage cannibalisation, cleans crawl budget.",
+      "evidence": "curl 29.10.26: both URLs return HTTP 200 with homepage title ('High-Performance Web Design in 10 Days'), homepage H1, canonical pointing to /. GSC: both 'URL is unknown to Google'. Bing Block A: /seo-automation-sale/ discovered=never, doc_size=0, IsPage=false.",
+      "completed_date": "2026-10-29",
+      "resolution": "Executed by ACT Executor agent — batch deployed 4310f1dca5c969cfcccd09b27e8bf9d291fb6773"
+    },
+    {
+      "id": "ACT-LI10-057",
+      "priority": "P0",
+      "status": "completed",
+      "description": "Google URL Inspection shows /pricing/ as 'Page with redirect' (canonical redirects to /) despite the page serving unique content with its own title ('Web Design & SEO Pricing | LaunchedIn10'), H1 ('Transparent Pricing'), and self-referencing canonical. This is the same SPA catch-all issue affecting ACT-LI10-055 — Cloudflare's _redirects rule may be causing Google to treat the response as a redirect. The /pricing/ page is fully indexed in Bing (26,341 bytes, last crawled 04.10.26) confirming the content exists and is crawlable. Google's redirect treatment means this page is not independently indexed, which explains 4 consecutive audits of '/pricing/ not indexed'. This supersedes ACT-LI10-050.",
+      "prompt": "Fix /pricing/ redirect treatment on launchedin10.co.uk (repo: EldrisOU/launchedin10-final).\n\nThis is related to ACT-LI10-055 — same root cause (_redirects SPA catch-all).\n\n1. When fixing _redirects for ACT-LI10-055, also ensure /pricing/ is served directly as SSG HTML, not through the SPA rewrite.\n2. Add an explicit rule: /pricing/ /pricing/index.html 200 (or ensure CF Pages serves the pre-rendered file directly).\n3. After deployment, use gsc_inspect_url to request re-indexing of https://launchedin10.co.uk/pricing/.\n4. Do NOT push to GitHub without operator authorisation.",
+      "created_date": "2026-10-29",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ — coverage state should change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical.",
+      "estimated_impact": "Restores Google indexing for the pricing page. Bing already has it indexed (26KB). Resolves 4-audit-old ACT-LI10-050.",
+      "evidence": "GSC URL Inspection 29.10.26: 'Page with redirect', canonical=/, last crawled 12.10.26. curl returns HTTP 200 with unique content (title: 'Web Design & SEO Pricing'). Bing Block A: IsPage=true, doc_size=26,341, last_crawled=04.10.26.",
+      "completed_date": "2026-10-29",
+      "resolution": "Executed by ACT Executor agent — batch deployed 4310f1dca5c969cfcccd09b27e8bf9d291fb6773"
+    },
     {
       "id": "ACT-LI10-051",
       "description": "/pricing/ was missing from llms.txt. Added on 06.07.26. Confirmed present in current llms.txt.",
