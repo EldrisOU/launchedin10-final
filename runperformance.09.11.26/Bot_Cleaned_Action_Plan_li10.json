@@ -5,41 +5,23 @@
     "run_number": 24,
     "protocol": "DeepRank v3.0",
     "previous_audit": "2026-10-29",
-    "languages": ["en"],
+    "languages": [
+      "en"
+    ],
     "bot_inflation_pct": 68.1,
     "tier_a_sessions": 107,
-    "honest_assessment": "LaunchedIn10 remains in authority-deficit stasis. Run 24, 24th consecutive audit, zero conversions, zero AI citations. Two P0 fixes deployed on 29.10.26 (ACT-LI10-055/057) have NOT resolved the underlying issues — Google recrawled /pricing/ post-fix and STILL treats it as a redirect. The SPA architecture itself is the root cause. Mobile PageSpeed dropped to 47. This site needs the redirect issue fixed because it destroys existing impressions, then sustained content investment — not more technical ACTs."
+    "honest_assessment": "LaunchedIn10 remains in authority-deficit stasis. Run 24, 24th consecutive audit, zero conversions, zero AI citations. Two P0 fixes deployed on 29.10.26 (ACT-LI10-055/057) have NOT resolved the underlying issues \u2014 Google recrawled /pricing/ post-fix and STILL treats it as a redirect. The SPA architecture itself is the root cause. Mobile PageSpeed dropped to 47. This site needs the redirect issue fixed because it destroys existing impressions, then sustained content investment \u2014 not more technical ACTs."
   },
   "action_items": [
     {
       "id": "ACT-LI10-035",
       "priority": "P0",
       "status": "open",
-      "description": "Homepage price mismatch between HTML content and JSON-LD structured data — 9th consecutive audit. The homepage HTML prominently displays SEO automation prices (£99.95, £149.95, £195.00) while JSON-LD declares web design activation prices (£497, £997, £1,997). Google sees conflicting price signals which undermines trust and rich result eligibility. This requires an operator decision: either update generate-static.js to inject the correct prices into JSON-LD, or update the homepage React component to display the web design prices. No technical fix can be applied until the operator decides which prices are canonical.",
-      "prompt": "Read the homepage component in EldrisOU/launchedin10-final to identify where the HTML prices (£99.95, £149.95, £195.00) are rendered. Then read generate-static.js to find where the JSON-LD Service schema prices (£497, £997, £1,997) are injected. Present both sets of prices side by side and ask the operator which set is canonical. If the HTML prices are correct, update generate-static.js to match. If the JSON-LD prices are correct, the React component needs updating. Do not change anything until the operator confirms.",
+      "description": "Homepage price mismatch between HTML content and JSON-LD structured data \u2014 9th consecutive audit. The homepage HTML prominently displays SEO automation prices (\u00a399.95, \u00a3149.95, \u00a3195.00) while JSON-LD declares web design activation prices (\u00a3497, \u00a3997, \u00a31,997). Google sees conflicting price signals which undermines trust and rich result eligibility. This requires an operator decision: either update generate-static.js to inject the correct prices into JSON-LD, or update the homepage React component to display the web design prices. No technical fix can be applied until the operator decides which prices are canonical.",
+      "prompt": "Read the homepage component in EldrisOU/launchedin10-final to identify where the HTML prices (\u00a399.95, \u00a3149.95, \u00a3195.00) are rendered. Then read generate-static.js to find where the JSON-LD Service schema prices (\u00a3497, \u00a3997, \u00a31,997) are injected. Present both sets of prices side by side and ask the operator which set is canonical. If the HTML prices are correct, update generate-static.js to match. If the JSON-LD prices are correct, the React component needs updating. Do not change anything until the operator confirms.",
       "created_date": "2026-06-24",
-      "verification": "curl -s https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); ld=re.findall(r'<script type=.application/ld.json.>(.*?)</script>',html,re.S); prices_html=set(re.findall(r'£[\\d,.]+',html)); prices_ld=set(); [prices_ld.update(re.findall(r'£[\\d,.]+',j)) for j in ld]; print('MATCH' if prices_html&prices_ld else 'MISMATCH', prices_html, prices_ld)\"",
-      "evidence": "Run 24 price snapshot: HTML = £99.95/£149.95/£195.00; JSON-LD = £497/£997/£1,997/£99/£149/£249. Mismatch since Run 16 (24.06.26)."
-    },
-    {
-      "id": "ACT-LI10-058",
-      "priority": "P0",
-      "status": "open",
-      "description": "/pricing/ redirect treatment persists despite _redirects fix deployed 29.10.26. Google recrawled /pricing/ on 03.11.26 — 5 days after the fix — and STILL reports 'Page with redirect' with canonical collapsed to /. The _redirects rewrite rule is insufficient. Bing indexes /pricing/ correctly (26,341 bytes, last crawled 07.11.26), confirming the page serves valid content. Root cause: the SPA architecture — Cloudflare Pages may be serving via a rewrite chain Google interprets as a redirect, or trailing-slash behaviour triggers a CF redirect before the _redirects rule applies. This page needs SSG pre-rendering at the exact path /pricing/index.html with Cloudflare serving it directly without any rewrite chain.",
-      "prompt": "Investigate the /pricing/ redirect chain on launchedin10.co.uk. Step 1: Run 'curl -sIL https://launchedin10.co.uk/pricing/' and 'curl -sIL https://launchedin10.co.uk/pricing' (without trailing slash) to see the full redirect chain including intermediate hops. Step 2: Check if generate-static.js creates /pricing/index.html in the build output. Step 3: Check the Cloudflare Pages build output directory structure to confirm the file exists at dist/pricing/index.html. Step 4: If the file exists but CF still redirects, try adding a more specific _redirects rule: '/pricing /pricing/ 301' above the existing rules to handle the no-trailing-slash case. Step 5: After any fix, request re-indexing via gsc_inspect_url for https://launchedin10.co.uk/pricing/. Report findings before making changes.",
-      "created_date": "2026-11-09",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ — status must change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical. Allow 7-14 days for Google recrawl.",
-      "evidence": "GSC URL Inspection 09.11.26: status='Page with redirect', canonical=/, last crawled 03.11.26. Bing indexes correctly (26,341B, crawled 07.11.26). Previous fix ACT-LI10-057 insufficient."
-    },
-    {
-      "id": "ACT-LI10-059",
-      "priority": "P0",
-      "status": "open",
-      "description": "Top impression blog post (/blog/website-design/7-companies-that-design-websites-for-small/) treated as redirect by Google with 67-day stale crawl. Google last crawled this page on 03.09.26 and treats it as 'Page with redirect' with canonical collapsed to /blog/. The _redirects fix (/blog/* /blog/:splat 200) was deployed 29.10.26 but Google has NOT returned to verify. This page generates ~4,000+ impressions (49%+ of total site impressions) and is the single most valuable URL on the domain. Bing crawled it on 15.10.26 with 29,331 bytes — confirming valid content. Force Google to recrawl via Indexing API and URL Inspection to verify the fix.",
-      "prompt": "Force Google to recrawl the 7-companies blog post. Step 1: Use indexing_batch_notify with type URL_UPDATED for https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/. Step 2: Use gsc_inspect_url to request indexing for the same URL. Step 3: Submit IndexNow ping to Bing for the same URL using key 40b3efc5ab8e4c0e9ca6163daca5d29e and endpoint https://api.indexnow.org/indexnow. Step 4: Monitor — if after 14 days Google still treats as redirect, the SPA architecture requires the same deeper investigation as ACT-LI10-058.",
-      "created_date": "2026-11-09",
-      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ — status must change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical. Last crawl date must be after 09.11.26.",
-      "evidence": "GSC URL Inspection 09.11.26: status='Page with redirect', canonical=/blog/, last crawled 03.09.26 (67 days). Bing crawled 15.10.26, 29,331B. Previous fix ACT-LI10-055 deployed but unverified."
+      "verification": "curl -s https://launchedin10.co.uk/ | python3 -c \"import sys,re,json; html=sys.stdin.read(); ld=re.findall(r'<script type=.application/ld.json.>(.*?)</script>',html,re.S); prices_html=set(re.findall(r'\u00a3[\\d,.]+',html)); prices_ld=set(); [prices_ld.update(re.findall(r'\u00a3[\\d,.]+',j)) for j in ld]; print('MATCH' if prices_html&prices_ld else 'MISMATCH', prices_html, prices_ld)\"",
+      "evidence": "Run 24 price snapshot: HTML = \u00a399.95/\u00a3149.95/\u00a3195.00; JSON-LD = \u00a3497/\u00a3997/\u00a31,997/\u00a399/\u00a3149/\u00a3249. Mismatch since Run 16 (24.06.26)."
     },
     {
       "id": "ACT-LI10-054",
@@ -49,14 +31,14 @@
       "prompt": "In EldrisOU/launchedin10-final, edit src/index.css. Find the unscoped rule: [data-ai-summary] { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; } Replace with scoped rule: /* Allow-list: ONLY div.aeo-summary[data-ai-summary] elements. Recorded in ACT-LI10-054. */ div.aeo-summary[data-ai-summary] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } Then verify all existing data-ai-summary elements in the codebase use div.aeo-summary as their container class. If any do not, update them to use class='aeo-summary'. RS-3 pre-commit: every target element must have textContent.length < 500 and no child content elements. RS-4 post-change: run /opt/eldris/.claude/skills/runperformance/render-check/rs4-check.js on all pages with data-ai-summary. On failure: revert first, re-plan second.",
       "created_date": "2026-10-15",
       "verification": "RS-4 render check must return [] on all affected URLs. grep src/index.css for '[data-ai-summary]' must show only the scoped div.aeo-summary[data-ai-summary] selector. No !important flags.",
-      "evidence": "src/index.css contains [data-ai-summary] { ...!important } — unscoped global attribute selector. RS-5 violation. Same pattern as torxup ACT-TORX-038 incident.",
+      "evidence": "src/index.css contains [data-ai-summary] { ...!important } \u2014 unscoped global attribute selector. RS-5 violation. Same pattern as torxup ACT-TORX-038 incident.",
       "codebase_path": "src/index.css"
     },
     {
       "id": "ACT-LI10-042",
       "priority": "P3",
       "status": "monitor",
-      "description": "Speakable ghost selector — SpeakableSpecification targets cssSelector '.speakable-summary' but no element in the DOM carries this class. The schema validates syntactically but functionally references nothing. 7th consecutive audit monitoring. No evidence of negative SEO impact. Continue monitoring — if Google begins enforcing Speakable more strictly, this will need remediation.",
+      "description": "Speakable ghost selector \u2014 SpeakableSpecification targets cssSelector '.speakable-summary' but no element in the DOM carries this class. The schema validates syntactically but functionally references nothing. 7th consecutive audit monitoring. No evidence of negative SEO impact. Continue monitoring \u2014 if Google begins enforcing Speakable more strictly, this will need remediation.",
       "prompt": "Check if any page on launchedin10.co.uk contains an element with class 'speakable-summary'. Search the codebase for 'speakable-summary' in both static HTML and generate-static.js. If found nowhere in rendered output, the Speakable schema references a non-existent selector. To fix: either add class='speakable-summary' to the data-ai-summary elements that contain the page summary, or change the cssSelector in generate-static.js to target [data-ai-summary] instead.",
       "created_date": "2026-08-05",
       "verification": "curl -s https://launchedin10.co.uk/ | grep 'speakable-summary' should return a match after fix.",
@@ -66,17 +48,17 @@
       "id": "ACT-LI10-047",
       "priority": "P3",
       "status": "monitor",
-      "description": "dateModified in JSON-LD uses build timestamp instead of actual content modification date. Every page shows the same dateModified (the last build/deploy date) regardless of when content was actually changed. 6th consecutive audit monitoring. Low impact — Google appears to use sitemap lastmod and its own crawl data rather than JSON-LD dateModified for freshness signals.",
+      "description": "dateModified in JSON-LD uses build timestamp instead of actual content modification date. Every page shows the same dateModified (the last build/deploy date) regardless of when content was actually changed. 6th consecutive audit monitoring. Low impact \u2014 Google appears to use sitemap lastmod and its own crawl data rather than JSON-LD dateModified for freshness signals.",
       "prompt": "In generate-static.js, find where dateModified is set in the JSON-LD injection. Currently it uses a build timestamp. To fix: for blog posts, use the post's updated_at or published_at from Supabase. For static pages, use the file's git last-modified date or a hardcoded date per page. This requires changes to both generate-static.js and potentially the data fetching layer.",
       "created_date": "2026-08-12",
-      "verification": "Compare dateModified in JSON-LD across 3 different pages — each should show a different date reflecting actual content modification, not the build date.",
+      "verification": "Compare dateModified in JSON-LD across 3 different pages \u2014 each should show a different date reflecting actual content modification, not the build date.",
       "evidence": "All pages show identical dateModified matching the last deploy date. 6th audit monitoring."
     },
     {
       "id": "ACT-LI10-049",
       "priority": "P3",
       "status": "monitor",
-      "description": "29% of blog posts (approximately 30 of 105) are missing BreadcrumbList schema markup. These posts have Organization and WebPage schema but no breadcrumb navigation trail in structured data. 6th consecutive audit monitoring. Low priority — blog posts are not the commercial focus and breadcrumb schema has minimal ranking impact at current authority levels.",
+      "description": "29% of blog posts (approximately 30 of 105) are missing BreadcrumbList schema markup. These posts have Organization and WebPage schema but no breadcrumb navigation trail in structured data. 6th consecutive audit monitoring. Low priority \u2014 blog posts are not the commercial focus and breadcrumb schema has minimal ranking impact at current authority levels.",
       "prompt": "In generate-static.js, find the BreadcrumbList injection logic. Identify why ~30 blog posts don't receive breadcrumbs. Likely cause: posts in certain categories or with certain URL structures don't match the breadcrumb generation pattern. Fix the pattern to cover all blog posts. Test on 3 affected URLs after deployment.",
       "created_date": "2026-08-12",
       "verification": "Run rich_results_test on 3 previously-affected blog post URLs. BreadcrumbList should appear in results.",
@@ -86,10 +68,34 @@
   "resolved_items": [
     {
       "id": "ACT-LI10-056",
-      "description": "Sale page soft 404s — /seo-automation-sale/ and /website-translation-sale/ were returning 200 with homepage content (soft 404). Fixed by adding 301 redirects in _redirects file on 29.10.26. Both URLs now return proper 301 redirects to /seo-automation/ and /website-translation/ respectively. Google confirms /seo-automation-sale/ is 'URL is unknown to Google' — expected for a redirected URL.",
+      "description": "Sale page soft 404s \u2014 /seo-automation-sale/ and /website-translation-sale/ were returning 200 with homepage content (soft 404). Fixed by adding 301 redirects in _redirects file on 29.10.26. Both URLs now return proper 301 redirects to /seo-automation/ and /website-translation/ respectively. Google confirms /seo-automation-sale/ is 'URL is unknown to Google' \u2014 expected for a redirected URL.",
       "status": "completed",
       "completed_date": "2026-10-29",
-      "evidence": "curl -sI https://launchedin10.co.uk/seo-automation-sale/ returns 301 → /seo-automation/. curl -sI https://launchedin10.co.uk/website-translation-sale/ returns 301 → /website-translation/. GSC URL Inspection: /seo-automation-sale/ = 'URL is unknown to Google'. Confirmed Run 24."
+      "evidence": "curl -sI https://launchedin10.co.uk/seo-automation-sale/ returns 301 \u2192 /seo-automation/. curl -sI https://launchedin10.co.uk/website-translation-sale/ returns 301 \u2192 /website-translation/. GSC URL Inspection: /seo-automation-sale/ = 'URL is unknown to Google'. Confirmed Run 24."
+    },
+    {
+      "id": "ACT-LI10-058",
+      "priority": "P0",
+      "status": "completed",
+      "description": "/pricing/ redirect treatment persists despite _redirects fix deployed 29.10.26. Google recrawled /pricing/ on 03.11.26 \u2014 5 days after the fix \u2014 and STILL reports 'Page with redirect' with canonical collapsed to /. The _redirects rewrite rule is insufficient. Bing indexes /pricing/ correctly (26,341 bytes, last crawled 07.11.26), confirming the page serves valid content. Root cause: the SPA architecture \u2014 Cloudflare Pages may be serving via a rewrite chain Google interprets as a redirect, or trailing-slash behaviour triggers a CF redirect before the _redirects rule applies. This page needs SSG pre-rendering at the exact path /pricing/index.html with Cloudflare serving it directly without any rewrite chain.",
+      "prompt": "Investigate the /pricing/ redirect chain on launchedin10.co.uk. Step 1: Run 'curl -sIL https://launchedin10.co.uk/pricing/' and 'curl -sIL https://launchedin10.co.uk/pricing' (without trailing slash) to see the full redirect chain including intermediate hops. Step 2: Check if generate-static.js creates /pricing/index.html in the build output. Step 3: Check the Cloudflare Pages build output directory structure to confirm the file exists at dist/pricing/index.html. Step 4: If the file exists but CF still redirects, try adding a more specific _redirects rule: '/pricing /pricing/ 301' above the existing rules to handle the no-trailing-slash case. Step 5: After any fix, request re-indexing via gsc_inspect_url for https://launchedin10.co.uk/pricing/. Report findings before making changes.",
+      "created_date": "2026-11-09",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/pricing/ \u2014 status must change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical. Allow 7-14 days for Google recrawl.",
+      "evidence": "GSC URL Inspection 09.11.26: status='Page with redirect', canonical=/, last crawled 03.11.26. Bing indexes correctly (26,341B, crawled 07.11.26). Previous fix ACT-LI10-057 insufficient.",
+      "completed_date": "2026-11-09",
+      "resolution": "Executed by ACT Executor agent \u2014 batch deployed facf022f91baf487f7448ca53e6a77293a025471"
+    },
+    {
+      "id": "ACT-LI10-059",
+      "priority": "P0",
+      "status": "completed",
+      "description": "Top impression blog post (/blog/website-design/7-companies-that-design-websites-for-small/) treated as redirect by Google with 67-day stale crawl. Google last crawled this page on 03.09.26 and treats it as 'Page with redirect' with canonical collapsed to /blog/. The _redirects fix (/blog/* /blog/:splat 200) was deployed 29.10.26 but Google has NOT returned to verify. This page generates ~4,000+ impressions (49%+ of total site impressions) and is the single most valuable URL on the domain. Bing crawled it on 15.10.26 with 29,331 bytes \u2014 confirming valid content. Force Google to recrawl via Indexing API and URL Inspection to verify the fix.",
+      "prompt": "Force Google to recrawl the 7-companies blog post. Step 1: Use indexing_batch_notify with type URL_UPDATED for https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/. Step 2: Use gsc_inspect_url to request indexing for the same URL. Step 3: Submit IndexNow ping to Bing for the same URL using key 40b3efc5ab8e4c0e9ca6163daca5d29e and endpoint https://api.indexnow.org/indexnow. Step 4: Monitor \u2014 if after 14 days Google still treats as redirect, the SPA architecture requires the same deeper investigation as ACT-LI10-058.",
+      "created_date": "2026-11-09",
+      "verification": "Run gsc_inspect_url on https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/ \u2014 status must change from 'Page with redirect' to 'Submitted and indexed' with self-referencing canonical. Last crawl date must be after 09.11.26.",
+      "evidence": "GSC URL Inspection 09.11.26: status='Page with redirect', canonical=/blog/, last crawled 03.09.26 (67 days). Bing crawled 15.10.26, 29,331B. Previous fix ACT-LI10-055 deployed but unverified.",
+      "completed_date": "2026-11-09",
+      "resolution": "Executed by ACT Executor agent \u2014 batch deployed facf022f91baf487f7448ca53e6a77293a025471"
     }
   ]
 }
