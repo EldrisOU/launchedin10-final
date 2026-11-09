@@ -1,0 +1,162 @@
+{
+  "site": "launchedin10.co.uk",
+  "audit_date": "2026-11-09",
+  "run_number": 24,
+  "protocol": "DeepRank v3.0",
+  "previous_audit": "2026-10-29",
+  "gsc_data": {
+    "date_range": "2026-08-12 to 2026-11-09",
+    "total_impressions": 8316,
+    "total_clicks": 2,
+    "ctr": 0.024,
+    "top_queries": [
+      {"query": "google ads for solicitors", "impressions": 423, "clicks": 1, "position": 12.9, "note": "law.launchedin10.co.uk content"},
+      {"query": "solicitor google ads", "impressions": 343, "clicks": 0, "position": 10.1, "note": "law.launchedin10.co.uk content"},
+      {"query": "website designers for small business", "impressions": 263, "clicks": 0, "position": 32.6},
+      {"query": "web design services for small business", "impressions": 243, "clicks": 0, "position": 30.3},
+      {"query": "solicitors google ads", "impressions": 173, "clicks": 0, "position": 12.6, "note": "law.launchedin10.co.uk content"},
+      {"query": "local business web design", "impressions": 141, "clicks": 0, "position": 78.1},
+      {"query": "small business web design company", "impressions": 137, "clicks": 0, "position": 22.8},
+      {"query": "seo baseline", "impressions": 132, "clicks": 0, "position": 34.5},
+      {"query": "distilled seo", "impressions": 128, "clicks": 0, "position": 49.9},
+      {"query": "small business web design uk", "impressions": 123, "clicks": 0, "position": 46.0}
+    ],
+    "query_count": 1196
+  },
+  "ga4_data": {
+    "date_range": "2026-08-12 to 2026-11-09",
+    "hostname_filtered": true,
+    "total_sessions": 335,
+    "tier_a_sessions": 107,
+    "bot_inflation_pct": 68.1,
+    "traffic_sources": [
+      {"source_medium": "(direct) / (none)", "sessions": 305},
+      {"source_medium": "type19specialists.com / referral", "sessions": 15},
+      {"source_medium": "google / organic", "sessions": 10},
+      {"source_medium": "bing / organic", "sessions": 3},
+      {"source_medium": "(not set) / (not set)", "sessions": 2}
+    ],
+    "ai_citations": {
+      "chatgpt": 0,
+      "perplexity": 0,
+      "claude": 0,
+      "gemini": 0,
+      "copilot": 0,
+      "total": 0
+    },
+    "tier_breakdown": {
+      "tier_a_human": 107,
+      "tier_b_grey": 38,
+      "tier_c_bot": 190
+    }
+  },
+  "bing_data": {
+    "protocol": "li-10-bing-aeo-protocol",
+    "block_a_url_info": [
+      {"url": "/", "discovered": "2026-03-27", "last_crawled": "2026-11-04", "doc_size": 26714, "is_page": true},
+      {"url": "/pricing/", "discovered": "2026-05-11", "last_crawled": "2026-11-07", "doc_size": 26341, "is_page": true},
+      {"url": "/case-studies/", "discovered": "2026-04-19", "last_crawled": "2026-10-17", "doc_size": 20862, "is_page": true},
+      {"url": "/blog/", "discovered": "2026-04-12", "last_crawled": "2026-10-09", "doc_size": 58529, "is_page": true},
+      {"url": "/seo-automation/", "discovered": "2026-04-05", "last_crawled": "2026-09-15", "doc_size": 19511, "is_page": true},
+      {"url": "/blog/website-design/7-companies-that-design-websites-for-small/", "discovered": "2026-04-16", "last_crawled": "2026-10-15", "doc_size": 29331, "is_page": true}
+    ],
+    "block_b_traffic": {
+      "homepage": {"clicks": 0, "impressions": 0, "note": "Indexed but zero visibility — authority weakness"}
+    },
+    "block_c_feeds": [
+      {"sitemap": "sitemap.xml", "status": "Success", "urls": 118},
+      {"sitemap": "sitemap-redirectfix.xml", "status": "Success", "urls": 16}
+    ],
+    "block_d_crawl_issues": []
+  },
+  "url_inspections": [
+    {"url": "https://launchedin10.co.uk/", "status": "Submitted and indexed", "last_crawled": "2026-11-03", "canonical": "self", "notes": "Healthy"},
+    {"url": "https://launchedin10.co.uk/pricing/", "status": "Page with redirect", "last_crawled": "2026-11-03", "canonical": "/", "notes": "P0 — PERSISTS POST-FIX. Google recrawled 5 days after _redirects fix, still redirect treatment."},
+    {"url": "https://launchedin10.co.uk/case-studies/", "status": "Submitted and indexed", "last_crawled": "2026-11-09", "canonical": "self", "notes": "Healthy. Rich results: Breadcrumbs, Image, Video"},
+    {"url": "https://launchedin10.co.uk/blog/", "status": "Submitted and indexed", "last_crawled": "2026-10-25", "canonical": "self", "notes": "Healthy"},
+    {"url": "https://launchedin10.co.uk/blog/website-design/7-companies-that-design-websites-for-small/", "status": "Page with redirect", "last_crawled": "2026-09-03", "canonical": "/blog/", "notes": "P0 — 67 days stale crawl. Fix unverified."},
+    {"url": "https://launchedin10.co.uk/seo-automation-sale/", "status": "URL is unknown to Google", "last_crawled": null, "canonical": null, "notes": "Expected — 301 redirect deployed 29.10.26"}
+  ],
+  "price_snapshot": {
+    "homepage": {
+      "html_prices": ["£99.95", "£149.95", "£195.00", "£195", "£2", "£5", "£5,000"],
+      "json_ld_prices": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "currency": "GBP",
+      "match": false,
+      "note": "P0 — 9th audit. HTML shows SEO automation prices; JSON-LD declares web design activation prices."
+    },
+    "pricing": {
+      "html_prices": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "json_ld_prices": ["£497", "£997", "£1,997", "£99", "£149", "£249"],
+      "currency": "GBP",
+      "match": true
+    },
+    "seo_automation": {
+      "html_prices": ["£99.95", "£149.95", "£195.00", "£195", "£50", "£100"],
+      "json_ld_prices": ["£99.95", "£149.95", "£195.00"],
+      "currency": "GBP",
+      "match": true
+    },
+    "website_translation": {
+      "html_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "json_ld_prices": ["£29.95", "£49.95", "£79.95", "£129.95"],
+      "currency": "GBP",
+      "match": true
+    }
+  },
+  "behaviour_context": "N/A — not instrumented",
+  "content_gaps": {
+    "verdict_a_new_content": [],
+    "verdict_b_surgical": [
+      {"cluster": "web design small business (8 variants)", "impressions": 1500, "best_position": 22.8, "action": "Consolidate on homepage/blog post"},
+      {"cluster": "seo baseline/fundamentals (3 variants)", "impressions": 314, "best_position": 34.5, "action": "Blog content exists"}
+    ],
+    "verdict_c_leave": [
+      {"cluster": "solicitor/google ads (3 variants)", "impressions": 939, "best_position": 10.1, "action": "law.launchedin10.co.uk content — different property"}
+    ]
+  },
+  "technical_health": {
+    "mobile_pagespeed": {
+      "homepage": {"score": 47, "lcp": "8.0s", "fcp": "8.0s", "tbt": "430ms", "cls": 0},
+      "seven_companies_blog": {"score": 56, "lcp": "16.0s", "fcp": "8.5s", "tbt": "70ms", "cls": 0},
+      "case_studies": {"score": 56, "lcp": "9.8s", "fcp": "9.8s", "tbt": "60ms", "cls": 0}
+    },
+    "sitemap_urls": 118,
+    "published_posts": 105,
+    "pipeline_queued": 0,
+    "pipeline_dormancy_days": 234,
+    "last_publish_date": "2026-03-20"
+  },
+  "citation_matrix": {
+    "queries_tested": [
+      {
+        "query": "web design services for small business uk",
+        "ai_overview": false,
+        "li10_in_serp": false,
+        "our_position": 30,
+        "top_competitor": "indigoross.co.uk",
+        "our_tier": "not_cited",
+        "competitor_tier": "not_cited"
+      },
+      {
+        "query": "website designers for small business",
+        "ai_overview": false,
+        "li10_in_serp": false,
+        "our_position": 33,
+        "top_competitor": "indigoross.co.uk",
+        "our_tier": "not_cited",
+        "competitor_tier": "not_cited"
+      }
+    ]
+  },
+  "ghost_index": {
+    "total_impressions": 8316,
+    "total_clicks": 2,
+    "ghost_rate_pct": 99.98,
+    "high_risk_pages": [
+      {"page": "/blog/website-design/7-companies-that-design-websites-for-small/", "best_position": 33, "impressions": 4000, "risk": "HIGH — redirect treatment + 67-day stale crawl"},
+      {"page": "/blog/hosting/dedicated-server-vs-vps-hosting/", "best_position": 20, "impressions": 649, "risk": "MEDIUM — indexed and healthy"},
+      {"page": "/blog/seo-fundamentals/", "best_position": 35, "impressions": 437, "risk": "LOW — category page"}
+    ]
+  }
+}
